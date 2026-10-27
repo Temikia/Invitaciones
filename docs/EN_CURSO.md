@@ -18,7 +18,13 @@ Documento maestro y paquete de definición leídos. El checklist `Invitacion_Cam
 - Usuario autorizó posteriormente commit y push cuando sea necesario. Despliegue manual en Vercel a cargo del usuario; no se ejecuta desde esta sesión.
 
 ## Estado de sesión
-Último commit: commit de cierre de esta fase (identificable en el historial como «Construye la primera versión de la invitación de Camila»).
+Último commit de construcción: `4e4e3f4` — «Construye la primera versión de la invitación de Camila».
 Siguiente paso: el usuario despliega preview en Vercel y comparte URL para revisión visual; después se conecta Google Drive. No está lista para distribuir mientras falte almacenamiento real y validación en dominio definitivo.
 
 Verificación: build correcto, ocho pruebas, auditoría sin vulnerabilidades reportadas y pruebas de navegador documentadas en `docs/VERIFICACION.md`. Originales multimedia/recursos permanecen locales y excluidos de Git; no hay cambios ajenos a la tarea identificados.
+
+## Cambio de repositorio
+- ✅ Historial y rama `main` trasladados a `https://github.com/CheshireZol/Invitaciones.git`, solicitado por el usuario. Destino comprobado inicialmente sin referencias existentes.
+- ✅ `origin` actualizado y primer push completado sin reescribir el historial. El repositorio anterior permanece intacto.
+- Commit de documentación del traslado: «Documenta el cambio al repositorio CheshireZol».
+- Después del traslado, Vercel debe utilizar el nuevo repositorio; la reconexión del proyecto queda a cargo del usuario junto con el despliegue.

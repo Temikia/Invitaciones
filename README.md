@@ -2,6 +2,8 @@
 
 Invitación narrativa de 19 escenas, mobile-first, construida con React, TypeScript, Vite y GSAP. La información vigente proviene del checklist completado del paquete de definición.
 
+Repositorio vigente: [CheshireZol/Invitaciones](https://github.com/CheshireZol/Invitaciones).
+
 ## Desarrollo
 
 Requiere Node.js 24 LTS (o versión compatible con Vite 8).
