@@ -1,0 +1,2 @@
+# Markdown usa dos espacios al final para saltos de línea intencionales.
+*.md whitespace=-blank-at-eol
