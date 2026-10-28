@@ -51,13 +51,6 @@ export function Scene15Dress() {
 export function Scene16RSVP() {
   return (
     <Scene number={16} name="Confirma tu asistencia" className="rsvp-scene">
-      <Eyebrow>Hay un lugar para ti</Eyebrow>
-      <h2 data-reveal>¿Me acompañas?</h2>
-      <p className="reading-copy" data-reveal>
-        Me encantará compartir esta noche contigo.
-        <br />
-        Confirma tu asistencia {invitation.rsvpDeadline.toLowerCase()}.
-      </p>
       <RSVPForm />
     </Scene>
   );

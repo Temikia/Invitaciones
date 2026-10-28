@@ -49,3 +49,14 @@ Historia verificada: el invitado descubre las cinco fotografías seleccionadas e
 - Revisión independiente corrigió remontaje de navegación que perdía el foco, cierre invisible en móvil y cambio automático mientras se interactúa con teclado. Navegación del diálogo comprobada con conservación del foco.
 - Movimiento reducido: indicador estable tras 3200 ms y cero animaciones activas en las tarjetas. Navegación manual disponible; la secuencia se pausa también fuera de pantalla y cuando la pestaña está oculta.
 - Capturas temporales de navegador fuera del repositorio; sin push ni despliegue. Falta validación en teléfonos físicos, ya indicada en los límites generales.
+
+## Tarjeta RSVP ? 2026-10-27 18:49 (GMT?6)
+
+Historia: el invitado selecciona asistencia, escribe su nombre y prepara el mensaje; revisa el texto y abre el enlace al WhatsApp configurado para enviarlo manualmente. Flujo est?tico sin backend ni nuevas variables de entorno.
+
+- Build TypeScript/Vite y 16 pruebas existentes correctos. Revisi?n independiente de React, validaci?n y aislamiento CSS sin bloqueantes.
+- Chromium: escritorio 1440 ? 1100 y m?vil 390 ? 844; tarjeta revisada visualmente, 19 escenas conservadas y ancho de documento m?vil de 390 px.
+- Nombre vac?o muestra error y recibe el foco. Mar?a Jos? & familia, dos asistentes y nota con acentos generan un ?nico par?metro text y destino wa.me/17202369330.
+- Respuesta negativa oculta el contador y genera agradecimiento sin afirmar asistencia. Di?logo nativo abre con foco en cerrar; Escape lo cierra y restaura el foco. No se env?an mensajes reales.
+- Movimiento reducido: preferencia activa, tarjeta con opacidad 1 y animationName none; sin desbordamiento m?vil.
+- Original HTML conservado. No se verific? env?o externo ni tel?fonos f?sicos.

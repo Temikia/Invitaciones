@@ -29,3 +29,9 @@ Se reemplazó la galería horizontal de la escena 10 por la experiencia del segu
 A petición del usuario, la secuencia comienza automáticamente y cambia cada tres segundos; se eliminaron el botón de secuencia y la barra «Cinco instantes, una historia». Navegación manual por flechas, teclado, deslizamiento y miniaturas en modo cine. Movimiento reducido desactiva la secuencia y las animaciones; se pausa fuera de pantalla, con pestaña oculta y durante interacción por teclado.
 
 Build y 16 pruebas correctos. Revisión de código delegada y comprobación visual en escritorio/móvil: se corrigieron el foco del diálogo y los controles móviles. Autoplay medido a 3100 ms, movimiento reducido estable a 3200 ms, cinco fotografías cargadas, 19 escenas y sin desbordamiento horizontal. Detalle en `VERIFICACION.md`. Se preservan los ajustes ajenos de tamaño de retratos en `src/styles/invitation.css`, fuera de este commit. Sin push ni despliegue.
+
+## 2026-10-27 18:49 ? Ciudad de M?xico (GMT?6)
+
+Se reemplaz? la secci?n de confirmaci?n por solo la tarjeta premium del recurso local solicitado: papel claro, filigranas, sello, elecci?n de asistencia, nombre, contador, nota opcional y pase simb?lico. Se eliminaron los textos externos de la secci?n anterior. El original permanece intacto y los estilos quedan aislados para proteger el resto de la invitaci?n.
+
+Se conserva el WhatsApp configurado y la ausencia de m?ximo de invitados. El formulario valida y prepara una vista previa en un di?logo nativo, con copia y enlace a WhatsApp; no presenta la respuesta como enviada. Escape, foco, nota fuera del teclado cuando est? cerrada y movimiento reducido contemplados. Build y 16 pruebas correctos; revisi?n independiente sin bloqueantes y comprobaci?n en Chromium escritorio/m?vil sin desbordamiento, respuestas afirmativa/negativa y movimiento reducido. Sin push ni despliegue.
