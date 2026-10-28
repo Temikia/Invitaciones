@@ -3,7 +3,8 @@
 :root {
   font-family: "Manrope", sans-serif;
   color: #f2e8dc;
-  background: #160e23;
+  /* background: #160e23; -- anterior */
+  background: #231735;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -79,8 +80,12 @@ p {
   position: relative;
   isolation: isolate;
   overflow: clip;
+  /* Fondo anterior:
   background:
     radial-gradient(ellipse at 50% 20%, #35204455, transparent 40%), #1b112b;
+  */
+  background:
+    radial-gradient(ellipse at 50% 20%, #4f336366, transparent 42%), #281b3c;
 }
 .scene {
   position: relative;
@@ -190,8 +195,13 @@ p {
 }
 .flower-scene {
   padding: 32px 0 0;
+  /* Fondo anterior:
   background:
     linear-gradient(#110c1e66, #1b112b 100%),
+    url("/assets/production/backgrounds/forest.webp") center 25% / cover;
+  */
+  background:
+    linear-gradient(#1c132f66, #281b3c 100%),
     url("/assets/production/backgrounds/forest.webp") center 25% / cover;
 }
 .flower-scene .scene-inner {
@@ -774,7 +784,8 @@ p {
 }
 .countdown-scene {
   padding: 48px 0 56px;
-  background: linear-gradient(transparent, #151023);
+  /* background: linear-gradient(transparent, #151023); -- anterior */
+  background: linear-gradient(transparent, #221936);
 }
 .countdown {
   display: flex;
@@ -802,7 +813,8 @@ p {
 .rsvp-scene,
 .memories-scene,
 .thanks-scene {
-  background: #151023;
+  /* background: #151023; -- anterior */
+  background: #221936;
 }
 .gifts-scene {
   padding: 56px 0 48px;
@@ -945,8 +957,13 @@ p {
 .lake-scene {
   min-height: 100svh;
   padding: 18svh 0 35svh;
+  /* Fondo anterior:
   background:
     linear-gradient(#151023 0%, #15102355 25%, #15102300 65%),
+    url("/assets/production/backgrounds/lake.webp") center bottom/cover;
+  */
+  background:
+    linear-gradient(#221936 0%, #22193655 25%, #22193600 65%),
     url("/assets/production/backgrounds/lake.webp") center bottom/cover;
   overflow: hidden;
 }
