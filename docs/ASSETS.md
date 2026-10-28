@@ -22,8 +22,8 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | `multimedia/Imágenes/galeria 5.jpg` | `/assets/production/photos/gallery-5.webp` |
 | `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1171_(2).jpg` | `/assets/production/photos/gallery-6.webp` |
 | `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1286_(2).jpg` | `/assets/production/photos/gallery-7.webp` |
-| `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1154_(2).jpg` | `/assets/production/photos/gallery-hero-main.webp` |
-| `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1329_(2).jpg` | `/assets/production/photos/gallery-hero-secondary.webp` |
+| `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` | `/assets/production/photos/gallery-hero-main.webp` |
+| `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` | `/assets/production/photos/gallery-hero-secondary.webp` |
 | `multimedia/Imágenes/secundaria.jpg` | `/assets/production/photos/secondary.webp` |
 | `multimedia/Imágenes/Foto con Pascal.jpg` | `/assets/production/photos/companion.webp` |
 | `recursos/Flor.png` | `/assets/production/ornaments/flower.webp` |

@@ -1,5 +1,12 @@
 # Verificación de la primera versión
 
+## Actualización de fotos de la portada de galería — 27/10/2026 21:35 (GMT−6)
+
+- Se generaron los derivados optimizados WebP para `gallery-hero-main.webp` (107.8 KiB) y `gallery-hero-secondary.webp` (110.0 KiB) desde los originales de WhatsApp especificados en `multimedia/` (`WhatsApp Image 2026-10-27 at 21.25.53.jpeg` y `WhatsApp Image 2026-10-27 at 21.26.13.jpeg`).
+- Originales en `multimedia/` intactos.
+- Verificación del contrato en `docs/ASSETS.md` y `scripts/prepare-assets.mjs`.
+- Comprobación técnica: compilación `npm run build` sin errores y 19 pruebas de Vitest pasando.
+
 ## Ajuste y automatización de la portada mágica — 27/10/2026 21:26 (GMT−6)
 
 - Sin interacción de puntero en la imagen (paralaje retirado).

@@ -1,5 +1,15 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 21:35 — Ciudad de México (GMT−6)
+
+A solicitud del usuario, se actualizaron las dos fotografías que componen el marco de presentación de la galería (acto 1 del álbum narrativo):
+- Foto principal: `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` optimizada a `public/assets/production/photos/gallery-hero-main.webp` (107.8 KiB).
+- Foto secundaria: `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` optimizada a `public/assets/production/photos/gallery-hero-secondary.webp` (110.0 KiB).
+
+Ambos archivos originales permanecen intactos en `multimedia/`. Se actualizó el registro en `docs/ASSETS.md` y la configuración del pipeline en `scripts/prepare-assets.mjs`.
+
+Build de producción y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 21:26 — Ciudad de México (GMT−6)
 
 A solicitud del usuario, se refinó la portada del jardín mágico: se eliminó el movimiento con el puntero/mouse en la imagen; se retiraron los botones y textos «Descubre la magia», «Desliza para soñar», «Hay historias que comienzan...», «Camila · Mis XV años» y el botón «Toca la luz».

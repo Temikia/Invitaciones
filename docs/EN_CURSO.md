@@ -1,5 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Actualización de fotos en la portada de galería — 27/10/2026 21:35 (GMT−6)
+- ✅ Reemplazadas las fotografías de la composición de la portada de galería (`Gallery.tsx`, acto 1 / preludio del álbum narrativo):
+  - Foto principal (`gallery-hero-main.webp`): `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` (Camila en escalinata con vestido lavanda).
+  - Foto secundaria (`gallery-hero-secondary.webp`): `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` (Camila sentada en jardín con ramo violeta).
+- ✅ Derivados WebP optimizados en `public/assets/production/photos/` mediante `scripts/prepare-assets.mjs` sin modificar los originales.
+- ✅ Actualizado el inventario de recursos en `docs/ASSETS.md`.
+- ✅ Build y 19 pruebas de Vitest superados con éxito.
+- Commit local: «Actualiza las fotos de la portada de galería con las nuevas imágenes de Camila». Sin push ni despliegue.
+
 ## Ajuste y automatización de la portada mágica — 27/10/2026 21:26 (GMT−6)
 - ✅ Retirado el movimiento de paralaje del mouse sobre la imagen.
 - ✅ Retirados botones y textos secundarios: «Descubre la magia», «Desliza para soñar», «Hay historias que comienzan...», «Camila · Mis XV años» y botón «Toca la luz».
