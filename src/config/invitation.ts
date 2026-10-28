@@ -35,6 +35,8 @@ export const invitation = {
   },
   photos: {
     hero: "/assets/production/photos/hero.svg",
+    galleryHeroMain: "/assets/production/photos/gallery-hero-main.webp",
+    galleryHeroSecondary: "/assets/production/photos/gallery-hero-secondary.webp",
     gallery: Array.from(
       { length: 7 },
       (_, i) => `/assets/production/photos/gallery-${i + 1}.webp`,

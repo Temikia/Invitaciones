@@ -19,10 +19,12 @@ const photos = [
   ["Galería 1.jpeg", "gallery-1.webp"],
   ["Galeria 2.jpg", "gallery-2.webp"],
   ["galeria 3.jpg", "gallery-3.webp"],
-  ["galeria 4.jpg", "gallery-4.webp"],
+  ["_55A1398_(2).jpg", "gallery-4.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
   ["galeria 5.jpg", "gallery-5.webp"],
   ["_55A1171_(2).jpg", "gallery-6.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
   ["_55A1286_(2).jpg", "gallery-7.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
+  ["_55A1154_(2).jpg", "gallery-hero-main.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
+  ["_55A1329_(2).jpg", "gallery-hero-secondary.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
   ["secundaria.jpg", "secondary.webp"],
   ["Foto con Pascal.jpg", "companion.webp"],
 ];

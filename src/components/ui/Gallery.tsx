@@ -76,8 +76,8 @@ export function Gallery() {
         </div>
         <div className="artwork">
           <div className="artwork-halo" /><div className="artwork-ring" aria-hidden="true" /><div className="big-fifteen" aria-hidden="true">15</div>
-          <div className="hero-photo hero-photo-main"><img src={invitation.photos.gallery[0]} alt={chapters[0].alt} loading="lazy" /></div>
-          <div className="hero-photo hero-photo-secondary"><img src={invitation.photos.gallery[1]} alt={chapters[1].alt} loading="lazy" /></div>
+          <div className="hero-photo hero-photo-main"><img src={invitation.photos.galleryHeroMain} alt="Camila, retrato principal" loading="lazy" /></div>
+          <div className="hero-photo hero-photo-secondary"><img src={invitation.photos.galleryHeroSecondary} alt="Camila, retrato secundario" loading="lazy" /></div>
           <div className="seal" aria-hidden="true"><span className="seal-num">XV</span><span className="seal-text">Mis años</span></div>
           <span className="artwork-note">Camila · Mi historia</span>
         </div>
