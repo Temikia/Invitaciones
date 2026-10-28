@@ -74,6 +74,24 @@
   height: 90%;
   pointer-events: none;
   filter: drop-shadow(0 0 55px #d3913a17);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 4%,
+    black 16%,
+    black 84%,
+    rgba(0, 0, 0, 0.25) 96%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 4%,
+    black 16%,
+    black 84%,
+    rgba(0, 0, 0, 0.25) 96%,
+    transparent 100%
+  );
 }
 
 .magic-hero .art::before {
@@ -84,6 +102,23 @@
   filter: blur(60px);
 }
 
+.magic-hero .art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    #160d23 0%,
+    rgba(22, 13, 35, 0.55) 7%,
+    transparent 18%,
+    transparent 82%,
+    rgba(22, 13, 35, 0.55) 93%,
+    #160d23 100%
+  );
+  opacity: 0.92;
+}
+
 .magic-hero .art-image {
   position: absolute;
   inset: 0;
@@ -91,8 +126,8 @@
   height: 100%;
   object-fit: cover;
   object-position: 50% 48%;
-  -webkit-mask-image: radial-gradient(ellipse 76% 75% at 52% 51%, black 30%, #000e 57%, transparent 89%);
-  mask-image: radial-gradient(ellipse 76% 75% at 52% 51%, black 30%, #000e 57%, transparent 89%);
+  -webkit-mask-image: radial-gradient(ellipse 76% 68% at 52% 50%, black 28%, #000e 52%, transparent 86%);
+  mask-image: radial-gradient(ellipse 76% 68% at 52% 50%, black 28%, #000e 52%, transparent 86%);
   opacity: 1;
 }
 
@@ -381,11 +416,29 @@
     width: 124%;
     height: 460px;
     filter: none;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.3) 5%,
+      black 18%,
+      black 82%,
+      rgba(0, 0, 0, 0.3) 95%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.3) 5%,
+      black 18%,
+      black 82%,
+      rgba(0, 0, 0, 0.3) 95%,
+      transparent 100%
+    );
   }
   .magic-hero .art-image {
     object-position: center 50%;
-    -webkit-mask-image: radial-gradient(ellipse 58% 81% at 50% 51%, black 42%, #000f 62%, transparent 90%);
-    mask-image: radial-gradient(ellipse 58% 81% at 50% 51%, black 42%, #000f 62%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 58% 68% at 50% 50%, black 36%, #000f 54%, transparent 88%);
+    mask-image: radial-gradient(ellipse 58% 68% at 50% 50%, black 36%, #000f 54%, transparent 88%);
   }
   .magic-hero .golden-aura {
     right: 0;

@@ -1,5 +1,13 @@
 # Verificación de la primera versión
 
+## Desvanecido discreto en los extremos del hero — 27/10/2026 21:48 (GMT−6)
+
+- Aplicado desvanecido vertical a los bordes superior e inferior de la obra del hero (`.magic-hero .art` y `.art-image`):
+  - Máscara lineal vertical `mask-image: linear-gradient(to bottom, transparent 0%, ... black 16%, black 84%, ... transparent 100%)` en `.art`.
+  - Calibración de la elipse radial de recorte en `.art-image` a 68% de radio vertical para fundir suavemente los bordes antes de llegar a los límites del contenedor.
+  - Velo de integración suave en `.art::after` con los tonos de fondo `#160d23`.
+- Verificación técnica: `npm run build` sin errores y 19 pruebas de Vitest pasando.
+
 ## Intercambio de fotos entre galería y acompañante — 27/10/2026 21:42 (GMT−6)
 
 - Inversión de fotos según las capturas del usuario:

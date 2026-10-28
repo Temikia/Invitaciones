@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Desvanecido discreto en los extremos del hero — 27/10/2026 21:48 (GMT−6)
+- ✅ Aplicado desvanecido vertical discreto y elegante en la parte superior e inferior de la obra del hero (`.magic-hero .art` y `.art-image`):
+  - Máscara de degradado lineal vertical (`linear-gradient(to bottom, transparent 0%, ... black 16%, black 84%, ... transparent 100%)`) en `.art` para fundido completo a transparencia en los bordes horizontales.
+  - Ajustada la elipse radial de `.art-image` (de 75% a 68% en escritorio y de 81% a 68% en móvil) para evitar cortes abruptos y lograr una fusión orgánica con el fondo oscuro.
+  - Añadido velo de degradado suave en `.art::after` con los tonos del fondo (`#160d23`).
+- ✅ Build y 19 pruebas de Vitest superados con éxito.
+- Commit local: «Añade desvanecido discreto superior e inferior a la imagen del hero». Sin push ni despliegue.
+
 ## Intercambio de fotos entre galería y acompañante — 27/10/2026 21:42 (GMT−6)
 - ✅ Invertidas de ubicación las fotografías mostradas en las capturas del usuario:
   - `companion.webp` (Escena 12, «Los mejores sueños se viven acompañados»): ahora muestra a Camila junto al caballo blanco (`multimedia/Imágenes/Galería 1.jpeg`).

@@ -1,5 +1,11 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 21:48 — Ciudad de México (GMT−6)
+
+A solicitud del usuario, se aplicó un desvanecido discreto en los extremos superior e inferior de la imagen del hero (`MagicGardenHero`, `src/styles/magic-hero.css`) para que se fundiera suavemente con su entorno. Se implementó una máscara de degradado lineal vertical en `.art` (`transparent 0%` → `black 16% ... 84%` → `transparent 100%`) combinada con un velo de integración en `.art::after` y una elipse radial más suave en `.art-image`, eliminando cualquier corte abrupto tanto en escritorio como en móvil.
+
+Build de producción y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 21:42 — Ciudad de México (GMT−6)
 
 A solicitud del usuario, mediante capturas de referencia, se invirtió la ubicación de dos fotografías:
