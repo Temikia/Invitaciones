@@ -27,6 +27,7 @@ const photos = [
   ["_55A1329_(2).jpg", "gallery-hero-secondary.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
   ["secundaria.jpg", "secondary.webp"],
   ["Foto con Pascal.jpg", "companion.webp"],
+  ["camila_jardin_encantado.webp", "camila-jardin-encantado.webp", "recursos", 1536],
 ];
 const ornaments = [
   ["Flor.png", "flower.webp"],
@@ -70,11 +71,11 @@ async function optimize(source, output, size, quality, squareBounds = false) {
     .toFile(target);
   generated.push(output);
 }
-for (const [input, output, folder = "multimedia/Imágenes"] of photos) {
+for (const [input, output, folder = "multimedia/Imágenes", size = 1400] of photos) {
   await optimize(
     resolve(root, folder, input),
     `photos/${output}`,
-    1400,
+    size,
     82,
   );
 }

@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 21:20 — Ciudad de México (GMT−6)
+
+A solicitud del usuario, se reemplazó el hero inicial por la portada de `recursos/camila_portada_jardin_magico.html` en la escena 1 (`Scene01Flower`). Se optimizó la imagen `camila_jardin_encantado.webp` de `recursos` hacia `public/assets/production/photos/camila-jardin-encantado.webp` (101.4 KiB) mediante `prepare-assets.mjs` sin alterar originales.
+
+Se dejó activado continuamente el glow palpitante (`.golden-aura` y `.art-dust` con animación infinita `breath`). Se integraron la cabecera editorial con monograma C · XV, la interacción de la flor («Toca la luz») con lluvia de destellos y mensaje flotante («La magia acaba de comenzar ✦»), el lienzo de neblina dorada y el botón de desplazamiento suave hacia la continuación de la historia (`Scene02Camila`, con id `#continuar`). La cabecera glass fija oculta su marca inicial en la portada para evitar duplicidad y la despliega suavemente al desplazarse hacia abajo.
+
+Build TypeScript/Vite y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 19:39 — Ciudad de México (GMT−6)
 
 Se preparó la foto principal para la vista previa de enlaces compartidos. Se añadieron etiquetas Open Graph y Twitter de imagen grande en index.html para que los lectores obtengan título, descripción, URL e imagen sin ejecutar React. Se generó share-camila.jpg desde el hero vigente: retrato completo centrado y laterales de la misma foto difuminados, JPG de 1200 × 630 y 63 130 bytes. El script permite regenerarlo al sustituir la foto; originales intactos.

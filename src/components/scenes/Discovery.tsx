@@ -1,35 +1,16 @@
 import { invitation } from "../../config/invitation";
 import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { AudioControl } from "../ui/AudioControl";
+import { MagicGardenHero } from "../ui/MagicGardenHero";
 
 export function Scene01Flower() {
-  return (
-    <Scene
-      number={1}
-      name="Una historia comienza"
-      className="flower-scene"
-    >
-      <div className="flower-halo">
-        <img
-          className="flower-image"
-          src="/assets/production/ornaments/flower.webp"
-          alt="Una flor dorada ilumina la oscuridad"
-          width="480"
-          height="720"
-          fetchPriority="high"
-        />
-      </div>
-      <p className="opening-line" data-reveal>
-        {invitation.messages.opening}
-      </p>
-      <span className="vertical-thread" aria-hidden="true" />
-    </Scene>
-  );
+  return <MagicGardenHero />;
 }
 export function Scene02Camila() {
   return (
     <Scene
       number={2}
+      id="continuar"
       name={`${invitation.honoree}, mis quince años`}
       className="name-scene"
     >

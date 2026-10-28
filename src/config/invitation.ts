@@ -35,6 +35,7 @@ export const invitation = {
   },
   photos: {
     hero: "/assets/production/photos/hero.svg",
+    heroGarden: "/assets/production/photos/camila-jardin-encantado.webp",
     galleryHeroMain: "/assets/production/photos/gallery-hero-main.webp",
     galleryHeroSecondary: "/assets/production/photos/gallery-hero-secondary.webp",
     gallery: Array.from(

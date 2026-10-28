@@ -1,5 +1,14 @@
 # Verificación de la primera versión
 
+## Hero portada jardín mágico — 27/10/2026 21:20 (GMT−6)
+
+- Se integró la portada de `recursos/camila_portada_jardin_magico.html` en la escena 1 (`Scene01Flower` -> `MagicGardenHero`), conservando las 19 escenas y la secuencia simbólica intacta.
+- Se optimizó `recursos/camila_jardin_encantado.webp` a `public/assets/production/photos/camila-jardin-encantado.webp` (101.4 KiB) mediante el pipeline reproducible `scripts/prepare-assets.mjs`; originales en `recursos` intactos.
+- Glow palpitante (`.golden-aura` y `.art-dust` con animación infinita `breath`) activo y visible en el fondo de la obra.
+- Interacción de flor con destellos (`sparkle`), realce momentáneo de la obra (`flash`), brindis visual (`wish-toast`), lienzo de partículas de neblina dorada y navegación fluida a la escena 2 (`#continuar`).
+- Cabecera fija glass coordinada: oculta su monograma inicial cuando la portada está visible para evitar duplicidad y lo despliega suavemente al desplazarse hacia abajo.
+- Verificación: `npm run build` y 19 pruebas de Vitest pasando sin errores.
+
 ## Vista previa al compartir — 27/10/2026 19:39 (GMT−6)
 
 - Build y 19 pruebas correctos. Metadatos og:title/description/type/url/image y twitter:card/image presentes en el HTML estático de dist, sin depender de JavaScript.

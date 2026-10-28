@@ -3,18 +3,21 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 export function Scene({
   number,
   name,
+  id,
   className = "",
   background,
   children,
 }: {
   number: number;
   name: string;
+  id?: string;
   className?: string;
   background?: ReactNode;
   children: ReactNode;
 }) {
   return (
     <section
+      id={id}
       data-scene={number}
       aria-label={name}
       className={`scene ${className}`}

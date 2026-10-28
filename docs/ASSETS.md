@@ -13,6 +13,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | Original | URL pública |
 | --- | --- |
 | `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1378_(2).jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
+| `recursos/camila_jardin_encantado.webp` | `/assets/production/photos/camila-jardin-encantado.webp` |
 | Derivado de la foto incrustada en `hero.svg`, con laterales difuminados | `/assets/production/photos/share-camila.jpg` |
 | `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/gallery-1.webp` |
 | `multimedia/Imágenes/Galeria 2.jpg` | `/assets/production/photos/gallery-2.webp` |

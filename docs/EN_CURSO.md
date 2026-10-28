@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Hero portada jardín mágico — 27/10/2026 21:20 (GMT−6)
+- ✅ Hero integrado desde `recursos/camila_portada_jardin_magico.html` en la escena 1: composición editorial, tipografía, cabecera local C · XV, kicker, título, cita de apertura y botón «Descubre la magia».
+- ✅ Fotografía `camila_jardin_encantado.webp` optimizada como derivado de producción en `public/assets/production/photos/camila-jardin-encantado.webp` (101.4 KiB); original en recursos intacto.
+- ✅ Glow palpitante (`golden-aura` y `art-dust` con animación `breath`) activado continuamente de fondo.
+- ✅ Interacción de la flor («Toca la luz»), destellos de partículas, notificación mágica flotante, lienzo de neblina dorada y navegación fluida a la escena 2 (`#continuar`).
+- ✅ Build y 19 pruebas vitest verificados.
+- Commit local: «Integra la portada de jardín mágico con glow palpitante». Sin push ni despliegue.
+
 ## Foto al compartir el enlace — 27/10/2026 19:39 (GMT−6)
 - ✅ Open Graph y tarjeta de imagen grande en el HTML inicial, con título, descripción, fecha y URL pública https://mis-xv-camila.vercel.app/.
 - ✅ Derivado share-camila.jpg de la foto principal vigente: 1200 × 630, JPG de 63 130 bytes, retrato completo con laterales difuminados. Script reproducible scripts/prepare-social-image.mjs; originales intactos.
