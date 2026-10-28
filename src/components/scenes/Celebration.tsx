@@ -117,7 +117,7 @@ export function Scene12Companion() {
           <img
             className="cinematic-photo"
             src={invitation.photos.companion}
-            alt="Camila, un recuerdo lleno de magia"
+            alt="Camila con vestido lila junto a un caballo blanco al atardecer"
             width="1200"
             height="1600"
             loading="lazy"

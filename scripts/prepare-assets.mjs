@@ -16,7 +16,7 @@ if (
 }
 
 const photos = [
-  ["Galería 1.jpeg", "gallery-1.webp"],
+  ["Foto con Pascal.jpg", "gallery-1.webp"],
   ["Galeria 2.jpg", "gallery-2.webp"],
   ["galeria 3.jpg", "gallery-3.webp"],
   ["_55A1398_(2).jpg", "gallery-4.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
@@ -26,7 +26,7 @@ const photos = [
   ["WhatsApp Image 2026-10-27 at 21.25.53.jpeg", "gallery-hero-main.webp", "multimedia"],
   ["WhatsApp Image 2026-10-27 at 21.26.13.jpeg", "gallery-hero-secondary.webp", "multimedia"],
   ["secundaria.jpg", "secondary.webp"],
-  ["Foto con Pascal.jpg", "companion.webp"],
+  ["Galería 1.jpeg", "companion.webp"],
   ["camila_jardin_encantado.webp", "camila-jardin-encantado.webp", "recursos", 1536],
 ];
 const ornaments = [

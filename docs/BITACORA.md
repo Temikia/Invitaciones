@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 21:42 — Ciudad de México (GMT−6)
+
+A solicitud del usuario, mediante capturas de referencia, se invirtió la ubicación de dos fotografías:
+- La fotografía de Camila junto al caballo blanco (`Galería 1.jpeg`), antes en el Capítulo I de la galería, pasó a la Escena 12 (`Scene12Companion`, `companion.webp`, 208.0 KiB), ilustrando el mensaje «Los mejores sueños se viven acompañados».
+- La fotografía de Camila con ramo violeta frente a columnas (`Foto con Pascal.jpg`), antes en la Escena 12, pasó al Capítulo I del carrusel de la galería (`gallery-1.webp`, 241.5 KiB), ilustrando «La magia · Un instante fuera del tiempo».
+
+Se actualizaron las descripciones de accesibilidad en `invitation.ts` y `Celebration.tsx`, el script `prepare-assets.mjs` y el inventario `docs/ASSETS.md`. Originales en `multimedia/` intactos. Build y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 21:35 — Ciudad de México (GMT−6)
 
 A solicitud del usuario, se actualizaron las dos fotografías que componen el marco de presentación de la galería (acto 1 del álbum narrativo):

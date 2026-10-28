@@ -68,7 +68,7 @@ export const invitation = {
 
 /** Capítulos para las fotografías elegidas, en su orden de presentación. */
 export const galleryChapters = [
-  { name: "La magia", title: "Un instante fuera del", accent: "tiempo.", description: "El cielo dorado, una mirada y ese momento en el que todo parecía posible.", quote: "Y así comienza la historia", alt: "Camila con vestido lila junto a un caballo blanco al atardecer" },
+  { name: "La magia", title: "Un instante fuera del", accent: "tiempo.", description: "El cielo dorado, una mirada y ese momento en el que todo parecía posible.", quote: "Y así comienza la historia", alt: "Camila con vestido lila y ramo de flores violetas frente a columnas doradas al atardecer" },
   { name: "Ella", title: "Ella es", accent: "la historia.", description: "En su sonrisa caben todos los sueños que están por llegar. Este momento le pertenece.", quote: "La protagonista de su propio cuento", alt: "Camila sonriendo mientras toca su corona, con un ramo de flores" },
   { name: "Los detalles", title: "La belleza de lo", accent: "pequeño.", description: "Flores, texturas, gestos. Esos detalles que un día nos harán volver a sentirlo todo.", quote: "La magia vive en los detalles", alt: "Camila con su ramo de flores junto a unas columnas doradas" },
   { name: "La luz", title: "El sol quiso", accent: "quedarse.", description: "La tarde nos regaló su último destello, como si también quisiera ser parte de esta historia.", quote: "Hay luces que nunca se apagan", alt: "Camila sentada en el jardín con flores y la luz del atardecer" },

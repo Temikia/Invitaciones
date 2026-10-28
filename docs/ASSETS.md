@@ -15,7 +15,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1378_(2).jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
 | `recursos/camila_jardin_encantado.webp` | `/assets/production/photos/camila-jardin-encantado.webp` |
 | Derivado de la foto incrustada en `hero.svg`, con laterales difuminados | `/assets/production/photos/share-camila.jpg` |
-| `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/gallery-1.webp` |
+| `multimedia/Imágenes/Foto con Pascal.jpg` | `/assets/production/photos/gallery-1.webp` |
 | `multimedia/Imágenes/Galeria 2.jpg` | `/assets/production/photos/gallery-2.webp` |
 | `multimedia/Imágenes/galeria 3.jpg` | `/assets/production/photos/gallery-3.webp` |
 | `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1398_(2).jpg` | `/assets/production/photos/gallery-4.webp` |
@@ -25,7 +25,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` | `/assets/production/photos/gallery-hero-main.webp` |
 | `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` | `/assets/production/photos/gallery-hero-secondary.webp` |
 | `multimedia/Imágenes/secundaria.jpg` | `/assets/production/photos/secondary.webp` |
-| `multimedia/Imágenes/Foto con Pascal.jpg` | `/assets/production/photos/companion.webp` |
+| `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/companion.webp` |
 | `recursos/Flor.png` | `/assets/production/ornaments/flower.webp` |
 | `recursos/sol.png` | `/assets/production/ornaments/sun.webp` |
 | `recursos/lampara.png` | `/assets/production/ornaments/lantern.webp` |

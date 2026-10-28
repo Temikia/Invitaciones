@@ -1,5 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Intercambio de fotos entre galería y acompañante — 27/10/2026 21:42 (GMT−6)
+- ✅ Invertidas de ubicación las fotografías mostradas en las capturas del usuario:
+  - `companion.webp` (Escena 12, «Los mejores sueños se viven acompañados»): ahora muestra a Camila junto al caballo blanco (`multimedia/Imágenes/Galería 1.jpeg`).
+  - `gallery-1.webp` (Escena 10, Galería Capítulo I «La magia»): ahora muestra a Camila con ramo violeta frente a las columnas (`multimedia/Imágenes/Foto con Pascal.jpg`).
+- ✅ Ajustados textos alternativos en `src/config/invitation.ts` y `src/components/scenes/Celebration.tsx`.
+- ✅ Regenerados derivados WebP en `public/assets/production/photos/` con `scripts/prepare-assets.mjs` e inventario actualizado en `docs/ASSETS.md`.
+- ✅ Build y 19 pruebas de Vitest superados con éxito.
+- Commit local: «Intercambia la foto del caballo y la foto de las columnas entre la galería y la escena de compañía». Sin push ni despliegue.
+
 ## Actualización de fotos en la portada de galería — 27/10/2026 21:35 (GMT−6)
 - ✅ Reemplazadas las fotografías de la composición de la portada de galería (`Gallery.tsx`, acto 1 / preludio del álbum narrativo):
   - Foto principal (`gallery-hero-main.webp`): `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` (Camila en escalinata con vestido lavanda).

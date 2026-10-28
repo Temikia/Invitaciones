@@ -1,5 +1,14 @@
 # Verificación de la primera versión
 
+## Intercambio de fotos entre galería y acompañante — 27/10/2026 21:42 (GMT−6)
+
+- Inversión de fotos según las capturas del usuario:
+  - `companion.webp` (208.0 KiB): `multimedia/Imágenes/Galería 1.jpeg` (Camila con el caballo blanco).
+  - `gallery-1.webp` (241.5 KiB): `multimedia/Imágenes/Foto con Pascal.jpg` (Camila frente a las columnas).
+- Actualizadas las referencias y alts en `src/config/invitation.ts`, `src/components/scenes/Celebration.tsx`, `scripts/prepare-assets.mjs` y `docs/ASSETS.md`.
+- Originales en `multimedia/` intactos.
+- Comprobación: compilación `npm run build` sin errores y 19 pruebas de Vitest pasando.
+
 ## Actualización de fotos de la portada de galería — 27/10/2026 21:35 (GMT−6)
 
 - Se generaron los derivados optimizados WebP para `gallery-hero-main.webp` (107.8 KiB) y `gallery-hero-secondary.webp` (110.0 KiB) desde los originales de WhatsApp especificados en `multimedia/` (`WhatsApp Image 2026-10-27 at 21.25.53.jpeg` y `WhatsApp Image 2026-10-27 at 21.26.13.jpeg`).
