@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 22:15 — Ciudad de México (GMT−6)
+
+A solicitud del usuario (confirmado mediante la consulta interactiva), se invirtieron las dos fotos de la captura con Pascal en la portada de galería (`.artwork`, `Gallery.tsx`):
+- Foto principal (atrás): `_55A1329_(2).jpg` (Camila de pie con Pascal en el hombro) optimizada a `gallery-hero-main.webp` (261.2 KiB).
+- Foto secundaria (enfrente): `_55A1154_(2).jpg` (Camila sentada en el pórtico con Pascal) optimizada a `gallery-hero-secondary.webp` (170.0 KiB).
+
+Se ajustaron los encuadres en `gallery.css` (`object-position: 50% 22%` y `50% 42%`). Originales en `multimedia/` intactos. Build y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 21:48 — Ciudad de México (GMT−6)
 
 A solicitud del usuario, se aplicó un desvanecido discreto en los extremos superior e inferior de la imagen del hero (`MagicGardenHero`, `src/styles/magic-hero.css`) para que se fundiera suavemente con su entorno. Se implementó una máscara de degradado lineal vertical en `.art` (`transparent 0%` → `black 16% ... 84%` → `transparent 100%`) combinada con un velo de integración en `.art::after` y una elipse radial más suave en `.art-image`, eliminando cualquier corte abrupto tanto en escritorio como en móvil.

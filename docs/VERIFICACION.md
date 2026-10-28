@@ -1,5 +1,14 @@
 # Verificación de la primera versión
 
+## Inversión de fotos en portada de galería — 27/10/2026 22:15 (GMT−6)
+
+- Se invirtieron las dos fotografías con Pascal en la composición de la portada de la galería (`.artwork`, `Gallery.tsx`):
+  - `gallery-hero-main.webp` (261.2 KiB): `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1329_(2).jpg` (Camila de pie con Pascal en el hombro).
+  - `gallery-hero-secondary.webp` (170.0 KiB): `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1154_(2).jpg` (Camila sentada en el pórtico con Pascal).
+- Calibración de encuadres en `src/styles/gallery.css`: `object-position: 50% 22%` para la foto principal y `50% 42%` para la secundaria.
+- Actualización de contrato en `docs/ASSETS.md` y `scripts/prepare-assets.mjs`.
+- Verificación técnica: compilación `npm run build` sin errores y 19 pruebas de Vitest pasando.
+
 ## Desvanecido discreto en los extremos del hero — 27/10/2026 21:48 (GMT−6)
 
 - Aplicado desvanecido vertical a los bordes superior e inferior de la obra del hero (`.magic-hero .art` y `.art-image`):

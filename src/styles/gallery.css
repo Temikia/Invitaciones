@@ -24,9 +24,9 @@
     .narrative-gallery .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.17,.67,.25,1)}
     .narrative-gallery .hero-photo:hover img{transform:scale(1.07)}
     .narrative-gallery .hero-photo-main{width:64%;height:80%;top:7%;left:13%;transform:rotate(-5deg);border:7px solid #f3e8df;z-index:2}
-    .narrative-gallery .hero-photo-main img{object-position:50% 50%}
+    .narrative-gallery .hero-photo-main img{object-position:50% 22%}
     .narrative-gallery .hero-photo-secondary{width:46%;height:53%;right:0;bottom:0;transform:rotate(7deg);border:6px solid #f0e5dd;z-index:3}
-    .narrative-gallery .hero-photo-secondary img{object-position:50% 26%}
+    .narrative-gallery .hero-photo-secondary img{object-position:50% 42%}
     .narrative-gallery .seal{position:absolute;z-index:6;width:106px;height:106px;border-radius:50%;right:17%;top:5%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#e0bf88;color:#24152b;box-shadow:0 0 0 10px #170f20ad,0 0 0 11px #d8b77c60;text-align:center;transform:rotate(12deg)}
     .narrative-gallery .seal .seal-num{font:italic 57px/.79 var(--serif)}
     .narrative-gallery .seal .seal-text{font-size:7px;letter-spacing:.2em;margin-top:12px;text-transform:uppercase;font-weight:700}

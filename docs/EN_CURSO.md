@@ -1,5 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Inversión de fotos en portada de galería — 27/10/2026 22:15 (GMT−6)
+- ✅ Invertida la composición de las dos fotografías con Pascal en la portada de galería (`.artwork`, `Gallery.tsx`):
+  - Foto principal (atrás, `gallery-hero-main.webp`, 261.2 KiB): `_55A1329_(2).jpg` (Camila de pie con Pascal en el hombro).
+  - Foto secundaria (enfrente, `gallery-hero-secondary.webp`, 170.0 KiB): `_55A1154_(2).jpg` (Camila sentada en el pórtico con Pascal).
+- ✅ Ajustado el encuadre (`object-position: 50% 22%` para la foto principal y `50% 42%` para la secundaria) en `src/styles/gallery.css`.
+- ✅ Actualizado el inventario en `docs/ASSETS.md` y `scripts/prepare-assets.mjs`.
+- ✅ Build y 19 pruebas de Vitest superados con éxito.
+- Commit local: «Invierte las fotos de la portada de galería: Camila de pie atrás y sentada al frente». Sin push ni despliegue.
+
 ## Desvanecido discreto en los extremos del hero — 27/10/2026 21:48 (GMT−6)
 - ✅ Aplicado desvanecido vertical discreto y elegante en la parte superior e inferior de la obra del hero (`.magic-hero .art` y `.art-image`):
   - Máscara de degradado lineal vertical (`linear-gradient(to bottom, transparent 0%, ... black 16%, black 84%, ... transparent 100%)`) en `.art` para fundido completo a transparencia en los bordes horizontales.
