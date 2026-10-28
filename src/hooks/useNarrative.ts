@@ -1,25 +1,12 @@
 import { useEffect, type RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { MotionMode } from "../lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function useNarrative(root: RefObject<HTMLDivElement | null>, mode: MotionMode) {
+export function useNarrative(root: RefObject<HTMLDivElement | null>) {
   useEffect(() => {
-    if (!root.current || mode === "paused") return;
-    if (mode === "gentle") {
-      const context = gsap.context(() => {
-        // Una entrada luminosa, sin desplazamiento, zoom ni rotación.
-        gsap.utils.toArray<HTMLElement>("[data-reveal], .divider").forEach(element => {
-          gsap.fromTo(element, { opacity: 0.55 }, {
-            opacity: 1, duration: 0.9, ease: "power1.out",
-            scrollTrigger: { trigger: element, start: "top 92%", once: true },
-          });
-        });
-      }, root);
-      return () => context.revert();
-    }
+    if (!root.current) return;
     const context = gsap.context(() => {
       // Revelado suave con desvanecimiento bidireccional al hacer scroll
       const generalReveals = gsap.utils
@@ -210,5 +197,5 @@ export function useNarrative(root: RefObject<HTMLDivElement | null>, mode: Motio
       );
     }, root);
     return () => context.revert();
-  }, [root, mode]);
+  }, [root]);
 }

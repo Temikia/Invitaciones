@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Cabecera y controles definitivos — 27/10/2026 19:22 (GMT−6)
+- ✅ Experiencia fija en Completo. Se retiraron selector, almacenamiento de preferencias y modos alternativos; las preferencias antiguas no afectan a la página. Sin botón de pausa/reanudación de galería, con pausa automática por teclado/pestaña/visibilidad.
+- ✅ C · XV convertido en header semántico fijo, 44 px más safe-area, transparente al inicio y cristal casi transparente al desplazarse.
+- ✅ Música flotante en círculo de 60 px abajo a la derecha cuando el control sale por arriba; vuelve inline al regresar. Mismo audio, reproducción y foco conservados; flotante oculto desde la entrada al lago.
+- ✅ Build, 19 pruebas, revisión independiente y navegador de producción local móvil/escritorio. Completo con SO reducido y antigua preferencia paused; audio real continúa de 1.05 a 3.07 s sin remontarse; regreso, pausa y saltos inicio/retrato/lago/música comprobados. Se eliminaron tres pruebas correspondientes al selector retirado.
+- Commit local: «Fija los efectos completos y añade cabecera glass y audio flotante». Sin push ni despliegue. Siguiente paso: revisión del usuario y publicación cuando la autorice; continúa pendiente la integración real de recuerdos. Para otra fase, abrir conversación nueva.
+
 ## Efectos sin cambiar ajustes del teléfono — 27/10/2026 19:04 (GMT−6)
 - ✅ Sustituida la desactivación total por un ambiente suave con luz y desvanecimientos cuando el dispositivo pide reducir movimiento. Sin desplazamientos, paralaje ni zoom en ese modo.
 - ✅ Selector Completo/Suave/Sin efectos junto a la música; elección persistente y prioritaria sobre el sistema. Funciona aunque no se permita almacenamiento. Ningún control después del lago.

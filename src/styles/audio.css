@@ -1,0 +1,56 @@
+.audio-control-inline.audio-control-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.audio-control.audio-control-floating {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  width: 60px;
+  max-width: min(310px, calc(100vw - 32px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  gap: 0;
+  padding: 7px;
+  border: 1px solid #b6976155;
+  border-radius: 30px;
+  background: #21152cb8;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 32px #08050c55;
+}
+
+.audio-control-floating .audio-button {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+
+.audio-control-floating .audio-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.audio-control-floating.has-error {
+  width: min(310px, calc(100vw - 32px));
+  gap: 10px;
+}
+
+.audio-control-floating > p {
+  flex-basis: 100%;
+  margin: 0;
+  padding: 0 8px 5px;
+  text-align: center;
+  color: #f6e8e8;
+  line-height: 1.5;
+}
+
+.audio-control .audio-button:focus-visible {
+  outline: 2px solid #f0d493;
+  outline-offset: 4px;
+}

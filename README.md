@@ -37,7 +37,7 @@ Todos los datos, mensajes, horarios y rutas viven en `src/config/invitation.ts`.
 
 La foto principal usa `multimedia/Imágenes/principal.jpg`, optimizada en la ruta fija `public/assets/production/photos/hero.svg`, proporción 3:4, 1200 × 1600. [Mapa de recursos y sustitución](docs/ASSETS.md). Los fondos fueron generados con la API de Google: [procedencia y prompts](docs/FONDOS.md).
 
-La música solo se solicita después de pulsar reproducir. Las fotos posteriores cargan de forma diferida. Si el teléfono pide reducir movimiento, la invitación ofrece automáticamente un ambiente suave con luz y fundidos, sin desplazamientos ni zoom. Junto a la música se puede elegir Completo, Suave o Sin efectos; la elección se recuerda sin modificar ajustes del teléfono. La galería tiene pausa propia. La flor suministrada es una imagen plana: la primera versión anima iluminación y escala; la apertura real de pétalos requiere un recurso separado por capas.
+La música solo se solicita después de pulsar reproducir. Su botón se vuelve flotante abajo a la derecha cuando el control original sale por arriba, conserva la misma reproducción y vuelve a su lugar al regresar; el flotante desaparece al llegar al lago. La cabecera C · XV permanece fija y adquiere un cristal casi transparente al desplazarse. Las fotos posteriores cargan de forma diferida. Por decisión del usuario, la experiencia queda fija en Completo, sin selector de ambiente ni pausa/reanudación visible de galería; la secuencia se pausa al navegar con teclado, quedar fuera de pantalla o cambiar de pestaña. La flor suministrada es una imagen plana: la primera versión anima iluminación y escala; la apertura real de pétalos requiere un recurso separado por capas.
 
 ## Recuerdos: siguiente fase
 

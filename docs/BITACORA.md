@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 19:22 — Ciudad de México (GMT−6)
+
+El usuario confirmó que los efectos funcionan y pidió dejarlos fijos en Completo. Se eliminaron el selector de ambiente, su contexto, preferencias guardadas, estilos de modos alternativos y las tres pruebas de esa lógica retirada. La galería conserva secuencia cada 3 segundos y navegación, sin botón de pausa/reanudación; se mantiene la pausa automática por foco, visibilidad y pestaña.
+
+La marca C · XV pasó de ornamento inicial a cabecera semántica fija de 44 px más safe-area. Al salir el inicio de vista adopta un fondo de cristal casi transparente, blur de 16 px y borde fino. El audio mantiene un único elemento, sin autoplay; el botón se traslada visualmente a un portal fijo abajo a la derecha al salir el original por arriba, conserva foco/reproducción y vuelve inline al regresar. Se oculta desde el lago para preservar el cierre sin controles. Los saltos rápidos de scroll se miden una vez por frame para evitar estados obsoletos de IntersectionObserver.
+
+Build y 19 pruebas correctos. Revisión independiente sin bloqueantes y navegador sobre producción local: móvil/escritorio sin desbordamiento, header fijo y glass, Completo con SO reducido y preferencia antigua paused, audio real continuo de 1.05 a 3.07 s con un solo elemento, pausa desde flotante, devolución del foco inline, galería automática y saltos inicio/retrato/lago/música. Capturas en .qa ignorada; originales intactos. Sin push ni despliegue.
+
 ## 2026-10-27 19:04 — Ciudad de México (GMT−6)
 
 El usuario rechazó que los invitados debieran modificar ajustes del teléfono para ver efectos. Se sustituyó la desactivación total por tres ambientes coordinados en React, GSAP y CSS. Movimiento reducido selecciona automáticamente Suave: pulsos lentos de luz, desvanecimientos y galería con fundidos, sin paralaje, desplazamientos ni zoom. Completo conserva la experiencia original y Sin efectos detiene las animaciones con contenido legible.

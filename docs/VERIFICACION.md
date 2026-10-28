@@ -1,5 +1,18 @@
 # Verificación de la primera versión
 
+## Cabecera fija, Completo y música flotante — 27/10/2026 19:22 (GMT−6)
+
+Historia: efectos completos sin selector; cabecera fina que permanece arriba y adopta cristal al desplazarse; botón de música que acompaña al invitado cuando el original sale de vista, conservando la canción.
+
+- Build TypeScript/Vite y 19 pruebas correctos. Retiradas las tres pruebas del selector eliminado. Revisión independiente sin bloqueantes de efectos, header, galería, portal de audio, foco y limpieza de listeners/observers/rAF.
+- Producción local mediante vite preview. Chromium 390 × 844 con reduce=true y localStorage camila-motion=paused: data-motion full y partículas float-up; ningún selector de ambiente ni gallery-playback.
+- Header semántico HEADER, 44 px en las vistas probadas, top 0 durante el recorrido. Transparente en inicio; al desplazarse class is-scrolled y backdrop-filter blur(16px) saturate(1.45). Sin desbordamiento a 390 y 1440 px.
+- Reproducción real iniciada mediante clic: tiempo 1.05 s inline → 3.07 s flotante, playing=true, misma identidad de HTMLAudioElement y exactamente un audio. Botón flotante 60 × 60 px, right 374 y bottom 828 en viewport 390 × 844, a 16 px de los bordes. Foco transferido al botón flotante; inline aria-hidden true y sin tabulación.
+- Pausa desde flotante y regreso al original: mismo audio y tiempo conservado, foco inline, visibilidad visible y sin portal. Botón de audio fuera de GSAP para evitar desvanecerse antes de la transición geométrica.
+- Regresión corregida: un salto lago → inicio podía mantener un estado obsoleto porque ambos nodos seguían fuera de intersección. Ahora la medición agrupada por rAF da: inicio sin flotante ni glass → retrato con ambos → lago sin flotante → inicio sin ambos → retrato con ambos → música inline con glass.
+- Galería avanza 01 → 02 tras 3300 ms con modo Completo y sin botón pausa/reanudación. Se mantienen siete fotos y 19 escenas. Sin errores de aplicación registrados. Capturas locales .qa/header-top-mobile.png, .qa/header-audio-mobile.png y .qa/header-audio-desktop.png.
+- Sin push ni despliegue; queda revisar la publicación en Android físico cuando se autorice publicar.
+
 ## Ambientes sin cambiar ajustes del teléfono — 27/10/2026 19:04 (GMT−6)
 
 Sustituye la política anterior de desactivar todos los efectos al detectar movimiento reducido. Historia: incluso con esa preferencia activa, el invitado ve luz y fundidos automáticamente y puede elegir la experiencia completa dentro de la página, sin cambiar Android.

@@ -119,6 +119,3 @@
  .premium-rsvp .counter { gap:10px; }
  .premium-rsvp .field-head small { font-size:10px; }
 }
-.invitation:is([data-motion="gentle"], [data-motion="paused"]) .premium-rsvp :is(button:hover, .submit:hover .button-arrow, .modal) {
- transform:none;
-}
