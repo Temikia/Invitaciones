@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 21:26 — Ciudad de México (GMT−6)
+
+A solicitud del usuario, se refinó la portada del jardín mágico: se eliminó el movimiento con el puntero/mouse en la imagen; se retiraron los botones y textos «Descubre la magia», «Desliza para soñar», «Hay historias que comienzan...», «Camila · Mis XV años» y el botón «Toca la luz».
+
+La acción de destello floral y partículas quedó configurada de manera automática y fija en bucle (`triggerBloom` periódico centrado en la flor de la obra), conservando activo el glow palpitante de fondo. Se restauró la cabecera original fija (`InvitationHeader`) exactamente con su diseño y comportamiento previo.
+
+Build de producción y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 21:20 — Ciudad de México (GMT−6)
 
 A solicitud del usuario, se reemplazó el hero inicial por la portada de `recursos/camila_portada_jardin_magico.html` en la escena 1 (`Scene01Flower`). Se optimizó la imagen `camila_jardin_encantado.webp` de `recursos` hacia `public/assets/production/photos/camila-jardin-encantado.webp` (101.4 KiB) mediante `prepare-assets.mjs` sin alterar originales.

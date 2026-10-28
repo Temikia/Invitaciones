@@ -1,5 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Ajuste y automatización de la portada mágica — 27/10/2026 21:26 (GMT−6)
+- ✅ Retirado el movimiento de paralaje del mouse sobre la imagen.
+- ✅ Retirados botones y textos secundarios: «Descubre la magia», «Desliza para soñar», «Hay historias que comienzan...», «Camila · Mis XV años» y botón «Toca la luz».
+- ✅ Acción de la flor configurada en bucle automático continuo (destellos de partículas y realce luminoso en la flor de la obra).
+- ✅ Glow palpitante (`golden-aura` y `art-dust`) activo permanentemente.
+- ✅ Cabecera original fija (`InvitationHeader`) restaurada a su comportamiento y apariencia previa.
+- ✅ Build y 19 pruebas vitest verificados.
+- Commit local: «Ajusta la portada mágica a modo automático y restaura cabecera original». Sin push ni despliegue.
+
 ## Hero portada jardín mágico — 27/10/2026 21:20 (GMT−6)
 - ✅ Hero integrado desde `recursos/camila_portada_jardin_magico.html` en la escena 1: composición editorial, tipografía, cabecera local C · XV, kicker, título, cita de apertura y botón «Descubre la magia».
 - ✅ Fotografía `camila_jardin_encantado.webp` optimizada como derivado de producción en `public/assets/production/photos/camila-jardin-encantado.webp` (101.4 KiB); original en recursos intacto.

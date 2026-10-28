@@ -1,5 +1,13 @@
 # Verificación de la primera versión
 
+## Ajuste y automatización de la portada mágica — 27/10/2026 21:26 (GMT−6)
+
+- Sin interacción de puntero en la imagen (paralaje retirado).
+- Retirados: botón principal «Descubre la magia», indicador «Desliza para soñar», nota «Hay historias que comienzan...», etiqueta «Camila · Mis XV años» y botón interactivo «Toca la luz».
+- Acción de flor convertida en bucle automático: periódicamente emite destellos de estrellas (`sparkle`) desde la posición de la flor en la pintura y activa el destello de la obra, manteniendo activo el glow palpitante (`golden-aura` / `art-dust`).
+- Cabecera fija previa restaurada (`InvitationHeader`), con su opacidad y comportamiento intactos.
+- Build de producción Vite y 19 pruebas de Vitest superados con éxito.
+
 ## Hero portada jardín mágico — 27/10/2026 21:20 (GMT−6)
 
 - Se integró la portada de `recursos/camila_portada_jardin_magico.html` en la escena 1 (`Scene01Flower` -> `MagicGardenHero`), conservando las 19 escenas y la secuencia simbólica intacta.

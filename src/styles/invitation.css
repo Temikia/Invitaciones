@@ -220,13 +220,7 @@ p {
   color: #9c7a47;
 }
 .header-slot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
   height: calc(44px + env(safe-area-inset-top, 0px));
-  pointer-events: none;
-  opacity: 0;
 }
 .invitation-header {
   position: fixed;
@@ -239,14 +233,11 @@ p {
   place-items: center;
   border-bottom: 1px solid transparent;
   background: transparent;
-  pointer-events: none;
   transition: background .35s, border-color .35s, box-shadow .35s;
 }
 .invitation-header .opening-mark {
   font-size: 13px;
   line-height: 1;
-  opacity: 0;
-  transition: opacity .35s;
 }
 .invitation-header.is-scrolled {
   background: rgba(20, 13, 34, 0.12);
@@ -254,10 +245,6 @@ p {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  pointer-events: auto;
-}
-.invitation-header.is-scrolled .opening-mark {
-  opacity: 1;
 }
 .flower-halo {
   width: min(310px, 64vw);
