@@ -13,6 +13,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | Original | URL pública |
 | --- | --- |
 | `multimedia/Imágenes/principal.jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
+| Derivado de la foto incrustada en `hero.svg`, con laterales difuminados | `/assets/production/photos/share-camila.jpg` |
 | `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/gallery-1.webp` |
 | `multimedia/Imágenes/Galeria 2.jpg` | `/assets/production/photos/gallery-2.webp` |
 | `multimedia/Imágenes/galeria 3.jpg` | `/assets/production/photos/gallery-3.webp` |
@@ -44,6 +45,8 @@ node scripts/prepare-assets.mjs --hero "multimedia/Imágenes/principal.jpg"
 El script recorta el retrato a 3:4 y lo incrusta en un SVG autónomo en la misma ruta. Revisar visualmente el encuadre después de cada reemplazo. También se puede colocar manualmente otro SVG de 1200 × 1600 px en esa ubicación. Las ejecuciones sin `--hero` conservan el archivo existente. Para recuperar el placeholder, eliminar únicamente el derivado `hero.svg` y ejecutar el script sin opciones.
 
 ## Validación inicial
+
+Vista previa social: `node scripts/prepare-social-image.mjs` regenera `share-camila.jpg` desde el hero vigente, sin modificar originales. JPG de 1200 × 630, 63 130 bytes en la generación del 27/10/2026. Volver a ejecutarlo después de sustituir la foto principal. Las URLs absolutas de Open Graph/Twitter en `index.html` apuntan al dominio público actual y deben actualizarse si cambia.
 
 Ampliación del 27/10/2026: siete fotos de galería. Las dos nuevas proceden de Fotos XV Pri: WebP calidad 82, orientación corregida, sin metadatos y 1400 × 2099 px; tamaños 267.9 KiB y 320.5 KiB. El script incluye sus rutas para reproducir los derivados; originales intactos.
 

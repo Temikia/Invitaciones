@@ -1,5 +1,11 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 19:39 — Ciudad de México (GMT−6)
+
+Se preparó la foto principal para la vista previa de enlaces compartidos. Se añadieron etiquetas Open Graph y Twitter de imagen grande en index.html para que los lectores obtengan título, descripción, URL e imagen sin ejecutar React. Se generó share-camila.jpg desde el hero vigente: retrato completo centrado y laterales de la misma foto difuminados, JPG de 1200 × 630 y 63 130 bytes. El script permite regenerarlo al sustituir la foto; originales intactos.
+
+Build y 19 pruebas correctos. Se comprobaron etiquetas estáticas en dist/index.html, URL absoluta, existencia de la imagen publicada en dist, formato/dimensiones y encuadre visual. Sin pruebas de envío real a mensajería ni despliegue; la vista previa pública requiere publicar y puede depender de la caché de la aplicación receptora. Sin push ni despliegue.
+
 ## 2026-10-27 19:22 — Ciudad de México (GMT−6)
 
 El usuario confirmó que los efectos funcionan y pidió dejarlos fijos en Completo. Se eliminaron el selector de ambiente, su contexto, preferencias guardadas, estilos de modos alternativos y las tres pruebas de esa lógica retirada. La galería conserva secuencia cada 3 segundos y navegación, sin botón de pausa/reanudación; se mantiene la pausa automática por foco, visibilidad y pestaña.

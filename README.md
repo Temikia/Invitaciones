@@ -35,6 +35,8 @@ El usuario administra el despliegue. Esta entrega es para revisión visual, aún
 
 Todos los datos, mensajes, horarios y rutas viven en `src/config/invitation.ts`. La fecha tiene offset explícito y zona `America/Denver`, sin depender de la zona del navegador.
 
+La vista previa al compartir el enlace usa Open Graph en `index.html` y `public/assets/production/photos/share-camila.jpg`. Si cambia el hero, regenerar con `node scripts/prepare-social-image.mjs` y publicar ambos cambios. Si cambia el dominio público, actualizar las URLs absolutas del HTML. La vista previa final depende de la app donde se comparta y de su caché.
+
 La foto principal usa `multimedia/Imágenes/principal.jpg`, optimizada en la ruta fija `public/assets/production/photos/hero.svg`, proporción 3:4, 1200 × 1600. [Mapa de recursos y sustitución](docs/ASSETS.md). Los fondos fueron generados con la API de Google: [procedencia y prompts](docs/FONDOS.md).
 
 La música solo se solicita después de pulsar reproducir. Su botón se vuelve flotante abajo a la derecha cuando el control original sale por arriba, conserva la misma reproducción y vuelve a su lugar al regresar; el flotante desaparece al llegar al lago. La cabecera C · XV permanece fija y adquiere un cristal casi transparente al desplazarse. Las fotos posteriores cargan de forma diferida. Por decisión del usuario, la experiencia queda fija en Completo, sin selector de ambiente ni pausa/reanudación visible de galería; la secuencia se pausa al navegar con teclado, quedar fuera de pantalla o cambiar de pestaña. La flor suministrada es una imagen plana: la primera versión anima iluminación y escala; la apertura real de pétalos requiere un recurso separado por capas.

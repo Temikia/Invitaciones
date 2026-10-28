@@ -1,5 +1,12 @@
 # Verificación de la primera versión
 
+## Vista previa al compartir — 27/10/2026 19:39 (GMT−6)
+
+- Build y 19 pruebas correctos. Metadatos og:title/description/type/url/image y twitter:card/image presentes en el HTML estático de dist, sin depender de JavaScript.
+- og:image apunta a https://mis-xv-camila.vercel.app/assets/production/photos/share-camila.jpg; archivo presente en dist con formato JPEG, 1200 × 630 y 63 130 bytes. Dimensiones y texto alternativo declarados.
+- Encuadre revisado: foto principal completa centrada con fondo difuminado de la misma fotografía, sin modificar hero ni originales. Script reproducible scripts/prepare-social-image.mjs.
+- No se publicó ni se compartió un mensaje real. Pendiente comprobar cómo presenta la tarjeta cada app después del despliegue; el formato y la caché los controla la plataforma receptora.
+
 ## Cabecera fija, Completo y música flotante — 27/10/2026 19:22 (GMT−6)
 
 Historia: efectos completos sin selector; cabecera fina que permanece arriba y adopta cristal al desplazarse; botón de música que acompaña al invitado cuando el original sale de vista, conservando la canción.

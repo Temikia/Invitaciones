@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Foto al compartir el enlace — 27/10/2026 19:39 (GMT−6)
+- ✅ Open Graph y tarjeta de imagen grande en el HTML inicial, con título, descripción, fecha y URL pública https://mis-xv-camila.vercel.app/.
+- ✅ Derivado share-camila.jpg de la foto principal vigente: 1200 × 630, JPG de 63 130 bytes, retrato completo con laterales difuminados. Script reproducible scripts/prepare-social-image.mjs; originales intactos.
+- ✅ Build y 19 pruebas; etiquetas comprobadas en dist/index.html y archivo/dimensiones verificados en dist. Vista revisada visualmente.
+- Commit local: «Añade la foto principal a la vista previa al compartir». Sin push ni despliegue. Siguiente paso: publicar cuando el usuario lo autorice y comprobar el enlace compartido en la app de destino; su caché puede conservar una vista previa anterior.
+
 ## Cabecera y controles definitivos — 27/10/2026 19:22 (GMT−6)
 - ✅ Experiencia fija en Completo. Se retiraron selector, almacenamiento de preferencias y modos alternativos; las preferencias antiguas no afectan a la página. Sin botón de pausa/reanudación de galería, con pausa automática por teclado/pestaña/visibilidad.
 - ✅ C · XV convertido en header semántico fijo, 44 px más safe-area, transparente al inicio y cristal casi transparente al desplazarse.
