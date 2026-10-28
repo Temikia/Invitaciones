@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 18:58 — Ciudad de México (GMT−6)
+
+Se añadieron `_55A1171_(2)` y `_55A1286_(2)` de Fotos XV Pri como capítulos VI «El encanto» y VII «El comienzo». Se generaron derivados WebP orientados y sin metadatos, conservando originales, y se incluyeron sus rutas en el script. La baraja circular antes asumía cinco elementos; ahora mantiene vecinos y oculta los adicionales para recorrer siete fotografías por controles y teclado.
+
+Se investigó la ausencia de efectos en Android/Chrome. La URL pública de Vercel muestra 52 animaciones CSS y partículas en movimiento; al emular `prefers-reduced-motion: reduce`, las animaciones CSS bajan a cero y se desactivan GSAP y autoplay por las reglas existentes. Vite no explica el problema. Se indicó revisar «Quitar animaciones» en Android; falta medir la preferencia efectiva del teléfono del usuario. Se conserva la accesibilidad.
+
+Build y 19 pruebas correctos, incluida regresión de cinco a siete tarjetas. Revisión independiente sin hallazgos; navegador móvil/escritorio con fotos nuevas, siete imágenes cargadas, regreso circular, tres tarjetas accesibles, sin desbordamiento, movimiento reducido y autoplay 07 → 01 tras 3300 ms. Sin push ni despliegue.
+
 ## 2026-10-27 18:12 — Ciudad de México (GMT−6)
 
 Se incorporó `principal.jpg` como hero optimizado, sin cambiar el original ni la ruta pública. Se redujeron paddings y márgenes entre escenas y se eliminó la altura mínima de la apertura para acercar los elementos y dar continuidad al recorrido.

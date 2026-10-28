@@ -251,6 +251,7 @@
 
   /* Integration with the invitation: all reference styles stay inside this scene. */
 .gallery-scene { padding: 28px 0 48px; }
+.narrative-gallery .memory-card[data-state="hidden"] { visibility:hidden; opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(.6); }
 .gallery-scene > .scene-inner { width: 100%; max-width: 1540px; }
 .narrative-gallery { --paper:#f3e9e4; --gold:#ddbd83; --gold-bright:#f5d99c; --sans:Manrope,Arial,sans-serif; --deck-step:210px; --deck-far:380px; color:var(--paper); text-align:left; overflow:hidden; background:radial-gradient(ellipse at 70% 25%,#44304c55,transparent 65%); }
 .narrative-gallery h2 { padding:0; }

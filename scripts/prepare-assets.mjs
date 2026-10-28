@@ -21,6 +21,8 @@ const photos = [
   ["galeria 3.jpg", "gallery-3.webp"],
   ["galeria 4.jpg", "gallery-4.webp"],
   ["galeria 5.jpg", "gallery-5.webp"],
+  ["_55A1171_(2).jpg", "gallery-6.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
+  ["_55A1286_(2).jpg", "gallery-7.webp", "multimedia/Fotos XV Pri/Fotos XV Pri"],
   ["secundaria.jpg", "secondary.webp"],
   ["Foto con Pascal.jpg", "companion.webp"],
 ];
@@ -34,7 +36,7 @@ const ornaments = [
 const audio =
   "Enredados - Veo En Ti La Luz (By Danna Paola & Chayanne) (Letra) - Lyrx Music.mp3";
 const sources = [
-  ...photos.map(([name]) => resolve(root, "multimedia/Imágenes", name)),
+  ...photos.map(([name, , folder = "multimedia/Imágenes"]) => resolve(root, folder, name)),
   ...ornaments.map(([name]) => resolve(root, "recursos", name)),
   resolve(root, "recursos", audio),
 ];
@@ -66,9 +68,9 @@ async function optimize(source, output, size, quality, squareBounds = false) {
     .toFile(target);
   generated.push(output);
 }
-for (const [input, output] of photos) {
+for (const [input, output, folder = "multimedia/Imágenes"] of photos) {
   await optimize(
-    resolve(root, "multimedia/Imágenes", input),
+    resolve(root, folder, input),
     `photos/${output}`,
     1400,
     82,

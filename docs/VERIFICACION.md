@@ -1,5 +1,16 @@
 # Verificación de la primera versión
 
+## Ampliación de galería y diagnóstico Android — 27/10/2026 18:58 (GMT−6)
+
+Historia: recorrer las siete fotografías, incluidas las dos nuevas de Fotos XV Pri, y distinguir un fallo de despliegue de la preferencia de movimiento del dispositivo.
+
+- Build correcto y 19 pruebas. Regresión de estados de la baraja circular para cinco/siete fotos, vecinos al cruzar el inicio y tres tarjetas principales accesibles. Revisión independiente sin hallazgos.
+- Chromium móvil 390 × 844: siete imágenes decodificadas, ciclo 01 → 07 → 01, tres tarjetas accesibles en cada paso y documento de 390 px sin desbordamiento. Escritorio 1440 × 1000, sin desbordamiento. Capturas en `.qa/`, ignoradas.
+- Con movimiento normal y galería visible, autoplay 07 → 01 después de 3300 ms; fuera de pantalla se pausa. Con movimiento reducido se conserva navegación manual y no se fuerzan animaciones.
+- Producción `https://mis-xv-camila.vercel.app/`: viewport de 390 px, `reduce=false`, 52 animaciones CSS y partículas `float-up` con transform distinto después de 600 ms. Emulación `reduce=true`: cero animaciones CSS y `animationName=none`. GSAP y autoplay también condicionados por esa preferencia en código.
+- Android/Chrome del usuario: síntoma compatible con «Quitar animaciones», pendiente de confirmar en el teléfono. La emulación de escritorio no sustituye comprobar su ajuste real. Vite no es causa de la desactivación observada. Fuentes: [Google sobre movimiento reducido](https://web.dev/articles/prefers-reduced-motion), [Vite en Vercel](https://vercel.com/docs/frameworks/frontend/vite).
+- Sin envío de datos, push ni despliegue. Originales intactos.
+
 27 de octubre de 2026. Historia: el invitado recorre 19 escenas, elige escuchar música, consulta fecha/lugar, explora fotografías y prepara su confirmación en WhatsApp. Los recuerdos tienen una página independiente cuyo almacenamiento aún no está conectado.
 
 ## Comprobado

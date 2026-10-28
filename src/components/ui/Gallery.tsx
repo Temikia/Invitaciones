@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { invitation, galleryChapters as chapters } from "../../config/invitation";
+import { galleryCardState } from "../../lib/gallery";
 import "../../styles/gallery.css";
 
-const roman = ["I", "II", "III", "IV", "V"];
+const roman = ["I", "II", "III", "IV", "V", "VI", "VII"];
 const number = (n: number) => String(n + 1).padStart(2, "0");
 
 export function Gallery() {
@@ -41,7 +42,7 @@ export function Gallery() {
   const navigation = () => (
     <div className="memory-controls">
       <button className="memory-arrow" aria-label="Fotografía anterior" onClick={() => move(-1)}>←</button>
-      <span className="memory-count"><strong>{number(active)}</strong> <span className="memory-out-of">/ 05</span></span>
+      <span className="memory-count"><strong>{number(active)}</strong> <span className="memory-out-of">/ {String(chapters.length).padStart(2, "0")}</span></span>
       <button className="memory-arrow" aria-label="Fotografía siguiente" onClick={() => move(1)}>→</button>
     </div>
   );
@@ -87,13 +88,13 @@ export function Gallery() {
         </div>
       </div>
       <div className="break-line" />
-      <div className="gallery-section" id="galeria" ref={region} role="region" aria-roledescription="carrusel" aria-label="Cinco recuerdos de Camila"
+      <div className="gallery-section" id="galeria" ref={region} role="region" aria-roledescription="carrusel" aria-label="Recuerdos de Camila"
         onFocusCapture={() => setInteracting(true)}
         onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setInteracting(false); }}>
         <div className="story-overline">✧ Segundo acto · Un álbum que cobra vida</div>
         <div className="section-heading story-heading">
           <h2 className="section-title">Los recuerdos <em>también bailan.</em></h2>
-          <p className="section-note">No son solo fotografías. Son cinco maneras de volver a sentir un instante extraordinario.</p>
+          <p className="section-note">No son solo fotografías. Son maneras de volver a sentir un instante extraordinario.</p>
         </div>
         <div className="memory-experience">
           <div className="memory-copy">
@@ -106,15 +107,15 @@ export function Gallery() {
             <span className="memory-orbit-note" aria-hidden="true">recuerdos en flor</span>
             <div className="memory-deck">
               {chapters.map((item, index) => {
-                const offset = (index - active + chapters.length) % chapters.length;
-                const state = ["active", "next", "far-next", "far-prev", "prev"][offset];
+                const state = galleryCardState(index, active, chapters.length);
+                const interactive = state === "active" || state === "next" || state === "prev";
                 return (
                   <button
                     key={index}
                     className="memory-card"
                     data-state={state}
-                    tabIndex={offset === 2 || offset === 3 ? -1 : 0}
-                    aria-hidden={offset === 2 || offset === 3 ? true : undefined}
+                    tabIndex={interactive ? 0 : -1}
+                    aria-hidden={!interactive || undefined}
                     aria-label={`${number(index)} · ${item.name}`}
                     onClick={() => setActive(index)}
                   >

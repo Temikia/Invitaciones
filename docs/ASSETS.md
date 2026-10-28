@@ -18,6 +18,8 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 | `multimedia/Imágenes/galeria 3.jpg` | `/assets/production/photos/gallery-3.webp` |
 | `multimedia/Imágenes/galeria 4.jpg` | `/assets/production/photos/gallery-4.webp` |
 | `multimedia/Imágenes/galeria 5.jpg` | `/assets/production/photos/gallery-5.webp` |
+| `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1171_(2).jpg` | `/assets/production/photos/gallery-6.webp` |
+| `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1286_(2).jpg` | `/assets/production/photos/gallery-7.webp` |
 | `multimedia/Imágenes/secundaria.jpg` | `/assets/production/photos/secondary.webp` |
 | `multimedia/Imágenes/Foto con Pascal.jpg` | `/assets/production/photos/companion.webp` |
 | `recursos/Flor.png` | `/assets/production/ornaments/flower.webp` |
@@ -40,6 +42,8 @@ node scripts/prepare-assets.mjs --hero "multimedia/Imágenes/principal.jpg"
 El script recorta el retrato a 3:4 y lo incrusta en un SVG autónomo en la misma ruta. Revisar visualmente el encuadre después de cada reemplazo. También se puede colocar manualmente otro SVG de 1200 × 1600 px en esa ubicación. Las ejecuciones sin `--hero` conservan el archivo existente. Para recuperar el placeholder, eliminar únicamente el derivado `hero.svg` y ejecutar el script sin opciones.
 
 ## Validación inicial
+
+Ampliación del 27/10/2026: siete fotos de galería. Las dos nuevas proceden de Fotos XV Pri: WebP calidad 82, orientación corregida, sin metadatos y 1400 × 2099 px; tamaños 267.9 KiB y 320.5 KiB. El script incluye sus rutas para reproducir los derivados; originales intactos.
 
 Producción preparada el 27 de octubre de 2026: **14 archivos, 11.41 MiB** en total; el MP3 ocupa 9870.4 KiB y las imágenes/SVG aproximadamente 1.77 MiB. Las dimensiones se verificaron con `sharp`. Flor, sol, lámpara y sobre conservan transparencia; el original `pascal.png` es opaco y su derivado también.
 

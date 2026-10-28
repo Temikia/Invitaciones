@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Galería ampliada y diagnóstico Android — 27/10/2026 18:58 (GMT−6)
+- ✅ Se agregaron `_55A1171_(2).jpg` y `_55A1286_(2).jpg` como capítulos VI y VII, después de las cinco fotografías anteriores. Derivados WebP de producción; originales intactos.
+- ✅ Contador y baraja circular adaptados a siete fotos; tres tarjetas principales accesibles por teclado. Build, 19 pruebas y navegador móvil/escritorio comprobados; revisión independiente sin hallazgos.
+- ✅ En `https://mis-xv-camila.vercel.app/`: movimiento normal produce 52 animaciones CSS y partículas en movimiento; al emular movimiento reducido hay cero animaciones CSS. Vite entrega los efectos correctamente. La preferencia efectiva del teléfono Android/Chrome todavía requiere comprobación del usuario.
+- Commit local: «Amplía la galería a siete fotografías y documenta las animaciones». Sin push ni despliegue.
+- Siguiente paso: revisar en Android «Quitar animaciones»/«Reducir movimiento» y recargar. Si está desactivado y continúa estático, revisar preferencia efectiva y consola en ese teléfono. Sigue pendiente integrar recuerdos. Para la siguiente fase, abrir conversación nueva.
+
 ## Fuente vigente
 Documento maestro y paquete de definición leídos. El checklist `Invitacion_Camila_Paquete_Definicion/05_CHECKLIST_PRE_DESARROLLO.md` contiene las respuestas más recientes y prevalece sobre los pendientes anteriores.
 
