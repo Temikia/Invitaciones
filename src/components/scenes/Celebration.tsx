@@ -64,12 +64,6 @@ export function Scene10Gallery() {
       name="Instantes de mi historia"
       className="gallery-scene"
     >
-      <Eyebrow>Lo que soy, lo que sueño</Eyebrow>
-      <h2 data-reveal>
-        Pequeños instantes.
-        <br />
-        <em>Grandes recuerdos.</em>
-      </h2>
       <Gallery />
     </Scene>
   );

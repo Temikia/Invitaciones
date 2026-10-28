@@ -37,3 +37,15 @@
 - Capturas locales en `.qa/`, ignoradas por Git. Sin push ni despliegue.
 - Se exportó el índice preparado a `.qa/staged` para comprobar solo la tarea: build y ocho pruebas correctos también sin los cambios simultáneos.
 - En esa copia se corrigió `height: auto` del hero para que el atributo HTML de 1600 no imponga altura fija. Encuadre aislado revisado: imagen 346 × 461 en móvil y 618 × 824 en escritorio, sin desbordamiento y con texto legible.
+
+## Galería narrativa — 27/10/2026 18:28 (GMT−6)
+
+Historia verificada: el invitado descubre las cinco fotografías seleccionadas en una portada editorial, un carrusel narrativo y un diálogo de modo cine, dentro de la escena 10. Esta implementación sustituye la galería horizontal descrita en la verificación inicial.
+
+- Referencia local: `recursos/galeria_camila_carrusel_narrativo.html`; estilos aislados en `src/styles/gallery.css`, contenido de capítulos en `src/config/invitation.ts`. Los originales no se modificaron y no se incorporaron imágenes incrustadas de la referencia.
+- Build TypeScript/Vite correcto y 16 pruebas existentes correctas.
+- Chromium escritorio 1440 × 1000 y móvil 390 × 844: revisión visual de portada, carrusel y modo cine; 19 escenas conservadas, cinco imágenes cargadas y sin desbordamiento horizontal ni errores de aplicación registrados.
+- Secuencia automática: indicador avanzó de 03 a 04 tras 3100 ms. Sin botón de secuencia ni barra «Cinco instantes, una historia». Flechas, miniaturas y Escape disponibles; el diálogo nativo limita el foco y bloquea el scroll del fondo.
+- Revisión independiente corrigió remontaje de navegación que perdía el foco, cierre invisible en móvil y cambio automático mientras se interactúa con teclado. Navegación del diálogo comprobada con conservación del foco.
+- Movimiento reducido: indicador estable tras 3200 ms y cero animaciones activas en las tarjetas. Navegación manual disponible; la secuencia se pausa también fuera de pantalla y cuando la pestaña está oculta.
+- Capturas temporales de navegador fuera del repositorio; sin push ni despliegue. Falta validación en teléfonos físicos, ya indicada en los límites generales.

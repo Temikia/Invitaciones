@@ -32,3 +32,11 @@ Verificación: build correcto, ocho pruebas, auditoría sin vulnerabilidades rep
 - ✅ `origin` actualizado y primer push completado sin reescribir el historial. El repositorio anterior permanece intacto.
 - Commit de documentación del traslado: «Documenta el cambio al repositorio CheshireZol».
 - Después del traslado, Vercel debe utilizar el nuevo repositorio; la reconexión del proyecto queda a cargo del usuario junto con el despliegue.
+
+## Galería narrativa — 27/10/2026
+- ✅ Portada, carrusel de cinco capítulos y modo cine adaptados de recursos/galeria_camila_carrusel_narrativo.html en la escena 10, con gallery-1 a gallery-5.
+- ✅ Secuencia automática cada 3 segundos; sin botón de secuencia ni barra «Cinco instantes, una historia», según petición posterior. Movimiento reducido conserva navegación manual.
+- ✅ Build y 16 pruebas; revisión de código y navegador móvil/escritorio, teclado y movimiento reducido. Evidencia en docs/VERIFICACION.md.
+- Commit de esta tarea: «Integra la galería narrativa con secuencia automática».
+- Cambios previos ajenos en invitation.css (tamaños de retratos) conservados fuera del commit.
+- Siguiente paso: revisión visual del usuario; sin push ni despliegue. Continúa pendiente la integración real de recuerdos. Para la siguiente fase, abrir una conversación nueva.

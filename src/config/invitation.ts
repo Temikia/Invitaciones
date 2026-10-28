@@ -62,3 +62,12 @@ export const invitation = {
     retentionDays: 90,
   },
 } as const;
+
+/** Cinco capítulos para las fotografías elegidas, en su orden original. */
+export const galleryChapters = [
+  { name: "La magia", title: "Un instante fuera del", accent: "tiempo.", description: "El cielo dorado, una mirada y ese momento en el que todo parecía posible.", quote: "Y así comienza la historia", alt: "Camila con vestido lila junto a un caballo blanco al atardecer" },
+  { name: "Ella", title: "Ella es", accent: "la historia.", description: "En su sonrisa caben todos los sueños que están por llegar. Este momento le pertenece.", quote: "La protagonista de su propio cuento", alt: "Camila sonriendo mientras toca su corona, con un ramo de flores" },
+  { name: "Los detalles", title: "La belleza de lo", accent: "pequeño.", description: "Flores, texturas, gestos. Esos detalles que un día nos harán volver a sentirlo todo.", quote: "La magia vive en los detalles", alt: "Camila con su ramo de flores junto a unas columnas doradas" },
+  { name: "La luz", title: "El sol quiso", accent: "quedarse.", description: "La tarde nos regaló su último destello, como si también quisiera ser parte de esta historia.", quote: "Hay luces que nunca se apagan", alt: "Camila sentada en el jardín con flores y la luz del atardecer" },
+  { name: "El sueño", title: "Un vestido. Mil", accent: "ilusiones.", description: "Un sueño lila que no termina aquí. Apenas es el principio de todo lo que está por venir.", quote: "Lo mejor está por comenzar", alt: "Camila sonriendo con su vestido lila y un ramo de flores violetas" },
+];

@@ -21,3 +21,11 @@ Se verificaron compilación, ocho pruebas, navegador móvil/escritorio, audio, R
 ## 2026-10-27 16:10 — Ciudad de México (GMT−6)
 
 A solicitud del usuario se cambió el repositorio de trabajo a `https://github.com/CheshireZol/Invitaciones.git`. Se comprobó que el destino estaba vacío, se actualizó `origin` y se subió `main` conservando el commit inicial y su historial. El repositorio anterior permanece intacto. Se actualizaron README y estado para que las siguientes sesiones usen el destino correcto; queda reconectar Vercel al nuevo repositorio antes del próximo despliegue. Cambio exclusivo de remoto/documentación, sin cambios de aplicación ni necesidad de repetir las pruebas funcionales.
+
+## 2026-10-27 18:28 — Ciudad de México (GMT−6)
+
+Se reemplazó la galería horizontal de la escena 10 por la experiencia del segundo acto de `galeria_camila_carrusel_narrativo.html`: portada editorial con fotografías superpuestas, carrusel de cinco capítulos y modo cine. Se adaptaron las cinco fotografías elegidas `gallery-1.webp` a `gallery-5.webp`, con descripciones acordes a cada imagen, sin alterar originales ni el orden de las 19 escenas. Estilos aislados para evitar afectar el resto de la invitación.
+
+A petición del usuario, la secuencia comienza automáticamente y cambia cada tres segundos; se eliminaron el botón de secuencia y la barra «Cinco instantes, una historia». Navegación manual por flechas, teclado, deslizamiento y miniaturas en modo cine. Movimiento reducido desactiva la secuencia y las animaciones; se pausa fuera de pantalla, con pestaña oculta y durante interacción por teclado.
+
+Build y 16 pruebas correctos. Revisión de código delegada y comprobación visual en escritorio/móvil: se corrigieron el foco del diálogo y los controles móviles. Autoplay medido a 3100 ms, movimiento reducido estable a 3200 ms, cinco fotografías cargadas, 19 escenas y sin desbordamiento horizontal. Detalle en `VERIFICACION.md`. Se preservan los ajustes ajenos de tamaño de retratos en `src/styles/invitation.css`, fuera de este commit. Sin push ni despliegue.
