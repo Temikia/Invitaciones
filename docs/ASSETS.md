@@ -12,7 +12,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 
 | Original | URL pública |
 | --- | --- |
-| `multimedia/Imágenes/principal.jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
+| `multimedia/Fotos XV Pri/Fotos XV Pri/_55A1378_(2).jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
 | Derivado de la foto incrustada en `hero.svg`, con laterales difuminados | `/assets/production/photos/share-camila.jpg` |
 | `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/gallery-1.webp` |
 | `multimedia/Imágenes/Galeria 2.jpg` | `/assets/production/photos/gallery-2.webp` |
@@ -34,7 +34,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 
 ## Cambiar la fotografía principal
 
-El contrato es siempre `public/assets/production/photos/hero.svg`, con dimensiones **1200 × 1600 px** y proporción **3:4**. Desde el 27/10/2026 contiene la fotografía `principal.jpg` elegida por el usuario (220.4 KiB). El original permanece intacto; el script conserva este derivado al ejecutarse sin `--hero`.
+El contrato es siempre `public/assets/production/photos/hero.svg`, con dimensiones **1200 × 1600 px** y proporción **3:4**. Contiene la fotografía `_55A1378_(2).jpg` elegida por el usuario (257.1 KiB). El original permanece intacto; el script conserva este derivado al ejecutarse sin `--hero`.
 
 Para probar cualquier retrato sin cambiar componentes ni rutas:
 
