@@ -1,7 +1,7 @@
 import { ArrowUpRight, Camera } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { invitation } from "../../config/invitation";
-import { Scene, Eyebrow, Divider, Ornament, Particles } from "../ui/Atmosphere";
+import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { RSVPForm } from "../ui/RSVPForm";
 
 export function Scene14Gifts() {
@@ -123,7 +123,6 @@ export function Scene19Lake() {
       className="lake-scene"
       background={
         <>
-          <Particles lanterns />
           <div className="lake-water" aria-hidden="true" />
         </>
       }

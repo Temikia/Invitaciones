@@ -23,4 +23,17 @@
 - QR tiene la misma URL de destino que el botón y usa el origen actual; falta escaneo físico del dominio definitivo antes de imprimir.
 - La selección de archivos no equivale a carga. Backend, progreso, reanudación, almacenamiento Drive y borrado por retención siguen pendientes.
 - No se ha medido Lighthouse ni hecho una prueba en red móvil lenta.
-- La flor plana no permite apertura real de pétalos separados; esta entrega usa luz y escala. Hero provisional y textos nuevos pendientes de aprobación visual/familiar.
+- La flor plana no permite apertura real de pétalos separados; esta entrega usa luz y escala. Los textos nuevos están pendientes de aprobación visual/familiar.
+
+## Mejora visual — 27/10/2026
+
+- Hero sustituido por `principal.jpg` mediante el preparador existente, conservando ruta y dimensiones. Encuadre revisado en escritorio.
+- Espacios reducidos entre escenas; apertura sin altura mínima de pantalla completa. Se mantiene la secuencia de 19 escenas.
+- Capa global fija con 26 partículas y 12 lámparas, sin capturar eventos, debajo del contenido. El centro tiene menor intensidad. Scroll actualiza variables CSS mediante RAF, sin renders React, y ResizeObserver recalcula ante cambios de altura.
+- Móvil 390 × 844: ancho de documento 390, 19 escenas, ninguna imagen rota, audio detenido. Opacidades de partículas/lámparas al 50%, 60%, 66.67%, 75% y 90%: 0.926/0, 0.370/0, ~0/0, 0/0.463 y 0/1. Se mide el centro del viewport respecto de la altura total del documento.
+- Escritorio 1440 × 1000: ancho 1440, 19 escenas, ninguna imagen rota; foto revisada visualmente. Lago móvil revisado, sin controles posteriores.
+- Movimiento reducido: media query confirmada, cero animaciones activas y cero revelados ocultos; en lago partículas 0 y lámparas 1, ancho 390. Sin errores de aplicación reportados por el navegador.
+- Build y ocho pruebas pasan tras detectar cambios simultáneos ajenos. Las capturas finales reflejan la combinación con esos cambios (marcos y animaciones); se conserva su trabajo y se excluye del commit de esta tarea.
+- Capturas locales en `.qa/`, ignoradas por Git. Sin push ni despliegue.
+- Se exportó el índice preparado a `.qa/staged` para comprobar solo la tarea: build y ocho pruebas correctos también sin los cambios simultáneos.
+- En esa copia se corrigió `height: auto` del hero para que el atributo HTML de 1600 no imponga altura fija. Encuadre aislado revisado: imagen 346 × 461 en móvil y 618 × 824 en escritorio, sin desbordamiento y con texto legible.

@@ -12,7 +12,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 
 | Original | URL pública |
 | --- | --- |
-| Placeholder creado en SVG | `/assets/production/photos/hero.svg` |
+| `multimedia/Imágenes/principal.jpg` (WebP incrustado en SVG) | `/assets/production/photos/hero.svg` |
 | `multimedia/Imágenes/Galería 1.jpeg` | `/assets/production/photos/gallery-1.webp` |
 | `multimedia/Imágenes/Galeria 2.jpg` | `/assets/production/photos/gallery-2.webp` |
 | `multimedia/Imágenes/galeria 3.jpg` | `/assets/production/photos/gallery-3.webp` |
@@ -29,7 +29,7 @@ El script necesita `sharp`, corrige la orientación EXIF y elimina metadatos de 
 
 ## Cambiar la fotografía principal
 
-El contrato es siempre `public/assets/production/photos/hero.svg`, con dimensiones **1200 × 1600 px** y proporción **3:4**. La versión inicial es un diseño ornamental sin personas. `principal.jpg` no se utiliza automáticamente.
+El contrato es siempre `public/assets/production/photos/hero.svg`, con dimensiones **1200 × 1600 px** y proporción **3:4**. Desde el 27/10/2026 contiene la fotografía `principal.jpg` elegida por el usuario (220.4 KiB). El original permanece intacto; el script conserva este derivado al ejecutarse sin `--hero`.
 
 Para probar cualquier retrato sin cambiar componentes ni rutas:
 

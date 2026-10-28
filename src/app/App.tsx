@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef } from "react";
 import { useNarrative } from "../hooks/useNarrative";
+import { Atmosphere } from "../components/ui/Atmosphere";
 import {
   Scene01Flower,
   Scene02Camila,
@@ -32,6 +33,7 @@ function Invitation() {
   useNarrative(root);
   return (
     <div ref={root} className="invitation">
+      <Atmosphere />
       <main>
         <Scene01Flower />
         <Scene02Camila />

@@ -1,5 +1,5 @@
 import { invitation } from "../../config/invitation";
-import { Scene, Eyebrow, Divider, Ornament, Particles } from "../ui/Atmosphere";
+import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { AudioControl } from "../ui/AudioControl";
 
 export function Scene01Flower() {
@@ -8,7 +8,6 @@ export function Scene01Flower() {
       number={1}
       name="Una historia comienza"
       className="flower-scene"
-      background={<Particles />}
     >
       <div className="opening-mark" aria-hidden="true">
         C <span>·</span> XV
@@ -64,7 +63,7 @@ export function Scene04Portrait() {
         <img
           className="cinematic-photo"
           src={invitation.photos.hero}
-          alt="Espacio reservado para la fotografía principal de Camila"
+          alt="Camila con corona y vestido de quince años color lavanda"
           width="1200"
           height="1600"
           loading="lazy"

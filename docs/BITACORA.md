@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 18:12 — Ciudad de México (GMT−6)
+
+Se incorporó `principal.jpg` como hero optimizado, sin cambiar el original ni la ruta pública. Se redujeron paddings y márgenes entre escenas y se eliminó la altura mínima de la apertura para acercar los elementos y dar continuidad al recorrido.
+
+Se sustituyeron efectos locales por una atmósfera global: partículas en los primeros dos tercios, desvanecidas al llegar a ese punto, y lámparas con aparición inversa hacia el cierre. Menor intensidad en el centro, contenido por encima y eventos de puntero deshabilitados; movimiento reducido conserva ornamentos estáticos. Revisión de código delegada sin hallazgos bloqueantes.
+
+Build y ocho pruebas correctos; navegador móvil/escritorio sin desbordamiento ni imágenes rotas, transición medida y movimiento reducido confirmado sin animaciones ni contenido oculto. Se detectaron cambios simultáneos ajenos en marcos, fecha, mensajes y animaciones; se preservan y se separan del commit local de esta tarea. No se ejecuta push ni despliegue.
+
 ## 2026-10-27 15:43 — Ciudad de México (GMT−6)
 
 Se leyó el documento maestro y todo el paquete de definición. Se detectó que el checklist ya contenía datos confirmados que contradecían los pendientes originales; se adoptó esa fuente para evitar inventar información del evento.
