@@ -335,6 +335,46 @@ p {
   width: 100%;
   font-size: 11px;
 }
+.motion-controls {
+  width: min(100%, 360px);
+  margin: 24px auto 0;
+  padding: 16px 12px;
+  border: 1px solid #b6976138;
+  border-radius: 16px;
+  background: #21152c80;
+}
+.motion-caption {
+  color: #c6b4c8;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.motion-options {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.motion-option {
+  flex: 1;
+  min-height: 44px;
+  padding: 9px 7px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #c6b4c8;
+  background: transparent;
+  font-size: 10px;
+  line-height: 1.4;
+  transition: color .25s, background .25s, border-color .25s;
+}
+.motion-option:hover {
+  color: #f2dfb5;
+  background: #dbba7810;
+}
+.motion-option[aria-pressed="true"] {
+  color: #f2dfb5;
+  background: #dbba781c;
+  border-color: #dbba7875;
+}
 .portrait-scene {
   padding: 12px 0 40px;
 }
@@ -1331,27 +1371,45 @@ p {
     letter-spacing: 0.2em;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *:before,
-  *:after {
-    animation: none !important;
-    scroll-behavior: auto !important;
-    transition: none !important;
-  }
-  .particles span {
-    top: var(--y);
-    opacity: var(--depth);
-  }
-  .lantern-field span {
-    top: var(--y);
-  }
-  .flower-image {
-    filter: brightness(1);
-  }
-  .cinematic-photo {
-    transform: none !important;
-  }
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) *,
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) *::before,
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) *::after {
+  animation: none !important;
+  scroll-behavior: auto !important;
+  transition: none !important;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) :is(.particles span, .lantern-field span) {
+  top: var(--y);
+  opacity: var(--depth);
+  transform: none !important;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) :is(.flower-image, .cinematic-photo) {
+  transform: none !important;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .glowing-frame::before,
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .frame-glow {
+  transform: none !important;
+}
+.invitation[data-motion="gentle"] :is(.particles span, .lantern-field span) {
+  animation: atmosphere-glow 8s var(--delay) ease-in-out infinite !important;
+}
+.invitation[data-motion="gentle"] .flower-halo::before,
+.invitation[data-motion="gentle"] .glowing-frame::before,
+.invitation[data-motion="gentle"] .frame-glow {
+  animation: gentle-glow 7s ease-in-out infinite !important;
+}
+.invitation[data-motion="paused"] [data-reveal] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+@keyframes atmosphere-glow {
+  0%, 100% { opacity: calc(var(--depth) * .6); }
+  50% { opacity: var(--depth); }
+}
+@keyframes gentle-glow {
+  0%, 100% { opacity: .6; }
+  50% { opacity: .95; }
 }
 .calendar-table {
   width: 100%;

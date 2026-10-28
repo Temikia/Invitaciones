@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Efectos sin cambiar ajustes del teléfono — 27/10/2026 19:04 (GMT−6)
+- ✅ Sustituida la desactivación total por un ambiente suave con luz y desvanecimientos cuando el dispositivo pide reducir movimiento. Sin desplazamientos, paralaje ni zoom en ese modo.
+- ✅ Selector Completo/Suave/Sin efectos junto a la música; elección persistente y prioritaria sobre el sistema. Funciona aunque no se permita almacenamiento. Ningún control después del lago.
+- ✅ GSAP y CSS coordinados por `data-motion`; galería cada 3 s en Completo, 6 s con fundidos en Suave, manual en Sin efectos. Pausa propia de galería y pausa al usar teclado, salir de pantalla o cambiar de pestaña.
+- ✅ Build y 22 pruebas; revisión independiente y build de producción local revisado en móvil/escritorio. Con SO reducido se midieron pulsos suaves; Completo vuelve a activar los efectos, persiste tras recarga y Sin efectos deja cero animaciones y ningún contenido oculto. Pausa de galería comprobada.
+- Commit local: «Mantiene efectos visuales sin cambiar los ajustes del teléfono». Sin push ni despliegue. Siguiente paso: publicar cuando el usuario lo autorice y comprobar en su Android físico. Para la siguiente fase, abrir conversación nueva.
+- Esta decisión sustituye la recomendación anterior de cambiar los ajustes de Android. No requiere cambiar Vite ni rehacer la aplicación.
+
 ## Galería ampliada y diagnóstico Android — 27/10/2026 18:58 (GMT−6)
 - ✅ Se agregaron `_55A1171_(2).jpg` y `_55A1286_(2).jpg` como capítulos VI y VII, después de las cinco fotografías anteriores. Derivados WebP de producción; originales intactos.
 - ✅ Contador y baraja circular adaptados a siete fotos; tres tarjetas principales accesibles por teclado. Build, 19 pruebas y navegador móvil/escritorio comprobados; revisión independiente sin hallazgos.

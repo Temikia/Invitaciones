@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { invitation, galleryChapters as chapters } from "../../config/invitation";
 import { galleryCardState } from "../../lib/gallery";
+import { useMotion } from "./MotionControl";
 import "../../styles/gallery.css";
 
 const roman = ["I", "II", "III", "IV", "V", "VI", "VII"];
@@ -10,7 +11,8 @@ export function Gallery() {
   const [active, setActive] = useState(0);
   const [visible, setVisible] = useState(false);
   const [interacting, setInteracting] = useState(false);
-  const [reduced, setReduced] = useState(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const { mode } = useMotion();
+  const [paused, setPaused] = useState(false);
   const [pageVisible, setPageVisible] = useState(() => !document.hidden);
   const region = useRef<HTMLDivElement>(null);
   const touch = useRef<{ x: number; y: number } | null>(null);
@@ -19,25 +21,21 @@ export function Gallery() {
   const move = (step: number) => setActive(index => (index + step + chapters.length) % chapters.length);
 
   useEffect(() => {
-    const media = matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
     const visibility = () => setPageVisible(!document.hidden);
-    media.addEventListener("change", update);
     document.addEventListener("visibilitychange", visibility);
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
     if (region.current) observer.observe(region.current);
     return () => {
-      media.removeEventListener("change", update);
       document.removeEventListener("visibilitychange", visibility);
       observer.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    if (reduced || interacting || !pageVisible || !visible) return;
-    const timer = window.setInterval(() => setActive(index => (index + 1) % chapters.length), 3000);
+    if (mode === "paused" || paused || interacting || !pageVisible || !visible) return;
+    const timer = window.setInterval(() => setActive(index => (index + 1) % chapters.length), mode === "gentle" ? 6000 : 3000);
     return () => clearInterval(timer);
-  }, [active, reduced, interacting, pageVisible, visible]);
+  }, [active, mode, paused, interacting, pageVisible, visible]);
 
   const navigation = () => (
     <div className="memory-controls">
@@ -48,7 +46,7 @@ export function Gallery() {
   );
 
   const text = () => (
-    <div key={active} className="memory-text change" aria-live={reduced ? "polite" : "off"}>
+    <div key={active} className="memory-text change" aria-live={mode === "paused" || paused || interacting ? "polite" : "off"}>
       <span className="memory-label">Capítulo {roman[active]} · {chapter.name}</span>
       <span className="memory-asterisk" aria-hidden="true">✳</span>
       <h3 className="memory-title">{chapter.title}<br /><em>{chapter.accent}</em></h3>
@@ -89,7 +87,7 @@ export function Gallery() {
       </div>
       <div className="break-line" />
       <div className="gallery-section" id="galeria" ref={region} role="region" aria-roledescription="carrusel" aria-label="Recuerdos de Camila"
-        onFocusCapture={() => setInteracting(true)}
+        onFocusCapture={event => setInteracting(!(event.target as HTMLElement).closest(".gallery-playback"))}
         onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setInteracting(false); }}>
         <div className="story-overline">✧ Segundo acto · Un álbum que cobra vida</div>
         <div className="section-heading story-heading">
@@ -100,6 +98,7 @@ export function Gallery() {
           <div className="memory-copy">
             {text()}
             {navigation()}
+            {mode !== "paused" ? <button type="button" className="gallery-playback" onClick={() => setPaused(value => !value)}>{paused ? "Reanudar galería" : "Pausar galería"}</button> : null}
           </div>
           <div className="memory-theater" tabIndex={0} aria-label="Usa las flechas o desliza para cambiar de recuerdo">
             <div className="memory-ambient" style={{ backgroundImage: `url(${photo})` }} />
@@ -108,7 +107,7 @@ export function Gallery() {
             <div className="memory-deck">
               {chapters.map((item, index) => {
                 const state = galleryCardState(index, active, chapters.length);
-                const interactive = state === "active" || state === "next" || state === "prev";
+                const interactive = state === "active" || (mode === "full" && (state === "next" || state === "prev"));
                 return (
                   <button
                     key={index}

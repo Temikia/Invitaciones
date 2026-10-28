@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 19:04 — Ciudad de México (GMT−6)
+
+El usuario rechazó que los invitados debieran modificar ajustes del teléfono para ver efectos. Se sustituyó la desactivación total por tres ambientes coordinados en React, GSAP y CSS. Movimiento reducido selecciona automáticamente Suave: pulsos lentos de luz, desvanecimientos y galería con fundidos, sin paralaje, desplazamientos ni zoom. Completo conserva la experiencia original y Sin efectos detiene las animaciones con contenido legible.
+
+Se añadió un selector junto a la música, con elección persistente que prevalece sobre el sistema y funciona durante la visita aunque falle localStorage. La galería avanza cada 3 s en Completo y 6 s en Suave; puede pausarse y mantiene pausa por foco, visibilidad de escena y pestaña. Se eliminó la dependencia directa del SO en CSS y GSAP; no se cambió Vite ni el stack.
+
+Build y 22 pruebas correctos, incluida resolución de preferencias y elección explícita sobre el SO. Revisión independiente corrigió selectores de pseudo-elementos y no encontró bloqueantes. Navegador y build de producción local en móvil/escritorio, SO reducido: luz suave medida, elección Completo activa efectos y persiste, Sin efectos da cero animaciones y ningún contenido oculto; avance suave y pausa comprobados. Capturas ignoradas en .qa. Sin push ni despliegue; pendiente publicar con autorización y revisar Android físico.
+
 ## 2026-10-27 18:58 — Ciudad de México (GMT−6)
 
 Se añadieron `_55A1171_(2)` y `_55A1286_(2)` de Fotos XV Pri como capítulos VI «El encanto» y VII «El comienzo». Se generaron derivados WebP orientados y sin metadatos, conservando originales, y se incluyeron sus rutas en el script. La baraja circular antes asumía cinco elementos; ahora mantiene vecinos y oculta los adicionales para recorrer siete fotografías por controles y teclado.

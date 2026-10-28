@@ -1,6 +1,7 @@
 import { invitation } from "../../config/invitation";
 import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { AudioControl } from "../ui/AudioControl";
+import { MotionControl } from "../ui/MotionControl";
 
 export function Scene01Flower() {
   return (
@@ -53,6 +54,7 @@ export function Scene03Music() {
   return (
     <Scene number={3} name="Nuestra canción" className="music-scene">
       <AudioControl />
+      <MotionControl />
     </Scene>
   );
 }

@@ -247,7 +247,6 @@
   .narrative-gallery .memory-arrow{width:49px;height:49px;flex-basis:49px}
   .narrative-gallery .memory-controls{gap:10px}
 }
-@media(prefers-reduced-motion:reduce){.narrative-gallery .memory-card,.narrative-gallery .memory-card img,.narrative-gallery .memory-text.change{animation:none!important;transition:none!important}}
 
   /* Integration with the invitation: all reference styles stay inside this scene. */
 .gallery-scene { padding: 28px 0 48px; }
@@ -275,8 +274,41 @@
  .narrative-gallery .cinema-stage { overflow-y:auto; }
  .narrative-gallery .cinema-mark { font-size:8px; letter-spacing:.12em; }
 }
-@media(prefers-reduced-motion:reduce) {
- .narrative-gallery *, .narrative-gallery *::before, .narrative-gallery *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+.narrative-gallery .gallery-playback {
+ min-height:44px; padding:10px 16px; border:1px solid #e1bc8075; border-radius:24px;
+ color:#efd6b9; background:#ffffff06; font-size:10px; letter-spacing:.04em;
+ transition:background .3s,border-color .3s;
+}
+.narrative-gallery .gallery-playback:hover { background:#e8c98e22; border-color:#eacb9e; }
+.narrative-gallery .memory-controls { flex-wrap:wrap; }
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery .memory-card[data-state] {
+ transform:translate(-50%,-50%) !important; filter:none; will-change:auto;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery .memory-card:not([data-state="active"]) {
+ visibility:hidden; opacity:0; pointer-events:none;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery .memory-card[data-state="active"] {
+ visibility:visible; opacity:1;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery :is(.memory-card img, .cinema-photo img, .film-thumb img) {
+ transform:none !important;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery :is(.memory-arrow:hover, .cinema-arrow:hover, .cinema-top-btn:hover, .primary-btn:hover, .film-thumb.active, .memory-enter:hover .enter-arrow) {
+ transform:none;
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery .memory-orbit {
+ transform:translate(-50%,-50%);
+}
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery :is(.memory-asterisk, .memory-orbit-note, .memory-ambient, .cinema-ambient),
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .narrative-gallery .memory-enter:hover::after {
+ transform:none;
+}
+.invitation[data-motion="gentle"] .narrative-gallery :is(.memory-text.change, .memory-card[data-state="active"] .memory-card-inner, .cinema-photo.transition-in) {
+ animation:gentle-memory-reveal .8s ease-out both !important;
+}
+@keyframes gentle-memory-reveal {
+ from { opacity:.3; }
+ to { opacity:1; }
 }
 @media(max-width:760px) {
  .narrative-gallery .cinema-nav { position:static; margin-top:14px; justify-content:center; pointer-events:auto; }

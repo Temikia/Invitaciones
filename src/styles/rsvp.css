@@ -119,7 +119,6 @@
  .premium-rsvp .counter { gap:10px; }
  .premium-rsvp .field-head small { font-size:10px; }
 }
-@media(prefers-reduced-motion:reduce) {
- .premium-rsvp *, .premium-rsvp *::before, .premium-rsvp *::after { animation:none!important; transition:none!important; }
- .premium-rsvp button:hover { transform:none; }
+.invitation:is([data-motion="gentle"], [data-motion="paused"]) .premium-rsvp :is(button:hover, .submit:hover .button-arrow, .modal) {
+ transform:none;
 }

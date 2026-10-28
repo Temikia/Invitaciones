@@ -1,5 +1,17 @@
 # Verificación de la primera versión
 
+## Ambientes sin cambiar ajustes del teléfono — 27/10/2026 19:04 (GMT−6)
+
+Sustituye la política anterior de desactivar todos los efectos al detectar movimiento reducido. Historia: incluso con esa preferencia activa, el invitado ve luz y fundidos automáticamente y puede elegir la experiencia completa dentro de la página, sin cambiar Android.
+
+- Build correcto y 22 pruebas. Pruebas de preferencia inicial, elección explícita Completo/Suave/Sin efectos y descarte de valores inválidos. Revisión independiente de React y CSS sin bloqueantes.
+- Chromium móvil 390 × 844 con `reduce=true` y sin elección guardada: modo gentle, partículas `atmosphere-glow`, opacidad 0.116 → 0.139 tras 900 ms y transform none. 45 animaciones CSS medidas tras implementar la luz suave; documento de 390 px sin desbordamiento.
+- Con el mismo SO reducido, elegir Completo produce `float-up` y 71 animaciones CSS medidas; recargar conserva modo full y localStorage full. Son mediciones durante esa visita, no un número fijo de efectos.
+- Sin efectos: cero animaciones CSS y cero elementos data-reveal con opacidad cero tras cambiar desde Completo. La reversión del contexto GSAP limpia los estados anteriores.
+- Galería Suave: 01 → 02 después de 6400 ms, una tarjeta visible y una accesible; transform de centrado sin escala ni rotación. Pausar galería muestra Reanudar galería y mantiene el mismo capítulo tras 6400 ms. En Sin efectos la navegación es manual.
+- Build de producción servido mediante vite preview, móvil/escritorio: modo gentle automático con reduce=true, pseudo-elementos de flor y marco con gentle-glow y 19 escenas conservadas. Capturas en .qa/motion-controls-mobile.png y .qa/motion-gentle-desktop.png. Sin errores de aplicación registrados.
+- No se publicó ni se comprobó en un Android físico. La versión pública seguirá con la política anterior hasta el siguiente despliegue autorizado.
+
 ## Ampliación de galería y diagnóstico Android — 27/10/2026 18:58 (GMT−6)
 
 Historia: recorrer las siete fotografías, incluidas las dos nuevas de Fotos XV Pri, y distinguir un fallo de despliegue de la preferencia de movimiento del dispositivo.

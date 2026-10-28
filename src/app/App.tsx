@@ -1,6 +1,7 @@
 import { lazy, Suspense, useRef } from "react";
 import { useNarrative } from "../hooks/useNarrative";
 import { Atmosphere } from "../components/ui/Atmosphere";
+import { MotionProvider, useMotion } from "../components/ui/MotionControl";
 import {
   Scene01Flower,
   Scene02Camila,
@@ -30,9 +31,10 @@ import {
 const Memories = lazy(() => import("./Memories"));
 function Invitation() {
   const root = useRef<HTMLDivElement>(null);
-  useNarrative(root);
+  const { mode } = useMotion();
+  useNarrative(root, mode);
   return (
-    <div ref={root} className="invitation">
+    <div ref={root} className="invitation" data-motion={mode}>
       <Atmosphere />
       <main>
         <Scene01Flower />
@@ -64,6 +66,6 @@ export default function App() {
       <Memories />
     </Suspense>
   ) : (
-    <Invitation />
+    <MotionProvider><Invitation /></MotionProvider>
   );
 }
