@@ -1,5 +1,14 @@
 # Verificación de la primera versión
 
+## Inversión exacta de las fotos de la portada de galería — 27/10/2026 22:20 (GMT−6)
+
+- Se invirtieron las dos fotos de WhatsApp en la composición de la portada de galería (`.artwork`, `Gallery.tsx`):
+  - `gallery-hero-main.webp` (atrás, 110.0 KiB): `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` (Camila sentada en el jardín con ramo violeta).
+  - `gallery-hero-secondary.webp` (adelante, 107.8 KiB): `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` (Camila en la escalinata con vestido lavanda).
+- Encuadres calibrados en `src/styles/gallery.css`: `object-position: 50% 50%` para la foto principal y `50% 26%` para la secundaria.
+- Actualización de contrato en `docs/ASSETS.md` y `scripts/prepare-assets.mjs`.
+- Verificación técnica: compilación `npm run build` sin errores y 19 pruebas de Vitest pasando.
+
 ## Inversión de fotos en portada de galería — 27/10/2026 22:15 (GMT−6)
 
 - Se invirtieron las dos fotografías con Pascal en la composición de la portada de la galería (`.artwork`, `Gallery.tsx`):

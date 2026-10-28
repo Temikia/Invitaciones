@@ -1,5 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Inversión exacta de las fotos de la portada de galería — 27/10/2026 22:20 (GMT−6)
+- ✅ Invertida la posición de las dos fotos de WhatsApp en la composición de la portada de la galería (`.artwork`, `Gallery.tsx`):
+  - Foto de atrás (principal, `gallery-hero-main.webp`, 110.0 KiB): `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` (Camila sentada en el jardín con ramo violeta).
+  - Foto de adelante (secundaria, `gallery-hero-secondary.webp`, 107.8 KiB): `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` (Camila en la escalinata con vestido lavanda).
+- ✅ Ajustado `object-position: 50% 50%` para la foto principal y `50% 26%` para la secundaria en `src/styles/gallery.css`.
+- ✅ Actualizado el inventario en `docs/ASSETS.md` y `scripts/prepare-assets.mjs`.
+- ✅ Build y 19 pruebas de Vitest superados con éxito.
+- Commit local: «Invierte las fotos de la portada de galería: jardín atrás y escalinata adelante». Sin push ni despliegue.
+
 ## Inversión de fotos en portada de galería — 27/10/2026 22:15 (GMT−6)
 - ✅ Invertida la composición de las dos fotografías con Pascal en la portada de galería (`.artwork`, `Gallery.tsx`):
   - Foto principal (atrás, `gallery-hero-main.webp`, 261.2 KiB): `_55A1329_(2).jpg` (Camila de pie con Pascal en el hombro).

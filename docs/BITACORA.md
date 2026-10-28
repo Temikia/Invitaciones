@@ -1,5 +1,13 @@
 # Bitácora — semana del 26 de octubre al 1 de noviembre de 2026
 
+## 2026-10-27 22:20 — Ciudad de México (GMT−6)
+
+Aclarada la indicación del usuario, se invirtieron exactamente las dos fotografías que ya estaban en la composición de la portada de la galería (`.artwork`, `Gallery.tsx`), pasando la que estaba adelante a atrás y la de atrás adelante:
+- Foto de atrás (principal): `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` (Camila sentada en el jardín con ramo) optimizada a `gallery-hero-main.webp` (110.0 KiB).
+- Foto de adelante (secundaria): `multimedia/WhatsApp Image 2026-10-27 at 21.25.53.jpeg` (Camila en la escalinata) optimizada a `gallery-hero-secondary.webp` (107.8 KiB).
+
+Encuadres ajustados en `gallery.css` (`object-position: 50% 50%` y `50% 26%`). Originales en `multimedia/` intactos. Build y 19 pruebas de Vitest superados con éxito. Sin push ni despliegue.
+
 ## 2026-10-27 22:15 — Ciudad de México (GMT−6)
 
 A solicitud del usuario (confirmado mediante la consulta interactiva), se invirtieron las dos fotos de la captura con Pascal en la portada de galería (`.artwork`, `Gallery.tsx`):
