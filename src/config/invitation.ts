@@ -29,7 +29,7 @@ export const invitation = {
       "Dios, gracias por la vida, por mi familia y por cada persona que ilumina mi camino. Acompáñame en esta nueva etapa; que nunca me falten la fe para seguir, la gratitud para mirar atrás y el amor para compartir.",
     family:
       "Mamá y papá, gracias por sostener mis sueños y caminar a mi lado. Con el amor de mi familia, quiero invitarte a celebrar mis quince años y a formar parte de un recuerdo que guardaré siempre.",
-    gift: "Compartir este momento contigo es lo que más anhelo en este día tan soñado. Si nace de tu corazón tener un detalle conmigo, una lluvia de sobres será recibida con todo mi cariño.",
+    gift: "Pero si deseas tener un detalle conmigo, te dejo esta opción.",
     thanks:
       "Gracias por acompañarme, por tu cariño y por ser parte de mi historia. Esta noche será más especial porque la compartiré contigo.",
   },
