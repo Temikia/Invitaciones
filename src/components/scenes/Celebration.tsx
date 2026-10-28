@@ -1,5 +1,4 @@
 import {
-  CalendarDays,
   MapPin,
   ArrowUpRight,
   Music2,
@@ -10,16 +9,11 @@ import {
   Heart,
 } from "lucide-react";
 import { invitation } from "../../config/invitation";
-import { getNovemberCalendar } from "../../lib/event";
-import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
+import { Scene, Eyebrow, Divider } from "../ui/Atmosphere";
 import { Gallery } from "../ui/Gallery";
 import { Countdown } from "../ui/Countdown";
 
 export function Scene08Date() {
-  const days = getNovemberCalendar(invitation.event.year);
-  const weeks = Array.from({ length: days.length / 7 }, (_, index) =>
-    days.slice(index * 7, index * 7 + 7),
-  );
   return (
     <Scene
       number={8}
@@ -37,53 +31,6 @@ export function Scene08Date() {
           <Divider />
           <p className="event-time">{invitation.event.timeLabel}</p>
           <p className="small-copy">Hora de Denver, Colorado</p>
-        </div>
-        <div className="calendar" data-reveal>
-          <table className="calendar-table">
-            <caption className="calendar-title">
-              <CalendarDays size={15} /> {invitation.event.monthName}{" "}
-              {invitation.event.year}
-            </caption>
-            <thead>
-              <tr>
-                {[
-                  "Lunes",
-                  "Martes",
-                  "Miércoles",
-                  "Jueves",
-                  "Viernes",
-                  "Sábado",
-                  "Domingo",
-                ].map((day) => (
-                  <th scope="col" key={day}>
-                    <abbr title={day}>{day[0]}</abbr>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {weeks.map((week, index) => (
-                <tr key={index}>
-                  {week.map((day, i) => (
-                    <td key={i}>
-                      <span
-                        className={
-                          day === invitation.event.day ? "selected-day" : ""
-                        }
-                      >
-                        {day}
-                        {day === invitation.event.day ? (
-                          <span className="sr-only">
-                            , día de la celebración
-                          </span>
-                        ) : null}
-                      </span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </Scene>
@@ -170,16 +117,18 @@ export function Scene11Itinerary() {
 export function Scene12Companion() {
   return (
     <Scene number={12} name="Un poco de magia" className="companion-scene">
-      <div className="companion-frame" data-reveal>
-        <img
-          className="cinematic-photo"
-          src={invitation.photos.companion}
-          alt="Camila, un recuerdo lleno de magia"
-          width="1200"
-          height="1600"
-          loading="lazy"
-        />
-        <Ornament name="chameleon" className="little-companion" />
+      <div className="companion-frame glowing-frame" data-reveal>
+        <div className="frame-glow" aria-hidden="true" />
+        <div className="frame-inner">
+          <img
+            className="cinematic-photo"
+            src={invitation.photos.companion}
+            alt="Camila, un recuerdo lleno de magia"
+            width="1200"
+            height="1600"
+            loading="lazy"
+          />
+        </div>
       </div>
       <p className="serif" data-reveal>
         Los mejores sueños

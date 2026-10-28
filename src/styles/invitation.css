@@ -338,36 +338,112 @@ p {
 .portrait-scene {
   padding: 12px 0 40px;
 }
-.hero-portrait {
-  width: min(100%, 620px);
-  margin: auto;
+.glowing-frame {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  border-radius: 48% 48% 0 0;
-  border: 1px solid #b3935c50;
+  padding: 2.5px;
+  background: #140d22;
+  box-shadow: 0 0 22px rgba(157, 78, 221, 0.28), 0 0 36px rgba(223, 184, 119, 0.2);
+}
+.glowing-frame::before {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 240%;
+  height: 240%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 45deg,
+    #9d4edd 90deg,
+    #c77dff 130deg,
+    #ffd780 160deg,
+    #fff8e0 172deg,
+    #dfb877 185deg,
+    #7b2cbf 225deg,
+    transparent 265deg,
+    transparent 360deg
+  );
+  animation: contourBeam 4.5s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+.frame-glow {
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 240%;
+  height: 240%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 40deg,
+    #9d4edd 85deg,
+    #c77dff 125deg,
+    #ffd780 158deg,
+    #fff8e0 172deg,
+    #dfb877 185deg,
+    #7b2cbf 225deg,
+    transparent 270deg,
+    transparent 360deg
+  );
+  animation: contourBeam 4.5s linear infinite;
+  filter: blur(14px);
+  opacity: 0.92;
+  z-index: 1;
+  pointer-events: none;
+}
+.frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 2;
+  background: #140d22;
+}
+@keyframes contourBeam {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hero-portrait {
+  width: min(90%, 500px);
+  margin: auto;
+  border-radius: 250px 250px 0 0;
 }
 .hero-portrait img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 3/4;
+  height: 660px;
+  max-height: 660px;
   object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
-.hero-portrait:after {
+.hero-portrait .frame-inner::after {
   content: "";
   position: absolute;
-  inset: 55% 0 0;
-  background: linear-gradient(transparent, #170e25e8);
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, #170e25ea 85%);
   pointer-events: none;
+  z-index: 2;
 }
 .hero-portrait figcaption {
   position: absolute;
-  bottom: 7%;
+  bottom: 6%;
   left: 5%;
   width: 90%;
   font-family: var(--serif);
-  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 3.8vw, 2.6rem);
   line-height: 1.25;
-  z-index: 1;
+  z-index: 3;
 }
 .hero-portrait figcaption em {
   color: #d9c3d6;
@@ -427,7 +503,6 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 56px;
   margin-top: 15px;
 }
 .date-day {
@@ -651,23 +726,18 @@ p {
   padding: 24px 0 48px;
 }
 .companion-frame {
-  position: relative;
-  max-width: 490px;
+  max-width: 420px;
   margin: auto;
+  border-radius: 210px 210px 0 0;
 }
-.companion-frame > img:first-child {
+.companion-frame img {
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 520px;
+  max-height: 520px;
   object-fit: cover;
-  border-radius: 45% 45% 0 0;
-}
-.little-companion {
-  position: absolute;
-  width: 100px;
-  right: -20px;
-  bottom: -10px;
-  filter: drop-shadow(0 10px 15px #100b1855);
-  transform: rotate(-10deg);
+  object-position: center 25%;
+  display: block;
+  border-radius: inherit;
 }
 .companion-scene > .scene-inner > p {
   font-size: 2rem;
@@ -1100,8 +1170,17 @@ p {
   .portrait-scene {
     padding-bottom: 32px;
   }
+  .hero-portrait {
+    width: min(90%, 330px);
+    border-radius: 165px 165px 0 0;
+  }
+  .hero-portrait img {
+    height: 400px;
+    max-height: 400px;
+  }
   .hero-portrait figcaption {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
+    bottom: 5%;
   }
   .prayer-scene {
     padding-top: 32px;
@@ -1120,20 +1199,16 @@ p {
     padding: 36px 0 40px;
   }
   .date-layout {
-    flex-direction: column;
-    gap: 28px;
+    margin-top: 20px;
   }
   .date-day {
-    font-size: 9rem;
+    font-size: 8rem;
   }
   .date-editorial h2 {
-    font-size: 2.8rem;
+    font-size: 2.6rem;
   }
   .date-editorial .divider {
-    margin: 24px auto;
-  }
-  .calendar {
-    width: 280px;
+    margin: 18px auto;
   }
   .venue-scene {
     padding: 24px 0 40px;
@@ -1182,11 +1257,13 @@ p {
     padding-bottom: 36px;
   }
   .companion-frame {
-    width: 90%;
+    width: min(90%, 320px);
+    border-radius: 160px 160px 0 0;
   }
-  .little-companion {
-    width: 80px;
-    right: -18px;
+  .companion-frame img {
+    height: 380px;
+    max-height: 380px;
+    border-radius: 160px 160px 0 0;
   }
   .countdown-scene {
     padding: 36px 0 40px;

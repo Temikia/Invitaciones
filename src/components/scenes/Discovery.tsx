@@ -59,20 +59,23 @@ export function Scene03Music() {
 export function Scene04Portrait() {
   return (
     <Scene number={4} name="El sueño de Camila" className="portrait-scene">
-      <figure className="hero-portrait" data-reveal>
-        <img
-          className="cinematic-photo"
-          src={invitation.photos.hero}
-          alt="Camila con corona y vestido de quince años color lavanda"
-          width="1200"
-          height="1600"
-          loading="lazy"
-        />
-        <figcaption>
-          Quince años de sueños.
-          <br />
-          <em>Una noche para recordarlos.</em>
-        </figcaption>
+      <figure className="hero-portrait glowing-frame" data-reveal>
+        <div className="frame-glow" aria-hidden="true" />
+        <div className="frame-inner">
+          <img
+            className="cinematic-photo"
+            src={invitation.photos.hero}
+            alt="Camila con corona y vestido de quince años color lavanda"
+            width="1200"
+            height="1600"
+            loading="lazy"
+          />
+          <figcaption>
+            Quince años de sueños.
+            <br />
+            <em>Una noche para recordarlos.</em>
+          </figcaption>
+        </div>
       </figure>
     </Scene>
   );
