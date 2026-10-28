@@ -6,7 +6,7 @@
 - [x ] Hora. -  5:00pm
 - [x ] Año. - 2026
 - [x ] Zona horaria. - Denver Colorado
-- [x ] Recinto.- Zafira event center
+- [x ] Recinto.- Zafiro event center
 - [ x] Dirección. - 3133 peoria st aurora CO 80010, unit 201
 - [x ] Link de Google Maps. - https://maps.app.goo.gl/PR8A7HhYScqkdtkf8?g_st=aw
 - [X ] Nombres de los padres. - Jesus Almerida y Jessica Rodriguez

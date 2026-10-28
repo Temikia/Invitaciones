@@ -14,7 +14,7 @@ export const invitation = {
   },
   parents: ["Jesus Almerida", "Jessica Rodriguez"],
   venue: {
-    name: "Zafira event center",
+    name: "Zafiro event center",
     address: "3133 Peoria St, Unit 201, Aurora, CO 80010",
     mapsUrl: "https://maps.app.goo.gl/PR8A7HhYScqkdtkf8?g_st=aw",
   },
