@@ -1,5 +1,19 @@
 # Invitación de Camila — trabajo en curso
 
+## Integración real de recuerdos con Google Drive — 06/11/2026
+- ✅ Pasos 1 y 2 de `docs/PASOS_GOOGLE_DRIVE.md`: cuenta propietaria, ID de carpeta, Google Drive API y OAuth en modo de pruebas confirmados por la usuaria. Sus respuestas quedaron incorporadas a la guía.
+- ✅ Decisiones operativas: cualquiera con el enlace/QR puede subir; los 90 días parten del cierre de cargas del 07/12/2026 a las 00:00 Denver. El borrado inicia el 07/03/2027 a las 00:00 Denver.
+- ✅ Permiso propuesto y documentado para revisión: `drive.file`, `openid` y `email`; selección explícita de la carpeta mediante Google Picker para evitar acceso general a Drive.
+- ✅ Paso 3 preparado en código: `/api/drive/session` crea sesiones reanudables con credenciales de servidor; el navegador transfiere en bloques y reconsulta el estado si se interrumpe la conexión. `scripts/authorize-drive.mjs` solicita el permiso reducido, valida la cuenta y la carpeta con Picker y guarda el token en `.env` sin imprimirlo. El endpoint permanece apagado si `DRIVE_UPLOADS_ENABLED` no es `true`.
+- ✅ `api/drive/cleanup.js` y Cron diario de Vercel programados para borrar permanentemente desde el 07/03/2027 solo archivos marcados por esta app, autenticados con `CRON_SECRET`.
+- ⏳ La vista web privada de consulta de recuerdos mediante enlace secreto aún no está implementada; no se comparte la carpeta de Drive públicamente.
+- ⏳ Paso 3 operativo: falta habilitar Google Picker API, restringir una clave local, registrar el URI localhost, ejecutar autorización y copiar los nombres de variables a Vercel Preview/Production. Aún no se ha dado consentimiento ni configurado ningún secreto de Vercel.
+- ⏳ Antes de activar: agregar protección contra abuso, ejecutar la comprobación local de la ubicación y rol de la carpeta, configurar Preview, validar bytes/contenido real y CORS, y probar foto/video/reanudación y borrado en entorno controlado.
+- ✅ Verificación local: `npm run build`, `npm test` (19 pruebas), sintaxis de los módulos Node, `vercel.json` y `git diff --check` correctos. La revisión visual no se realizó porque el navegador de control no estuvo disponible.
+- Límite vigente: no solicitar consentimiento OAuth hasta presentar el permiso exacto y el flujo implementado. No desplegar desde esta sesión.
+- Commit local: `e42dab9` — «Integra cargas reanudables privadas en recuerdos».
+- Siguiente paso: la usuaria habilita Picker, agrega el origen y URI localhost, y ejecuta `npm run drive:authorize`; después se configuran Preview y la protección contra abuso. La vista web de consulta por enlace secreto queda pendiente.
+
 ## Preparación de Google Drive — 06/11/2026 14:35 (GMT−6)
 - ✅ Creada `docs/PASOS_GOOGLE_DRIVE.md` con las acciones de la usuaria y las tareas de implementación separadas por fases.
 - ✅ Acceso elegido para la galería: privada con enlace secreto.

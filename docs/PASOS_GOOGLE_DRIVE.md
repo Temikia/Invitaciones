@@ -14,9 +14,12 @@ Esta guía separa las acciones que necesito de Camila de la implementación que 
 ## Paso 1: datos que necesito ahora
 
 1. **Identifica la cuenta de Google que es dueña de la carpeta** `Mis-XV-Camila`. Debe ser la cuenta que autorizará la aplicación y tener espacio disponible en Drive.
-2. **Obtén el ID de la carpeta**: ábrela en Google Drive y copia solo la parte que aparece después de `/folders/` en la dirección. Envíame ese ID y dime si la carpeta está en “Mi unidad” o en una unidad compartida. No cambies el uso compartido a “cualquier persona”.
-3. **Confirma el proyecto de Google Cloud** del que proceden las credenciales OAuth que ya subiste. En ese proyecto, habilita **Google Drive API**. [Guía oficial para habilitar APIs](https://developers.google.com/workspace/guides/enable-apis).
+R: temikia.agency@gmail.com
 
+2. **Obtén el ID de la carpeta**: ábrela en Google Drive y copia solo la parte que aparece después de `/folders/` en la dirección. Envíame ese ID y dime si la carpeta está en “Mi unidad” o en una unidad compartida. No cambies el uso compartido a “cualquier persona”.
+R: 1nRdKntaJdXVdH_FvbLijCxCA3g_zbohM
+3. **Confirma el proyecto de Google Cloud** del que proceden las credenciales OAuth que ya subiste. En ese proyecto, habilita **Google Drive API**. [Guía oficial para habilitar APIs](https://developers.google.com/workspace/guides/enable-apis).
+R: Listo
 ## Paso 2: OAuth en Google Cloud
 
 Haz esto en el mismo proyecto de Cloud:
@@ -26,24 +29,34 @@ Haz esto en el mismo proyecto de Cloud:
 3. Mantén la aplicación en pruebas por ahora. Cuando el código esté listo, te indicaré el permiso exacto que usará y si hace falta cambiar el estado de publicación. No añadas permisos ni publiques la aplicación antes de esa revisión.
 4. No crees ni compartas una clave de cuenta de servicio. Para esta carpeta usaremos la autorización OAuth de la cuenta propietaria.
 
+R: Todo OK
+
+## Permiso previsto para la integración
+
+La integración solicitará `https://www.googleapis.com/auth/drive.file` junto con `openid` y `email` para identificar a la cuenta autorizada. `drive.file` limita el acceso a los archivos que la usuaria cree o seleccione explícitamente para la app; no da acceso general a todo Drive. Para autorizar la carpeta existente se usará Google Picker y se verificará que el ID elegido sea `1nRdKntaJdXVdH_FvbLijCxCA3g_zbohM`. Antes de pedir consentimiento habrá que habilitar Google Picker API y crear una clave API restringida a esa API y al dominio de la preview. La carpeta permanecerá privada.
+
+El consentimiento seguirá pendiente hasta que la implementación esté lista y se revise este permiso. En estado de pruebas, Google puede caducar el token de actualización de Drive a los siete días; no se activarán cargas de invitados hasta resolver la vigencia de la autorización.
+
 Google requiere acceso sin conexión para que el servidor pueda renovar la autorización cuando la cuenta no esté abierta. En modo de pruebas, un token OAuth de Drive puede caducar a los siete días; lo revisaremos antes de activar las cargas para invitados. [OAuth de servidor](https://developers.google.com/identity/protocols/oauth2/web-server) · [Caducidad del token en modo de pruebas](https://developers.google.com/identity/protocols/oauth2#expiration).
 
-## Paso 3: autorización y secretos, cuando te lo indique
+## Paso 3: autorización y secretos
 
-Después de implementar el flujo en el proyecto:
+El código local ya está preparado en `scripts/authorize-drive.mjs`; aún no se ha ejecutado ni se ha pedido consentimiento OAuth.
 
-1. Abre el enlace de autorización que te proporcionaré e inicia sesión con la cuenta dueña de la carpeta.
-2. Revisa el permiso solicitado y apruébalo. El flujo guardará la autorización necesaria para que el servidor suba archivos a Drive.
-3. No pegues el token resultante en el chat ni lo guardes en un archivo que se suba a GitHub. Si el flujo requiere que lo configures manualmente, te daré los nombres exactos de las variables y el procedimiento.
-4. En Vercel, abre el proyecto de la invitación y ve a **Settings → Environment Variables**. Añade allí los secretos que te indicaré, al menos para **Preview** y **Production**. Los valores deben quedar disponibles solo para el servidor; nunca deben empezar con `VITE_`.
-5. Guarda los cambios y despliega una nueva preview para que Vercel cargue las variables. [Documentación de variables de entorno de Vercel](https://vercel.com/docs/environment-variables/managing-environment-variables).
+1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Añade `GOOGLE_PICKER_API_KEY` a tu `.env` local. La clave se utiliza solo en la pantalla local de configuración y no se compila en el frontend.
+2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.
+3. Ejecuta `npm run drive:authorize`. Abre el enlace que muestra la terminal e inicia sesión con `temikia.agency@gmail.com`. Revisa el permiso exacto: `drive.file`, `openid` y `email`. No concede acceso general a Drive.
+4. En el selector de Google, elige la carpeta `Mis-XV-Camila` y confirma. El script verifica cuenta e ID y guarda `GOOGLE_REFRESH_TOKEN` y `DRIVE_FOLDER_ID` en el `.env` ignorado por Git. No imprime el token ni lo envía al chat.
+5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Son secretos de servidor salvo el ID de carpeta; nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta completar la revisión de abuso y pruebas.
+6. Guarda las variables y despliega una nueva preview para que Vercel las cargue. [Documentación de variables de entorno de Vercel](https://vercel.com/docs/environment-variables/managing-environment-variables).
 
-Las cargas grandes usarán el mecanismo reanudable de Drive para tolerar interrupciones de red y evitar enviar videos de cientos de MB en una sola petición al servidor. [Cargas reanudables de Drive](https://developers.google.com/workspace/drive/api/guides/manage-uploads).
+Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupciones de red y evitar enviar videos de cientos de MB en una sola petición al servidor. La función de Vercel solo inicia cada sesión; el navegador transfiere los datos directamente a Google Drive. [Cargas reanudables de Drive](https://developers.google.com/workspace/drive/api/guides/manage-uploads).
 
 ## Paso 4: dos decisiones operativas antes de activar
 
-- **Quién puede subir:** elige entre (a) cualquier persona con el enlace/QR de la invitación, o (b) personas que además tengan un código de carga. La galería conservará su enlace secreto por separado.
-- **Cuándo borrar:** confirma si los 90 días se cuentan desde cada carga o desde una fecha fija posterior al evento. La limpieza automática debe aplicar exactamente esa regla.
+- **Quién puede subir:** ✅ cualquiera con el enlace/QR de la invitación. La galería conservará su enlace secreto por separado. Antes de activar se implementará protección contra abuso.
+- **Cuándo borrar:** ✅ los 90 días se cuentan desde el cierre de cargas: 7 de diciembre de 2026 a las 00:00, hora de Denver. La limpieza programada empieza el 7 de marzo de 2027 a las 00:00 de Denver (07:00 UTC). Solo borra archivos creados por esta integración; el resto de la carpeta no se toca.
+- **Ubicación de carpeta:** el flujo local consulta Drive y confirma si está en “Mi unidad” o en una unidad compartida. Si está en una unidad compartida, exige que la cuenta pueda borrar archivos (rol de organizadora) para respetar la retención.
 
 ## Paso 5: revisión contigo en la preview
 
@@ -53,6 +66,9 @@ Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 2. Probar un video y una interrupción de red para confirmar que la carga se reanuda y muestra su estado real.
 3. Abrir la galería con el enlace secreto y confirmar que la carpeta no se hizo pública.
 4. Confirmar el cierre de cargas y la regla de eliminación programada.
+5. Revisar CORS desde el navegador y cómo detectar contenido que no corresponde a su extensión/MIME declarado; el backend no recibe los bytes durante la transferencia directa.
+
+La vista web de consulta de la galería con enlace secreto todavía no está implementada; los archivos permanecen privados en Drive y no se hará pública la carpeta.
 
 ## Referencias
 
