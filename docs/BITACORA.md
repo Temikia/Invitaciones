@@ -1,5 +1,11 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 17:00 — Ciudad de México (GMT−6)
+
+La captura de credenciales muestra la clave con una sola API permitida; la verificación local anterior confirmó que esa clave permite Google Drive API. Google Picker requiere que la restricción permita **Google Picker API**, por lo que esta es la causa probable del error persistente. Se actualizó el manual y `EN_CURSO.md` con la corrección: habilitar Picker API en el proyecto y añadirla a las APIs permitidas de la clave, manteniendo los referentes actuales. No se modificaron secretos ni se creó otra clave.
+
+Siguiente paso: permitir Google Picker API en la clave, esperar la propagación, reiniciar el flujo local y seleccionar la carpeta.
+
 ## 2026-11-06 16:39 — Ciudad de México (GMT−6)
 
 El error «The API developer key is invalid» sigue apareciendo aunque la usuaria repitió todos los pasos. Se verificó la clave del `.env` contra Google sin mostrar su valor: tiene el formato correcto (39 caracteres, `AIza`, sin comillas ni espacios), ninguna variable del sistema la reemplaza, Google la reconoce como existente (la clave falsa de control da `API_KEY_INVALID`), pertenece al mismo proyecto que el cliente OAuth (`appId`), acepta los referentes `http://127.0.0.1:8788/` y `https://docs.google.com/`, permite Google Drive API y bloquea APIs ajenas. Tampoco había ningún proceso viejo en el puerto 8788. Se descartan el `.env` desactualizado, los referentes, el proyecto equivocado y un proceso en caché. Queda por comprobar lo que solo se ve en la consola o desde el propio Picker: si **Google Picker API** está habilitada en el proyecto y figura en las API permitidas de la clave. No se pudo reproducir en el navegador porque la extensión de Chrome no estaba conectada.

@@ -43,7 +43,7 @@ Google requiere acceso sin conexión para que el servidor pueda renovar la autor
 
 El código local ya está preparado en `scripts/authorize-drive.mjs`. La autorización ya se intentó; Google Picker rechazó la clave API y el guardado del token no está confirmado.
 
-1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Guarda esa clave en `GOOGLE_PICKER_API_KEY` de tu `.env` local, reemplazando cualquier valor anterior. `scripts/authorize-drive.mjs` lee la variable al iniciar, así que después de cambiarla hay que detener y volver a iniciar el proceso. La clave se utiliza solo en la pantalla local de configuración y no se compila en el frontend.
+1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Guarda esa clave en `GOOGLE_PICKER_API_KEY` de tu `.env` local, reemplazando cualquier valor anterior. `scripts/authorize-drive.mjs` lee la variable al iniciar, así que después de cambiarla hay que detener y volver a iniciar el proceso. El navegador recibe la clave para abrir Picker; no es un secreto OAuth, por lo que su seguridad depende de sus restricciones de API y referentes.
 2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.
 3. Ejecuta `npm run drive:authorize`. Abre el enlace que muestra la terminal e inicia sesión con `temikia.agency@gmail.com`. Revisa el permiso exacto: `drive.file`, `openid` y `email`. No concede acceso general a Drive.
 4. En el selector de Google, elige la carpeta `Mis-XV-Camila` y confirma. El script verifica cuenta e ID y guarda `GOOGLE_REFRESH_TOKEN` y `DRIVE_FOLDER_ID` en el `.env` ignorado por Git. No imprime el token ni lo envía al chat.
@@ -55,9 +55,11 @@ El código local ya está preparado en `scripts/authorize-drive.mjs`. La autoriz
 Este mensaje aparece después de volver al callback local y significa que Picker rechazó `GOOGLE_PICKER_API_KEY`; no es un rechazo del consentimiento OAuth. En Google Cloud Console, confirma en el mismo proyecto que:
 
 1. **Google Picker API** está habilitada.
-2. La variable local `GOOGLE_PICKER_API_KEY` contiene la clave API vigente, no una clave anterior; reemplazarla en Google Cloud no actualiza automáticamente `.env`. No compartas su valor.
+2. La variable local `GOOGLE_PICKER_API_KEY` contiene la clave API vigente, no una clave anterior; reemplazarla en Google Cloud no actualiza automáticamente `.env`.
 3. Si la clave tiene restricción de sitios web, incluye exactamente `http://127.0.0.1:8788/*` y `https://docs.google.com/*`. Picker se carga dentro de un iframe en `docs.google.com`; omitir ese referente produce este error.
 4. Si la clave tiene restricción por API, permite **Google Picker API**. Añade también **Google Drive API** si la clave se usa en solicitudes directas a Drive.
+
+La lista de credenciales puede resumir las restricciones como “URL de referencia HTTP, 1 API”; abre la clave y confirma que esa API sea **Google Picker API**. Si solo permite Google Drive API, Picker la rechazará. No hace falta rotar la clave únicamente porque aparezca en una captura; conserva las restricciones y evita volver a mostrar el valor.
 
 Después de corregirlo, espera a que se aplique el cambio, detén el proceso local con `Ctrl+C` y vuelve a ejecutar `npm run drive:authorize` para iniciar una autorización nueva. Si rotaste o creaste otra clave, reemplázala primero en `.env`. No reutilices ni compartas la dirección completa del callback. El token solo queda guardado después de elegir y verificar la carpeta.
 
