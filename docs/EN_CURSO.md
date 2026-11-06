@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Documentación reutilizable de Google Drive — 06/11/2026
+- ✅ Creada `docs/GOOGLE_DRIVE_REUTILIZABLE.md`: arquitectura, credenciales, contrato OAuth/Picker, ejecución local, diagnóstico con evidencia, adaptación, renovación y límites de producción. Enlazada desde README y manual; decisiones y verificación actualizadas. Revisados rutas locales y formato del diff.
+- Base funcional: autorización y selección real de carpeta completadas, corrección `c1efc0c`, confirmación documentada en `87f8894`.
+- Alcance: documentación para reutilizar el método; no se replicaron secretos ni se configuraron otros repositorios.
+- Commit de esta fase: «Documenta método reutilizable de Google Drive y Picker»; base funcional `c1efc0c`, confirmación `87f8894`.
+- Siguiente paso: abrir una conversación nueva para protección contra abuso y consulta privada; los pendientes de activación siguen descritos abajo.
+
 ## Integración real de recuerdos con Google Drive — 06/11/2026
 - ✅ Pasos 1 y 2 de `docs/PASOS_GOOGLE_DRIVE.md`: cuenta propietaria, ID de carpeta, Google Drive API y OAuth en modo de pruebas confirmados por la usuaria. Sus respuestas quedaron incorporadas a la guía.
 - ✅ Decisiones operativas: cualquiera con el enlace/QR puede subir; los 90 días parten del cierre de cargas del 07/12/2026 a las 00:00 Denver. El borrado inicia el 07/03/2027 a las 00:00 Denver.

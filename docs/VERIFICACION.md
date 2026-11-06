@@ -1,5 +1,14 @@
 # Verificación de la primera versión
 
+## Autorización de Google Drive — 06/11/2026
+
+- Corrección de referencia: `c1efc0c`; confirmación funcional: `87f8894`.
+- Se revisaron en Chrome las APIs y los referentes de la clave: eran correctos. Se cambió la política del autorizador de `no-referrer` a `origin` y se fijó `setOrigin` en Picker.
+- El servidor reiniciado respondió con `Referrer-Policy: origin` en una petición sin código OAuth; devolvió el 400 de validación de estado esperado. Esta comprobación no intercambió códigos ni expuso tokens.
+- La usuaria completó consentimiento y selector; compartió la confirmación real de carpeta comprobada en Mi unidad y token guardado. No se leyó `.env` para repetir la comprobación.
+- Sintaxis del autorizador, build y las 19 pruebas existentes correctos durante la corrección. No hubo prueba A/B para aislar los dos cambios de Picker, ni validación de uploads/renovación/borrado en producción.
+- Las guías nuevas se contrastaron con el código y fuentes oficiales; se revisaron rutas locales y formato del diff. [Método y diagnóstico reutilizables](GOOGLE_DRIVE_REUTILIZABLE.md).
+
 ## Inversión exacta de las fotos de la portada de galería — 27/10/2026 22:20 (GMT−6)
 
 - Se invirtieron las dos fotos de WhatsApp en la composición de la portada de galería (`.artwork`, `Gallery.tsx`):

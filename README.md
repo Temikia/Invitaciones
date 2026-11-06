@@ -25,7 +25,7 @@ El proyecto incluye los recursos de producción necesarios para compilar. Los or
 - Build: `npm run build`.
 - Output: `dist`.
 - Node.js: **24.x**.
-- No se requieren variables de entorno para esta primera versión. La clave Google se usa solo localmente para generar fondos; nunca debe llevar prefijo `VITE_` ni incluirse en el frontend.
+- La invitación estática no requiere variables de entorno. El backend de recuerdos sí requiere las variables de servidor descritas en la guía de Drive. Las claves de generación de fondos se usan solo localmente; los secretos de servidor nunca deben llevar prefijo `VITE_` ni incluirse en el frontend.
 - `/recuerdos` tiene rewrite a la aplicación. QR y botón usan el mismo origen del despliegue.
 - `noindex` evita indexación solicitada a buscadores; no representa control de acceso. El álbum no tiene galería pública.
 
@@ -45,9 +45,11 @@ La música solo se solicita después de pulsar reproducir. Su botón se vuelve f
 
 ## Recuerdos: siguiente fase
 
+Documentación de Drive: [pasos y estado del evento](docs/PASOS_GOOGLE_DRIVE.md) · [método reutilizable, diagnóstico y adaptación a otros proyectos](docs/GOOGLE_DRIVE_REUTILIZABLE.md). La autorización local de la carpeta ya quedó completada; las cargas para invitados todavía requieren las validaciones indicadas abajo.
+
 La ruta `/recuerdos` muestra la carga solo cuando el backend confirma que está configurado y habilitado; una preview incompleta mantiene oculta la selección. El servidor valida nombre, extensión, MIME declarado y tamaño, e inicia una sesión reanudable de Drive; el navegador transfiere bloques directamente y muestra progreso real. Como el backend no recibe los bytes, la inspección del contenido real y las pruebas CORS en teléfono siguen pendientes antes de activar. No informa éxito hasta que Google Drive completa la carga. La vista web de consulta por enlace secreto aún no está implementada; la carpeta de Drive permanece privada.
 
-Funciones de Vercel crean sesiones de carga reanudable; el navegador envía los archivos directamente a Google Drive para evitar pasar videos de 400 MB por el body de una función. Antes de activar se requieren protección contra abuso y pruebas en la preview. Las credenciales no llegan al cliente. El sistema no usa el conector personal de Drive como backend de invitados.
+Funciones de Vercel crean sesiones de carga reanudable; el navegador envía los archivos directamente a Google Drive para evitar pasar videos de 400 MB por el body de una función. Antes de activar se requieren protección contra abuso y pruebas en la preview. El secreto OAuth y el refresh token no llegan al cliente de invitados. El sistema no usa el conector personal de Drive como backend de invitados.
 
 El permiso previsto es `drive.file` más `openid` y `email`, con selección explícita de la carpeta mediante Google Picker. `npm run drive:authorize` ejecuta la autorización local, valida el acceso de borrado y guarda el token en `.env` sin imprimirlo. La carpeta sigue privada. En modo de pruebas, el token Drive puede caducar a los siete días. La limpieza diaria de Vercel empieza el 7 de marzo de 2027 a las 00:00 de Denver (programada a las 07:00 UTC) y elimina solo archivos marcados por la app. Las cargas siguen desactivadas hasta configurar la autorización en Vercel y completar protección contra abuso y pruebas.
 

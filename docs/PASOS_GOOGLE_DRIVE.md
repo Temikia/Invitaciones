@@ -2,6 +2,8 @@
 
 Esta guía separa las acciones que necesito de Camila de la implementación que haré en el proyecto. No compartas contraseñas, secretos de OAuth ni tokens en el chat.
 
+Para reproducir el método en otro proyecto, consultar [Google Drive con OAuth y Picker: método reutilizable](GOOGLE_DRIVE_REUTILIZABLE.md). Incluye arquitectura, contratos del script, diagnóstico del incidente, adaptación y límites de producción; esta guía conserva las decisiones propias del evento.
+
 ## Decisiones ya tomadas
 
 - Los archivos se guardarán en la carpeta de Drive `Mis-XV-Camila`.
@@ -33,9 +35,9 @@ R: Todo OK
 
 ## Permiso previsto para la integración
 
-La integración solicitará `https://www.googleapis.com/auth/drive.file` junto con `openid` y `email` para identificar a la cuenta autorizada. `drive.file` limita el acceso a los archivos que la usuaria cree o seleccione explícitamente para la app; no da acceso general a todo Drive. Para autorizar la carpeta existente se usará Google Picker y se verificará que el ID elegido sea `1nRdKntaJdXVdH_FvbLijCxCA3g_zbohM`. Antes de pedir consentimiento habrá que habilitar Google Picker API y crear una clave API restringida a esa API y al dominio de la preview. La carpeta permanecerá privada.
+La integración utiliza `https://www.googleapis.com/auth/drive.file` junto con `openid` y `email` para identificar a la cuenta autorizada. `drive.file` limita el acceso a los archivos que la usuaria cree o seleccione explícitamente para la app; no da acceso general a todo Drive. La carpeta existente se autorizó mediante Google Picker y se verificó el ID `1nRdKntaJdXVdH_FvbLijCxCA3g_zbohM`. Picker API y la clave restringida a la pantalla local ya están configuradas. La carpeta permanece privada; el selector de autorización no se ejecuta en la preview pública.
 
-El consentimiento seguirá pendiente hasta que la implementación esté lista y se revise este permiso. En estado de pruebas, Google puede caducar el token de actualización de Drive a los siete días; no se activarán cargas de invitados hasta resolver la vigencia de la autorización.
+El consentimiento y el guardado local ya se completaron. En estado de pruebas, Google puede caducar el token de actualización de Drive a los siete días; no se activarán cargas de invitados hasta resolver la vigencia de la autorización.
 
 Google requiere acceso sin conexión para que el servidor pueda renovar la autorización cuando la cuenta no esté abierta. En modo de pruebas, un token OAuth de Drive puede caducar a los siete días; lo revisaremos antes de activar las cargas para invitados. [OAuth de servidor](https://developers.google.com/identity/protocols/oauth2/web-server) · [Caducidad del token en modo de pruebas](https://developers.google.com/identity/protocols/oauth2#expiration).
 
@@ -86,6 +88,9 @@ Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 La vista web de consulta de la galería con enlace secreto todavía no está implementada; los archivos permanecen privados en Drive y no se hará pública la carpeta.
 
 ## Referencias
+
+- [Integración oficial de Picker](https://developers.google.com/workspace/drive/picker/guides/web-picker)
+- [Método reutilizable e incidente resuelto](GOOGLE_DRIVE_REUTILIZABLE.md)
 
 - [Habilitar APIs de Google Workspace](https://developers.google.com/workspace/guides/enable-apis)
 - [OAuth 2.0 para aplicaciones de servidor](https://developers.google.com/identity/protocols/oauth2/web-server)

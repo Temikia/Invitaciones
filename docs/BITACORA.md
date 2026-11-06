@@ -1,5 +1,12 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 17:28 — Ciudad de México (GMT−6)
+
+Se documentó el método reutilizable de OAuth y Google Picker para futuros proyectos: arquitectura, separación de credenciales, configuración de Cloud, contrato del autorizador, diagnóstico por etapas, operación en Windows, portabilidad y límites de producción. Se registraron la causa comprobada, las hipótesis descartadas y el alcance de las verificaciones; no se presenta la autorización local como prueba de cargas o renovación. Se corrigieron textos desactualizados sobre consentimiento pendiente y se enlazó la guía desde README, manual, decisiones y verificación. No se copiaron secretos ni se modificó código. Se comprobaron rutas locales y formato del diff. Commit de la fase: «Documenta método reutilizable de Google Drive y Picker».
+
+Siguiente paso: protección contra abuso y consulta privada en una conversación nueva; después Preview y validación real previa autorización de despliegue.
+
+
 ## 2026-11-06 17:23 — Ciudad de México (GMT−6)
 
 La usuaria confirmó con captura que Picker permitió seleccionar la carpeta, se verificó su ubicación en Mi unidad y el token quedó guardado en .env. Queda comprobada la corrección de referente del commit c1efc0c; las hipótesis anteriores sobre una clave desactualizada o una API ausente no explicaban el fallo final. Se actualizan manual y estado sin leer secretos. Siguiente fase: protección contra abuso y consulta privada, seguida de configuración y pruebas en Preview previa autorización de despliegue. Antes de invitados se debe resolver la caducidad del token en modo de pruebas.
