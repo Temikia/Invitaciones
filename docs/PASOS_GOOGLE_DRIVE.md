@@ -41,7 +41,7 @@ Google requiere acceso sin conexión para que el servidor pueda renovar la autor
 
 ## Paso 3: autorización y secretos
 
-El código local ya está preparado en `scripts/authorize-drive.mjs`. La autorización ya se intentó; Google Picker rechazó la clave API y el guardado del token no está confirmado.
+El código local ya está preparado en `scripts/authorize-drive.mjs`. Autorización local completada: carpeta verificada en **Mi unidad** y token guardado en `.env`, confirmado por la usuaria. La corrección de `Referrer-Policy: origin` permitió validar la clave restringida sin enviar los parámetros OAuth como referente.
 
 1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Guarda esa clave en `GOOGLE_PICKER_API_KEY` de tu `.env` local, reemplazando cualquier valor anterior. `scripts/authorize-drive.mjs` lee la variable al iniciar, así que después de cambiarla hay que detener y volver a iniciar el proceso. El navegador recibe la clave para abrir Picker; no es un secreto OAuth, por lo que su seguridad depende de sus restricciones de API y referentes.
 2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.

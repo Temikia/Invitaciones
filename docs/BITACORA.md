@@ -1,5 +1,10 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 17:23 — Ciudad de México (GMT−6)
+
+La usuaria confirmó con captura que Picker permitió seleccionar la carpeta, se verificó su ubicación en Mi unidad y el token quedó guardado en .env. Queda comprobada la corrección de referente del commit c1efc0c; las hipótesis anteriores sobre una clave desactualizada o una API ausente no explicaban el fallo final. Se actualizan manual y estado sin leer secretos. Siguiente fase: protección contra abuso y consulta privada, seguida de configuración y pruebas en Preview previa autorización de despliegue. Antes de invitados se debe resolver la caducidad del token en modo de pruebas.
+
+
 ## 2026-11-06 17:21 — Ciudad de México (GMT−6)
 
 Se controló Chrome mediante la skill computer-use y se confirmaron ambas APIs y referentes correctos. Se corrigió el script local para enviar solo el origen como referente y declarar el origen de Picker, evitando eliminar el dato que Google necesita para validar la clave restringida. La herramienta de control detuvo la navegación al no poder verificar la URL. El servidor quedó reiniciado mediante Start-Process oculto con salida directa: el log tiene 692 bytes y el enlace existe, sin imprimir sus parámetros. Sintaxis del script válida, build y 19 pruebas correctos. Pendiente prueba real de consentimiento/selector y guardado.
