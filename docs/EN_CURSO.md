@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Preparación de Google Drive — 06/11/2026 14:35 (GMT−6)
+- ✅ Creada `docs/PASOS_GOOGLE_DRIVE.md` con las acciones de la usuaria y las tareas de implementación separadas por fases.
+- ✅ Acceso elegido para la galería: privada con enlace secreto.
+- ✅ La guía cubre ID y ubicación de carpeta, API y OAuth, resguardo de secretos, variables de Vercel, política de acceso a cargas, retención y revisión en preview.
+- ⏳ No se modificó la aplicación ni se leyó/imprimió el contenido de secretos.
+- Siguiente paso: recibir el ID y ubicación de `Mis-XV-Camila`, confirmar la cuenta propietaria, habilitar Drive API y definir acceso a cargas y cómputo de los 90 días.
+- Commit local: «Documenta los pasos para configurar Google Drive».
+
 ## Selector de idioma EN/ES y contenido dinámico — 06/11/2026 14:19 (GMT−6)
 - ✅ Añadido el switch **En | Es** con acabado dorado en la cabecera, y en la ruta `/recuerdos`.
 - ✅ Traducidos los textos de las 19 escenas, galería, accesibilidad, fecha y horario según `America/Denver`, itinerario, audio, cuenta regresiva, RSVP y recuerdos. La preferencia se guarda localmente; también cambia `html[lang]`, el título y la descripción de la página.
