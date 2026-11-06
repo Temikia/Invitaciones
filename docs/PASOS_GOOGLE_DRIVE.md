@@ -41,9 +41,9 @@ Google requiere acceso sin conexión para que el servidor pueda renovar la autor
 
 ## Paso 3: autorización y secretos
 
-El código local ya está preparado en `scripts/authorize-drive.mjs`; aún no se ha ejecutado ni se ha pedido consentimiento OAuth.
+El código local ya está preparado en `scripts/authorize-drive.mjs`. La autorización ya se intentó; Google Picker rechazó la clave API y el guardado del token no está confirmado.
 
-1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Añade `GOOGLE_PICKER_API_KEY` a tu `.env` local. La clave se utiliza solo en la pantalla local de configuración y no se compila en el frontend.
+1. En el mismo proyecto de Cloud, habilita **Google Picker API**. Crea una clave API y restríngela a Google Picker API y a estos referentes: `http://127.0.0.1:8788/*` y `https://docs.google.com/*` (el selector se abre dentro de un iframe de Google). Guarda esa clave en `GOOGLE_PICKER_API_KEY` de tu `.env` local, reemplazando cualquier valor anterior. `scripts/authorize-drive.mjs` lee la variable al iniciar, así que después de cambiarla hay que detener y volver a iniciar el proceso. La clave se utiliza solo en la pantalla local de configuración y no se compila en el frontend.
 2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.
 3. Ejecuta `npm run drive:authorize`. Abre el enlace que muestra la terminal e inicia sesión con `temikia.agency@gmail.com`. Revisa el permiso exacto: `drive.file`, `openid` y `email`. No concede acceso general a Drive.
 4. En el selector de Google, elige la carpeta `Mis-XV-Camila` y confirma. El script verifica cuenta e ID y guarda `GOOGLE_REFRESH_TOKEN` y `DRIVE_FOLDER_ID` en el `.env` ignorado por Git. No imprime el token ni lo envía al chat.
@@ -55,11 +55,11 @@ El código local ya está preparado en `scripts/authorize-drive.mjs`; aún no se
 Este mensaje aparece después de volver al callback local y significa que Picker rechazó `GOOGLE_PICKER_API_KEY`; no es un rechazo del consentimiento OAuth. En Google Cloud Console, confirma en el mismo proyecto que:
 
 1. **Google Picker API** está habilitada.
-2. La variable local `GOOGLE_PICKER_API_KEY` contiene la clave API recién creada, sin comillas ni espacios extra. No compartas su valor.
+2. La variable local `GOOGLE_PICKER_API_KEY` contiene la clave API vigente, no una clave anterior; reemplazarla en Google Cloud no actualiza automáticamente `.env`. No compartas su valor.
 3. Si la clave tiene restricción de sitios web, incluye exactamente `http://127.0.0.1:8788/*` y `https://docs.google.com/*`. Picker se carga dentro de un iframe en `docs.google.com`; omitir ese referente produce este error.
 4. Si la clave tiene restricción por API, permite **Google Picker API**. Añade también **Google Drive API** si la clave se usa en solicitudes directas a Drive.
 
-Después de corregirlo, espera a que se aplique el cambio, detén el proceso local con `Ctrl+C` y vuelve a ejecutar `npm run drive:authorize` para iniciar una autorización nueva. No reutilices ni compartas la dirección completa del callback. El token solo queda guardado después de elegir y verificar la carpeta.
+Después de corregirlo, espera a que se aplique el cambio, detén el proceso local con `Ctrl+C` y vuelve a ejecutar `npm run drive:authorize` para iniciar una autorización nueva. Si rotaste o creaste otra clave, reemplázala primero en `.env`. No reutilices ni compartas la dirección completa del callback. El token solo queda guardado después de elegir y verificar la carpeta.
 
 Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupciones de red y evitar enviar videos de cientos de MB en una sola petición al servidor. La función de Vercel solo inicia cada sesión; el navegador transfiere los datos directamente a Google Drive. [Cargas reanudables de Drive](https://developers.google.com/workspace/drive/api/guides/manage-uploads).
 

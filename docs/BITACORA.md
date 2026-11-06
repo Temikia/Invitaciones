@@ -1,5 +1,11 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 16:13 — Ciudad de México (GMT−6)
+
+Las capturas nuevas confirman que la clave nueva está limitada a Google Picker API y Google Drive API, y contiene ambos referentes requeridos. El error persiste; lo más probable es que el proceso y `.env` sigan usando la clave anterior, porque crear/rotar una clave en Cloud no cambia la variable local. Una captura expuso el valor completo de la clave nueva, por lo que no debe reutilizarse: crear otra, restringirla igual, reemplazar `GOOGLE_PICKER_API_KEY` en `.env` y reiniciar el flujo. Se actualizaron el manual y el estado; no se leyó ni se editó `.env`.
+
+Siguiente paso: reemplazar la clave expuesta y actualizar `.env` sin compartir el valor; reiniciar `npm run drive:authorize` y verificar que Picker permita elegir la carpeta.
+
 ## 2026-11-06 16:02 — Ciudad de México (GMT−6)
 
 Se diagnosticó el segundo error de autorización: la cuenta regresó al callback local, pero Google Picker mostró “The API developer key is invalid”. La causa está en la configuración o restricción de `GOOGLE_PICKER_API_KEY`, no en la devolución OAuth. Se añadió a `PASOS_GOOGLE_DRIVE.md` una lista para revisar API habilitada, clave y referentes `127.0.0.1`/`docs.google.com`, y se actualizó `EN_CURSO.md`. No se leyó ni imprimió ningún secreto; no se confirmó que el token se haya guardado.
