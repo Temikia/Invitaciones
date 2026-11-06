@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 import { invitation } from "../../config/invitation";
+import { useLanguage } from "../../config/language";
 import "../../styles/magic-hero.css";
 
 export function MagicGardenHero() {
+  const { t } = useLanguage();
   const introRef = useRef<HTMLElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -164,7 +166,7 @@ export function MagicGardenHero() {
       data-scene={1}
       id="inicio"
       ref={introRef}
-      aria-label="Una historia comienza · El jardín de los sueños de Camila"
+      aria-label={t("hero.label")}
       className="intro magic-hero"
     >
       <div className="hero-noise" aria-hidden="true" />
@@ -173,7 +175,7 @@ export function MagicGardenHero() {
         <img
           className="art-image cinema"
           src={invitation.photos.heroGarden}
-          alt="Camila en el jardín encantado"
+          alt={t("hero.alt")}
           width="1536"
           height="614"
           fetchPriority="high"
@@ -189,14 +191,14 @@ export function MagicGardenHero() {
 
       <div className="content">
         <div className="copy">
-          <div className="kicker">El comienzo de algo inolvidable</div>
+          <div className="kicker">{t("hero.kicker")}</div>
           <h1>
-            <span>Hay sueños</span>
-            <span>que un día</span>
-            <em>florecen.</em>
+            <span>{t("hero.line1")}</span>
+            <span>{t("hero.line2")}</span>
+            <em>{t("hero.line3")}</em>
           </h1>
           <div className="quote-block">
-            <p className="quote">{invitation.messages.opening}</p>
+            <p className="quote">{t("message.opening")}</p>
             <div className="sign">— {invitation.honoree}</div>
           </div>
         </div>

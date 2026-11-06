@@ -2,9 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Pause, Play } from "lucide-react";
 import { invitation } from "../../config/invitation";
+import { useLanguage } from "../../config/language";
 import "../../styles/audio.css";
 
 export function AudioControl() {
+  const { t } = useLanguage();
   const audio = useRef<HTMLAudioElement>(null);
   const inlineControl = useRef<HTMLDivElement>(null);
   const inlineButton = useRef<HTMLButtonElement>(null);
@@ -78,9 +80,7 @@ export function AudioControl() {
       await element.play();
       setError("");
     } catch {
-      setError(
-        "No pudimos reproducir la canción. Puedes continuar disfrutando la invitación.",
-      );
+      setError(t("audio.error"));
     }
   }
   function controls(isFloating: boolean) {
@@ -90,13 +90,13 @@ export function AudioControl() {
         className={`audio-button ${playing ? "playing" : ""}`}
         onClick={toggle}
         tabIndex={!isFloating && (floating || lakeReached) ? -1 : 0}
-        aria-label={playing ? "Pausar música" : "Reproducir música"}
+        aria-label={playing ? t("audio.pause") : t("audio.play")}
         aria-pressed={playing}
       >
         {playing ? <Pause size={19} aria-hidden="true" /> : <Play size={19} aria-hidden="true" />}
       </button>
       <span className="audio-caption">
-        {playing ? "Una canción para este momento" : "Escuchar nuestra canción"}
+        {playing ? t("audio.caption.playing") : t("audio.caption.idle")}
       </span>
       {error ? <p role="status">{error}</p> : null}
     </>;

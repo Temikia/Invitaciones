@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef } from "react";
 import { useNarrative } from "../hooks/useNarrative";
+import { LanguageProvider, useLanguage } from "../config/language";
 import { Atmosphere } from "../components/ui/Atmosphere";
 import { InvitationHeader } from "../components/ui/InvitationHeader";
 import {
@@ -60,12 +61,16 @@ function Invitation() {
     </div>
   );
 }
-export default function App() {
+function AppContent() {
+  const { t } = useLanguage();
   return window.location.pathname.replace(/\/$/, "") === "/recuerdos" ? (
-    <Suspense fallback={<p className="loading">Abriendo tus recuerdos…</p>}>
+    <Suspense fallback={<p className="loading">{t("loading")}</p>}>
       <Memories />
     </Suspense>
   ) : (
     <Invitation />
   );
+}
+export default function App() {
+  return <LanguageProvider><AppContent /></LanguageProvider>;
 }

@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Selector de idioma EN/ES y contenido dinámico — 06/11/2026 14:19 (GMT−6)
+- ✅ Añadido el switch **En | Es** con acabado dorado en la cabecera, y en la ruta `/recuerdos`.
+- ✅ Traducidos los textos de las 19 escenas, galería, accesibilidad, fecha y horario según `America/Denver`, itinerario, audio, cuenta regresiva, RSVP y recuerdos. La preferencia se guarda localmente; también cambia `html[lang]`, el título y la descripción de la página.
+- ✅ Compilación de producción correcta con `npm.cmd run build`.
+- Commit local: «Añade selector de idioma inglés y español». Sin push ni despliegue.
+- Siguiente paso: revisión visual en móvil/escritorio y confirmar matices de traducción antes de distribuir. No fue posible abrir Chrome en este entorno para la comprobación visual local.
+
 ## Inversión exacta de las fotos de la portada de galería — 27/10/2026 22:20 (GMT−6)
 - ✅ Invertida la posición de las dos fotos de WhatsApp en la composición de la portada de la galería (`.artwork`, `Gallery.tsx`):
   - Foto de atrás (principal, `gallery-hero-main.webp`, 110.0 KiB): `multimedia/WhatsApp Image 2026-10-27 at 21.26.13.jpeg` (Camila sentada en el jardín con ramo violeta).

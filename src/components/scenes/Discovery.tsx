@@ -2,22 +2,24 @@ import { invitation } from "../../config/invitation";
 import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { AudioControl } from "../ui/AudioControl";
 import { MagicGardenHero } from "../ui/MagicGardenHero";
+import { useLanguage } from "../../config/language";
 
 export function Scene01Flower() {
   return <MagicGardenHero />;
 }
 export function Scene02Camila() {
+  const { t } = useLanguage();
   return (
     <Scene
       number={2}
       id="continuar"
-      name={`${invitation.honoree}, mis quince años`}
+      name={t("scene.2")}
       className="name-scene"
     >
-      <Eyebrow>Una nueva luz en mi historia</Eyebrow>
+      <Eyebrow>{t("name.eyebrow")}</Eyebrow>
       <h1 data-reveal>{invitation.honoree}</h1>
       <p className="xv-label" data-reveal>
-        Mis XV años
+        {t("name.xv")}
       </p>
       <Divider />
       <p className="date-signature" data-reveal>
@@ -28,30 +30,32 @@ export function Scene02Camila() {
   );
 }
 export function Scene03Music() {
+  const { t } = useLanguage();
   return (
-    <Scene number={3} name="Nuestra canción" className="music-scene">
+    <Scene number={3} name={t("scene.3")} className="music-scene">
       <AudioControl />
     </Scene>
   );
 }
 export function Scene04Portrait() {
+  const { t } = useLanguage();
   return (
-    <Scene number={4} name="El sueño de Camila" className="portrait-scene">
+    <Scene number={4} name={t("scene.4")} className="portrait-scene">
       <figure className="hero-portrait glowing-frame" data-reveal>
         <div className="frame-glow" aria-hidden="true" />
         <div className="frame-inner">
           <img
             className="cinematic-photo"
             src={invitation.photos.hero}
-            alt="Camila con corona y vestido de quince años color lavanda"
+            alt={t("portrait.alt")}
             width="1200"
             height="1600"
             loading="lazy"
           />
           <figcaption>
-            Quince años de sueños.
+            {t("portrait.caption")}
             <br />
-            <em>Una noche para recordarlos.</em>
+            <em>{t("portrait.caption2")}</em>
           </figcaption>
         </div>
       </figure>
@@ -59,19 +63,21 @@ export function Scene04Portrait() {
   );
 }
 export function Scene05Prayer() {
+  const { t } = useLanguage();
   return (
-    <Scene number={5} name="Gracias a Dios" className="prayer-scene">
-      <Eyebrow>Donde nace mi luz</Eyebrow>
-      <h2 data-reveal>Gracias, Dios.</h2>
+    <Scene number={5} name={t("scene.5")} className="prayer-scene">
+      <Eyebrow>{t("prayer.eyebrow")}</Eyebrow>
+      <h2 data-reveal>{t("prayer.title")}</h2>
       <p className="reading-copy" data-reveal>
-        {invitation.messages.spiritual}
+        {t("message.spiritual")}
       </p>
     </Scene>
   );
 }
 export function Scene06Sun() {
+  const { t } = useLanguage();
   return (
-    <Scene number={6} name="La luz que nos une" className="solar-scene">
+    <Scene number={6} name={t("scene.6")} className="solar-scene">
       <div className="solar-halo">
         <Ornament name="sun" className="solar-symbol" />
       </div>
@@ -80,9 +86,10 @@ export function Scene06Sun() {
   );
 }
 export function Scene07Family() {
+  const { t } = useLanguage();
   return (
-    <Scene number={7} name="Mi familia te invita" className="family-scene">
-      <Eyebrow>Con el amor de mis padres</Eyebrow>
+    <Scene number={7} name={t("scene.7")} className="family-scene">
+      <Eyebrow>{t("family.eyebrow")}</Eyebrow>
       <h2 className="parents" data-reveal>
         {invitation.parents[0]}
         <span>&</span>
@@ -90,10 +97,10 @@ export function Scene07Family() {
       </h2>
       <Divider />
       <p className="reading-copy" data-reveal>
-        {invitation.messages.family}
+        {t("message.family")}
       </p>
       <p className="serif invitation-line" data-reveal>
-        Será un honor celebrar contigo.
+        {t("family.closing")}
       </p>
     </Scene>
   );

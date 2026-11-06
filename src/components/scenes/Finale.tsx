@@ -3,12 +3,14 @@ import { QRCodeSVG } from "qrcode.react";
 import { invitation } from "../../config/invitation";
 import { Scene, Eyebrow, Divider, Ornament } from "../ui/Atmosphere";
 import { RSVPForm } from "../ui/RSVPForm";
+import { useLanguage } from "../../config/language";
 
 export function Scene14Gifts() {
+  const { t } = useLanguage();
   return (
     <Scene
       number={14}
-      name="Tu presencia es mi mejor regalo"
+      name={t("scene.14")}
       className="gifts-scene"
     >
       <div className="envelopes" aria-hidden="true">
@@ -20,58 +22,61 @@ export function Scene14Gifts() {
           />
         ))}
       </div>
-      <Eyebrow>El regalo de estar juntos</Eyebrow>
+      <Eyebrow>{t("gift.eyebrow")}</Eyebrow>
       <h2 data-reveal>
-        Tu presencia,
+        {t("gift.title")}
         <br />
-        <em>mi mejor regalo.</em>
+        <em>{t("gift.title2")}</em>
       </h2>
       <p className="reading-copy" data-reveal>
-        {invitation.messages.gift}
+        {t("message.gift")}
       </p>
       <p className="gift-label" data-reveal>
-        Lluvia de sobres
+        {t("gift.label")}
       </p>
     </Scene>
   );
 }
 export function Scene15Dress() {
+  const { t } = useLanguage();
   return (
-    <Scene number={15} name="Código de vestimenta" className="dress-scene">
+    <Scene number={15} name={t("scene.15")} className="dress-scene">
       <Divider />
-      <Eyebrow>Una noche para brillar</Eyebrow>
+      <Eyebrow>{t("dress.eyebrow")}</Eyebrow>
       <h2 data-reveal>{invitation.dressCode}</h2>
       <p className="small-copy" data-reveal>
-        Código de vestimenta
+        {t("dress.copy")}
       </p>
       <Divider />
     </Scene>
   );
 }
 export function Scene16RSVP() {
+  const { t } = useLanguage();
   return (
-    <Scene number={16} name="Confirma tu asistencia" className="rsvp-scene">
+    <Scene number={16} name={t("scene.16")} className="rsvp-scene">
       <RSVPForm />
     </Scene>
   );
 }
 export function Scene17Memories() {
+  const { t } = useLanguage();
   const url = new URL(invitation.uploads.path, window.location.origin).href;
   return (
     <Scene
       number={17}
-      name="Compartamos los recuerdos"
+      name={t("scene.17")}
       className="memories-scene"
     >
       <Camera size={25} strokeWidth={1} className="gold-icon" />
-      <Eyebrow>Tu mirada también cuenta esta historia</Eyebrow>
+      <Eyebrow>{t("memories.eyebrow")}</Eyebrow>
       <h2 data-reveal>
-        Guardemos esta noche
+        {t("memories.title")}
         <br />
-        <em>para siempre.</em>
+        <em>{t("memories.title2")}</em>
       </h2>
       <p className="reading-copy" data-reveal>
-        Comparte las fotos y videos que tomes durante la celebración.
+        {t("memories.copy")}
       </p>
       <div className="qr-frame" data-reveal>
         <QRCodeSVG
@@ -79,40 +84,43 @@ export function Scene17Memories() {
           size={132}
           level="M"
           marginSize={4}
-          title="Abre la página para compartir recuerdos de Camila"
+          title={t("memories.qr")}
         />
       </div>
       <a className="button" href={invitation.uploads.path}>
-        Subir fotos y videos <ArrowUpRight size={17} />
+        {t("memories.upload")} <ArrowUpRight size={17} />
       </a>
     </Scene>
   );
 }
 export function Scene18Thanks() {
+  const { t } = useLanguage();
   return (
     <Scene
       number={18}
-      name="Gracias por ser parte de mi historia"
+      name={t("scene.18")}
       className="thanks-scene"
     >
-      <Eyebrow>Las personas hacen la magia</Eyebrow>
+      <Eyebrow>{t("thanks.eyebrow")}</Eyebrow>
       <h2 data-reveal>
-        Gracias por ser parte
+        {t("thanks.title")}
         <br />
-        <em>de mi historia.</em>
+        <em>{t("thanks.title2")}</em>
       </h2>
       <p className="reading-copy" data-reveal>
-        {invitation.messages.thanks}
+        {t("message.thanks")}
       </p>
       <Divider />
     </Scene>
   );
 }
 export function Scene19Lake() {
+  const { language, t } = useLanguage();
+  const month = new Intl.DateTimeFormat(language, { timeZone: invitation.event.timezone, month: "long" }).format(new Date(invitation.event.iso));
   return (
     <Scene
       number={19}
-      name={`${invitation.honoree}, XV, ${invitation.event.day} de ${invitation.event.monthName}`}
+      name={`${t("scene.19")}, ${invitation.event.day} ${month}`}
       className="lake-scene"
       background={
         <>
@@ -124,7 +132,7 @@ export function Scene19Lake() {
         <p className="closing-name">{invitation.honoree}</p>
         <p className="xv-label">XV</p>
         <span className="closing-date">
-          {invitation.event.day} <i>·</i> {invitation.event.month}
+          {invitation.event.day} <i>·</i> {month}
         </span>
       </div>
     </Scene>

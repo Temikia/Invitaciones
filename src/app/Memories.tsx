@@ -2,43 +2,51 @@ import { useState, type ChangeEvent } from "react";
 import { ArrowLeft, Camera, ImagePlus } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
+import { useLanguage } from "../config/language";
 
 export default function Memories() {
+  const { language, setLanguage, t } = useLanguage();
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
   const closed = Date.now() >= new Date(invitation.uploads.closesAt).getTime();
   function select(event: ChangeEvent<HTMLInputElement>) {
     const selection = Array.from(event.target.files ?? []);
-    setErrors(validateFiles(selection));
+    const validation = validateFiles(selection);
+    setErrors(language === "en" ? validation.map(() => "Please check that your selected files meet the format and size limits.") : validation);
     setFiles(selection);
   }
   return (
     <main className="memories-page">
+      <div className="language-switch memories-language-switch" role="group" aria-label={t("header.switch")}>
+        <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>En</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>Es</button>
+      </div>
       <a href="/" className="back-link">
-        <ArrowLeft size={17} /> Volver a la invitación
+        <ArrowLeft size={17} /> {t("memories.back")}
       </a>
       <div className="upload-content">
         <Camera size={35} strokeWidth={1} className="gold-icon" />
-        <p className="eyebrow">Los XV de {invitation.honoree}</p>
+        <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>
         <h1>
-          Una noche.
+          {t("memories.title1")}
           <br />
-          <em>Mil recuerdos.</em>
+          <em>{t("memories.page.title2")}</em>
         </h1>
-        <p>Comparte los instantes que quieras guardar de esta celebración.</p>
+        <p>{t("memories.intro")}</p>
         <div className="upload-notice" role="status">
           {closed
-            ? "El periodo para compartir recuerdos ha terminado. Gracias por acompañarnos."
-            : "Estamos preparando el álbum privado. La carga estará disponible aquí en cuanto esté listo."}
+            ? t("memories.closed")
+            : t("memories.pending")}
         </div>
         {!closed ? (
           <>
             <label className="file-picker">
               <ImagePlus size={27} strokeWidth={1} />
-              <strong>Seleccionar fotos y videos</strong>
-              <span>Puedes revisar tus archivos antes de compartirlos.</span>
+              <strong>{t("memories.select")}</strong>
+              <span>{t("memories.select.copy")}</span>
               <input
-                aria-label="Seleccionar fotos y videos"
+                aria-label={t("memories.select.aria")}
                 type="file"
                 multiple
                 accept="image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/x-m4v,.heic,.heif,.mov,.m4v"
@@ -46,7 +54,7 @@ export default function Memories() {
               />
             </label>
             <p className="form-note">
-              Hasta 20 archivos por lote · Fotos de 20 MB · Videos de 400 MB
+              {t("memories.limits")}
             </p>
             {errors.length ? (
               <ul className="form-error" role="alert">
@@ -58,8 +66,7 @@ export default function Memories() {
             {files.length ? (
               <div className="selected-files">
                 <p>
-                  {files.length} archivo(s) seleccionado(s). Todavía no se han
-                  enviado.
+                  {files.length} {t("memories.selected")} {t("memories.sent")}
                 </p>
                 <ul>
                   {files.map((file, index) => (
@@ -74,8 +81,7 @@ export default function Memories() {
           </>
         ) : null}
         <p className="form-note">
-          Álbum privado, sin galería pública. Podrás compartir recuerdos hasta
-          14 días después del evento; se conservarán durante 90 días.
+          {t("memories.private")}
         </p>
       </div>
     </main>

@@ -33,6 +33,8 @@ El usuario administra el despliegue. Esta entrega es para revisión visual, aún
 
 ## Cambios de contenido y fotos
 
+La invitación está disponible en español e inglés con el selector **En | Es** de la cabecera. La preferencia se conserva en este dispositivo y también se aplica a la página de recuerdos (`/recuerdos`), las etiquetas accesibles y los metadatos de la página.
+
 Todos los datos, mensajes, horarios y rutas viven en `src/config/invitation.ts`. La fecha tiene offset explícito y zona `America/Denver`, sin depender de la zona del navegador.
 
 La vista previa al compartir el enlace usa Open Graph en `index.html` y `public/assets/production/photos/share-camila.jpg`. Si cambia el hero, regenerar con `node scripts/prepare-social-image.mjs` y publicar ambos cambios. Si cambia el dominio público, actualizar las URLs absolutas del HTML. La vista previa final depende de la app donde se comparta y de su caché.

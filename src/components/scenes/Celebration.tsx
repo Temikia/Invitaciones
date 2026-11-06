@@ -12,56 +12,64 @@ import { invitation } from "../../config/invitation";
 import { Scene, Eyebrow, Divider } from "../ui/Atmosphere";
 import { Gallery } from "../ui/Gallery";
 import { Countdown } from "../ui/Countdown";
+import { useLanguage } from "../../config/language";
 
 export function Scene08Date() {
+  const { language, t } = useLanguage();
+  const date = new Date(invitation.event.iso);
+  const month = new Intl.DateTimeFormat(language, { timeZone: invitation.event.timezone, month: "long" }).format(date);
+  const weekday = new Intl.DateTimeFormat(language, { timeZone: invitation.event.timezone, weekday: "long" }).format(date);
+  const time = new Intl.DateTimeFormat(language, { timeZone: invitation.event.timezone, hour: "numeric", minute: "2-digit" }).format(date);
   return (
     <Scene
       number={8}
-      name="La fecha de nuestro encuentro"
+      name={t("scene.8")}
       className="date-scene"
     >
-      <Eyebrow>Reserva este día para soñar</Eyebrow>
+      <Eyebrow>{t("date.eyebrow")}</Eyebrow>
       <div className="date-layout">
         <div className="date-editorial" data-reveal>
           <span className="date-day">{invitation.event.day}</span>
-          <h2>{invitation.event.monthName}</h2>
+          <h2>{month}</h2>
           <p>
-            {invitation.event.weekdayLabel} · {invitation.event.year}
+            {weekday} · {invitation.event.year}
           </p>
           <Divider />
-          <p className="event-time">{invitation.event.timeLabel}</p>
-          <p className="small-copy">Hora de Denver, Colorado</p>
+          <p className="event-time">{time}</p>
+          <p className="small-copy">{t("event.timezone")}</p>
         </div>
       </div>
     </Scene>
   );
 }
 export function Scene09Venue() {
+  const { t } = useLanguage();
   return (
-    <Scene number={9} name="El lugar de la celebración" className="venue-scene">
+    <Scene number={9} name={t("scene.9")} className="venue-scene">
       <div className="venue-arch" data-reveal>
         <MapPin className="gold-icon" size={25} strokeWidth={1} />
-        <Eyebrow>Nos encontramos en</Eyebrow>
+        <Eyebrow>{t("venue.eyebrow")}</Eyebrow>
         <h2>{invitation.venue.name}</h2>
         <p className="venue-address">{invitation.venue.address}</p>
-        <p className="small-copy">Toda la celebración en un mismo lugar</p>
+        <p className="small-copy">{t("venue.copy")}</p>
         <a
           className="button"
           href={invitation.venue.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Cómo llegar <ArrowUpRight size={17} />
+          {t("venue.directions")} <ArrowUpRight size={17} />
         </a>
       </div>
     </Scene>
   );
 }
 export function Scene10Gallery() {
+  const { t } = useLanguage();
   return (
     <Scene
       number={10}
-      name="Instantes de mi historia"
+      name={t("scene.10")}
       className="gallery-scene"
     >
       <Gallery />
@@ -79,17 +87,18 @@ const itineraryIcons = [
   Heart,
 ];
 export function Scene11Itinerary() {
+  const { t } = useLanguage();
   return (
     <Scene
       number={11}
-      name="Itinerario de la noche"
+      name={t("scene.11")}
       className="itinerary-scene"
     >
-      <Eyebrow>Cada momento, una memoria</Eyebrow>
+      <Eyebrow>{t("itinerary.eyebrow")}</Eyebrow>
       <h2 data-reveal>
-        Así se escribe
+        {t("itinerary.title")}
         <br />
-        <em>esta noche.</em>
+        <em>{t("itinerary.title2")}</em>
       </h2>
       <ol className="itinerary">
         {invitation.itinerary.map((item, index) => {
@@ -100,7 +109,7 @@ export function Scene11Itinerary() {
                 <Icon size={20} strokeWidth={1.2} />
               </span>
               <time>{item.time}</time>
-              <h3>{item.label}</h3>
+              <h3>{t(`itinerary.${index}`)}</h3>
             </li>
           );
         })}
@@ -109,15 +118,16 @@ export function Scene11Itinerary() {
   );
 }
 export function Scene12Companion() {
+  const { t } = useLanguage();
   return (
-    <Scene number={12} name="Un poco de magia" className="companion-scene">
+    <Scene number={12} name={t("scene.12")} className="companion-scene">
       <div className="companion-frame glowing-frame" data-reveal>
         <div className="frame-glow" aria-hidden="true" />
         <div className="frame-inner">
           <img
             className="cinematic-photo"
             src={invitation.photos.companion}
-            alt="Camila con vestido lila junto a un caballo blanco al atardecer"
+            alt={t("companion.alt")}
             width="1200"
             height="1600"
             loading="lazy"
@@ -125,18 +135,19 @@ export function Scene12Companion() {
         </div>
       </div>
       <p className="serif" data-reveal>
-        Los mejores sueños
+        {t("companion.line1")}
         <br />
-        se viven acompañados.
+        {t("companion.line2")}
       </p>
     </Scene>
   );
 }
 export function Scene13Countdown() {
+  const { t } = useLanguage();
   return (
-    <Scene number={13} name="Cuenta regresiva" className="countdown-scene">
-      <Eyebrow>Mi sueño está cada vez más cerca</Eyebrow>
-      <h2 data-reveal>Falta tan poquito…</h2>
+    <Scene number={13} name={t("scene.13")} className="countdown-scene">
+      <Eyebrow>{t("countdown.eyebrow")}</Eyebrow>
+      <h2 data-reveal>{t("countdown.title")}</h2>
       <Countdown />
     </Scene>
   );

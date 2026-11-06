@@ -219,6 +219,35 @@ p {
   margin: 0 10px;
   color: #9c7a47;
 }
+.language-switch {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border: 1px solid rgba(231, 194, 132, .32);
+  border-radius: 999px;
+  color: rgba(239, 216, 177, .56);
+  background: rgba(24, 15, 31, .28);
+  font: 500 11px/1 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: .08em;
+  backdrop-filter: blur(8px);
+}
+.language-switch button {
+  border: 0;
+  padding: 2px 1px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.language-switch button[aria-pressed="true"] { color: #f3d59f; }
+.language-switch button:focus-visible { outline: 1px solid #f3d59f; outline-offset: 3px; border-radius: 2px; }
+.memories-language-switch { position: fixed; z-index: 20; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); transform: none; }
 .header-slot {
   height: calc(44px + env(safe-area-inset-top, 0px));
 }
