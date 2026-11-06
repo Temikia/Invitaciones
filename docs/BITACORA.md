@@ -1,5 +1,10 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 17:21 — Ciudad de México (GMT−6)
+
+Se controló Chrome mediante la skill computer-use y se confirmaron ambas APIs y referentes correctos. Se corrigió el script local para enviar solo el origen como referente y declarar el origen de Picker, evitando eliminar el dato que Google necesita para validar la clave restringida. La herramienta de control detuvo la navegación al no poder verificar la URL. El servidor quedó reiniciado mediante Start-Process oculto con salida directa: el log tiene 692 bytes y el enlace existe, sin imprimir sus parámetros. Sintaxis del script válida, build y 19 pruebas correctos. Pendiente prueba real de consentimiento/selector y guardado.
+
+
 ## 2026-11-06 17:00 — Ciudad de México (GMT−6)
 
 La captura de credenciales muestra la clave con una sola API permitida; la verificación local anterior confirmó que esa clave permite Google Drive API. Google Picker requiere que la restricción permita **Google Picker API**, por lo que esta es la causa probable del error persistente. Se actualizó el manual y `EN_CURSO.md` con la corrección: habilitar Picker API en el proyecto y añadirla a las APIs permitidas de la clave, manteniendo los referentes actuales. No se modificaron secretos ni se creó otra clave.

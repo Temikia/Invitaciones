@@ -59,6 +59,8 @@ Este mensaje aparece después de volver al callback local y significa que Picker
 3. Si la clave tiene restricción de sitios web, incluye exactamente `http://127.0.0.1:8788/*` y `https://docs.google.com/*`. Picker se carga dentro de un iframe en `docs.google.com`; omitir ese referente produce este error.
 4. Si la clave tiene restricción por API, permite **Google Picker API**. Añade también **Google Drive API** si la clave se usa en solicitudes directas a Drive.
 
+El autorizador debe enviar `Referrer-Policy: origin` para que Google valide el referente sin recibir el código OAuth de la URL. `no-referrer` elimina el dato necesario para las restricciones por sitio web. El origen del selector se fija explícitamente a `http://127.0.0.1:8788`.
+
 La lista de credenciales puede resumir las restricciones como “URL de referencia HTTP, 1 API”; abre la clave y confirma que esa API sea **Google Picker API**. Si solo permite Google Drive API, Picker la rechazará. No hace falta rotar la clave únicamente porque aparezca en una captura; conserva las restricciones y evita volver a mostrar el valor.
 
 Después de corregirlo, espera a que se aplique el cambio, detén el proceso local con `Ctrl+C` y vuelve a ejecutar `npm run drive:authorize` para iniciar una autorización nueva. Si rotaste o creaste otra clave, reemplázala primero en `.env`. No reutilices ni compartas la dirección completa del callback. El token solo queda guardado después de elegir y verificar la carpeta.
