@@ -50,6 +50,17 @@ El código local ya está preparado en `scripts/authorize-drive.mjs`; aún no se
 5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Son secretos de servidor salvo el ID de carpeta; nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta completar la revisión de abuso y pruebas.
 6. Guarda las variables y despliega una nueva preview para que Vercel las cargue. [Documentación de variables de entorno de Vercel](https://vercel.com/docs/environment-variables/managing-environment-variables).
 
+### Si Google Picker muestra “The API developer key is invalid”
+
+Este mensaje aparece después de volver al callback local y significa que Picker rechazó `GOOGLE_PICKER_API_KEY`; no es un rechazo del consentimiento OAuth. En Google Cloud Console, confirma en el mismo proyecto que:
+
+1. **Google Picker API** está habilitada.
+2. La variable local `GOOGLE_PICKER_API_KEY` contiene la clave API recién creada, sin comillas ni espacios extra. No compartas su valor.
+3. Si la clave tiene restricción de sitios web, incluye exactamente `http://127.0.0.1:8788/*` y `https://docs.google.com/*`. Picker se carga dentro de un iframe en `docs.google.com`; omitir ese referente produce este error.
+4. Si la clave tiene restricción por API, permite **Google Picker API**. Añade también **Google Drive API** si la clave se usa en solicitudes directas a Drive.
+
+Después de corregirlo, espera a que se aplique el cambio, detén el proceso local con `Ctrl+C` y vuelve a ejecutar `npm run drive:authorize` para iniciar una autorización nueva. No reutilices ni compartas la dirección completa del callback. El token solo queda guardado después de elegir y verificar la carpeta.
+
 Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupciones de red y evitar enviar videos de cientos de MB en una sola petición al servidor. La función de Vercel solo inicia cada sesión; el navegador transfiere los datos directamente a Google Drive. [Cargas reanudables de Drive](https://developers.google.com/workspace/drive/api/guides/manage-uploads).
 
 ## Paso 4: dos decisiones operativas antes de activar
