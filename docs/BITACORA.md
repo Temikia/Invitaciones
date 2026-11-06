@@ -1,5 +1,11 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 16:39 — Ciudad de México (GMT−6)
+
+El error «The API developer key is invalid» sigue apareciendo aunque la usuaria repitió todos los pasos. Se verificó la clave del `.env` contra Google sin mostrar su valor: tiene el formato correcto (39 caracteres, `AIza`, sin comillas ni espacios), ninguna variable del sistema la reemplaza, Google la reconoce como existente (la clave falsa de control da `API_KEY_INVALID`), pertenece al mismo proyecto que el cliente OAuth (`appId`), acepta los referentes `http://127.0.0.1:8788/` y `https://docs.google.com/`, permite Google Drive API y bloquea APIs ajenas. Tampoco había ningún proceso viejo en el puerto 8788. Se descartan el `.env` desactualizado, los referentes, el proyecto equivocado y un proceso en caché. Queda por comprobar lo que solo se ve en la consola o desde el propio Picker: si **Google Picker API** está habilitada en el proyecto y figura en las API permitidas de la clave. No se pudo reproducir en el navegador porque la extensión de Chrome no estaba conectada.
+
+Siguiente paso: la usuaria confirma que Picker API está habilitada en ese proyecto; como prueba de aislamiento, quita temporalmente la restricción por API (se conservan los referentes), espera unos minutos y reinicia `npm run drive:authorize`. Si con eso funciona, el problema es la lista de APIs de la clave. Si falla, revisar en DevTools → Network la petición de Picker que falla, sin compartir URLs que contengan la clave o el token.
+
 ## 2026-11-06 16:13 — Ciudad de México (GMT−6)
 
 Las capturas nuevas confirman que la clave nueva está limitada a Google Picker API y Google Drive API, y contiene ambos referentes requeridos. El error persiste; lo más probable es que el proceso y `.env` sigan usando la clave anterior, porque crear/rotar una clave en Cloud no cambia la variable local. Una captura expuso el valor completo de la clave nueva, por lo que no debe reutilizarse: crear otra, restringirla igual, reemplazar `GOOGLE_PICKER_API_KEY` en `.env` y reiniciar el flujo. Se actualizaron el manual y el estado; no se leyó ni se editó `.env`.
