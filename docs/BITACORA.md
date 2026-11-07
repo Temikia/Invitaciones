@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 19:42 — Ciudad de México (GMT−6)
+
+Con autorización de la usuaria se creó la base gratuita `camila-recuerdos` en Upstash, región Virginia. Se guardaron en `.env` la URL REST y un secreto interno aleatorio para las huellas del límite de intentos, sin mostrar su valor. El token de Upstash todavía no está guardado; falta su incorporación privada y la prueba real. Sin despliegue. Se conservan cambios ajenos en README fuera del commit.
+
 ## 2026-11-06 19:16 — Ciudad de México (GMT−6)
 
 La usuaria confirmó que ve el álbum local. Se creó un widget Turnstile administrado para el dominio de la invitación. Tras la exposición accidental de la clave en la salida de una herramienta, la usuaria informó que generó claves nuevas y las guardó en `.env`; se corrigieron los nombres de las variables para que coincidan con el código y se verificó su presencia sin imprimir valores. No se comprobó la rotación directamente. Faltan Upstash, configuración de Preview y prueba de protecciones reales. Sin despliegue.

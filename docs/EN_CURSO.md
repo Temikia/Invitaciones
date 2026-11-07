@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Upstash para límite de intentos — 06/11/2026
+- ✅ Creada con autorización la base gratuita `camila-recuerdos`, región Virginia (us-east-1), en la cuenta personal de Upstash. Se guardaron localmente la URL REST y un `ABUSE_HASH_SECRET` aleatorio, sin mostrar el secreto.
+- ⏳ Falta guardar `UPSTASH_REDIS_REST_TOKEN` en `.env` y probar la conexión y los controles reales; no usar el token de solo lectura. La usuaria dispone de la página de la base abierta. No se configuró Vercel ni se desplegó.
+- Siguiente paso: la usuaria copia el token de Upstash directamente a `.env` sin compartirlo por chat; verificar disponibilidad y después probar el contador.
+
 ## Cloudflare Turnstile — 06/11/2026
 - ✅ La usuaria confirmó que puede ver el álbum local. Pendiente confirmar reproducción del video en ese álbum.
 - ✅ Creado en Cloudflare el widget administrado `Invitación Camila - recuerdos` para `mis-xv-camila.vercel.app`. La usuaria informó que generó llaves nuevas y las guardó en `.env`; se corrigió un error en los nombres de las dos variables y se comprobó su presencia sin mostrar valores. No se verificó contra Cloudflare la rotación informada ni el funcionamiento real.
