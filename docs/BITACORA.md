@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 18:40 — Ciudad de México (GMT−6)
+
+La prueba desde navegador mostró `Failed to fetch`. El diagnóstico confirmó que Google aceptaba la imagen pero omitía el encabezado que permite al navegador leer la respuesta. Se agregó el origen validado al crear la sesión reanudable, en el servidor local y en la API; Google respondió HTTP 200 con el origen autorizado en una carga real. Build y 19 pruebas correctos. Queda repetir la prueba desde navegador y revisar si el intento anterior creó un duplicado; no se desplegó.
+
 ## 2026-11-06 18:35 — Ciudad de México (GMT−6)
 
 Se preparó un servidor de prueba local separado de la API desplegada para usar la autorización de Drive existente sin configurar los servicios de protección. Una imagen mínima se subió realmente a Drive y Google respondió HTTP 200; quedan por verificar el envío desde navegador y CORS. Build y 19 pruebas correctos. No hubo despliegue. Siguiente paso: probar una foto desde `http://127.0.0.1:5188/recuerdos` y comprobarla en Drive.

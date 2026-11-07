@@ -39,6 +39,7 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          Origin: req.headers.origin,
           "Content-Type": "application/json; charset=UTF-8",
           "X-Upload-Content-Type": upload.mimeType,
           "X-Upload-Content-Length": String(upload.size),

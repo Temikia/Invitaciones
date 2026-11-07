@@ -32,7 +32,7 @@ const server = http.createServer(async (req, res) => {
     for (const upload of uploads) {
       const response = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable&supportsAllDrives=true&fields=id,name,mimeType,size", {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json; charset=UTF-8", "X-Upload-Content-Type": upload.mimeType, "X-Upload-Content-Length": String(upload.size) },
+        headers: { Authorization: `Bearer ${token}`, Origin: origin, "Content-Type": "application/json; charset=UTF-8", "X-Upload-Content-Type": upload.mimeType, "X-Upload-Content-Length": String(upload.size) },
         body: JSON.stringify({ name: upload.name, mimeType: upload.mimeType, parents: [process.env.DRIVE_FOLDER_ID], appProperties: { camilaMemoryUpload: "true" } }),
       });
       const sessionUrl = response.headers.get("location");

@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Corrección de CORS en cargas — 06/11/2026
+- ✅ Se envía a Google el origen validado al crear la sesión reanudable; tanto el servidor local como la API real lo utilizan. Antes Google confirmaba la carga sin autorizar la respuesta al navegador, que mostraba `Failed to fetch`.
+- ✅ Comprobado con una imagen real: Google respondió HTTP 200 y devolvió el origen local permitido. Build y 19 pruebas correctos.
+- ⏳ Falta repetir la carga desde el navegador y confirmar el archivo en Drive; una carga que mostró error podría haberse guardado, revisar duplicados. También quedan pendientes Preview, videos, reanudación y controles de protección reales. Sin despliegue.
+
 ## Prueba local de fotos — 06/11/2026
 - ✅ Servidor de desarrollo aislado en `127.0.0.1:5188`, con la autorización existente de Drive; `npm run dev:recuerdos`. Omite los servicios de protección solo en este servidor local, separado de la API desplegada.
 - ✅ Google confirmó HTTP 200 al subir una imagen mínima real mediante una sesión reanudable. Build y 19 pruebas correctos.
