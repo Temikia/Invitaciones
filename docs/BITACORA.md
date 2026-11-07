@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 19:04 — Ciudad de México (GMT−6)
+
+Se habilitó la prueba del álbum en localhost usando sus controladores reales, secreto temporal y contador local simulado; se verificaron rechazo sin autorización o con secreto incorrecto, listado real de Drive y rangos de foto y video. Se añadieron siete pruebas de protecciones con servicios simulados; build y 29 pruebas correctos. Falta revisión visual, configurar y comprobar servicios reales y validar Preview. No se desplegó.
+
 ## 2026-11-06 19:00 — Ciudad de México (GMT−6)
 
 Como las cargas manuales terminaban demasiado rápido para interrumpirlas, se realizó una prueba controlada con una imagen PNG válida de 9,739,098 bytes y la lógica real del cliente. Se simuló una pérdida antes del segundo bloque al 86 %, se consultó la misma sesión y se completó al 100 %; el SHA-256 descargado de Drive coincidió con el original. Quedan por comprobar la desconexión física desde navegador, video grande, álbum y protecciones. Sin despliegue.

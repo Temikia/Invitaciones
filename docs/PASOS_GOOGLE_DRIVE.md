@@ -86,7 +86,7 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 
 ## Paso 5: revisión contigo en la preview
 
-Antes de Preview se puede probar la carga real en esta computadora con `npm run dev:recuerdos`, abriendo `http://127.0.0.1:5188/recuerdos`. Este servidor aislado no utiliza Turnstile ni Upstash y no implementa el álbum privado; no sustituye la revisión de esas protecciones ni las pruebas en Preview. Los archivos de prueba se crean en la carpeta real de Drive y pueden borrarse allí.
+Antes de Preview se puede probar la carga real en esta computadora con `npm run dev:recuerdos`, abriendo `http://127.0.0.1:5188/recuerdos`. El álbum local se abre desde `http://127.0.0.1:5188/album-local` y usa los controladores reales, un secreto temporal y un contador simulado en memoria. Este servidor aislado no prueba Turnstile ni Upstash reales; no sustituye la revisión de esas protecciones ni las pruebas en Preview. Los archivos de prueba se crean en la carpeta real de Drive y pueden borrarse allí. El acceso local deja de funcionar al detener el servidor y cambia al reiniciarlo.
 
 La sesión de carga se inicia con el origen validado de la página para que Google permita al navegador leer la respuesta. Si aparece un error de red, revisar primero la carpeta: Google podría haber recibido el archivo aunque el navegador no haya podido confirmar la respuesta.
 

@@ -45,7 +45,7 @@ La música solo se solicita después de pulsar reproducir. Su botón se vuelve f
 
 ## Recuerdos: estado y operación
 
-Para una prueba local de carga real, ejecutar `npm run dev:recuerdos` y abrir `http://127.0.0.1:5188/recuerdos`. Requiere la autorización de Drive guardada en `.env`. El servidor de prueba solo escucha en esta computadora y omite Turnstile y Upstash; la API desplegada mantiene sus controles. No prueba la galería privada ni demuestra que el navegador pueda transferir archivos hasta completar una carga desde la página.
+Para una prueba local, ejecutar `npm run dev:recuerdos` y abrir `http://127.0.0.1:5188/recuerdos`. El álbum local se abre en `http://127.0.0.1:5188/album-local`; su secreto se genera de nuevo al reiniciar el servidor y el acceso solo sirve en esta computadora. Requiere la autorización de Drive guardada en `.env`. La prueba de carga omite Turnstile y Upstash, y el álbum usa un contador local simulado; las API desplegadas mantienen sus controles reales. Estas pruebas no acreditan la configuración de los servicios externos.
 
 Las sesiones reanudables se crean con el origen validado de la página para permitir la respuesta de Google al navegador. Si un intento muestra error de red, revisar Drive antes de repetirlo: el archivo podría haberse recibido aunque no llegara la confirmación.
 

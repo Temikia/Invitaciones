@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Álbum privado y protecciones locales — 06/11/2026
+
+- Los controladores reales del álbum usaron Drive real y un contador simulado local: acceso sin cookie devolvió 401, secreto incorrecto 403, listado autenticado entregó 14 archivos y rangos autenticados de foto y video devolvieron HTTP 206 y 100 bytes. Falta revisión visual y reproducción en navegador.
+- Siete pruebas automatizadas de la API comprueban límite de lote, cuota, fallos del contador y desafío, token inválido, dominio incorrecto y solicitud válida. Build y 29 pruebas correctos. Los servicios externos reales no se configuraron ni verificaron.
+
 ## Interrupción controlada con Drive — 06/11/2026
 
 - Una imagen PNG válida de 9,739,098 bytes se envió con la lógica real de carga. Se inyectó un fallo antes del segundo bloque, tras registrar 86 %, y se reintentó con la misma sesión. Drive confirmó el 100 %; el SHA-256 de la descarga coincidió con el original.

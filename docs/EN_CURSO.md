@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Álbum privado y protecciones — 06/11/2026
+- ✅ Fase 1 técnica: álbum local aislado usando controladores reales, secreto temporal y contador simulado. Se rechazaron acceso sin cookie y secreto incorrecto; Drive devolvió listado y rangos de foto y video autenticados. Falta revisión visual y reproducción por la usuaria.
+- ✅ Fase 2 local: pruebas automatizadas de lote excesivo, cuota, fallos de servicios, desafío inválido, dominio equivocado y paso válido. Build y 29 pruebas correctos.
+- ⏳ Falta configurar y probar Turnstile y Upstash reales, validar álbum y protecciones en Preview, revisar inspección de contenido y vigencia OAuth. El contador local es simulado y no valida servicios externos. Sin publicar ni activar cargas para invitados.
+- Último commit previo: `466e0b0`. Siguiente paso: abrir `http://127.0.0.1:5188/album-local` y revisar fotos y video; después configurar servicios reales con la usuaria.
+
 ## Interrupción controlada con Drive — 06/11/2026
 - ✅ Se generó una imagen PNG válida de 9.7 MB y se usó la lógica real del cliente con Drive. Se simuló un fallo de conexión después del primer bloque (86 %); el reintento consultó la misma sesión, completó al 100 % y la comparación SHA-256 del archivo descargado confirmó contenido idéntico.
 - ✅ La prueba creó `prueba-interrupcion-camila.png` en la carpeta de Drive. La interrupción se provocó en la petición del programa; no se desconectó físicamente el navegador.
