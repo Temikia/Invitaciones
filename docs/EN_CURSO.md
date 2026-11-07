@@ -1,8 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Recuperación de cargas interrumpidas — 06/11/2026
+- ✅ El cliente conserva las sesiones y los archivos terminados en memoria durante la visita. Al reintentar consulta a Drive y continúa desde el último bloque confirmado; no muestra 100 % hasta confirmación real. Cambiar la selección, recargar o cerrar descarta ese estado.
+- ✅ Pruebas automatizadas de corte, reanudación y confirmación ya recibida; build y 22 pruebas correctas. En Drive real se subió una parte de `prueba-reanudacion-camila.webp` y se completó el resto con la misma sesión tras consultar el estado; Google expone `Range` para el origen local.
+- ⏳ Falta comprobar la desconexión real desde el navegador, video grande, vigencia de sesión, álbum privado y protecciones reales en Preview. No se garantiza reanudación tras recargar ni cerrar la página. Sin despliegue.
+
 ## Reproducción de video y revisión de interrupciones — 06/11/2026
 - ✅ La usuaria confirmó que el video subido se reproduce en Drive.
-- ❓ Revisión de código: si se pierde la red y la consulta inmediata del estado también falla, el intento termina con error; al volver a pulsar se crean sesiones nuevas. No se ha verificado la reanudación ni la ausencia de duplicados. Corregir y probar este caso antes de darlo por terminado.
+- ✅ Corregido para reintentar con las mismas sesiones mientras la página permanezca abierta; pruebas automatizadas y prueba de bloques reales en Drive. Falta probar la desconexión desde navegador.
 - ⏳ Después revisar álbum privado, protecciones reales y Preview. Sin despliegue.
 
 ## Prueba de varios archivos — 06/11/2026

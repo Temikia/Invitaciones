@@ -49,6 +49,8 @@ Para una prueba local de carga real, ejecutar `npm run dev:recuerdos` y abrir `h
 
 Las sesiones reanudables se crean con el origen validado de la página para permitir la respuesta de Google al navegador. Si un intento muestra error de red, revisar Drive antes de repetirlo: el archivo podría haberse recibido aunque no llegara la confirmación.
 
+Si se interrumpe una carga, conserva abierta la página, recupera la conexión y pulsa nuevamente el botón: el navegador consulta a Drive y retoma la misma sesión. Los archivos ya completados no se envían otra vez. Las sesiones se conservan solo mientras la página y la selección sigan abiertas; recargar, cerrar o cambiar los archivos descarta ese estado. La prueba de desconexión real desde navegador sigue pendiente.
+
 Documentación de Drive: [pasos y estado del evento](docs/PASOS_GOOGLE_DRIVE.md) · [método reutilizable, diagnóstico y adaptación a otros proyectos](docs/GOOGLE_DRIVE_REUTILIZABLE.md). La autorización local de la carpeta ya quedó completada; las cargas para invitados todavía requieren las validaciones indicadas abajo.
 
 La ruta `/recuerdos` muestra la carga solo cuando el backend confirma que está configurado y habilitado; una preview incompleta mantiene oculta la selección. Un desafío Turnstile se verifica en servidor y Upstash aplica límites compartidos por IP; los dos controles fallan cerrados. El endpoint limita el lote a 20 y valida nombre, extensión, MIME declarado y tamaño antes de iniciar sesiones reanudables de Drive. El navegador transfiere bloques directamente y muestra progreso real. Como el backend no recibe los bytes, la inspección del contenido real y las pruebas CORS en teléfono siguen pendientes antes de activar. No informa éxito hasta que Google Drive completa la carga.

@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Recuperación de cargas — 06/11/2026
+
+- Build correcto y 22 pruebas correctas. Pruebas automatizadas cubren interrupción, reanudación desde un bloque confirmado y carga ya completada sin repetir contenido.
+- Drive real confirmó la subida parcial y la reanudación de una imagen válida mediante la misma sesión; se observó `Range` expuesto al origen local. La conexión interrumpida de verdad desde navegador sigue pendiente, así como cierres de página y caducidad de sesión; no se conserva la sesión tras recargar o cambiar selección.
+
 ## Video e interrupción — 06/11/2026
 
 - La usuaria confirmó la reproducción del video cargado en Drive.

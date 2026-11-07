@@ -3,6 +3,7 @@ import { ArrowLeft, Camera, ImagePlus, LockKeyhole } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
+import { uploadResumable } from "../lib/resumable";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: { sitekey: string; action: string; theme: string; callback: (token: string) => void; "expired-callback": () => void; "error-callback": () => void }) => string;
@@ -37,6 +38,9 @@ export default function Memories() {
   const [galleryError, setGalleryError] = useState("");
   const challengeRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | undefined>(undefined);
+  const sessionsRef = useRef<{ sessionUrl: string }[] | null>(null);
+  const attemptedRef = useRef<boolean[]>([]);
+  const completedRef = useRef<boolean[]>([]);
   const albumRequested = new URLSearchParams(window.location.search).get("album") === "1";
   const closed = Date.now() >= new Date(invitation.uploads.closesAt).getTime();
 
@@ -127,12 +131,15 @@ export default function Memories() {
     const validation = validateFiles(selection);
     setErrors(language === "en" ? validation.map(() => "Please check that your selected files meet the format and size limits.") : validation);
     setFiles(selection);
+    sessionsRef.current = null;
+    attemptedRef.current = selection.map(() => false);
+    completedRef.current = selection.map(() => false);
     setProgress(selection.map(() => 0));
     setUploadError("");
   }
 
   async function uploadFiles() {
-    if (!files.length || errors.length || uploading || !turnstileToken) return;
+    if (!files.length || errors.length || uploading || (!sessionsRef.current && !turnstileToken)) return;
     setUploading(true);
     setUploadError("");
     try {
@@ -140,48 +147,32 @@ export default function Memories() {
         const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
         return { name: file.name, type: file.type || mimeByExtension[extension] || "application/octet-stream", size: file.size };
       });
-      const sessionResponse = await fetch("/api/drive/session", {
-        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ files: uploads, turnstileToken }),
-      });
-      setTurnstileToken(localTestMode ? "local-test" : "");
-      if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
-      const result = await sessionResponse.json().catch(() => ({}));
-      if (!sessionResponse.ok || !Array.isArray(result.sessions) || result.sessions.length !== files.length) {
-        throw new Error(result.error || (language === "en" ? "The upload could not be started." : "No se pudo iniciar la carga."));
+      if (!sessionsRef.current) {
+        const sessionResponse = await fetch("/api/drive/session", {
+          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ files: uploads, turnstileToken }),
+        });
+        setTurnstileToken(localTestMode ? "local-test" : "");
+        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
+        const result = await sessionResponse.json().catch(() => ({}));
+        if (!sessionResponse.ok || !Array.isArray(result.sessions) || result.sessions.length !== files.length) {
+          throw new Error(result.error || (language === "en" ? "The upload could not be started." : "No se pudo iniciar la carga."));
+        }
+        sessionsRef.current = result.sessions;
       }
       for (let index = 0; index < files.length; index += 1) {
-        if (progress[index] === 100) continue;
+        if (completedRef.current[index]) continue;
         const file = files[index];
-        const { sessionUrl } = result.sessions[index];
+        const { sessionUrl } = sessionsRef.current![index];
         const mimeType = uploads[index].type;
-        let offset = 0;
-        const chunkSize = 8 * 1024 * 1024;
-        while (offset < file.size) {
-          const end = Math.min(offset + chunkSize, file.size);
-          let response: Response;
-          try {
-            response = await fetch(sessionUrl, {
-              method: "PUT", headers: { "Content-Range": `bytes ${offset}-${end - 1}/${file.size}`, "Content-Type": mimeType }, body: file.slice(offset, end),
-            });
-          } catch {
-            const status = await fetch(sessionUrl, { method: "PUT", headers: { "Content-Range": `bytes */${file.size}` } });
-            if (status.status === 200 || status.status === 201) { offset = file.size; break; }
-            if (status.status !== 308) throw new Error(language === "en" ? "The connection was interrupted. Retry this file." : "La conexión se interrumpió. Intenta de nuevo este archivo.");
-            const range = status.headers.get("Range");
-            offset = range ? Number(range.split("-").pop()) + 1 : 0;
-            continue;
-          }
-          if (response.status === 308) {
-            const range = response.headers.get("Range");
-            offset = range ? Number(range.split("-").pop()) + 1 : end;
-          } else if (response.ok) offset = file.size;
-          else throw new Error(language === "en" ? "Google Drive rejected this file." : "Google Drive rechazó este archivo.");
-          setProgress((current) => current.map((value, item) => item === index ? Math.min(100, Math.round((offset / file.size) * 100)) : value));
-        }
-        setProgress((current) => current.map((value, item) => item === index ? 100 : value));
+        const resume = attemptedRef.current[index];
+        attemptedRef.current[index] = true;
+        await uploadResumable(file, sessionUrl, mimeType, resume, (value) => setProgress((current) => current.map((old, item) => item === index ? value : old)));
+        completedRef.current[index] = true;
       }
     } catch (error) {
-      setUploadError(error instanceof Error ? error.message : (language === "en" ? "Upload failed." : "La carga falló."));
+      setUploadError(error instanceof Error && error.message === "session-unavailable"
+        ? (language === "en" ? "This upload session is no longer available. Check Drive before selecting the files again." : "La sesión de carga ya no está disponible. Revisa Drive antes de volver a seleccionar los archivos.")
+        : sessionsRef.current ? (language === "en" ? "Upload interrupted. Check your connection and retry without reloading this page." : "La carga se interrumpió. Revisa tu conexión y vuelve a intentarlo sin recargar esta página.") : (error instanceof Error ? error.message : (language === "en" ? "Upload failed." : "La carga falló.")));
     } finally {
       setUploading(false);
     }
@@ -229,8 +220,8 @@ export default function Memories() {
                 <small>{progress[index]}% · {(file.size / 1024 ** 2).toFixed(1)} MB</small>
               </li>)}</ul>
               {uploadError ? <p className="form-error" role="alert">{uploadError}</p> : null}
-              <button className="upload-submit" type="button" disabled={uploading || !turnstileToken || progress.every((value) => value === 100)} onClick={uploadFiles}>
-                {uploading ? (language === "en" ? "Uploading…" : "Subiendo…") : !turnstileToken ? (language === "en" ? "Complete the security check" : "Completa la verificación") : (language === "en" ? "Upload memories" : "Subir recuerdos")}
+              <button className="upload-submit" type="button" disabled={uploading || (!sessionsRef.current && !turnstileToken) || progress.every((value) => value === 100)} onClick={uploadFiles}>
+                {uploading ? (language === "en" ? "Uploading…" : "Subiendo…") : !sessionsRef.current && !turnstileToken ? (language === "en" ? "Complete the security check" : "Completa la verificación") : (language === "en" ? "Upload memories" : "Subir recuerdos")}
               </button>
             </div> : null}
           </> : null}

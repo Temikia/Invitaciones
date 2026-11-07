@@ -90,6 +90,8 @@ Antes de Preview se puede probar la carga real en esta computadora con `npm run 
 
 La sesión de carga se inicia con el origen validado de la página para que Google permita al navegador leer la respuesta. Si aparece un error de red, revisar primero la carpeta: Google podría haber recibido el archivo aunque el navegador no haya podido confirmar la respuesta.
 
+Para reintentar una interrupción, recuperar la conexión y pulsar de nuevo sin recargar ni cambiar la selección: el cliente consulta a Drive y conserva las sesiones y archivos terminados durante esa visita. Al recargar, cerrar o cambiar la selección se pierde ese estado; revisar Drive antes de empezar de nuevo. La desconexión real desde navegador queda pendiente de verificar.
+
 Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 
 1. Subir una foto y comprobar que aparece en la carpeta correcta y en la galería privada.

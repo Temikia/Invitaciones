@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 18:54 — Ciudad de México (GMT−6)
+
+Se corrigió el reintento de cargas interrumpidas: conserva sesiones y archivos completados mientras la página permanezca abierta y consulta a Drive antes de continuar; evita marcar 100 % sin confirmación. Build y 22 pruebas correctas. Drive confirmó la carga de una imagen real en dos etapas con la misma sesión. Falta probar desconexión desde navegador y considerar la caducidad; recargar o cambiar la selección descarta la sesión. Sin despliegue.
+
 ## 2026-11-06 18:50 — Ciudad de México (GMT−6)
 
 La usuaria confirmó la reproducción del video en Drive. Al revisar la recuperación de red se detectó que una interrupción que persista durante la consulta de estado termina el intento y que al pulsar de nuevo se crean sesiones nuevas; no se ha probado su reanudación ni descartado duplicados. Siguiente paso: corregir y verificar ese caso antes de probar álbum y protecciones. Sin despliegue.
