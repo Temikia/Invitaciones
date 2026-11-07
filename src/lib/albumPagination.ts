@@ -1,7 +1,11 @@
 export const ALBUM_PAGE_SIZE = 50;
 
-export function paginateAlbum<T>(files: T[], requestedPage: number) {
-  const pageCount = Math.max(1, Math.ceil(files.length / ALBUM_PAGE_SIZE));
-  const page = Math.min(Math.max(1, requestedPage), pageCount);
-  return { page, pageCount, files: files.slice((page - 1) * ALBUM_PAGE_SIZE, page * ALBUM_PAGE_SIZE) };
+/** Recuerdos visibles tras pulsar «Ver más» cierto número de veces. */
+export function revealAlbum<T>(files: readonly T[], visible: number) {
+  const count = Math.min(Math.max(0, visible), files.length);
+  return { files: files.slice(0, count), remaining: files.length - count };
+}
+
+export function nextVisibleCount(visible: number, total: number) {
+  return Math.min(total, visible + ALBUM_PAGE_SIZE);
 }

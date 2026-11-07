@@ -1,0 +1,61 @@
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { ArrowLeft, Clapperboard } from "lucide-react";
+import { useLanguage } from "../../config/language";
+import { invitation } from "../../config/invitation";
+import { useReducedMotion, usePageVisible } from "../../hooks/useReducedMotion";
+import { HERO_SLIDE_MS, shuffle } from "../../lib/albumShow";
+import "../../styles/album-hero.css";
+
+type AlbumHeroProps = { canPlayMovie: boolean; onPlayMovie: () => void };
+
+/**
+ * Portada animada con las fotografías de la galería de la invitación en un orden distinto en cada visita.
+ * El avance lo marca el final de la barra de progreso, así la pausa conserva el punto exacto.
+ * No tiene controles visibles: se detiene sola con el cursor encima, el foco dentro, la pestaña oculta
+ * o fuera de pantalla, y con movimiento reducido muestra una sola foto fija.
+ */
+export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
+  const { language } = useLanguage();
+  const photos = useMemo(() => shuffle(invitation.photos.gallery), []);
+  const reducedMotion = useReducedMotion();
+  const pageVisible = usePageVisible();
+  const [active, setActive] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [onScreen, setOnScreen] = useState(true);
+  const section = useRef<HTMLElement>(null);
+  const leaving = photos.length > 1 ? (active - 1 + photos.length) % photos.length : -1;
+  const paused = reducedMotion || hovered || focused || !pageVisible || !onScreen;
+
+  useEffect(() => {
+    const element = section.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return <section ref={section} className={`album-hero${paused ? " is-paused" : ""}`} aria-labelledby="album-title"
+    onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    onFocus={() => setFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
+    style={{ "--hero-slide": `${HERO_SLIDE_MS}ms` } as CSSProperties}>
+    <div className="album-hero-media" aria-hidden="true">
+      {photos.map((src, index) => <img key={src} src={src} alt="" decoding="async"
+        loading={index < 2 ? "eager" : "lazy"} className={index === active ? "is-active" : index === leaving ? "is-leaving" : undefined} />)}
+    </div>
+    {!reducedMotion && photos.length > 1 && <div className="album-hero-bars" aria-hidden="true">
+      {photos.map((src, index) => <i key={src} className={index < active ? "is-done" : index === active ? "is-now" : undefined}>
+        {index === active && <b key={active} onAnimationEnd={() => setActive((value) => (value + 1) % photos.length)} />}
+      </i>)}
+    </div>}
+    <a href="/recuerdos" className="album-hero-back"><ArrowLeft size={16} aria-hidden="true" /> {language === "en" ? "Back to memories" : "Volver a recuerdos"}</a>
+    <div className="album-hero-copy">
+      <p className="eyebrow">{language === "en" ? "Camila's XV · A private album" : "Mis XV · Camila · Álbum privado"}</p>
+      <h1 id="album-title">{language === "en" ? <>Our night,<br /><em>our memories</em></> : <>Nuestra noche,<br /><em>nuestros recuerdos</em></>}</h1>
+      <p>{language === "en" ? "A collection of moments shared by the people who celebrated with Camila." : "Momentos compartidos por quienes celebraron con Camila."}</p>
+      {canPlayMovie && <button type="button" className="album-hero-movie" onClick={onPlayMovie}>
+        <Clapperboard size={17} aria-hidden="true" /> {language === "en" ? "Watch as a movie" : "Ver como película"}
+      </button>}
+    </div>
+  </section>;
+}

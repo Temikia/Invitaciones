@@ -1,0 +1,133 @@
+/* Portada animada del álbum: queda bajo la cabecera fija y transparente. */
+.album-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(88svh, 820px);
+  margin-top: calc(-44px - env(safe-area-inset-top, 0px));
+  padding: calc(84px + env(safe-area-inset-top, 0px)) 24px 56px;
+  overflow: hidden;
+  background: #120b1c;
+  color: #f7ecdd;
+}
+.album-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(18, 11, 28, .7) 0%, rgba(18, 11, 28, 0) 24%, rgba(18, 11, 28, 0) 46%, rgba(24, 16, 36, .82) 78%, #181024 100%),
+    radial-gradient(ellipse at 20% 100%, rgba(24, 16, 36, .7), transparent 60%);
+}
+.album-hero-media { position: absolute; inset: 0; z-index: -2; }
+.album-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+/* La nueva foto aparece sobre la saliente, que se queda opaca debajo hasta el siguiente cambio. */
+.album-hero-media img.is-leaving { z-index: 1; opacity: 1; }
+.album-hero-media img.is-active { z-index: 2; opacity: 1; }
+
+.album-hero-bars {
+  position: absolute;
+  top: calc(54px + env(safe-area-inset-top, 0px));
+  inset-inline: 24px;
+  display: flex;
+  gap: 5px;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+.album-hero-bars i {
+  flex: 1;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 246, 230, .28);
+}
+.album-hero-bars i.is-done { background: rgba(255, 246, 230, .92); }
+.album-hero-bars b {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #f6dfac, #fff6e6);
+  transform-origin: left;
+  animation: album-hero-fill var(--hero-slide, 4s) linear forwards;
+}
+.album-hero.is-paused .album-hero-bars b,
+.album-hero.is-paused .album-hero-media img.is-active { animation-play-state: paused; }
+@keyframes album-hero-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.album-hero-back {
+  position: absolute;
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 8px;
+  color: #ead6b3;
+  font-size: 11px;
+  text-decoration: none;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+}
+.album-hero-copy {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+  text-shadow: 0 2px 24px rgba(10, 6, 18, .55);
+}
+.album-hero-copy .eyebrow { margin-bottom: 12px; }
+.album-hero-copy h1 {
+  max-width: 11ch;
+  margin: 0;
+  font: 500 clamp(3rem, 9vw, 6.2rem) / .95 var(--serif);
+  letter-spacing: -.01em;
+}
+.album-hero-copy h1 em { color: var(--gold); font-weight: 400; }
+.album-hero-copy > p:not(.eyebrow) {
+  max-width: 38ch;
+  margin: 18px 0 0;
+  color: #ddd0e4;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.album-hero-movie {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  margin-top: 26px;
+  padding: 0 22px;
+  border: 1px solid #dbba78;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f1d79f, #c9a15c);
+  color: #22152f;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(219, 186, 120, .22);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.album-hero-movie:hover { transform: translateY(-1px); box-shadow: 0 14px 34px rgba(219, 186, 120, .34); }
+.album-hero-movie:focus-visible, .album-hero-back:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
+
+@media (min-width: 900px) {
+  .album-hero { padding-inline: 48px; padding-bottom: 72px; }
+  .album-hero-bars { inset-inline: 48px; top: auto; bottom: 80px; left: auto; width: 260px; }
+  .album-hero-back { left: 36px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* La foto saliente conserva la animación (mismo nombre) para no saltar mientras se desvanece. */
+  .album-hero-media img.is-active, .album-hero-media img.is-leaving { animation: album-hero-drift 9s ease-out forwards; }
+  @keyframes album-hero-drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-1.5%, -1.5%); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .album-hero-media img { transition: none; }
+}

@@ -44,3 +44,34 @@
 .album-viewer-photo-wrap { min-width: 100%; margin: 0 auto; }
 .album-viewer-photo-wrap.is-rotated { padding-block: min(30vw, 220px); }
 .album-viewer-photo-wrap img { display: block; max-width: 100%; max-height: calc(100vh - 110px); width: auto; height: auto; margin: 0 auto; object-fit: contain; }
+.album-viewer-stage { position: relative; }
+.album-viewer-count { margin-left: auto; color: #e8d6b6; font: 12px var(--sans, "Manrope", sans-serif); letter-spacing: .08em; }
+.album-viewer-count + .album-viewer-close { margin-left: 12px; }
+.album-viewer-nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(243, 213, 159, .35);
+  border-radius: 50%;
+  background: rgba(24, 16, 36, .62);
+  color: #f3d59f;
+  cursor: pointer;
+  transform: translateY(-50%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.album-viewer-nav.is-prev { left: 4px; }
+.album-viewer-nav.is-next { right: 4px; }
+.album-viewer-nav:focus-visible, .album-viewer-toolbar button:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
+@media (hover: none) and (max-width: 700px) {
+  /* En teléfono se desliza con el dedo; las flechas quedan pequeñas para no tapar la foto. */
+  .album-viewer-nav { width: 40px; height: 40px; opacity: .75; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .album-viewer-photo-wrap, .album-viewer-stage video { animation: album-viewer-in .35s ease both; }
+  @keyframes album-viewer-in { from { opacity: 0; } to { opacity: 1; } }
+}

@@ -1,5 +1,16 @@
 # Invitación de Camila — trabajo en curso
 
+## Rediseño visual del álbum — 07/11/2026
+Dirección acordada con la usuaria mediante maquetas: portada tipo «historias» + mosaico tipo revista con destello dorado.
+- ✅ Fases 1–3 implementadas y verificadas con datos simulados; build y 36 pruebas. Detalle en `docs/VERIFICACION.md`.
+- ❓ El álbum real aparece vacío: la carpeta configurada no tiene archivos visibles para la app (0). Con `drive.file` solo se ven archivos subidos desde `/recuerdos`; lo que se cargue directamente en Drive no aparece. Decidir con la usuaria: subirlos desde `/recuerdos` o ampliar el permiso (requiere reautorizar y revisar la decisión de seguridad).
+- ❓ Sin emular movimiento reducido, deslizar en teléfono real ni pantalla completa en iOS. Sin despliegue.
+- Siguiente paso: resolver la visibilidad de los archivos de Drive y revisar el álbum con contenido real.
+- (plan original) Fase 1 · Portada animada (las 7 fotos de la galería de la invitación en orden aleatorio, 4 s, acercamiento lento, barras indicadoras, sin botones; pausa invisible con cursor encima, pestaña oculta o fuera de pantalla; movimiento reducido = foto fija). Reemplaza la pasarela.
+- (plan original) Fase 2 · Mosaico de tamaños variados (3 columnas móvil, 6 escritorio, sin huecos), filtros Todo/Fotos/Videos con conteo, «Ver más recuerdos» de 50 en 50, destello dorado animado solo en fotos visibles (fijo con movimiento reducido).
+- (plan original) Fase 3 · «Ver como película»: presentación a pantalla completa de todo el álbum en orden aleatorio; fotos 5 s con acercamiento, videos solo sus primeros 5 s y sin sonido; cerrar, Esc y flechas. Visor con anterior/siguiente.
+- (plan original) Fase 4 · Verificación (build, pruebas, móvil/escritorio, movimiento reducido), documentación y commit.
+
 ## Visor y pasarela del álbum — 07/11/2026
 - ✅ Cabecera compartida en invitación, recuerdos y álbum. Álbum con pasarela circular de fotos, cuadrícula de cinco columnas y paginado de 50 archivos; visor para fotos y videos, zoom y giro solo visuales.
 - ✅ Build y 33 pruebas, incluidas páginas con 101 archivos. En navegador local: foto, zoom, giro, Escape y cuadrícula en escritorio; cuadrícula y apertura del visor de video en móvil. La pasarela se pausa fuera de pantalla y con pestaña oculta; movimiento reducido inicia pausado.

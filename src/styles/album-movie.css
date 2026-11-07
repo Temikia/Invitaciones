@@ -1,0 +1,116 @@
+/* Modo película: pantalla completa, sin interfaz salvo cerrar, contador y progreso. */
+.album-movie {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: #07040c;
+  color: #f7ecdd;
+}
+.album-movie::backdrop { background: #07040c; }
+.album-movie-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.album-movie-stage img, .album-movie-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.album-movie-top {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 30px;
+  background: linear-gradient(180deg, rgba(7, 4, 12, .7), transparent);
+}
+.album-movie-top p { margin: 0; color: #d9c8ac; font-size: 12px; letter-spacing: .08em; }
+.album-movie-top p span { margin-right: 10px; color: var(--gold); font: italic 500 18px var(--serif); letter-spacing: 0; }
+.album-movie-top button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(243, 213, 159, .35);
+  border-radius: 50%;
+  background: rgba(24, 16, 36, .6);
+  color: #f3d59f;
+  cursor: pointer;
+}
+/* Zonas laterales: tocar a la izquierda o derecha cambia de recuerdo; la flecha solo aparece al pasar el cursor o con foco. */
+.album-movie-zone {
+  position: absolute;
+  top: 80px;
+  bottom: 40px;
+  z-index: 2;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  color: #f3d59f;
+  cursor: pointer;
+}
+.album-movie-zone svg { opacity: 0; transition: opacity .25s; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .6)); }
+.album-movie-zone:hover svg, .album-movie-zone:focus-visible svg { opacity: 1; }
+.album-movie-zone.is-prev { left: 0; justify-content: flex-start; }
+.album-movie-zone.is-next { right: 0; justify-content: flex-end; }
+.album-movie-zone:focus-visible, .album-movie-top button:focus-visible { outline: 2px solid #f6dfac; outline-offset: -4px; }
+.album-movie-paused {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(24, 16, 36, .75);
+  color: #efd5a4;
+  font-size: 12px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.album-movie-progress {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 3;
+  height: 3px;
+  background: rgba(255, 246, 230, .14);
+}
+.album-movie-progress b {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #c9a15c, #f6dfac);
+  transform-origin: left;
+  animation: album-movie-fill var(--movie-slide, 5s) linear forwards;
+}
+.album-movie.is-paused .album-movie-progress b,
+.album-movie.is-paused .album-movie-stage img { animation-play-state: paused; }
+@keyframes album-movie-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .album-movie-stage { animation: album-movie-in .9s ease both; }
+  .album-movie-stage img.drift-right { animation: album-movie-drift-right calc(var(--movie-slide, 5s) + 1s) ease-out forwards; }
+  .album-movie-stage img.drift-left { animation: album-movie-drift-left calc(var(--movie-slide, 5s) + 1s) ease-out forwards; }
+  @keyframes album-movie-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes album-movie-drift-right { from { transform: scale(1); } to { transform: scale(1.08) translateX(1.5%); } }
+  @keyframes album-movie-drift-left { from { transform: scale(1.08) translateX(1.5%); } to { transform: scale(1); } }
+}

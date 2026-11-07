@@ -8,7 +8,7 @@ Para reproducir el método en otro proyecto, consultar [Google Drive con OAuth y
 
 - Los archivos se guardarán en la carpeta de Drive `Mis-XV-Camila`.
 - La galería será privada y se abrirá con un enlace secreto. Cualquier persona que reciba o reenvíe ese enlace podrá entrar.
-- El álbum muestra una pasarela de fotos y después una cuadrícula de cinco columnas y 50 archivos por página. El visor permite acercar, alejar y girar fotos sin modificar originales; los videos se reproducen en el mismo visor.
+- El álbum muestra una portada animada con las fotos de la invitación y después un mosaico con filtros que carga 50 archivos cada vez. El visor permite pasar entre recuerdos, acercar, alejar y girar fotos sin modificar originales; los videos se reproducen en el mismo visor. «Ver como película» recorre todo el álbum al azar (videos solo 5 s). Solo aparecen archivos subidos desde `/recuerdos`: con el permiso `drive.file` la app no ve lo que se suba directamente a la carpeta desde Drive.
 - La página de carga está en `/recuerdos`; el botón «Ver álbum» abre `/album`, que requiere el enlace privado o una sesión ya autorizada.
 - Al seleccionar archivos se muestran miniaturas con un velo claro que se retira desde abajo conforme se envían; se descubren por completo cuando Drive confirma la carga. Los videos se identifican y, si el navegador no admite una vista previa, aparece una alternativa. Los nombres y el progreso siguen disponibles para lectores de pantalla.
 - Límites actuales: 20 archivos por lote, 20 MB por foto y 400 MB por video.

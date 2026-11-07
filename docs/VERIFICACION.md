@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Rediseño visual del álbum — 07/11/2026
+- Build y 36 pruebas correctos (orden aleatorio, filtros, patrón del mosaico y carga progresiva de 101 archivos).
+- Navegador local con datos simulados (62 archivos con fotos de la invitación y un video local de 10 s, sin tocar Drive): portada animada en escritorio y 375 px sin desplazamiento horizontal; mosaico de 4 y 3 columnas, filtros, conteo, «Ver más (12)» y barra fija; visor con flechas de teclado (2 → 4 de 50) y Esc; modo película a pantalla completa, avance entre fotos, video sin sonido cortado a los 5 s y cierre con Esc devolviendo el foco.
+- No verificado: movimiento reducido emulado (solo revisión de CSS y lógica), deslizar con el dedo en un teléfono real, pantalla completa en iOS y el álbum con archivos reales: la carpeta de Drive no tiene archivos visibles para la app (0 con permiso `drive.file`).
+
 ## Visor y pasarela del álbum — 07/11/2026
 - Build y 33 pruebas correctos; la prueba de paginación cubre 101 archivos. En navegador local se verificaron cuadrícula en escritorio y móvil, apertura de foto, zoom, giro, Escape y apertura del visor de video.
 - No se emularon preferencias de movimiento reducido ni se probó visualmente una segunda página o reproducción del video. Revisar consumo de imágenes originales, cuota de lecturas y Preview.

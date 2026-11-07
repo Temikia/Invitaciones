@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 17:45 — Ciudad de México (GMT−6)
+
+Rediseño visual del álbum, porque la usuaria lo sentía anticuado; la dirección se eligió con maquetas en navegador. Portada animada tipo «historias» con las siete fotos de la invitación al azar y sin controles visibles, mosaico tipo revista con destello dorado, filtros y «Ver más recuerdos», visor con navegación y modo película aleatorio con videos de 5 s sin sonido. Se retiró la pasarela. Build y 36 pruebas; revisión en navegador con datos simulados. Se detectó que la carpeta de Drive no tiene archivos visibles para la app (permiso `drive.file`), por eso el álbum real aparece vacío; queda como decisión de la usuaria. Sin despliegue.
+
 ## 2026-11-07 17:00 — Ciudad de México (GMT−6)
 
 Se unificó la cabecera y se renovó el álbum privado con pasarela de fotos, cuadrícula de cinco columnas, páginas de 50 archivos y visor de solo lectura con zoom y giro visual. Build y 33 pruebas correctos; se revisaron foto y controles en escritorio y cuadrícula y visor de video en móvil. Pendientes movimiento reducido, paginado visual con más de 50 archivos y reproducción de video; el listado sigue completo y las fotos se sirven a tamaño original. Sin despliegue.
