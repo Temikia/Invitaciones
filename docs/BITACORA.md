@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 18:35 — Ciudad de México (GMT−6)
+
+Se preparó un servidor de prueba local separado de la API desplegada para usar la autorización de Drive existente sin configurar los servicios de protección. Una imagen mínima se subió realmente a Drive y Google respondió HTTP 200; quedan por verificar el envío desde navegador y CORS. Build y 19 pruebas correctos. No hubo despliegue. Siguiente paso: probar una foto desde `http://127.0.0.1:5188/recuerdos` y comprobarla en Drive.
+
 ## 2026-11-06 17:47 — Ciudad de México (GMT−6)
 
 Se implementó protección contra abuso de cargas con validación server-side de Turnstile, límite de cuatro lotes por IP cada minuto y límite de consultas a la galería mediante Upstash compartido; el backend valida todos los archivos y el máximo de 20 por lote antes de crear sesiones. Se añadió el álbum privado: el secreto llega en el fragmento del enlace, se canjea por cookie firmada de 24 horas y el servidor solo lista/proxy archivos marcados dentro de la carpeta privada. Se documentaron configuración, límites y pruebas pendientes en README, pasos de Drive, decisiones, verificación y EN_CURSO. No se configuraron servicios externos, no se leyeron/generaron secretos, las cargas siguen apagadas y no hubo despliegue. Build correcto y 19 pruebas pasando. La revisión visual local quedó pendiente porque el navegador no pudo iniciarse en este entorno.

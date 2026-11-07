@@ -86,6 +86,8 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 
 ## Paso 5: revisión contigo en la preview
 
+Antes de Preview se puede probar la carga real en esta computadora con `npm run dev:recuerdos`, abriendo `http://127.0.0.1:5188/recuerdos`. Este servidor aislado no utiliza Turnstile ni Upstash y no implementa el álbum privado; no sustituye la revisión de esas protecciones ni las pruebas en Preview. Los archivos de prueba se crean en la carpeta real de Drive y pueden borrarse allí.
+
 Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 
 1. Subir una foto y comprobar que aparece en la carpeta correcta y en la galería privada.

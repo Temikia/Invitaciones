@@ -25,6 +25,7 @@ export default function Memories() {
   const [files, setFiles] = useState<File[]>([]);
   const [ready, setReady] = useState(false);
   const [siteKey, setSiteKey] = useState("");
+  const [localTestMode, setLocalTestMode] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState<number[]>([]);
@@ -46,6 +47,8 @@ export default function Memories() {
       .then((result) => {
         if (!active) return;
         setReady(result?.ready === true);
+        setLocalTestMode(result?.localTestMode === true);
+        if (result?.localTestMode === true) setTurnstileToken("local-test");
         setSiteKey(typeof result?.turnstileSiteKey === "string" ? result.turnstileSiteKey : "");
       })
       .catch(() => { if (active) setReady(false); });
@@ -140,7 +143,7 @@ export default function Memories() {
       const sessionResponse = await fetch("/api/drive/session", {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ files: uploads, turnstileToken }),
       });
-      setTurnstileToken("");
+      setTurnstileToken(localTestMode ? "local-test" : "");
       if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
       const result = await sessionResponse.json().catch(() => ({}));
       if (!sessionResponse.ok || !Array.isArray(result.sessions) || result.sessions.length !== files.length) {
@@ -217,7 +220,7 @@ export default function Memories() {
               <input aria-label={t("memories.select.aria")} type="file" multiple accept="image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/x-m4v,.heic,.heif,.mov,.m4v" disabled={uploading} onChange={select} />
             </label>
             <p className="form-note">{t("memories.limits")}</p>
-            <div className="turnstile-widget" ref={challengeRef} aria-label={language === "en" ? "Security check" : "Verificación de seguridad"} />
+            {!localTestMode ? <div className="turnstile-widget" ref={challengeRef} aria-label={language === "en" ? "Security check" : "Verificación de seguridad"} /> : null}
             {errors.length ? <ul className="form-error" role="alert">{errors.map((error) => <li key={error}>{error}</li>)}</ul> : null}
             {files.length ? <div className="selected-files">
               <p>{files.length} {t("memories.selected")}</p>

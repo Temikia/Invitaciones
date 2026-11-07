@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Prueba local de fotos — 06/11/2026
+- ✅ Servidor de desarrollo aislado en `127.0.0.1:5188`, con la autorización existente de Drive; `npm run dev:recuerdos`. Omite los servicios de protección solo en este servidor local, separado de la API desplegada.
+- ✅ Google confirmó HTTP 200 al subir una imagen mínima real mediante una sesión reanudable. Build y 19 pruebas correctos.
+- ⏳ Falta subir una foto desde la página y verificar CORS, contenido y carpeta; también siguen pendientes álbum, video, reanudación y protecciones reales en Preview. El archivo `prueba-local-camila.png` se creó en Drive como prueba.
+- Siguiente paso: abrir `http://127.0.0.1:5188/recuerdos`, seleccionar una foto de prueba y confirmar su llegada a Drive. Sin despliegue.
+
 ## Protección contra abuso y álbum privado — 06/11/2026
 - ✅ `/api/drive/session` ahora acepta y valida el lote completo (máximo 20) en servidor antes de crear sesiones. Exige Turnstile validado con acción/hostname en Cloudflare y limita a 4 lotes por IP/minuto con contador compartido Upstash; si la protección falla, no se crean sesiones. Las consultas del álbum también tienen un límite compartido.
 - ✅ Implementada la vista `/recuerdos?album=1#<secreto>`. El secreto solo viaja en el fragmento, se canjea por cookie firmada `HttpOnly`/`Secure`/`SameSite=Strict` de 24 horas y se elimina del historial visible. Listado y proxy multimedia requieren cookie, carpeta y marcador propios; el proxy admite `Range` para video.
