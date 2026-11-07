@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Video e interrupción — 06/11/2026
+
+- La usuaria confirmó la reproducción del video cargado en Drive.
+- Por inspección del código, una pérdida de red que también impida la consulta inmediata de estado termina el intento; volver a pulsar crea nuevas sesiones. Falta corregir y probar la reanudación y posibles duplicados.
+
 ## Lote desde navegador local — 06/11/2026
 
 - Tras solicitar una prueba de video y de varios archivos, la usuaria informó que todo subió, incluso varios a la vez. No se recibió confirmación de reproducción ni de comportamiento al interrumpir la conexión.

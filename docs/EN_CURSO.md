@@ -1,12 +1,17 @@
 # Invitación de Camila — trabajo en curso
 
+## Reproducción de video y revisión de interrupciones — 06/11/2026
+- ✅ La usuaria confirmó que el video subido se reproduce en Drive.
+- ❓ Revisión de código: si se pierde la red y la consulta inmediata del estado también falla, el intento termina con error; al volver a pulsar se crean sesiones nuevas. No se ha verificado la reanudación ni la ausencia de duplicados. Corregir y probar este caso antes de darlo por terminado.
+- ⏳ Después revisar álbum privado, protecciones reales y Preview. Sin despliegue.
+
 ## Prueba de varios archivos — 06/11/2026
-- ✅ Tras solicitar una prueba con video y varios archivos, la usuaria informó que todo se subió, incluso varios a la vez. No confirmó todavía la reproducción del video en Drive.
-- ⏳ Siguiente paso: confirmar reproducción del video y probar una interrupción de conexión. Continúan pendientes el álbum privado, los controles reales contra abuso y la revisión en Preview. Sin despliegue.
+- ✅ Tras solicitar una prueba con video y varios archivos, la usuaria informó que todo se subió, incluso varios a la vez; posteriormente confirmó la reproducción del video en Drive.
+- ⏳ Corregir y probar la recuperación ante una interrupción prolongada. Continúan pendientes el álbum privado, los controles reales contra abuso y la revisión en Preview. Sin despliegue.
 
 ## Prueba de foto desde navegador — 06/11/2026
 - ✅ La usuaria mostró una foto al 100 % en `/recuerdos` y confirmó que los archivos llegaron a Drive tras la corrección de CORS. No se inspeccionaron sus bytes ni el álbum privado.
-- ✅ La usuaria informó después que todo se subió, incluso varios archivos a la vez. Siguen pendientes la reproducción del video, reanudación, álbum privado, protecciones reales y revisión en Preview. Sin despliegue.
+- ✅ La usuaria informó después que todo se subió, incluso varios archivos a la vez, y confirmó la reproducción del video. Siguen pendientes reanudación, álbum privado, protecciones reales y revisión en Preview. Sin despliegue.
 
 ## Corrección de CORS en cargas — 06/11/2026
 - ✅ Se envía a Google el origen validado al crear la sesión reanudable; tanto el servidor local como la API real lo utilizan. Antes Google confirmaba la carga sin autorizar la respuesta al navegador, que mostraba `Failed to fetch`.
