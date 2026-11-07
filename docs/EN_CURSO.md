@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Interrupción controlada con Drive — 06/11/2026
+- ✅ Se generó una imagen PNG válida de 9.7 MB y se usó la lógica real del cliente con Drive. Se simuló un fallo de conexión después del primer bloque (86 %); el reintento consultó la misma sesión, completó al 100 % y la comparación SHA-256 del archivo descargado confirmó contenido idéntico.
+- ✅ La prueba creó `prueba-interrupcion-camila.png` en la carpeta de Drive. La interrupción se provocó en la petición del programa; no se desconectó físicamente el navegador.
+- ⏳ Pendiente probar desconexión desde navegador, video grande, caducidad de sesión, álbum privado y protecciones reales en Preview. Sin despliegue.
+
 ## Recuperación de cargas interrumpidas — 06/11/2026
 - ✅ El cliente conserva las sesiones y los archivos terminados en memoria durante la visita. Al reintentar consulta a Drive y continúa desde el último bloque confirmado; no muestra 100 % hasta confirmación real. Cambiar la selección, recargar o cerrar descarta ese estado.
 - ✅ Pruebas automatizadas de corte, reanudación y confirmación ya recibida; build y 22 pruebas correctas. En Drive real se subió una parte de `prueba-reanudacion-camila.webp` y se completó el resto con la misma sesión tras consultar el estado; Google expone `Range` para el origen local.

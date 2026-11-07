@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Interrupción controlada con Drive — 06/11/2026
+
+- Una imagen PNG válida de 9,739,098 bytes se envió con la lógica real de carga. Se inyectó un fallo antes del segundo bloque, tras registrar 86 %, y se reintentó con la misma sesión. Drive confirmó el 100 %; el SHA-256 de la descarga coincidió con el original.
+- Esta prueba simula el fallo en el programa; no acredita una desconexión física ni el flujo completo de la interfaz del navegador. Se creó `prueba-interrupcion-camila.png` en la carpeta de Drive.
+
 ## Recuperación de cargas — 06/11/2026
 
 - Build correcto y 22 pruebas correctas. Pruebas automatizadas cubren interrupción, reanudación desde un bloque confirmado y carga ya completada sin repetir contenido.

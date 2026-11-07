@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 19:00 — Ciudad de México (GMT−6)
+
+Como las cargas manuales terminaban demasiado rápido para interrumpirlas, se realizó una prueba controlada con una imagen PNG válida de 9,739,098 bytes y la lógica real del cliente. Se simuló una pérdida antes del segundo bloque al 86 %, se consultó la misma sesión y se completó al 100 %; el SHA-256 descargado de Drive coincidió con el original. Quedan por comprobar la desconexión física desde navegador, video grande, álbum y protecciones. Sin despliegue.
+
 ## 2026-11-06 18:54 — Ciudad de México (GMT−6)
 
 Se corrigió el reintento de cargas interrumpidas: conserva sesiones y archivos completados mientras la página permanezca abierta y consulta a Drive antes de continuar; evita marcar 100 % sin confirmación. Build y 22 pruebas correctas. Drive confirmó la carga de una imagen real en dos etapas con la misma sesión. Falta probar desconexión desde navegador y considerar la caducidad; recargar o cambiar la selección descarta la sesión. Sin despliegue.
