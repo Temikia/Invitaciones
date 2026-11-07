@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { ArrowLeft, Camera, ImagePlus, LockKeyhole } from "lucide-react";
+import { ArrowLeft, Camera, Film, ImagePlus, LockKeyhole } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
@@ -20,6 +20,28 @@ const mimeByExtension: Record<string, string> = {
   heic: "image/heic", heif: "image/heif", mp4: "video/mp4",
   mov: "video/quicktime", webm: "video/webm", m4v: "video/mp4",
 };
+
+function SelectedPreview({ file, language }: { file: File; language: string }) {
+  const [url, setUrl] = useState("");
+  const [failed, setFailed] = useState(false);
+  const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+  const video = file.type.startsWith("video/") || ["mp4", "mov", "webm", "m4v"].includes(extension);
+
+  useEffect(() => {
+    const objectUrl = URL.createObjectURL(file);
+    setUrl(objectUrl);
+    setFailed(false);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
+
+  return <div className="selected-preview" aria-hidden="true">
+    {url && !failed ? video
+      ? <video src={`${url}#t=0.1`} preload="metadata" muted playsInline onError={() => setFailed(true)} />
+      : <img src={url} alt="" onError={() => setFailed(true)} />
+      : <div className="selected-preview-fallback"><ImagePlus size={24} /><span>{language === "en" ? "Preview unavailable" : "Vista previa no disponible"}</span></div>}
+    {video && !failed ? <span className="selected-preview-video"><Film size={14} /> <span>Video</span></span> : null}
+  </div>;
+}
 
 export default function Memories() {
   const { language, setLanguage, t } = useLanguage();
@@ -216,8 +238,8 @@ export default function Memories() {
             {files.length ? <div className="selected-files">
               <p>{files.length} {t("memories.selected")}</p>
               <ul>{files.map((file, index) => <li key={`${file.name}-${index}`}>
-                <div className="upload-file-progress"><span>{file.name}</span><progress value={progress[index]} max={100} aria-label={`${file.name}: ${progress[index]}%`} /></div>
-                <small>{progress[index]}% · {(file.size / 1024 ** 2).toFixed(1)} MB</small>
+                <SelectedPreview file={file} language={language} />
+                <div className="upload-file-progress"><span className="sr-only">{file.name}</span><progress value={progress[index]} max={100} aria-label={`${file.name}: ${progress[index]}%`} /><small>{progress[index]}% · {(file.size / 1024 ** 2).toFixed(1)} MB</small></div>
               </li>)}</ul>
               {uploadError ? <p className="form-error" role="alert">{uploadError}</p> : null}
               <button className="upload-submit" type="button" disabled={uploading || (!sessionsRef.current && !turnstileToken) || progress.every((value) => value === 100)} onClick={uploadFiles}>

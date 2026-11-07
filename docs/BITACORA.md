@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 15:41 — Ciudad de México (GMT−6)
+
+Se cambió la lista de archivos seleccionados por miniaturas locales con progreso, identificación de video y alternativa para formatos no compatibles; los nombres se conservan para lectores de pantalla. Build y 29 pruebas correctos; revisión visual de cuatro fotos en escritorio y móvil. Queda pendiente revisar video y movimiento reducido en navegador. Sin despliegue; se conservaron cambios ajenos en README.
+
 ## 2026-11-07 15:31 — Ciudad de México (GMT−6)
 
 Se comprobaron las claves del widget local sin mostrarlas y se inició `dev:seguridad`. Turnstile completó la verificación desde navegador; la API real validó desafío y cuota en Upstash y la imagen `gallery-7.webp` llegó a 100 % en Drive. El origen ajeno y el token inválido se rechazaron con HTTP 403. Falta validar Preview, contenido real y vigencia OAuth; no se desplegó. Se preservaron cambios ajenos en README.

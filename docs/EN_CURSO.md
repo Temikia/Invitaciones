@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Miniaturas antes de subir — 07/11/2026
+- ✅ La selección de recuerdos muestra miniaturas en lugar de nombres visibles, con indicador de video, progreso por archivo y alternativa si el formato no se puede previsualizar. El nombre permanece disponible para lectores de pantalla. Los recursos temporales del navegador se liberan al cambiar la selección.
+- ✅ Compilación y 29 pruebas correctas; revisión visual de cuatro fotos ya seleccionadas en escritorio y en una ventana de 390 × 844. No se verificaron visualmente un video ni movimiento reducido en navegador; el cambio no agrega animaciones.
+- ⏳ Siguen pendientes las validaciones de contenido, OAuth y Preview registradas abajo. Sin despliegue; cambios ajenos en README conservados fuera del commit.
+
 ## Carga local con protecciones reales — 07/11/2026
 - ✅ Las claves del widget local están guardadas en `.env` y el servidor `dev:seguridad` ejecuta la API real con Upstash. En el navegador, Turnstile completó la verificación y una foto `gallery-7.webp` alcanzó el 100 % mediante Drive; se probaron juntos widget, validación de acción y dominio, cuota y carga.
 - ✅ Solicitudes con origen ajeno y token inválido recibieron HTTP 403. Pruebas locales; los servicios de la web pública siguen sin configurarse en Vercel ni activarse.

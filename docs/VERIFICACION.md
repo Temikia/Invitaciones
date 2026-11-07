@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Miniaturas de selección — 07/11/2026
+
+- Build y 29 pruebas correctos. Cuatro imágenes seleccionadas se revisaron visualmente en escritorio y a 390 × 844; el progreso y las etiquetas accesibles permanecen en la lista.
+- No se revisaron visualmente un video, formatos incompatibles ni movimiento reducido en navegador. El nuevo diseño no incorpora animaciones; las URL temporales se liberan al cambiar de archivo o desmontar el componente.
+
 ## Carga protegida desde navegador local — 07/11/2026
 
 - En `dev:seguridad`, el widget Turnstile real completó su verificación y la API real aceptó el token, acción y dominio junto con la cuota de Upstash. Una imagen `gallery-7.webp` se cargó desde navegador hasta 100 %, con confirmación de Drive.
