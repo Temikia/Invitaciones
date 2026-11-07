@@ -1,5 +1,8 @@
 # Verificación de la primera versión
 
+## Cámara en la cabecera — 07/11/2026
+- Build y 31 pruebas correctos. El navegador no abrió; pendiente revisar escritorio, móvil, movimiento reducido y navegación por teclado visualmente.
+
 ## Página privada del álbum — 07/11/2026
 
 - Build y 31 pruebas correctos. En navegador, `/recuerdos` enlaza a `/album`; sin sesión pide el enlace privado, con el enlace local se muestran fotos y video y el botón funciona con la sesión existente. El formato anterior se redirige y un secreto inválido se rechaza; el fragmento se elimina de la barra.

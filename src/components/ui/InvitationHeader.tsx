@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Camera } from "lucide-react";
 import { useLanguage } from "../../config/language";
 
 export function InvitationHeader() {
@@ -18,6 +19,9 @@ export function InvitationHeader() {
     <>
       <div className="header-slot" ref={slot} aria-hidden="true" />
       <header className={`invitation-header${scrolled ? " is-scrolled" : ""}`} aria-label={t("header.label")}>
+        <a className="header-album-link" href="/album" aria-label={language === "en" ? "View album" : "Ver álbum"}>
+          <Camera size={20} aria-hidden="true" />
+        </a>
         <div className="opening-mark" aria-hidden="true">C <span>·</span> XV</div>
         <div className="language-switch" role="group" aria-label={t("header.switch")}>
           <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>En</button>

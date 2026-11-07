@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Acceso al álbum desde la cabecera — 07/11/2026
+- ✅ Cámara de Lucide a la izquierda de la cabecera enlaza a `/album`, con nombre accesible en español e inglés; se conserva el acceso privado. Build y 31 pruebas correctos.
+- ❓ El navegador no abrió; pendiente revisión visual en escritorio, móvil y movimiento reducido. Sin despliegue.
+- Siguiente paso: revisar el acceso visualmente y continuar los pendientes de integración del álbum.
+
 ## Página independiente del álbum — 07/11/2026
 - ✅ Botón «Ver álbum» en `/recuerdos` y página independiente `/album`, con regreso a recuerdos y textos en español e inglés. Por decisión de la usuaria conserva el acceso privado mediante enlace secreto o sesión autorizada. Los enlaces anteriores `/recuerdos?album=1#...` se convierten a la nueva ruta.
 - ✅ Revisión en navegador: el acceso sin sesión solicita el enlace privado, el enlace local autorizado muestra fotos y video, el botón abre el álbum con sesión y un enlace inválido se rechaza. Vistas de escritorio y móvil; build y 31 pruebas correctos. Movimiento reducido no emulado; no se añadieron animaciones.

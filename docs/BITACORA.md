@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 16:43 — Ciudad de México (GMT−6)
+
+Se añadió una cámara de Lucide a la izquierda de la cabecera para abrir el álbum privado directamente, con etiqueta accesible en ambos idiomas. Build y 31 pruebas correctos; el navegador no abrió y quedan pendientes las revisiones visuales de escritorio, móvil y movimiento reducido. Sin despliegue.
+
 ## 2026-11-07 16:16 — Ciudad de México (GMT−6)
 
 Se separó el álbum en `/album` y se añadió «Ver álbum» debajo de la carga, conservando por decisión de la usuaria el acceso mediante enlace privado o sesión. Los enlaces anteriores se redirigen y el regreso lleva a recuerdos. Build y 31 pruebas correctos; navegador con y sin autorización y enlace inválido verificados en escritorio y móvil. Se retiraron dos líneas de claves añadidas accidentalmente al README durante la configuración previa; la usuaria había indicado que generó claves nuevas. No se verificó la revocación anterior ni se desplegó.
