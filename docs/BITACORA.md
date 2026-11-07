@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 19:44 — Ciudad de México (GMT−6)
+
+La usuaria guardó el token de Upstash en `.env`. Se probaron los servicios reales sin publicar: Upstash permitió cuatro intentos sintéticos, bloqueó el quinto y permitió la lectura del álbum; Cloudflare rechazó un token de prueba inválido sin indicar secreto inválido. Falta verificar el desafío completo y el par de claves desde navegador, además de Preview y pendientes operativos. No se mostraron secretos ni se desplegó. Se conservaron cambios ajenos en README.
+
 ## 2026-11-06 19:42 — Ciudad de México (GMT−6)
 
 Con autorización de la usuaria se creó la base gratuita `camila-recuerdos` en Upstash, región Virginia. Se guardaron en `.env` la URL REST y un secreto interno aleatorio para las huellas del límite de intentos, sin mostrar su valor. El token de Upstash todavía no está guardado; falta su incorporación privada y la prueba real. Sin despliegue. Se conservan cambios ajenos en README fuera del commit.

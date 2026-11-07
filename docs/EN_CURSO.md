@@ -1,9 +1,14 @@
 # Invitación de Camila — trabajo en curso
 
+## Prueba real de protecciones — 06/11/2026
+- ✅ La usuaria guardó el token de Upstash. En la base real, cuatro lotes de prueba fueron permitidos y el quinto bloqueado; la cuota de lectura del álbum respondió correctamente. Se usó una IP sintética y no se subieron archivos.
+- ✅ Cloudflare aceptó la clave secreta y rechazó un token deliberadamente inválido; esto no verifica todavía el par de claves, el desafío real, la acción ni el dominio.
+- ⏳ Falta probar el desafío completo con navegador y servicios reales, asignar dominios de Preview, validar álbum y despliegue de prueba cuando se autorice, inspección real de contenido y vigencia OAuth. La carga pública permanece apagada. Sin despliegue.
+- Siguiente paso: preparar una prueba de Turnstile real en un entorno autorizado sin exponer la invitación al público.
+
 ## Upstash para límite de intentos — 06/11/2026
 - ✅ Creada con autorización la base gratuita `camila-recuerdos`, región Virginia (us-east-1), en la cuenta personal de Upstash. Se guardaron localmente la URL REST y un `ABUSE_HASH_SECRET` aleatorio, sin mostrar el secreto.
-- ⏳ Falta guardar `UPSTASH_REDIS_REST_TOKEN` en `.env` y probar la conexión y los controles reales; no usar el token de solo lectura. La usuaria dispone de la página de la base abierta. No se configuró Vercel ni se desplegó.
-- Siguiente paso: la usuaria copia el token de Upstash directamente a `.env` sin compartirlo por chat; verificar disponibilidad y después probar el contador.
+- ✅ La usuaria guardó el token directamente en `.env`; la prueba posterior confirmó el contador real. No se configuró Vercel ni se desplegó.
 
 ## Cloudflare Turnstile — 06/11/2026
 - ✅ La usuaria confirmó que puede ver el álbum local. Pendiente confirmar reproducción del video en ese álbum.

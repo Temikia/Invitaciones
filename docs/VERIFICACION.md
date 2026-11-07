@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Servicios reales de protección — 06/11/2026
+
+- La base real de Upstash permitió cuatro intentos sintéticos y bloqueó el quinto; la cuota de lectura también permitió la prueba. No se subieron archivos ni se usó una IP de visitante.
+- Cloudflare rechazó un token deliberadamente inválido sin indicar secreto inválido. No se comprobó todavía el desafío real, la correspondencia entre claves ni la validación de acción y dominio desde navegador.
+
 ## Álbum privado y protecciones locales — 06/11/2026
 
 - Los controladores reales del álbum usaron Drive real y un contador simulado local: acceso sin cookie devolvió 401, secreto incorrecto 403, listado autenticado entregó 14 archivos y rangos autenticados de foto y video devolvieron HTTP 206 y 100 bytes. Falta revisión visual y reproducción en navegador.
