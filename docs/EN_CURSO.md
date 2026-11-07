@@ -5,6 +5,7 @@
 - ✅ Implementada la vista `/recuerdos?album=1#<secreto>`. El secreto solo viaja en el fragmento, se canjea por cookie firmada `HttpOnly`/`Secure`/`SameSite=Strict` de 24 horas y se elimina del historial visible. Listado y proxy multimedia requieren cookie, carpeta y marcador propios; el proxy admite `Range` para video.
 - ✅ README, decisiones, pasos de Drive y verificación actualizados con las variables y límites. No se leyeron ni generaron secretos; `DRIVE_UPLOADS_ENABLED` continúa apagado y no se desplegó.
 - ✅ `npm run build`; `npm test` (19 pruebas). La revisión visual no se pudo completar porque el navegador de control informó que el host no está disponible.
+- Commit local de implementación: `5084be4` — «Protege las cargas y añade álbum privado de recuerdos». Sin push ni despliegue.
 - ⏳ Pendiente: crear/configurar Turnstile y Upstash en Preview/Production, guardar secretos localmente en Vercel sin compartirlos, validar OAuth renovable, CORS, contenido real, carga/reanudación, Range de video y limpieza en Preview.
 - Siguiente paso: configurar Preview y seguir `docs/PASOS_GOOGLE_DRIVE.md`; no habilitar cargas hasta completar la validación controlada y decidir la renovación OAuth.
 

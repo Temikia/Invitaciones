@@ -4,6 +4,8 @@
 
 Se implementó protección contra abuso de cargas con validación server-side de Turnstile, límite de cuatro lotes por IP cada minuto y límite de consultas a la galería mediante Upstash compartido; el backend valida todos los archivos y el máximo de 20 por lote antes de crear sesiones. Se añadió el álbum privado: el secreto llega en el fragmento del enlace, se canjea por cookie firmada de 24 horas y el servidor solo lista/proxy archivos marcados dentro de la carpeta privada. Se documentaron configuración, límites y pruebas pendientes en README, pasos de Drive, decisiones, verificación y EN_CURSO. No se configuraron servicios externos, no se leyeron/generaron secretos, las cargas siguen apagadas y no hubo despliegue. Build correcto y 19 pruebas pasando. La revisión visual local quedó pendiente porque el navegador no pudo iniciarse en este entorno.
 
+Commit local de implementación: `5084be4` — «Protege las cargas y añade álbum privado de recuerdos». Sin push ni despliegue.
+
 Siguiente paso: configurar Turnstile, Upstash y los secretos de servidor en Preview; validar autorización OAuth vigente, cargas, CORS, video con `Range` y eliminación controlada antes de activar invitados.
 
 ## 2026-11-06 17:28 — Ciudad de México (GMT−6)
