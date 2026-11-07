@@ -1176,7 +1176,7 @@ p {
 }
 .selected-files li {
   min-width: 0;
-  padding: 0 0 10px;
+  padding: 0;
   border: 1px solid #baa17b40;
   background: #c7a96508;
 }
@@ -1204,6 +1204,18 @@ p {
   font-size: 11px;
   text-align: center;
 }
+.selected-preview-veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(244, 234, 233, 0.78);
+  transform-origin: top;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .selected-preview-veil {
+    transition: transform 0.35s ease-out;
+  }
+}
 .selected-preview-video {
   position: absolute;
   bottom: 8px;
@@ -1215,23 +1227,6 @@ p {
   background: #160d23d9;
   color: #f4e7d8;
   font-size: 10px;
-}
-.selected-files .upload-file-progress {
-  min-width: 0;
-  padding: 0 10px;
-}
-.upload-file-progress progress {
-  display: block;
-  width: 100%;
-  height: 5px;
-  margin-top: 8px;
-  accent-color: var(--gold);
-}
-.selected-files small {
-  display: block;
-  margin-top: 6px;
-  white-space: nowrap;
-  color: var(--muted);
 }
 .memories-page .upload-submit {
   width: 100%;

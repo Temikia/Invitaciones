@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 15:56 — Ciudad de México (GMT−6)
+
+Se sustituyeron la barra y los valores visibles por un velo claro que descubre cada miniatura desde abajo conforme se envían los datos, y se retiró el aviso de carga lista. El progreso usa eventos reales de envío, reserva 100 % a la confirmación y vuelve al último bloque confirmado si hay un corte; se conserva el indicador accesible. Build y 31 pruebas correctos. Se revisaron estados inicial y final en escritorio y el inicial en móvil; una foto se subió correctamente mediante las protecciones reales. La transición se desactiva con movimiento reducido por CSS; no se emuló esa preferencia. Sin despliegue; README ajeno conservado.
+
 ## 2026-11-07 15:41 — Ciudad de México (GMT−6)
 
 Se cambió la lista de archivos seleccionados por miniaturas locales con progreso, identificación de video y alternativa para formatos no compatibles; los nombres se conservan para lectores de pantalla. Build y 29 pruebas correctos; revisión visual de cuatro fotos en escritorio y móvil. Queda pendiente revisar video y movimiento reducido en navegador. Sin despliegue; se conservaron cambios ajenos en README.

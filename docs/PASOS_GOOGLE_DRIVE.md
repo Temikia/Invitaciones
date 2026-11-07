@@ -9,7 +9,7 @@ Para reproducir el método en otro proyecto, consultar [Google Drive con OAuth y
 - Los archivos se guardarán en la carpeta de Drive `Mis-XV-Camila`.
 - La galería será privada y se abrirá con un enlace secreto. Cualquier persona que reciba o reenvíe ese enlace podrá entrar.
 - La página de recuerdos está en `/recuerdos`.
-- Al seleccionar archivos se muestran miniaturas con progreso individual; los videos se identifican y, si el navegador no admite una vista previa, aparece una alternativa. Los nombres siguen disponibles para lectores de pantalla.
+- Al seleccionar archivos se muestran miniaturas con un velo claro que se retira desde abajo conforme se envían; se descubren por completo cuando Drive confirma la carga. Los videos se identifican y, si el navegador no admite una vista previa, aparece una alternativa. Los nombres y el progreso siguen disponibles para lectores de pantalla.
 - Límites actuales: 20 archivos por lote, 20 MB por foto y 400 MB por video.
 - Las cargas cierran el 7 de diciembre de 2026 a las 00:00, hora de Denver. La configuración contempla conservar los archivos 90 días.
 - El `.env` local ya tiene variables llamadas `GOOGLE_CLIENT_ID` y `GOOGLE_SECRET`. No hay que volver a enviarme sus valores.

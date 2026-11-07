@@ -21,7 +21,7 @@ const mimeByExtension: Record<string, string> = {
   mov: "video/quicktime", webm: "video/webm", m4v: "video/mp4",
 };
 
-function SelectedPreview({ file, language }: { file: File; language: string }) {
+function SelectedPreview({ file, language, progress }: { file: File; language: string; progress: number }) {
   const [url, setUrl] = useState("");
   const [failed, setFailed] = useState(false);
   const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
@@ -39,6 +39,7 @@ function SelectedPreview({ file, language }: { file: File; language: string }) {
       ? <video src={`${url}#t=0.1`} preload="metadata" muted playsInline onError={() => setFailed(true)} />
       : <img src={url} alt="" onError={() => setFailed(true)} />
       : <div className="selected-preview-fallback"><ImagePlus size={24} /><span>{language === "en" ? "Preview unavailable" : "Vista previa no disponible"}</span></div>}
+    <span className="selected-preview-veil" style={{ transform: `scaleY(${1 - Math.max(0, Math.min(100, progress)) / 100})` }} />
     {video && !failed ? <span className="selected-preview-video"><Film size={14} /> <span>Video</span></span> : null}
   </div>;
 }
@@ -226,7 +227,7 @@ export default function Memories() {
           <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>
           <h1>{t("memories.title1")}<br /><em>{t("memories.page.title2")}</em></h1>
           <p>{t("memories.intro")}</p>
-          <div className="upload-notice" role="status">{closed ? t("memories.closed") : ready ? (language === "en" ? "Uploads are ready. Your files will be sent to the private Drive folder." : "Las cargas están listas. Tus archivos se enviarán a la carpeta privada de Drive.") : t("memories.pending")}</div>
+          {closed || !ready ? <div className="upload-notice" role="status">{closed ? t("memories.closed") : t("memories.pending")}</div> : null}
           {!closed && ready ? <>
             <label className="file-picker">
               <ImagePlus size={27} strokeWidth={1} /><strong>{t("memories.select")}</strong><span>{t("memories.select.copy")}</span>
@@ -238,8 +239,8 @@ export default function Memories() {
             {files.length ? <div className="selected-files">
               <p>{files.length} {t("memories.selected")}</p>
               <ul>{files.map((file, index) => <li key={`${file.name}-${index}`}>
-                <SelectedPreview file={file} language={language} />
-                <div className="upload-file-progress"><span className="sr-only">{file.name}</span><progress value={progress[index]} max={100} aria-label={`${file.name}: ${progress[index]}%`} /><small>{progress[index]}% · {(file.size / 1024 ** 2).toFixed(1)} MB</small></div>
+                <SelectedPreview file={file} language={language} progress={progress[index] ?? 0} />
+                <progress className="sr-only" value={progress[index]} max={100} aria-label={`${file.name}: ${progress[index]}%`} />
               </li>)}</ul>
               {uploadError ? <p className="form-error" role="alert">{uploadError}</p> : null}
               <button className="upload-submit" type="button" disabled={uploading || (!sessionsRef.current && !turnstileToken) || progress.every((value) => value === 100)} onClick={uploadFiles}>

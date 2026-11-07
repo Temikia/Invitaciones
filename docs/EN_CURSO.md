@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Velo de progreso en miniaturas — 07/11/2026
+- ✅ Las miniaturas comienzan con un velo claro que se retira desde abajo conforme se envían los datos; el 100 % se reserva a la confirmación de Drive. Ante un fallo el progreso vuelve al último bloque confirmado. Se retiraron el porcentaje y la línea visibles, conservando el progreso accesible, y se ocultó el aviso de carga lista.
+- ✅ Build y 31 pruebas, incluida la progresión 50–99–100 y la recuperación ante interrupción. Se revisaron visualmente los estados de 0 % y 100 % en escritorio y 0 % en móvil; una foto real se cargó desde navegador con protección y Drive. El estado intermedio no se observó visualmente; la CSS omite transición con movimiento reducido, sin emulación de esa preferencia.
+- ⏳ Siguen pendientes las verificaciones de contenido, OAuth y Preview. Sin despliegue; cambios ajenos en README fuera del commit.
+
 ## Miniaturas antes de subir — 07/11/2026
 - ✅ La selección de recuerdos muestra miniaturas en lugar de nombres visibles, con indicador de video, progreso por archivo y alternativa si el formato no se puede previsualizar. El nombre permanece disponible para lectores de pantalla. Los recursos temporales del navegador se liberan al cambiar la selección.
 - ✅ Compilación y 29 pruebas correctas; revisión visual de cuatro fotos ya seleccionadas en escritorio y en una ventana de 390 × 844. No se verificaron visualmente un video ni movimiento reducido en navegador; el cambio no agrega animaciones.

@@ -28,6 +28,42 @@ describe("carga reanudable", () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("offline")));
     const progress = vi.fn();
     await expect(uploadResumable(new File(["abc"], "foto.png"), "https://example.test/session", "image/png", false, progress)).rejects.toThrow();
-    expect(progress).not.toHaveBeenCalled();
+    expect(progress).not.toHaveBeenCalledWith(100);
+  });
+
+  it("muestra bytes enviados sin marcar 100 % antes de la confirmación", async () => {
+    class FakeRequest {
+      upload: { onprogress?: (event: { lengthComputable: boolean; loaded: number }) => void } = {};
+      onload?: () => void;
+      status = 200;
+      open() {}
+      setRequestHeader() {}
+      getResponseHeader() { return null; }
+      send() {
+        queueMicrotask(() => {
+          this.upload.onprogress?.({ lengthComputable: true, loaded: 5 });
+          this.upload.onprogress?.({ lengthComputable: true, loaded: 10 });
+          this.onload?.();
+        });
+      }
+    }
+    vi.stubGlobal("XMLHttpRequest", FakeRequest);
+    const progress = vi.fn();
+    await uploadResumable(new File(["0123456789"], "foto.png"), "https://example.test/session", "image/png", false, progress);
+    expect(progress.mock.calls.map(([value]) => value)).toEqual([50, 99, 100]);
+  });
+
+  it("revierte el avance no confirmado si se corta la conexión", async () => {
+    class BrokenRequest {
+      upload: { onprogress?: (event: { lengthComputable: boolean; loaded: number }) => void } = {};
+      onerror?: () => void;
+      open() {}
+      setRequestHeader() {}
+      send() { queueMicrotask(() => { this.upload.onprogress?.({ lengthComputable: true, loaded: 5 }); this.onerror?.(); }); }
+    }
+    vi.stubGlobal("XMLHttpRequest", BrokenRequest);
+    const progress = vi.fn();
+    await expect(uploadResumable(new File(["0123456789"], "foto.png"), "https://example.test/session", "image/png", false, progress)).rejects.toThrow();
+    expect(progress.mock.calls.map(([value]) => value)).toEqual([50, 0]);
   });
 });

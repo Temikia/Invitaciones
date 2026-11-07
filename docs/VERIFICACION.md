@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Velo de progreso — 07/11/2026
+
+- Build y 31 pruebas correctas. Las pruebas cubren el avance de datos enviados, 100 % solo tras confirmación y el retroceso al último bloque confirmado ante una desconexión.
+- Se revisaron visualmente miniaturas al 0 % y 100 % en escritorio y al 0 % en móvil, y se cargó una foto real desde el navegador usando Cloudflare, Upstash y Drive. No se observó visualmente el estado intermedio; la transición está limitada por CSS a `prefers-reduced-motion: no-preference`, sin emulación de movimiento reducido.
+
 ## Miniaturas de selección — 07/11/2026
 
 - Build y 29 pruebas correctos. Cuatro imágenes seleccionadas se revisaron visualmente en escritorio y a 390 × 844; el progreso y las etiquetas accesibles permanecen en la lista.
