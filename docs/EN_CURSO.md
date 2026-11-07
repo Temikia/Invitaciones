@@ -3,9 +3,9 @@
 ## Rediseño visual del álbum — 07/11/2026
 Dirección acordada con la usuaria mediante maquetas: portada tipo «historias» + mosaico tipo revista con destello dorado.
 - ✅ Fases 1–3 implementadas y verificadas con datos simulados; build y 36 pruebas. Detalle en `docs/VERIFICACION.md`.
-- ❓ El álbum real aparece vacío: la carpeta configurada no tiene archivos visibles para la app (0). Con `drive.file` solo se ven archivos subidos desde `/recuerdos`; lo que se cargue directamente en Drive no aparece. Decidir con la usuaria: subirlos desde `/recuerdos` o ampliar el permiso (requiere reautorizar y revisar la decisión de seguridad).
+- ❓ El álbum real aparece vacío: la carpeta configurada no tiene archivos visibles para la app (0). Con `drive.file` solo se ven archivos subidos desde `/recuerdos`; lo que se cargue directamente en Drive no aparece. Decisión de la usuaria (07/11/2026): se conserva `drive.file` y los recuerdos se suben desde `/recuerdos`; no se amplía el permiso.
 - ❓ Sin emular movimiento reducido, deslizar en teléfono real ni pantalla completa en iOS. Sin despliegue.
-- Siguiente paso: resolver la visibilidad de los archivos de Drive y revisar el álbum con contenido real.
+- Siguiente paso: la usuaria sube fotos y videos desde `http://127.0.0.1:5188/recuerdos` (`npm run dev:recuerdos`) y se revisa el álbum real en `/album-local`: portada, mosaico, visor, película con videos reales y consumo de lecturas.
 - (plan original) Fase 1 · Portada animada (las 7 fotos de la galería de la invitación en orden aleatorio, 4 s, acercamiento lento, barras indicadoras, sin botones; pausa invisible con cursor encima, pestaña oculta o fuera de pantalla; movimiento reducido = foto fija). Reemplaza la pasarela.
 - (plan original) Fase 2 · Mosaico de tamaños variados (3 columnas móvil, 6 escritorio, sin huecos), filtros Todo/Fotos/Videos con conteo, «Ver más recuerdos» de 50 en 50, destello dorado animado solo en fotos visibles (fijo con movimiento reducido).
 - (plan original) Fase 3 · «Ver como película»: presentación a pantalla completa de todo el álbum en orden aleatorio; fotos 5 s con acercamiento, videos solo sus primeros 5 s y sin sonido; cerrar, Esc y flechas. Visor con anterior/siguiente.

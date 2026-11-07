@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 17:48 — Ciudad de México (GMT−6)
+
+La usuaria decidió conservar el permiso `drive.file` y subir los recuerdos desde `/recuerdos` en lugar de ampliar el acceso a Drive, para que el álbum los muestre sin cambiar la seguridad. Siguiente paso: subir contenido real y revisar el álbum con él.
+
 ## 2026-11-07 17:45 — Ciudad de México (GMT−6)
 
 Rediseño visual del álbum, porque la usuaria lo sentía anticuado; la dirección se eligió con maquetas en navegador. Portada animada tipo «historias» con las siete fotos de la invitación al azar y sin controles visibles, mosaico tipo revista con destello dorado, filtros y «Ver más recuerdos», visor con navegación y modo película aleatorio con videos de 5 s sin sonido. Se retiró la pasarela. Build y 36 pruebas; revisión en navegador con datos simulados. Se detectó que la carpeta de Drive no tiene archivos visibles para la app (permiso `drive.file`), por eso el álbum real aparece vacío; queda como decisión de la usuaria. Sin despliegue.
