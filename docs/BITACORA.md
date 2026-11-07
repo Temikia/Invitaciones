@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 17:00 — Ciudad de México (GMT−6)
+
+Se unificó la cabecera y se renovó el álbum privado con pasarela de fotos, cuadrícula de cinco columnas, páginas de 50 archivos y visor de solo lectura con zoom y giro visual. Build y 33 pruebas correctos; se revisaron foto y controles en escritorio y cuadrícula y visor de video en móvil. Pendientes movimiento reducido, paginado visual con más de 50 archivos y reproducción de video; el listado sigue completo y las fotos se sirven a tamaño original. Sin despliegue.
+
 ## 2026-11-07 16:43 — Ciudad de México (GMT−6)
 
 Se añadió una cámara de Lucide a la izquierda de la cabecera para abrir el álbum privado directamente, con etiqueta accesible en ambos idiomas. Build y 31 pruebas correctos; el navegador no abrió y quedan pendientes las revisiones visuales de escritorio, móvil y movimiento reducido. Sin despliegue.

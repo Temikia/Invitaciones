@@ -43,7 +43,7 @@ function SelectedPreview({ file, language, progress }: { file: File; language: s
 }
 
 export default function Memories() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, t } = useLanguage();
   const [files, setFiles] = useState<File[]>([]);
   const [ready, setReady] = useState(false);
   const [siteKey, setSiteKey] = useState("");
@@ -161,10 +161,6 @@ export default function Memories() {
 
   return (
     <main className="memories-page">
-      <div className="language-switch memories-language-switch" role="group" aria-label={t("header.switch")}>
-        <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>En</button><span aria-hidden="true">|</span>
-        <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>Es</button>
-      </div>
       <a href="/" className="back-link"><ArrowLeft size={17} /> {t("memories.back")}</a>
       <div className="upload-content">
           <Camera size={35} strokeWidth={1} className="gold-icon" />

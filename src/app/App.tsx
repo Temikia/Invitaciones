@@ -66,9 +66,12 @@ function AppContent() {
   const { t } = useLanguage();
   const path = window.location.pathname.replace(/\/$/, "");
   return path === "/recuerdos" || path === "/album" ? (
-    <Suspense fallback={<p className="loading">{t("loading")}</p>}>
-      {path === "/album" ? <Album /> : <Memories />}
-    </Suspense>
+    <>
+      <InvitationHeader />
+      <Suspense fallback={<p className="loading">{t("loading")}</p>}>
+        {path === "/album" ? <Album /> : <Memories />}
+      </Suspense>
+    </>
   ) : (
     <Invitation />
   );

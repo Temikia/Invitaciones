@@ -1,5 +1,9 @@
 # Verificación de la primera versión
 
+## Visor y pasarela del álbum — 07/11/2026
+- Build y 33 pruebas correctos; la prueba de paginación cubre 101 archivos. En navegador local se verificaron cuadrícula en escritorio y móvil, apertura de foto, zoom, giro, Escape y apertura del visor de video.
+- No se emularon preferencias de movimiento reducido ni se probó visualmente una segunda página o reproducción del video. Revisar consumo de imágenes originales, cuota de lecturas y Preview.
+
 ## Cámara en la cabecera — 07/11/2026
 - Build y 31 pruebas correctos. El navegador no abrió; pendiente revisar escritorio, móvil, movimiento reducido y navegación por teclado visualmente.
 

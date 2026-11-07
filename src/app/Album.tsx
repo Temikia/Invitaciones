@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, LockKeyhole } from "lucide-react";
+import { ArrowLeft, Film, LockKeyhole } from "lucide-react";
 import { useLanguage } from "../config/language";
+import { AlbumViewer } from "../components/ui/AlbumViewer";
+import { AlbumRunway } from "../components/ui/AlbumRunway";
+import { ALBUM_PAGE_SIZE, paginateAlbum } from "../lib/albumPagination";
 
 type GalleryFile = { id: string; name: string; type: string; mediaUrl: string };
 
 export default function Album() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language } = useLanguage();
   const secretRef = useRef(window.location.hash.slice(1));
   const [loading, setLoading] = useState(true);
   const [files, setFiles] = useState<GalleryFile[]>([]);
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [selected, setSelected] = useState<GalleryFile | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -39,11 +44,10 @@ export default function Album() {
     return () => { active = false; };
   }, [language]);
 
+  const { page: currentPage, pageCount, files: pageFiles } = paginateAlbum(files, page);
+  const photos = files.filter((file) => file.type.startsWith("image/"));
+
   return <main className="memories-page">
-    <div className="language-switch memories-language-switch" role="group" aria-label={t("header.switch")}>
-      <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>En</button><span aria-hidden="true">|</span>
-      <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>Es</button>
-    </div>
     <a href="/recuerdos" className="back-link"><ArrowLeft size={17} /> {language === "en" ? "Back to memories" : "Volver a recuerdos"}</a>
     <div className="gallery-content">
       <LockKeyhole size={32} strokeWidth={1} className="gold-icon" />
@@ -53,10 +57,21 @@ export default function Album() {
       {loading ? <div className="upload-notice" role="status">{language === "en" ? "Opening the private album…" : "Abriendo el álbum privado…"}</div> : null}
       {error ? <div className="upload-notice" role="alert">{error}</div> : null}
       {!loading && !error && files.length === 0 ? <div className="upload-notice" role="status">{language === "en" ? "No memories have been shared yet." : "Todavía no se han compartido recuerdos."}</div> : null}
-      <div className="memory-grid">{files.map((file) => <figure className="memory-item" key={file.id}>
-        {file.type.startsWith("video/") ? <video src={file.mediaUrl} controls preload="none" playsInline aria-label={file.name} /> : <a href={file.mediaUrl} target="_blank" rel="noreferrer"><img src={file.mediaUrl} loading="lazy" alt={file.name} /></a>}
-        <figcaption>{file.name}</figcaption>
-      </figure>)}</div>
+      {!loading && !error && files.length > 0 && <>
+        <AlbumRunway photos={photos} onOpen={setSelected} />
+        <section aria-labelledby="album-complete-title" className="album-complete">
+          <h2 id="album-complete-title">{language === "en" ? "The complete album" : "Álbum completo"}</h2>
+          <div className="memory-grid">{pageFiles.map((file, index) => <button type="button" className="memory-item" key={file.id} onClick={() => setSelected(file)} aria-label={`${file.type.startsWith("video/") ? (language === "en" ? "Open video" : "Abrir video") : (language === "en" ? "Open photo" : "Abrir foto")} ${((currentPage - 1) * ALBUM_PAGE_SIZE) + index + 1}`}>
+            {file.type.startsWith("video/") ? <span className="memory-video"><Film size={28} aria-hidden="true" /></span> : <img src={file.mediaUrl} loading="lazy" alt="" />}
+          </button>)}</div>
+          {pageCount > 1 && <nav className="album-pagination" aria-label={language === "en" ? "Album pages" : "Páginas del álbum"}>
+            <button type="button" disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>{language === "en" ? "Previous" : "Anterior"}</button>
+            <span aria-live="polite">{language === "en" ? `Page ${currentPage} of ${pageCount}` : `Página ${currentPage} de ${pageCount}`}</span>
+            <button type="button" disabled={currentPage === pageCount} onClick={() => setPage(currentPage + 1)}>{language === "en" ? "Next" : "Siguiente"}</button>
+          </nav>}
+        </section>
+      </>}
     </div>
+    <AlbumViewer file={selected} onClose={() => setSelected(null)} />
   </main>;
 }

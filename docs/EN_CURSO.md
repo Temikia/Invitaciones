@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Visor y pasarela del álbum — 07/11/2026
+- ✅ Cabecera compartida en invitación, recuerdos y álbum. Álbum con pasarela circular de fotos, cuadrícula de cinco columnas y paginado de 50 archivos; visor para fotos y videos, zoom y giro solo visuales.
+- ✅ Build y 33 pruebas, incluidas páginas con 101 archivos. En navegador local: foto, zoom, giro, Escape y cuadrícula en escritorio; cuadrícula y apertura del visor de video en móvil. La pasarela se pausa fuera de pantalla y con pestaña oculta; movimiento reducido inicia pausado.
+- ❓ No se emuló movimiento reducido ni se probó el paginado visual con más de 50 archivos; tampoco se confirmó la reproducción del video en esta revisión. La API sigue devolviendo el listado completo y las imágenes originales; comprobar consumo y límites en Preview. Sin despliegue.
+- Siguiente paso: revisar la experiencia y completar las pruebas pendientes de integración en Preview.
+
 ## Acceso al álbum desde la cabecera — 07/11/2026
 - ✅ Cámara de Lucide a la izquierda de la cabecera enlaza a `/album`, con nombre accesible en español e inglés; se conserva el acceso privado. Build y 31 pruebas correctos.
 - ❓ El navegador no abrió; pendiente revisión visual en escritorio, móvil y movimiento reducido. Sin despliegue.

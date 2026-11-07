@@ -33,7 +33,7 @@ El usuario administra el despliegue. Las cargas y el álbum privado están imple
 
 ## Cambios de contenido y fotos
 
-La invitación está disponible en español e inglés con el selector **En | Es** de la cabecera. La preferencia se conserva en este dispositivo y también se aplica a la página de recuerdos (`/recuerdos`), las etiquetas accesibles y los metadatos de la página.
+La invitación, recuerdos y álbum tienen la misma cabecera con selector **En | Es** y acceso al álbum. La preferencia se conserva en este dispositivo y también se aplica a la página de recuerdos (`/recuerdos`), las etiquetas accesibles y los metadatos de la página.
 
 Todos los datos, mensajes, horarios y rutas viven en `src/config/invitation.ts`. La fecha tiene offset explícito y zona `America/Denver`, sin depender de la zona del navegador.
 
@@ -54,6 +54,8 @@ Si se interrumpe una carga, conserva abierta la página, recupera la conexión y
 Documentación de Drive: [pasos y estado del evento](docs/PASOS_GOOGLE_DRIVE.md) · [método reutilizable, diagnóstico y adaptación a otros proyectos](docs/GOOGLE_DRIVE_REUTILIZABLE.md). La autorización local de la carpeta ya quedó completada; las cargas para invitados todavía requieren las validaciones indicadas abajo.
 
 La ruta `/recuerdos` muestra la carga solo cuando el backend confirma que está configurado y habilitado; una preview incompleta mantiene oculta la selección. Un desafío Turnstile se verifica en servidor y Upstash aplica límites compartidos por IP; los dos controles fallan cerrados. El endpoint limita el lote a 20 y valida nombre, extensión, MIME declarado y tamaño antes de iniciar sesiones reanudables de Drive. El navegador transfiere bloques directamente y muestra progreso real. Como el backend no recibe los bytes, la inspección del contenido real y las pruebas CORS en teléfono siguen pendientes antes de activar. No informa éxito hasta que Google Drive completa la carga.
+
+El álbum muestra primero una pasarela circular de fotos con controles y luego una cuadrícula de cinco columnas, con hasta 50 archivos (fotos y videos) por página. Las miniaturas abren un visor; acercar, alejar y girar solo cambian la presentación, nunca el archivo. Con movimiento reducido la pasarela comienza pausada. Las imágenes se sirven desde Drive a tamaño original, por lo que el consumo puede ser alto; la paginación limita los elementos visibles, no el listado de la API.
 
 El botón «Ver álbum» y la cámara a la izquierda de la cabecera abren `/album`; el contenido requiere la sesión obtenida al abrir `/album#<secreto>`. Los enlaces anteriores `/recuerdos?album=1#<secreto>` redirigen a la nueva página. El fragmento se intercambia por una cookie temporal `HttpOnly` y se elimina de la barra; los endpoints listan y transmiten solo archivos marcados por esta app dentro de la carpeta configurada, que permanece privada. La guía de Drive documenta el alta de Turnstile, Upstash y el secreto del enlace. La reproducción de video proxificada requiere probar `Range` y transferencia en Preview.
 
