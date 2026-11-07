@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 17:53 — Ciudad de México (GMT−6)
+
+La usuaria pidió primero quitar la restricción de tamaño y luego fijarla en 50 MB por foto y 500 MB por video, para admitir fotos y videos de teléfono de mayor calidad. Se actualizaron validación del navegador y del servidor, textos en dos idiomas, pruebas, manual y checklist. Build y 36 pruebas correctos; sin despliegue.
+
 ## 2026-11-07 17:48 — Ciudad de México (GMT−6)
 
 La usuaria decidió conservar el permiso `drive.file` y subir los recuerdos desde `/recuerdos` en lugar de ampliar el acceso a Drive, para que el álbum los muestre sin cambiar la seguridad. Siguiente paso: subir contenido real y revisar el álbum con él.

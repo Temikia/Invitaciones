@@ -15,7 +15,7 @@
 - [X ] Número WhatsApp RSVP. - 7202369330
 - [X ] Fecha límite RSVP. - antes del 10 de noviembre 
 - [X ] Máximo de asistentes, si aplica. - no aplica
-- [X ] Política de fotos/videos. - fotos de hasta 20 MB, videos de hasta 400 MB, máximo 20 archivos por lote, cargas múltiples permitidas, disponible hasta 14 días después del evento y conservación durante 90 días. Sin galería pública.
+- [X ] Política de fotos/videos. - fotos de hasta 50 MB, videos de hasta 500 MB (actualizado el 07/11/2026; antes 20 MB y 400 MB), máximo 20 archivos por lote, cargas múltiples permitidas, disponible hasta 14 días después del evento y conservación durante 90 días. Sin galería pública.
 - [X ] Decisión sobre música. - veo en ti la luz, chayanne feat danna paola C:\Users\chesh\Files\GitApps\Invitaciones\recursos\Enredados - Veo En Ti La Luz (By Danna Paola & Chayanne) (Letra) - Lyrx Music.mp3
 
 ## Bloque B — Debe existir o estar sustituido por placeholder

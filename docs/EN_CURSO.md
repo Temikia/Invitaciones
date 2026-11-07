@@ -1,5 +1,9 @@
 # Invitación de Camila — trabajo en curso
 
+## Límites de tamaño de recuerdos — 07/11/2026
+- ✅ Por petición de la usuaria, los límites pasan de 20 MB a 50 MB por foto y de 400 MB a 500 MB por video, en el navegador (`src/config/invitation.ts`, mensaje de `src/lib/event.ts`, texto en dos idiomas) y en el servidor (`server/drive.js`). Se mantienen 20 archivos por lote.
+- ✅ Build y 36 pruebas; límites exactos comprobados en la validación del servidor (50 MB/500 MB aceptados, un byte más rechazado). No se subió un archivo grande real. Sin despliegue.
+
 ## Rediseño visual del álbum — 07/11/2026
 Dirección acordada con la usuaria mediante maquetas: portada tipo «historias» + mosaico tipo revista con destello dorado.
 - ✅ Fases 1–3 implementadas y verificadas con datos simulados; build y 36 pruebas. Detalle en `docs/VERIFICACION.md`.
