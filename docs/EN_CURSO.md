@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Cloudflare Turnstile — 06/11/2026
+- ✅ La usuaria confirmó que puede ver el álbum local. Pendiente confirmar reproducción del video en ese álbum.
+- ✅ Creado en Cloudflare el widget administrado `Invitación Camila - recuerdos` para `mis-xv-camila.vercel.app`. La usuaria informó que generó llaves nuevas y las guardó en `.env`; se corrigió un error en los nombres de las dos variables y se comprobó su presencia sin mostrar valores. No se verificó contra Cloudflare la rotación informada ni el funcionamiento real.
+- ⏳ Faltan Upstash y el secreto local de cuota, probar protecciones reales y un dominio de Preview autorizado. No se guardaron variables en Vercel ni se desplegó; cargas públicas apagadas. El widget actual solo autoriza el dominio indicado.
+- Siguiente paso: confirmar acceso a Upstash y preparar el servicio de límite de intentos; conservar claves privadas fuera del chat.
+
 ## Álbum privado y protecciones — 06/11/2026
 - ✅ Fase 1 técnica: álbum local aislado usando controladores reales, secreto temporal y contador simulado. Se rechazaron acceso sin cookie y secreto incorrecto; Drive devolvió listado y rangos de foto y video autenticados. Falta revisión visual y reproducción por la usuaria.
 - ✅ Fase 2 local: pruebas automatizadas de lote excesivo, cuota, fallos de servicios, desafío inválido, dominio equivocado y paso válido. Build y 29 pruebas correctos.

@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 19:16 — Ciudad de México (GMT−6)
+
+La usuaria confirmó que ve el álbum local. Se creó un widget Turnstile administrado para el dominio de la invitación. Tras la exposición accidental de la clave en la salida de una herramienta, la usuaria informó que generó claves nuevas y las guardó en `.env`; se corrigieron los nombres de las variables para que coincidan con el código y se verificó su presencia sin imprimir valores. No se comprobó la rotación directamente. Faltan Upstash, configuración de Preview y prueba de protecciones reales. Sin despliegue.
+
 ## 2026-11-06 19:04 — Ciudad de México (GMT−6)
 
 Se habilitó la prueba del álbum en localhost usando sus controladores reales, secreto temporal y contador local simulado; se verificaron rechazo sin autorización o con secreto incorrecto, listado real de Drive y rangos de foto y video. Se añadieron siete pruebas de protecciones con servicios simulados; build y 29 pruebas correctos. Falta revisión visual, configurar y comprobar servicios reales y validar Preview. No se desplegó.
