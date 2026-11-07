@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 15:24 — Ciudad de México (GMT−6)
+
+Con autorización de la usuaria se creó un widget Turnstile separado para `127.0.0.1`. Se preparó `npm run dev:seguridad` para ejecutar la API de carga y Upstash reales solo desde localhost, con claves locales separadas y el interruptor activo únicamente en el proceso. Comprobado que no arranca sin dichas claves; build y 29 pruebas correctos. Falta guardar las claves locales y probar el desafío y una carga desde navegador. No se desplegó; se preservaron cambios ajenos en README.
+
 ## 2026-11-06 19:44 — Ciudad de México (GMT−6)
 
 La usuaria guardó el token de Upstash en `.env`. Se probaron los servicios reales sin publicar: Upstash permitió cuatro intentos sintéticos, bloqueó el quinto y permitió la lectura del álbum; Cloudflare rechazó un token de prueba inválido sin indicar secreto inválido. Falta verificar el desafío completo y el par de claves desde navegador, además de Preview y pendientes operativos. No se mostraron secretos ni se desplegó. Se conservaron cambios ajenos en README.

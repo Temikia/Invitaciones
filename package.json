@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "dev:recuerdos": "node --env-file=.env scripts/dev-memories.mjs",
+    "dev:seguridad": "node --env-file=.env scripts/dev-memories.mjs --security",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "drive:authorize": "node scripts/authorize-drive.mjs",

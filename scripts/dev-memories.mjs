@@ -6,16 +6,28 @@ import { getDriveAccessToken, sendJson, validateUpload } from "../server/drive.j
 import galleryAccess from "../api/drive/gallery/access.js";
 import galleryIndex from "../api/drive/gallery/index.js";
 import galleryMedia from "../api/drive/gallery/media.js";
+import sessionHandler from "../api/drive/session.js";
 
 const host = "127.0.0.1";
 const port = 5188;
 const origin = `http://${host}:${port}`;
+const securityTest = process.argv.includes("--security");
+if (securityTest) {
+  if (!process.env.LOCAL_TURNSTILE_SITE_KEY || !process.env.LOCAL_TURNSTILE_SECRET_KEY || !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN || !process.env.ABUSE_HASH_SECRET) {
+    throw new Error("Faltan las claves locales de Turnstile o la configuración de Upstash.");
+  }
+  process.env.TURNSTILE_SITE_KEY = process.env.LOCAL_TURNSTILE_SITE_KEY;
+  process.env.TURNSTILE_SECRET_KEY = process.env.LOCAL_TURNSTILE_SECRET_KEY;
+  process.env.DRIVE_UPLOADS_ENABLED = "true";
+}
 // Ephemeral, process-local credentials and quota substitute for local testing only.
 const gallerySecret = randomBytes(32).toString("base64url");
 process.env.MEMORIES_GALLERY_SECRET = gallerySecret;
-process.env.ABUSE_HASH_SECRET = randomBytes(32).toString("base64url");
-process.env.UPSTASH_REDIS_REST_URL = "https://local-redis.invalid";
-process.env.UPSTASH_REDIS_REST_TOKEN = randomBytes(32).toString("base64url");
+if (!securityTest) {
+  process.env.ABUSE_HASH_SECRET = randomBytes(32).toString("base64url");
+  process.env.UPSTASH_REDIS_REST_URL = "https://local-redis.invalid";
+  process.env.UPSTASH_REDIS_REST_TOKEN = randomBytes(32).toString("base64url");
+}
 const counters = new Map();
 const realFetch = globalThis.fetch;
 globalThis.fetch = async (url, options) => {
@@ -58,6 +70,21 @@ const server = http.createServer(async (req, res) => {
     return galleryHandlers[path](req, res);
   }
   if (path !== "/api/drive/session") return vite.middlewares(req, res);
+  if (securityTest) {
+    req.headers["x-real-ip"] = "127.0.0.1";
+    req.headers["x-forwarded-host"] = `${host}:${port}`;
+    if (req.method === "POST") {
+      try {
+        let body = "";
+        for await (const chunk of req) {
+          body += chunk;
+          if (body.length > 32768) return sendJson(res, 413, { error: "Solicitud demasiado grande." });
+        }
+        req.body = JSON.parse(body);
+      } catch { return sendJson(res, 400, { error: "Solicitud inválida." }); }
+    }
+    return sessionHandler(req, res);
+  }
   if (req.method === "GET") return sendJson(res, 200, { ready: configured() && Date.now() < Date.parse("2026-12-07T00:00:00-07:00"), localTestMode: true });
   if (req.method !== "POST" || req.headers.origin !== origin) return sendJson(res, 403, { error: "Origen no permitido." });
   if (!configured() || Date.now() >= Date.parse("2026-12-07T00:00:00-07:00")) return sendJson(res, 503, { error: "La prueba local no está disponible." });

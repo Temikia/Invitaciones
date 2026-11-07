@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Prueba local de protecciones reales — 07/11/2026
+- ✅ Creado con autorización el widget `Camila - pruebas locales`, limitado a `127.0.0.1` y separado del dominio público. Sus claves aún deben guardarse en `.env` como `LOCAL_TURNSTILE_SITE_KEY` y `LOCAL_TURNSTILE_SECRET_KEY`.
+- ✅ `npm run dev:seguridad` prepara un servidor ligado solo a `127.0.0.1:5188`, ejecuta la API real y usa el contador Upstash real. El interruptor de cargas se activa solo en el proceso local; si faltan claves locales o Upstash, el servidor se detiene. No modifica variables de Vercel ni habilita la web pública.
+- ✅ Build y 29 pruebas; comprobado que el servidor rechaza arrancar sin las claves locales. Falta una prueba funcional desde navegador con las claves correctas y una foto real, sin compartirlas en chat.
+- Siguiente paso: guardar las dos claves locales en `.env`, iniciar `npm run dev:seguridad` y comprobar el desafío, carga y cuota reales. Sin despliegue. README tiene cambios ajenos pendientes y no se incluyó.
+
 ## Prueba real de protecciones — 06/11/2026
 - ✅ La usuaria guardó el token de Upstash. En la base real, cuatro lotes de prueba fueron permitidos y el quinto bloqueado; la cuota de lectura del álbum respondió correctamente. Se usó una IP sintética y no se subieron archivos.
 - ✅ Cloudflare aceptó la clave secreta y rechazó un token deliberadamente inválido; esto no verifica todavía el par de claves, el desafío real, la acción ni el dominio.

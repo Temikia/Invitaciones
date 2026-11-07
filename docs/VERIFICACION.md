@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Preparación de prueba local de protecciones — 07/11/2026
+
+- Se creó un widget real de Turnstile separado para `127.0.0.1`, pendiente de guardar sus claves locales. `npm run dev:seguridad` usa la API real y Upstash desde un servidor solo local. Sin las claves locales, el proceso se detiene antes de abrir el servidor.
+- Build y 29 pruebas correctos. No se ejecutó todavía el desafío completo ni una carga con este modo; sigue pendiente la prueba en navegador y Preview.
+
 ## Servicios reales de protección — 06/11/2026
 
 - La base real de Upstash permitió cuatro intentos sintéticos y bloqueó el quinto; la cuota de lectura también permitió la prueba. No se subieron archivos ni se usó una IP de visitante.
