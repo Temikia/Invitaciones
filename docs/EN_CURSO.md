@@ -1,15 +1,18 @@
 # Invitación de Camila — trabajo en curso
 
+## Prueba de foto desde navegador — 06/11/2026
+- ✅ La usuaria mostró una foto al 100 % en `/recuerdos` y confirmó que los archivos llegaron a Drive tras la corrección de CORS. No se inspeccionaron sus bytes ni el álbum privado.
+- ⏳ Siguiente paso: probar desde la misma página un video corto y confirmar que se reproduce en Drive; después probar varios archivos y reanudación. Siguen pendientes álbum privado, protecciones reales y revisión en Preview. Sin despliegue.
+
 ## Corrección de CORS en cargas — 06/11/2026
 - ✅ Se envía a Google el origen validado al crear la sesión reanudable; tanto el servidor local como la API real lo utilizan. Antes Google confirmaba la carga sin autorizar la respuesta al navegador, que mostraba `Failed to fetch`.
 - ✅ Comprobado con una imagen real: Google respondió HTTP 200 y devolvió el origen local permitido. Build y 19 pruebas correctos.
-- ⏳ Falta repetir la carga desde el navegador y confirmar el archivo en Drive; una carga que mostró error podría haberse guardado, revisar duplicados. También quedan pendientes Preview, videos, reanudación y controles de protección reales. Sin despliegue.
+- ✅ La usuaria confirmó posteriormente la carga desde navegador y su llegada a Drive. También quedan pendientes Preview, videos, reanudación y controles de protección reales. Sin despliegue.
 
 ## Prueba local de fotos — 06/11/2026
 - ✅ Servidor de desarrollo aislado en `127.0.0.1:5188`, con la autorización existente de Drive; `npm run dev:recuerdos`. Omite los servicios de protección solo en este servidor local, separado de la API desplegada.
 - ✅ Google confirmó HTTP 200 al subir una imagen mínima real mediante una sesión reanudable. Build y 19 pruebas correctos.
-- ⏳ Falta subir una foto desde la página y verificar CORS, contenido y carpeta; también siguen pendientes álbum, video, reanudación y protecciones reales en Preview. El archivo `prueba-local-camila.png` se creó en Drive como prueba.
-- Siguiente paso: abrir `http://127.0.0.1:5188/recuerdos`, seleccionar una foto de prueba y confirmar su llegada a Drive. Sin despliegue.
+- ✅ La usuaria confirmó posteriormente la llegada de una foto subida desde la página. Siguen pendientes la inspección del contenido y las pruebas de álbum, video, reanudación y protecciones reales en Preview. El archivo `prueba-local-camila.png` se creó en Drive como prueba.
 
 ## Protección contra abuso y álbum privado — 06/11/2026
 - ✅ `/api/drive/session` ahora acepta y valida el lote completo (máximo 20) en servidor antes de crear sesiones. Exige Turnstile validado con acción/hostname en Cloudflare y limita a 4 lotes por IP/minuto con contador compartido Upstash; si la protección falla, no se crean sesiones. Las consultas del álbum también tienen un límite compartido.

@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Foto desde navegador local — 06/11/2026
+
+- La usuaria mostró una carga al 100 % y confirmó que las fotos llegaron a Drive después de corregir el origen de la sesión. Evidencia aportada por la usuaria; no se compararon bytes.
+- Pendiente: video, varios archivos, reanudación, álbum privado y protecciones reales. La prueba local no acredita la configuración desplegada.
+
 ## Protección contra abuso y álbum privado — 06/11/2026
 
 - `npm run build`: correcto (TypeScript y Vite 8.3.5).
