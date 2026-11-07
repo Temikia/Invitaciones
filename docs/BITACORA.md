@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 15:31 — Ciudad de México (GMT−6)
+
+Se comprobaron las claves del widget local sin mostrarlas y se inició `dev:seguridad`. Turnstile completó la verificación desde navegador; la API real validó desafío y cuota en Upstash y la imagen `gallery-7.webp` llegó a 100 % en Drive. El origen ajeno y el token inválido se rechazaron con HTTP 403. Falta validar Preview, contenido real y vigencia OAuth; no se desplegó. Se preservaron cambios ajenos en README.
+
 ## 2026-11-07 15:24 — Ciudad de México (GMT−6)
 
 Con autorización de la usuaria se creó un widget Turnstile separado para `127.0.0.1`. Se preparó `npm run dev:seguridad` para ejecutar la API de carga y Upstash reales solo desde localhost, con claves locales separadas y el interruptor activo únicamente en el proceso. Comprobado que no arranca sin dichas claves; build y 29 pruebas correctos. Falta guardar las claves locales y probar el desafío y una carga desde navegador. No se desplegó; se preservaron cambios ajenos en README.

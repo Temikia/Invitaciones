@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Carga protegida desde navegador local — 07/11/2026
+
+- En `dev:seguridad`, el widget Turnstile real completó su verificación y la API real aceptó el token, acción y dominio junto con la cuota de Upstash. Una imagen `gallery-7.webp` se cargó desde navegador hasta 100 %, con confirmación de Drive.
+- Una solicitud de otro origen y otra con token inválido fueron rechazadas con HTTP 403. La prueba usa un widget específico de localhost y no acredita el dominio público ni su configuración en Vercel.
+
 ## Preparación de prueba local de protecciones — 07/11/2026
 
 - Se creó un widget real de Turnstile separado para `127.0.0.1`, pendiente de guardar sus claves locales. `npm run dev:seguridad` usa la API real y Upstash desde un servidor solo local. Sin las claves locales, el proceso se detiene antes de abrir el servidor.

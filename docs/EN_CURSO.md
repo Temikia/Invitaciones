@@ -1,10 +1,15 @@
 # Invitación de Camila — trabajo en curso
 
+## Carga local con protecciones reales — 07/11/2026
+- ✅ Las claves del widget local están guardadas en `.env` y el servidor `dev:seguridad` ejecuta la API real con Upstash. En el navegador, Turnstile completó la verificación y una foto `gallery-7.webp` alcanzó el 100 % mediante Drive; se probaron juntos widget, validación de acción y dominio, cuota y carga.
+- ✅ Solicitudes con origen ajeno y token inválido recibieron HTTP 403. Pruebas locales; los servicios de la web pública siguen sin configurarse en Vercel ni activarse.
+- ⏳ Pendientes: comprobar el álbum y video en el entorno de pruebas, inspección del contenido real, autorización OAuth duradera y Preview con dominios/variables apropiados antes de distribuir. Sin despliegue.
+- Siguiente paso: revisar los pendientes de seguridad e integración antes de acordar una preview; el archivo de prueba puede borrarse de Drive manualmente.
+
 ## Prueba local de protecciones reales — 07/11/2026
-- ✅ Creado con autorización el widget `Camila - pruebas locales`, limitado a `127.0.0.1` y separado del dominio público. Sus claves aún deben guardarse en `.env` como `LOCAL_TURNSTILE_SITE_KEY` y `LOCAL_TURNSTILE_SECRET_KEY`.
+- ✅ Creado con autorización el widget `Camila - pruebas locales`, limitado a `127.0.0.1` y separado del dominio público. Sus claves están guardadas en `.env` como `LOCAL_TURNSTILE_SITE_KEY` y `LOCAL_TURNSTILE_SECRET_KEY`.
 - ✅ `npm run dev:seguridad` prepara un servidor ligado solo a `127.0.0.1:5188`, ejecuta la API real y usa el contador Upstash real. El interruptor de cargas se activa solo en el proceso local; si faltan claves locales o Upstash, el servidor se detiene. No modifica variables de Vercel ni habilita la web pública.
-- ✅ Build y 29 pruebas; comprobado que el servidor rechaza arrancar sin las claves locales. Falta una prueba funcional desde navegador con las claves correctas y una foto real, sin compartirlas en chat.
-- Siguiente paso: guardar las dos claves locales en `.env`, iniciar `npm run dev:seguridad` y comprobar el desafío, carga y cuota reales. Sin despliegue. README tiene cambios ajenos pendientes y no se incluyó.
+- ✅ Build y 29 pruebas; comprobado que el servidor rechaza arrancar sin las claves locales. Posteriormente se validó desde navegador una foto real con Cloudflare y Upstash. Sin despliegue. README tiene cambios ajenos pendientes y no se incluyó.
 
 ## Prueba real de protecciones — 06/11/2026
 - ✅ La usuaria guardó el token de Upstash. En la base real, cuatro lotes de prueba fueron permitidos y el quinto bloqueado; la cuota de lectura del álbum respondió correctamente. Se usó una IP sintética y no se subieron archivos.
