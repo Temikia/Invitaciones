@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 18:49 — Ciudad de México (GMT−6)
+
+Tras pedir la prueba de video y varios archivos, la usuaria informó que todo subió, incluso varios a la vez. Se registró su confirmación; queda comprobar la reproducción del video y la recuperación ante interrupciones, además del álbum y las protecciones. Sin despliegue.
+
 ## 2026-11-06 18:44 — Ciudad de México (GMT−6)
 
 La usuaria confirmó que las fotos llegan a Drive y compartió una captura con la carga al 100 % desde el navegador local, después de corregir CORS. Se registró la evidencia sin afirmar que se compararon los archivos. Siguiente paso: cargar un video corto y comprobar su reproducción en Drive; después revisar lotes, reanudación, álbum y protecciones. Sin despliegue.

@@ -1,5 +1,9 @@
 # Verificación de la primera versión
 
+## Lote desde navegador local — 06/11/2026
+
+- Tras solicitar una prueba de video y de varios archivos, la usuaria informó que todo subió, incluso varios a la vez. No se recibió confirmación de reproducción ni de comportamiento al interrumpir la conexión.
+
 ## Foto desde navegador local — 06/11/2026
 
 - La usuaria mostró una carga al 100 % y confirmó que las fotos llegaron a Drive después de corregir el origen de la sesión. Evidencia aportada por la usuaria; no se compararon bytes.

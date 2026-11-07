@@ -1,8 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Prueba de varios archivos — 06/11/2026
+- ✅ Tras solicitar una prueba con video y varios archivos, la usuaria informó que todo se subió, incluso varios a la vez. No confirmó todavía la reproducción del video en Drive.
+- ⏳ Siguiente paso: confirmar reproducción del video y probar una interrupción de conexión. Continúan pendientes el álbum privado, los controles reales contra abuso y la revisión en Preview. Sin despliegue.
+
 ## Prueba de foto desde navegador — 06/11/2026
 - ✅ La usuaria mostró una foto al 100 % en `/recuerdos` y confirmó que los archivos llegaron a Drive tras la corrección de CORS. No se inspeccionaron sus bytes ni el álbum privado.
-- ⏳ Siguiente paso: probar desde la misma página un video corto y confirmar que se reproduce en Drive; después probar varios archivos y reanudación. Siguen pendientes álbum privado, protecciones reales y revisión en Preview. Sin despliegue.
+- ✅ La usuaria informó después que todo se subió, incluso varios archivos a la vez. Siguen pendientes la reproducción del video, reanudación, álbum privado, protecciones reales y revisión en Preview. Sin despliegue.
 
 ## Corrección de CORS en cargas — 06/11/2026
 - ✅ Se envía a Google el origen validado al crear la sesión reanudable; tanto el servidor local como la API real lo utilizan. Antes Google confirmaba la carga sin autorizar la respuesta al navegador, que mostraba `Failed to fetch`.
