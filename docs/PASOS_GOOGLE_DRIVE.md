@@ -8,7 +8,7 @@ Para reproducir el método en otro proyecto, consultar [Google Drive con OAuth y
 
 - Los archivos se guardarán en la carpeta de Drive `Mis-XV-Camila`.
 - La galería será privada y se abrirá con un enlace secreto. Cualquier persona que reciba o reenvíe ese enlace podrá entrar.
-- La página de recuerdos está en `/recuerdos`.
+- La página de carga está en `/recuerdos`; el botón «Ver álbum» abre `/album`, que requiere el enlace privado o una sesión ya autorizada.
 - Al seleccionar archivos se muestran miniaturas con un velo claro que se retira desde abajo conforme se envían; se descubren por completo cuando Drive confirma la carga. Los videos se identifican y, si el navegador no admite una vista previa, aparece una alternativa. Los nombres y el progreso siguen disponibles para lectores de pantalla.
 - Límites actuales: 20 archivos por lote, 20 MB por foto y 400 MB por video.
 - Las cargas cierran el 7 de diciembre de 2026 a las 00:00, hora de Denver. La configuración contempla conservar los archivos 90 días.
@@ -82,7 +82,7 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 - Upstash Redis lleva un contador compartido entre instancias de Vercel: hasta cuatro lotes de carga por IP en una ventana de 60 segundos. Los endpoints de lectura del álbum limitan 120 solicitudes por IP por minuto. Se usa `x-real-ip` de Vercel; Redis no guarda la IP, solo una huella HMAC con `ABUSE_HASH_SECRET`, y las claves caducan al minuto. Si Turnstile o Redis no responden, las cargas fallan cerradas.
 - Crea un widget de Turnstile para los dominios de Preview y Production y registra su clave pública y secreta en las variables anteriores. La clave pública solo se entrega en la respuesta de configuración; la secreta se valida exclusivamente desde el servidor.
 - Genera dos valores aleatorios distintos localmente para `ABUSE_HASH_SECRET` y `MEMORIES_GALLERY_SECRET` (por ejemplo, con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`) y guárdalos directamente en Vercel; no los pegues en el chat ni en archivos versionados. Usa al menos 32 caracteres.
-- Para el enlace secreto, combina el dominio con el valor de `MEMORIES_GALLERY_SECRET`: `https://<dominio>/recuerdos?album=1#<secreto>`. El fragmento se canjea por una cookie `HttpOnly`, `Secure` y `SameSite=Strict` que dura 24 horas; luego se quita de la barra del navegador. Si Preview y Production usan secretos diferentes, genera un enlace por entorno.
+- Para el enlace secreto, combina el dominio con el valor de `MEMORIES_GALLERY_SECRET`: `https://<dominio>/album#<secreto>`. Los enlaces anteriores `/recuerdos?album=1#<secreto>` se redirigen a `/album`. El fragmento se canjea por una cookie `HttpOnly`, `Secure` y `SameSite=Strict` que dura 24 horas; luego se quita de la barra del navegador. Si Preview y Production usan secretos diferentes, genera un enlace por entorno.
 - La lista y los archivos se entregan mediante funciones autenticadas; la carpeta Drive sigue privada. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien reciba o reenvíe el enlace podrá ver el álbum, de acuerdo con la decisión del evento.
 
 ## Paso 5: revisión contigo en la preview

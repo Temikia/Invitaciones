@@ -2,7 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "rewrites": [{ "source": "/recuerdos", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/recuerdos", "destination": "/index.html" }, { "source": "/album", "destination": "/index.html" }],
   "crons": [{ "path": "/api/drive/cleanup", "schedule": "0 7 * * *" }],
   "headers": [
     {

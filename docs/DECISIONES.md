@@ -17,6 +17,7 @@ Fecha: 27 de octubre de 2026.
 13. La autorización posterior del usuario permite commit y push al terminar la fase verificada. No se ejecuta despliegue manual en Vercel desde esta sesión.
 14. La marca C · XV es un header semántico fijo de 44 px más safe-area, transparente al inicio y con cristal muy sutil al hacer scroll. La música conserva un único audio sin autoplay; su botón flota abajo a la derecha tras salir el original por arriba, vuelve al regresar y desaparece desde la entrada al lago. No se agregan controles al cierre.
 15. La selección de recuerdos muestra miniaturas con un velo claro que se retira desde abajo según los datos enviados y desaparece por completo al confirmar Drive. El avance y los nombres siguen disponibles para lectores de pantalla, y hay una alternativa si el navegador no muestra el formato. Las vistas previas son locales al dispositivo.
+16. El álbum privado tiene su propia ruta `/album`, accesible desde el botón «Ver álbum» de `/recuerdos`; sigue requiriendo el enlace secreto o una sesión autorizada. Los enlaces antiguos redirigen a la nueva ruta sin perder el fragmento secreto.
 
 ## OAuth y Google Picker — 06/11/2026
 

@@ -1245,6 +1245,25 @@ p {
   cursor: not-allowed;
   opacity: 0.55;
 }
+.album-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 180px;
+  margin-top: 28px;
+  padding: 12px 24px;
+  border: 1px solid #c8a36f;
+  border-radius: 3px;
+  color: #efd5a4;
+  text-decoration: none;
+  font: 600 12px var(--sans);
+  letter-spacing: 0.05em;
+}
+.album-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
 @keyframes float-up {
   0% {
     transform: translateY(0) translateX(0);

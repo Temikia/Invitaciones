@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Página independiente del álbum — 07/11/2026
+- ✅ Botón «Ver álbum» en `/recuerdos` y página independiente `/album`, con regreso a recuerdos y textos en español e inglés. Por decisión de la usuaria conserva el acceso privado mediante enlace secreto o sesión autorizada. Los enlaces anteriores `/recuerdos?album=1#...` se convierten a la nueva ruta.
+- ✅ Revisión en navegador: el acceso sin sesión solicita el enlace privado, el enlace local autorizado muestra fotos y video, el botón abre el álbum con sesión y un enlace inválido se rechaza. Vistas de escritorio y móvil; build y 31 pruebas correctos. Movimiento reducido no emulado; no se añadieron animaciones.
+- ✅ Se retiraron dos líneas de claves añadidas accidentalmente al README en un intento anterior; no se incluyen secretos en el commit. La usuaria había informado que generó claves nuevas; no se verificó directamente la revocación de las anteriores.
+- ⏳ Pendientes la inspección del contenido real, OAuth duradero y revisión en Preview. Sin despliegue.
+
 ## Velo de progreso en miniaturas — 07/11/2026
 - ✅ Las miniaturas comienzan con un velo claro que se retira desde abajo conforme se envían los datos; el 100 % se reserva a la confirmación de Drive. Ante un fallo el progreso vuelve al último bloque confirmado. Se retiraron el porcentaje y la línea visibles, conservando el progreso accesible, y se ocultó el aviso de carga lista.
 - ✅ Build y 31 pruebas, incluida la progresión 50–99–100 y la recuperación ante interrupción. Se revisaron visualmente los estados de 0 % y 100 % en escritorio y 0 % en móvil; una foto real se cargó desde navegador con protección y Drive. El estado intermedio no se observó visualmente; la CSS omite transición con movimiento reducido, sin emulación de esa preferencia.

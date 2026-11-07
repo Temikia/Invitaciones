@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 16:16 — Ciudad de México (GMT−6)
+
+Se separó el álbum en `/album` y se añadió «Ver álbum» debajo de la carga, conservando por decisión de la usuaria el acceso mediante enlace privado o sesión. Los enlaces anteriores se redirigen y el regreso lleva a recuerdos. Build y 31 pruebas correctos; navegador con y sin autorización y enlace inválido verificados en escritorio y móvil. Se retiraron dos líneas de claves añadidas accidentalmente al README durante la configuración previa; la usuaria había indicado que generó claves nuevas. No se verificó la revocación anterior ni se desplegó.
+
 ## 2026-11-07 15:56 — Ciudad de México (GMT−6)
 
 Se sustituyeron la barra y los valores visibles por un velo claro que descubre cada miniatura desde abajo conforme se envían los datos, y se retiró el aviso de carga lista. El progreso usa eventos reales de envío, reserva 100 % a la confirmación y vuelve al último bloque confirmado si hay un corte; se conserva el indicador accesible. Build y 31 pruebas correctos. Se revisaron estados inicial y final en escritorio y el inicial en móvil; una foto se subió correctamente mediante las protecciones reales. La transición se desactiva con movimiento reducido por CSS; no se emuló esa preferencia. Sin despliegue; README ajeno conservado.

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { ArrowLeft, Camera, Film, ImagePlus, LockKeyhole } from "lucide-react";
+import { ArrowLeft, Camera, Film, ImagePlus } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
@@ -12,8 +12,6 @@ type TurnstileApi = {
 };
 
 declare global { interface Window { turnstile?: TurnstileApi } }
-
-type GalleryFile = { id: string; name: string; type: string; size: number; createdTime: string | null; mediaUrl: string };
 
 const mimeByExtension: Record<string, string> = {
   jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp",
@@ -55,16 +53,11 @@ export default function Memories() {
   const [progress, setProgress] = useState<number[]>([]);
   const [uploadError, setUploadError] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
-  const [galleryMode, setGalleryMode] = useState(false);
-  const [galleryLoading, setGalleryLoading] = useState(false);
-  const [galleryFiles, setGalleryFiles] = useState<GalleryFile[]>([]);
-  const [galleryError, setGalleryError] = useState("");
   const challengeRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | undefined>(undefined);
   const sessionsRef = useRef<{ sessionUrl: string }[] | null>(null);
   const attemptedRef = useRef<boolean[]>([]);
   const completedRef = useRef<boolean[]>([]);
-  const albumRequested = new URLSearchParams(window.location.search).get("album") === "1";
   const closed = Date.now() >= new Date(invitation.uploads.closesAt).getTime();
 
   useEffect(() => {
@@ -113,41 +106,6 @@ export default function Memories() {
       if (addedScript) script?.remove();
     };
   }, [siteKey]);
-
-  useEffect(() => {
-    if (!albumRequested) return;
-    let active = true;
-    const secret = window.location.hash.slice(1);
-    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
-    setGalleryMode(true);
-    setGalleryLoading(true);
-    setGalleryError("");
-    const authorize = async () => {
-      if (secret) {
-        try {
-          const access = await fetch("/api/drive/gallery/access", {
-            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ secret }),
-          });
-          if (!access.ok) throw new Error(language === "en" ? "This private link is invalid or expired." : "Este enlace privado no es válido o ya venció.");
-        } catch (error) {
-          if (active) setGalleryError(error instanceof Error ? error.message : "No se pudo abrir el álbum.");
-          return;
-        }
-      }
-      try {
-        const response = await fetch("/api/drive/gallery/index");
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(result.error || (language === "en" ? "This private link is invalid or expired." : "Este enlace privado no es válido o ya venció."));
-        if (active) setGalleryFiles(Array.isArray(result.files) ? result.files : []);
-      } catch (error) {
-        if (active) setGalleryError(error instanceof Error ? error.message : "No se pudo abrir el álbum.");
-      } finally {
-        if (active) setGalleryLoading(false);
-      }
-    };
-    void authorize();
-    return () => { active = false; };
-  }, [albumRequested, language]);
 
   function select(event: ChangeEvent<HTMLInputElement>) {
     const selection = Array.from(event.target.files ?? []);
@@ -201,7 +159,6 @@ export default function Memories() {
     }
   }
 
-  const isVideo = (file: GalleryFile) => file.type.startsWith("video/");
   return (
     <main className="memories-page">
       <div className="language-switch memories-language-switch" role="group" aria-label={t("header.switch")}>
@@ -209,20 +166,7 @@ export default function Memories() {
         <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>Es</button>
       </div>
       <a href="/" className="back-link"><ArrowLeft size={17} /> {t("memories.back")}</a>
-      <div className={galleryMode ? "gallery-content" : "upload-content"}>
-        {galleryMode ? <>
-          <LockKeyhole size={32} strokeWidth={1} className="gold-icon" />
-          <p className="eyebrow">{language === "en" ? "A private album" : "Un álbum privado"}</p>
-          <h1>{language === "en" ? <>Our night.<br /><em>Our memories.</em></> : <>Nuestra noche.<br /><em>Nuestros recuerdos.</em></>}</h1>
-          <p>{language === "en" ? "A collection of moments shared by the people who celebrated with Camila." : "Momentos compartidos por quienes celebraron con Camila."}</p>
-          {galleryLoading ? <div className="upload-notice" role="status">{language === "en" ? "Opening the private album…" : "Abriendo el álbum privado…"}</div> : null}
-          {galleryError ? <div className="upload-notice" role="alert">{galleryError}</div> : null}
-          {!galleryLoading && !galleryError && galleryFiles.length === 0 ? <div className="upload-notice" role="status">{language === "en" ? "No memories have been shared yet." : "Todavía no se han compartido recuerdos."}</div> : null}
-          <div className="memory-grid">{galleryFiles.map((file) => <figure className="memory-item" key={file.id}>
-            {isVideo(file) ? <video src={file.mediaUrl} controls preload="none" playsInline aria-label={file.name} /> : <a href={file.mediaUrl} target="_blank" rel="noreferrer"><img src={file.mediaUrl} loading="lazy" alt={file.name} /></a>}
-            <figcaption>{file.name}</figcaption>
-          </figure>)}</div>
-        </> : <>
+      <div className="upload-content">
           <Camera size={35} strokeWidth={1} className="gold-icon" />
           <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>
           <h1>{t("memories.title1")}<br /><em>{t("memories.page.title2")}</em></h1>
@@ -249,7 +193,7 @@ export default function Memories() {
             </div> : null}
           </> : null}
           <p className="form-note">{t("memories.private")}</p>
-        </>}
+          <a className="album-link" href="/album">{language === "en" ? "View album" : "Ver álbum"}</a>
       </div>
     </main>
   );

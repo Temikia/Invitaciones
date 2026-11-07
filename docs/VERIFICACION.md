@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Página privada del álbum — 07/11/2026
+
+- Build y 31 pruebas correctos. En navegador, `/recuerdos` enlaza a `/album`; sin sesión pide el enlace privado, con el enlace local se muestran fotos y video y el botón funciona con la sesión existente. El formato anterior se redirige y un secreto inválido se rechaza; el fragmento se elimina de la barra.
+- Revisión visual de escritorio y móvil. No se emuló movimiento reducido ni se revisó todavía el rewrite de Vercel desplegado. La ruta nueva no abre el álbum sin autorización.
+
 ## Velo de progreso — 07/11/2026
 
 - Build y 31 pruebas correctas. Las pruebas cubren el avance de datos enviados, 100 % solo tras confirmación y el retroceso al último bloque confirmado ante una desconexión.

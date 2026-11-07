@@ -30,6 +30,7 @@ import {
 } from "../components/scenes/Finale";
 
 const Memories = lazy(() => import("./Memories"));
+const Album = lazy(() => import("./Album"));
 function Invitation() {
   const root = useRef<HTMLDivElement>(null);
   useNarrative(root);
@@ -63,9 +64,10 @@ function Invitation() {
 }
 function AppContent() {
   const { t } = useLanguage();
-  return window.location.pathname.replace(/\/$/, "") === "/recuerdos" ? (
+  const path = window.location.pathname.replace(/\/$/, "");
+  return path === "/recuerdos" || path === "/album" ? (
     <Suspense fallback={<p className="loading">{t("loading")}</p>}>
-      <Memories />
+      {path === "/album" ? <Album /> : <Memories />}
     </Suspense>
   ) : (
     <Invitation />

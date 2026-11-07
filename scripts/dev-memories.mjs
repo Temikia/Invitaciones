@@ -49,7 +49,7 @@ const server = http.createServer(async (req, res) => {
   }
   const path = new URL(req.url, origin).pathname;
   if (path === "/album-local") {
-    res.writeHead(302, { Location: `/recuerdos?album=1#${gallerySecret}`, "Cache-Control": "no-store" });
+    res.writeHead(302, { Location: `/album#${gallerySecret}`, "Cache-Control": "no-store" });
     return res.end();
   }
   const galleryHandlers = { "/api/drive/gallery/access": galleryAccess, "/api/drive/gallery/index": galleryIndex, "/api/drive/gallery/media": galleryMedia };

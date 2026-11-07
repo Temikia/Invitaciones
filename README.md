@@ -26,7 +26,7 @@ El proyecto incluye los recursos de producción necesarios para compilar. Los or
 - Output: `dist`.
 - Node.js: **24.x**.
 - La invitación estática no requiere variables de entorno. El backend de recuerdos sí requiere las variables de servidor descritas en la guía de Drive. Las claves de generación de fondos se usan solo localmente; los secretos de servidor nunca deben llevar prefijo `VITE_` ni incluirse en el frontend.
-- `/recuerdos` tiene rewrite a la aplicación. QR y botón usan el mismo origen del despliegue.
+- `/recuerdos` y `/album` tienen rewrite a la aplicación. QR y botones usan el mismo origen del despliegue.
 - `noindex` evita indexación solicitada a buscadores; no representa control de acceso. El álbum no tiene galería pública.
 
 El usuario administra el despliegue. Las cargas y el álbum privado están implementados, pero siguen apagados hasta configurar Cloudflare Turnstile, Upstash y las variables de Drive en Preview y completar las pruebas reales. No distribuir a invitados antes de esa revisión.
@@ -55,7 +55,7 @@ Documentación de Drive: [pasos y estado del evento](docs/PASOS_GOOGLE_DRIVE.md)
 
 La ruta `/recuerdos` muestra la carga solo cuando el backend confirma que está configurado y habilitado; una preview incompleta mantiene oculta la selección. Un desafío Turnstile se verifica en servidor y Upstash aplica límites compartidos por IP; los dos controles fallan cerrados. El endpoint limita el lote a 20 y valida nombre, extensión, MIME declarado y tamaño antes de iniciar sesiones reanudables de Drive. El navegador transfiere bloques directamente y muestra progreso real. Como el backend no recibe los bytes, la inspección del contenido real y las pruebas CORS en teléfono siguen pendientes antes de activar. No informa éxito hasta que Google Drive completa la carga.
 
-El álbum privado se abre con `/recuerdos?album=1#<secreto>`. El fragmento se intercambia por una cookie temporal `HttpOnly` y se elimina de la barra; los endpoints listan y transmiten solo archivos marcados por esta app dentro de la carpeta configurada, que permanece privada. La guía de Drive documenta el alta de Turnstile, Upstash y el secreto del enlace. La reproducción de video proxificada requiere probar `Range` y transferencia en Preview.
+El botón «Ver álbum» abre `/album`; el contenido requiere la sesión obtenida al abrir `/album#<secreto>`. Los enlaces anteriores `/recuerdos?album=1#<secreto>` redirigen a la nueva página. El fragmento se intercambia por una cookie temporal `HttpOnly` y se elimina de la barra; los endpoints listan y transmiten solo archivos marcados por esta app dentro de la carpeta configurada, que permanece privada. La guía de Drive documenta el alta de Turnstile, Upstash y el secreto del enlace. La reproducción de video proxificada requiere probar `Range` y transferencia en Preview.
 
 Funciones de Vercel crean sesiones de carga reanudable; el navegador envía los archivos directamente a Google Drive para evitar pasar videos de 400 MB por el body de una función. El proxy autenticado de galería transmite contenido de Drive y necesita revisar límites de tiempo y transferencia del plan elegido. El secreto OAuth y el refresh token no llegan al cliente de invitados. El sistema no usa el conector personal de Drive como backend de invitados.
 
