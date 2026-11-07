@@ -96,11 +96,11 @@ describe("confirmación por WhatsApp", () => {
 });
 
 describe("archivos de recuerdos", () => {
-  const photo = { name: "foto.JPG", type: "image/jpeg", size: 50 * 1024 ** 2 };
+  const photo = { name: "foto.JPG", type: "image/jpeg", size: 20 * 1024 ** 2 };
   const video = {
     name: "baile.mov",
     type: "video/quicktime",
-    size: 500 * 1024 ** 2,
+    size: 400 * 1024 ** 2,
   };
   it("acepta límites exactos y hasta 20 archivos", () => {
     expect(
@@ -114,10 +114,10 @@ describe("archivos de recuerdos", () => {
   });
   it("explica tamaños excedidos y archivos vacíos", () => {
     expect(validateFiles([{ ...photo, size: photo.size + 1 }])[0]).toContain(
-      "50 MB por foto",
+      "20 MB por foto",
     );
     expect(validateFiles([{ ...video, size: video.size + 1 }])[0]).toContain(
-      "500 MB por video",
+      "400 MB por video",
     );
     expect(validateFiles([{ ...photo, size: 0 }])[0]).toContain("vacío");
   });

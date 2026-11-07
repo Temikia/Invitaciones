@@ -58,8 +58,8 @@ export const invitation = {
   uploads: {
     path: "/recuerdos",
     endpoint: null,
-    photoMaxBytes: 50 * 1024 ** 2,
-    videoMaxBytes: 500 * 1024 ** 2,
+    photoMaxBytes: 20 * 1024 ** 2,
+    videoMaxBytes: 400 * 1024 ** 2,
     maxFiles: 20,
     closesAt: "2026-12-07T00:00:00-07:00",
     retentionDays: 90,

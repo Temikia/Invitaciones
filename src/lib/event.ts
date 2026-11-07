@@ -116,7 +116,7 @@ export function validateFiles(files: readonly UploadFile[]): string[] {
         : invitation.uploads.videoMaxBytes;
     if (file.size > max)
       errors.push(
-        `${file.name}: supera el límite de ${format.kind === "photo" ? "50 MB por foto" : "500 MB por video"}.`,
+        `${file.name}: supera el límite de ${format.kind === "photo" ? "20 MB por foto" : "400 MB por video"}.`,
       );
   }
   return errors;

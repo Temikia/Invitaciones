@@ -1,5 +1,5 @@
-const PHOTO_LIMIT = 50 * 1024 * 1024;
-const VIDEO_LIMIT = 500 * 1024 * 1024;
+const PHOTO_LIMIT = 20 * 1024 * 1024;
+const VIDEO_LIMIT = 400 * 1024 * 1024;
 
 const extensions = new Map([
   ["jpg", [["image/jpeg"], PHOTO_LIMIT]],

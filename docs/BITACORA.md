@@ -1,8 +1,8 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
-## 2026-11-07 17:53 — Ciudad de México (GMT−6)
+## 2026-11-07 17:58 — Ciudad de México (GMT−6)
 
-La usuaria pidió primero quitar la restricción de tamaño y luego fijarla en 50 MB por foto y 500 MB por video, para admitir fotos y videos de teléfono de mayor calidad. Se actualizaron validación del navegador y del servidor, textos en dos idiomas, pruebas, manual y checklist. Build y 36 pruebas correctos; sin despliegue.
+La usuaria decidió conservar los límites originales (20 MB por foto y 400 MB por video) y se revirtió el aumento a 50/500 MB. Para que pueda subir sus fotos de casi 60 MB se abrió temporalmente el límite de foto solo en local y sin commit; se restaurará al terminar la carga.
 
 ## 2026-11-07 17:48 — Ciudad de México (GMT−6)
 
