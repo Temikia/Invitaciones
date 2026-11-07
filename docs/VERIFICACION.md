@@ -1,5 +1,13 @@
 # Verificación de la primera versión
 
+## Protección contra abuso y álbum privado — 06/11/2026
+
+- `npm run build`: correcto (TypeScript y Vite 8.3.5).
+- `npm test`: 3 archivos y 19 pruebas correctos.
+- Revisión de código: el endpoint aplica límite 1–20 y verifica cada archivo en servidor; el desafío Turnstile se valida en servidor con acción y hostname; las cuotas usan Redis compartido y datos IP HMAC; errores de configuración o servicios bloquean la escritura.
+- Revisión de privacidad: secreto de la galería enviado en fragmento y borrado del historial; cookie temporal firmada y HttpOnly; listado y descarga requieren cookie, marcador y carpeta; nombres se renderizan escapados por React; contenido sale por proxy y no se publican permisos de Drive.
+- La revisión visual en navegador local no fue posible: el host de navegador de control no estuvo disponible. Tampoco se probaron APIs externas, credenciales ni tráfico a Drive; las variables de protección no están configuradas y las cargas siguen desactivadas. Preview debe validar compatibilidad, CORS, rangos de video y transferencia de Vercel.
+
 ## Autorización de Google Drive — 06/11/2026
 
 - Corrección de referencia: `c1efc0c`; confirmación funcional: `87f8894`.

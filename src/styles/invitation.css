@@ -1071,6 +1071,44 @@ p {
   text-align: center;
   margin: 55px auto;
 }
+.gallery-content {
+  max-width: 1100px;
+  text-align: center;
+  margin: 55px auto;
+}
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 18px;
+  margin-top: 38px;
+  text-align: left;
+}
+.memory-item {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #bc9c5c35;
+  background: #0e0a15;
+}
+.memory-item img,
+.memory-item video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #09070d;
+}
+.memory-item figcaption {
+  overflow-wrap: anywhere;
+  padding: 11px 13px;
+  color: #d6c3a7;
+  font-size: 11px;
+}
+.turnstile-widget {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
 .upload-content h1 {
   font-size: clamp(3.5rem, 8vw, 5.5rem);
   line-height: 1.05;

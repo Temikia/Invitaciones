@@ -49,7 +49,7 @@ El código local ya está preparado en `scripts/authorize-drive.mjs`. Autorizaci
 2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.
 3. Ejecuta `npm run drive:authorize`. Abre el enlace que muestra la terminal e inicia sesión con `temikia.agency@gmail.com`. Revisa el permiso exacto: `drive.file`, `openid` y `email`. No concede acceso general a Drive.
 4. En el selector de Google, elige la carpeta `Mis-XV-Camila` y confirma. El script verifica cuenta e ID y guarda `GOOGLE_REFRESH_TOKEN` y `DRIVE_FOLDER_ID` en el `.env` ignorado por Git. No imprime el token ni lo envía al chat.
-5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Son secretos de servidor salvo el ID de carpeta; nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta completar la revisión de abuso y pruebas.
+5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Para habilitar las cargas también harán falta `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` y `ABUSE_HASH_SECRET`. Para habilitar el álbum privado, configura además `MEMORIES_GALLERY_SECRET`. `TURNSTILE_SITE_KEY` es pública; las demás credenciales son de servidor. Nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta terminar las pruebas en Preview y confirmar que la autorización OAuth sigue vigente.
 6. Guarda las variables y despliega una nueva preview para que Vercel las cargue. [Documentación de variables de entorno de Vercel](https://vercel.com/docs/environment-variables/managing-environment-variables).
 
 ### Si Google Picker muestra “The API developer key is invalid”
@@ -71,9 +71,18 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 
 ## Paso 4: dos decisiones operativas antes de activar
 
-- **Quién puede subir:** ✅ cualquiera con el enlace/QR de la invitación. La galería conservará su enlace secreto por separado. Antes de activar se implementará protección contra abuso.
+- **Quién puede subir:** ✅ cualquiera con el enlace/QR de la invitación. La galería conserva un enlace secreto independiente. Turnstile y límites compartidos de frecuencia están implementados; falta configurar sus servicios en Preview y probarlos antes de activar.
 - **Cuándo borrar:** ✅ los 90 días se cuentan desde el cierre de cargas: 7 de diciembre de 2026 a las 00:00, hora de Denver. La limpieza programada empieza el 7 de marzo de 2027 a las 00:00 de Denver (07:00 UTC). Solo borra archivos creados por esta integración; el resto de la carpeta no se toca.
 - **Ubicación de carpeta:** el flujo local consulta Drive y confirma si está en “Mi unidad” o en una unidad compartida. Si está en una unidad compartida, exige que la cuenta pueda borrar archivos (rol de organizadora) para respetar la retención.
+
+## Protección contra abuso y álbum privado
+
+- Las cargas se agrupan en una sola solicitud de hasta 20 archivos. El backend verifica cada metadato y el token de Turnstile en Cloudflare antes de abrir sesiones de Drive.
+- Upstash Redis lleva un contador compartido entre instancias de Vercel: hasta cuatro lotes de carga por IP en una ventana de 60 segundos. Los endpoints de lectura del álbum limitan 120 solicitudes por IP por minuto. Se usa `x-real-ip` de Vercel; Redis no guarda la IP, solo una huella HMAC con `ABUSE_HASH_SECRET`, y las claves caducan al minuto. Si Turnstile o Redis no responden, las cargas fallan cerradas.
+- Crea un widget de Turnstile para los dominios de Preview y Production y registra su clave pública y secreta en las variables anteriores. La clave pública solo se entrega en la respuesta de configuración; la secreta se valida exclusivamente desde el servidor.
+- Genera dos valores aleatorios distintos localmente para `ABUSE_HASH_SECRET` y `MEMORIES_GALLERY_SECRET` (por ejemplo, con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`) y guárdalos directamente en Vercel; no los pegues en el chat ni en archivos versionados. Usa al menos 32 caracteres.
+- Para el enlace secreto, combina el dominio con el valor de `MEMORIES_GALLERY_SECRET`: `https://<dominio>/recuerdos?album=1#<secreto>`. El fragmento se canjea por una cookie `HttpOnly`, `Secure` y `SameSite=Strict` que dura 24 horas; luego se quita de la barra del navegador. Si Preview y Production usan secretos diferentes, genera un enlace por entorno.
+- La lista y los archivos se entregan mediante funciones autenticadas; la carpeta Drive sigue privada. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien reciba o reenvíe el enlace podrá ver el álbum, de acuerdo con la decisión del evento.
 
 ## Paso 5: revisión contigo en la preview
 
@@ -85,10 +94,13 @@ Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 4. Confirmar el cierre de cargas y la regla de eliminación programada.
 5. Revisar CORS desde el navegador y cómo detectar contenido que no corresponde a su extensión/MIME declarado; el backend no recibe los bytes durante la transferencia directa.
 
-La vista web de consulta de la galería con enlace secreto todavía no está implementada; los archivos permanecen privados en Drive y no se hará pública la carpeta.
+La implementación ya está preparada, pero el álbum y las cargas permanecen apagados hasta configurar y probar las variables anteriores. Los archivos siguen privados en Drive; no se hará pública la carpeta.
 
 ## Referencias
 
+- [Validación server-side de Turnstile](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) · [configuración del widget](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/)
+- [Upstash Redis REST API y transacciones](https://upstash.com/docs/redis/features/restapi) · [encabezados de solicitud en Vercel](https://vercel.com/docs/headers/request-headers)
+- [Descargar contenido de Drive](https://developers.google.com/workspace/drive/api/guides/manage-downloads)
 - [Integración oficial de Picker](https://developers.google.com/workspace/drive/picker/guides/web-picker)
 - [Método reutilizable e incidente resuelto](GOOGLE_DRIVE_REUTILIZABLE.md)
 

@@ -1,5 +1,11 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-06 17:47 — Ciudad de México (GMT−6)
+
+Se implementó protección contra abuso de cargas con validación server-side de Turnstile, límite de cuatro lotes por IP cada minuto y límite de consultas a la galería mediante Upstash compartido; el backend valida todos los archivos y el máximo de 20 por lote antes de crear sesiones. Se añadió el álbum privado: el secreto llega en el fragmento del enlace, se canjea por cookie firmada de 24 horas y el servidor solo lista/proxy archivos marcados dentro de la carpeta privada. Se documentaron configuración, límites y pruebas pendientes en README, pasos de Drive, decisiones, verificación y EN_CURSO. No se configuraron servicios externos, no se leyeron/generaron secretos, las cargas siguen apagadas y no hubo despliegue. Build correcto y 19 pruebas pasando. La revisión visual local quedó pendiente porque el navegador no pudo iniciarse en este entorno.
+
+Siguiente paso: configurar Turnstile, Upstash y los secretos de servidor en Preview; validar autorización OAuth vigente, cargas, CORS, video con `Range` y eliminación controlada antes de activar invitados.
+
 ## 2026-11-06 17:28 — Ciudad de México (GMT−6)
 
 Se documentó el método reutilizable de OAuth y Google Picker para futuros proyectos: arquitectura, separación de credenciales, configuración de Cloud, contrato del autorizador, diagnóstico por etapas, operación en Windows, portabilidad y límites de producción. Se registraron la causa comprobada, las hipótesis descartadas y el alcance de las verificaciones; no se presenta la autorización local como prueba de cargas o renovación. Se corrigieron textos desactualizados sobre consentimiento pendiente y se enlazó la guía desde README, manual, decisiones y verificación. No se copiaron secretos ni se modificó código. Se comprobaron rutas locales y formato del diff. Commit de la fase: «Documenta método reutilizable de Google Drive y Picker».

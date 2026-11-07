@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Protección contra abuso y álbum privado — 06/11/2026
+- ✅ `/api/drive/session` ahora acepta y valida el lote completo (máximo 20) en servidor antes de crear sesiones. Exige Turnstile validado con acción/hostname en Cloudflare y limita a 4 lotes por IP/minuto con contador compartido Upstash; si la protección falla, no se crean sesiones. Las consultas del álbum también tienen un límite compartido.
+- ✅ Implementada la vista `/recuerdos?album=1#<secreto>`. El secreto solo viaja en el fragmento, se canjea por cookie firmada `HttpOnly`/`Secure`/`SameSite=Strict` de 24 horas y se elimina del historial visible. Listado y proxy multimedia requieren cookie, carpeta y marcador propios; el proxy admite `Range` para video.
+- ✅ README, decisiones, pasos de Drive y verificación actualizados con las variables y límites. No se leyeron ni generaron secretos; `DRIVE_UPLOADS_ENABLED` continúa apagado y no se desplegó.
+- ✅ `npm run build`; `npm test` (19 pruebas). La revisión visual no se pudo completar porque el navegador de control informó que el host no está disponible.
+- ⏳ Pendiente: crear/configurar Turnstile y Upstash en Preview/Production, guardar secretos localmente en Vercel sin compartirlos, validar OAuth renovable, CORS, contenido real, carga/reanudación, Range de video y limpieza en Preview.
+- Siguiente paso: configurar Preview y seguir `docs/PASOS_GOOGLE_DRIVE.md`; no habilitar cargas hasta completar la validación controlada y decidir la renovación OAuth.
+
 ## Documentación reutilizable de Google Drive — 06/11/2026
 - ✅ Creada `docs/GOOGLE_DRIVE_REUTILIZABLE.md`: arquitectura, credenciales, contrato OAuth/Picker, ejecución local, diagnóstico con evidencia, adaptación, renovación y límites de producción. Enlazada desde README y manual; decisiones y verificación actualizadas. Revisados rutas locales y formato del diff.
 - Base funcional: autorización y selección real de carpeta completadas, corrección `c1efc0c`, confirmación documentada en `87f8894`.
@@ -13,13 +21,13 @@
 - ✅ Permiso propuesto y documentado para revisión: `drive.file`, `openid` y `email`; selección explícita de la carpeta mediante Google Picker para evitar acceso general a Drive.
 - ✅ Paso 3 preparado en código: `/api/drive/session` crea sesiones reanudables con credenciales de servidor; el navegador transfiere en bloques y reconsulta el estado si se interrumpe la conexión. `scripts/authorize-drive.mjs` solicita el permiso reducido, valida la cuenta y la carpeta con Picker y guarda el token en `.env` sin imprimirlo. El endpoint permanece apagado si `DRIVE_UPLOADS_ENABLED` no es `true`.
 - ✅ `api/drive/cleanup.js` y Cron diario de Vercel programados para borrar permanentemente desde el 07/03/2027 solo archivos marcados por esta app, autenticados con `CRON_SECRET`.
-- ⏳ La vista web privada de consulta de recuerdos mediante enlace secreto aún no está implementada; no se comparte la carpeta de Drive públicamente.
+- ✅ Protección contra abuso y consulta web privada implementadas en la fase registrada arriba; la carpeta de Drive no se comparte públicamente.
 - ✅ Autorización local completada: la captura de la usuaria confirma carpeta verificada en **Mi unidad** y token guardado en `.env`. La corrección fue enviar `Referrer-Policy: origin` y fijar el origen de Picker; la configuración de Cloud era correcta. Confirmación funcional recibida tras el commit `c1efc0c`. No se leyeron ni imprimieron secretos.
-- ⏳ Antes de activar: agregar protección contra abuso, implementar la consulta privada pendiente, configurar Preview, validar bytes/contenido real y CORS, y probar foto/video/reanudación y borrado en entorno controlado.
+- ⏳ Antes de activar: configurar los servicios de protección en Preview, validar bytes/contenido real y CORS, probar foto/video/reanudación y Range, verificar OAuth y borrado en entorno controlado.
 - ✅ Verificación local: `npm run build`, `npm test` (19 pruebas), sintaxis de los módulos Node, `vercel.json` y `git diff --check` correctos. La revisión visual no se realizó porque el navegador de control no estuvo disponible.
-- Límite vigente: no activar cargas ni desplegar desde esta sesión. Autorización local y carpeta confirmadas; pendientes protección contra abuso, consulta privada, validación de cargas y vigencia del token OAuth en modo de pruebas antes del evento.
+- Límite vigente: no activar cargas ni desplegar desde esta sesión. Autorización local y carpeta confirmadas; pendientes configuración de servicios, validación de cargas y vigencia del token OAuth en modo de pruebas antes del evento.
 - Commit local: `e42dab9` — «Integra cargas reanudables privadas en recuerdos».
-- Siguiente paso: preparar protección contra abuso y vista de consulta privada; después configurar secretos de servidor y validar foto, video, reanudación y borrado en Preview cuando se autorice el despliegue. Resolver la caducidad de la autorización OAuth en modo de pruebas antes de activar para invitados.
+- Siguiente paso: configurar los servicios y variables del servidor y validar foto, video, reanudación, consulta y borrado en Preview cuando se autorice el despliegue. Resolver la caducidad de la autorización OAuth en modo de pruebas antes de activar para invitados.
 
 ## Preparación de Google Drive — 06/11/2026 14:35 (GMT−6)
 - ✅ Creada `docs/PASOS_GOOGLE_DRIVE.md` con las acciones de la usuaria y las tareas de implementación separadas por fases.
