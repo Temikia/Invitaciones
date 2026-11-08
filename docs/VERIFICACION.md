@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Efectos siempre en movimiento — 08/11/2026 00:52 (GMT−6)
+
+- Producción ya servía la versión suave (`page-twinkle`, `spark--still` en el CSS publicado), así que el fallo no era de despliegue.
+- Con movimiento reducido simulado en el navegador local: `/recuerdos` con `float-up` (la partícula pasa de 0 a −256 y −512 px al adelantar 8 y 16 s), `lantern-rise`, `page-sun-turn` 40 s y `page-sun-glow`; `/album` con `album-hero-drift`, 7 barras, haz `album-glint` en `::before` y `::after`; portada con `breath`, `levitate`, destellos `burst` y neblina visible. Build y 61 pruebas, sin errores nuevos en consola.
+- Sin probar: teléfono real.
+
 ## Versión suave con movimiento reducido — 08/11/2026 00:45 (GMT−6)
 
 - Diagnóstico: en emulación de teléfono (375 px) sin movimiento reducido, partículas, linternas y sol de `/recuerdos` se animan; lo único que apagaba a la vez los efectos de portada, álbum y recuerdos era `prefers-reduced-motion: reduce`.

@@ -1,6 +1,10 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
-## 2026-11-08 01:00 — Ciudad de México (GMT−6)
+## 2026-11-08 00:52 — Ciudad de México (GMT−6)
+
+La usuaria confirmó que con la versión suave seguía igual: en su teléfono la portada mueve sus objetos y `/recuerdos` y `/album` no. La portada siempre ignoró la preferencia de movimiento reducido en su halo y runas, mientras que las otras dos páginas sí la respetaban y se quedaban quietas; titilar no se percibe como movimiento. A pedido de la usuaria, los efectos decorativos de las tres páginas se mueven siempre, como la portada, y se retiró la versión suave. El sol gira más rápido para notarse y las partículas usan `vh` en lugar de `svh` por compatibilidad. Se conserva el movimiento reducido en el visor, la película y la carga. Build y 61 pruebas; comprobado simulando la preferencia. Push a pedido de la usuaria.
+
+## 2026-11-08 00:45 — Ciudad de México (GMT−6)
 
 La usuaria reportó que en celular `/recuerdos` y `/album` no tenían efectos ni animaciones, igual que la portada. En emulación de teléfono las animaciones sí corrían; lo único que apagaba a la vez las tres páginas era la preferencia «movimiento reducido», que muchos teléfonos activan con el ahorro de batería. Para que la invitación no se vea inerte sin dejar de respetar esa preferencia, se cambió el apagado por una versión suave: nada se desplaza, gira ni crece, pero destellos, linternas, halos y resplandores se encienden y apagan, la portada del álbum sigue pasando fotos con fundido y los destellos de la flor aparecen en su sitio. Sin esa preferencia todo queda igual. Build y 61 pruebas; estilos comprobados simulando la preferencia. Push a pedido de la usuaria, que lo validará en su teléfono antes de decidir.
 

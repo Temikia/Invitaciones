@@ -1294,7 +1294,7 @@ p {
     opacity: var(--depth);
   }
   100% {
-    transform: translateY(-100svh) translateX(35px);
+    transform: translateY(-100vh) translateX(35px);
     opacity: 0;
   }
 }
@@ -1310,7 +1310,7 @@ p {
     opacity: var(--depth);
   }
   100% {
-    transform: translateY(-125svh) translateX(-35px) rotate(6deg);
+    transform: translateY(-125vh) translateX(-35px) rotate(6deg);
     opacity: 0;
   }
 }

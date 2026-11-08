@@ -119,12 +119,11 @@
   .album-hero { padding-inline: 48px; padding-bottom: 72px; }
   .album-hero-bars { inset-inline: 48px; top: auto; bottom: 80px; left: auto; width: 260px; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  /* La foto saliente conserva la animación (mismo nombre) para no saltar mientras se desvanece. */
-  .album-hero-media img.is-active, .album-hero-media img.is-leaving { animation: album-hero-drift 9s ease-out forwards; }
-  @keyframes album-hero-drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-1.5%, -1.5%); } }
-}
-/* Movimiento reducido: las fotos siguen cambiando con su fundido (solo opacidad), sin acercamiento. */
+/* Como la portada de la invitación, el acercamiento y el cambio de fotos corren siempre, también con
+   movimiento reducido (decisión de la usuaria, 08/11/2026).
+   La foto saliente conserva la animación (mismo nombre) para no saltar mientras se desvanece. */
+.album-hero-media img.is-active, .album-hero-media img.is-leaving { animation: album-hero-drift 9s ease-out forwards; }
+@keyframes album-hero-drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-1.5%, -1.5%); } }
 @media (prefers-reduced-motion: reduce) {
   .album-hero-movie:hover, .album-hero-upload:hover { transform: none; }
 }

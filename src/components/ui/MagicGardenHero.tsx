@@ -9,22 +9,16 @@ export function MagicGardenHero() {
   const artRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const isReducedMotion = () =>
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Con movimiento reducido los destellos no salen disparados: se encienden y apagan quietos,
-  // repartidos alrededor de la flor (versión suave, `.spark--still` en magic-hero.css).
+  // Destellos, flor y neblina corren siempre, también con movimiento reducido (decisión de la
+  // usuaria, 08/11/2026: con esa preferencia la invitación quedaba inerte en su teléfono).
   const sparkle = useCallback((x: number, y: number, count = 28) => {
-    const still = isReducedMotion();
     for (let i = 0; i < count; i++) {
       const el = document.createElement("i");
-      el.className = still ? "spark spark--still" : "spark";
+      el.className = "spark";
       const ang = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.35;
       const dist = (50 + Math.random() * 120) * (window.innerWidth < 680 ? 0.65 : 1);
-      const spread = still ? Math.random() * 0.7 : 0;
-      el.style.left = `${x + Math.cos(ang) * dist * spread}px`;
-      el.style.top = `${y + Math.sin(ang) * dist * spread}px`;
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
       el.style.setProperty("--dx", `${Math.cos(ang) * dist}px`);
       el.style.setProperty("--dy", `${Math.sin(ang) * dist}px`);
       el.style.setProperty("--dur", `${750 + Math.random() * 750}ms`);
@@ -36,7 +30,7 @@ export function MagicGardenHero() {
     }
   }, []);
 
-  // Acción de la flor fija en bucle, en automático (también con movimiento reducido, en su versión suave)
+  // Acción de la flor fija en bucle, en automático
   useEffect(() => {
     let highlightTimer: number | null = null;
 
@@ -72,10 +66,8 @@ export function MagicGardenHero() {
     };
   }, [sparkle]);
 
-  // Animación del lienzo de neblina dorada y partículas flotantes.
-  // Con movimiento reducido las partículas no se desplazan: solo titilan en su sitio.
+  // Animación del lienzo de neblina dorada y partículas flotantes
   useEffect(() => {
-    const still = isReducedMotion();
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -128,10 +120,8 @@ export function MagicGardenHero() {
       ctx.clearRect(0, 0, W, H);
       time += 0.009;
       for (const p of particles) {
-        if (!still) {
-          p.y -= p.v;
-          p.x += Math.sin(time + p.phase) * 0.07;
-        }
+        p.y -= p.v;
+        p.x += Math.sin(time + p.phase) * 0.07;
         if (p.y < 0) {
           p.y = H;
           p.x = Math.random() * W;

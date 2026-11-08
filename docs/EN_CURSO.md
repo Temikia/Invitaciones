@@ -1,10 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
-## Versión suave de los efectos con movimiento reducido — 08/11/2026
-- ✅ Causa: en celular no había efectos en portada, `/album` ni `/recuerdos` porque el teléfono pide «movimiento reducido» (ahorro de batería en Android o «Reducir movimiento» en iPhone) y las tres páginas apagaban sus efectos. En emulación de 375 px sin esa preferencia todo se anima.
-- ✅ Versión suave (solo opacidad, sin desplazar, girar ni escalar): partículas y linternas titilan en su sitio y el halo del sol late (`pages.css`); la portada del álbum sigue cambiando con fundido y barras, sin acercamiento (`AlbumHero.tsx`, `album-hero.css`); el resplandor de las miniaturas late (`album-mosaic.css`); en la portada de la invitación halo, polvo y runas laten, la neblina titila quieta y los destellos de la flor se encienden en su sitio (`MagicGardenHero.tsx`, `magic-hero.css`).
-- ✅ Build y 61 pruebas; estilos comprobados simulando la preferencia (detalle en `docs/VERIFICACION.md`). Push a pedido de la usuaria.
-- ❓ Siguiente paso: la usuaria lo valida en su teléfono y decide si se queda la versión suave, si se ajusta su intensidad o si se ignora la preferencia.
+## Recuerdos y álbum se mueven como la portada — 08/11/2026
+- ✅ En el teléfono de la usuaria la portada se movía y `/recuerdos` y `/album` no. Causa: el teléfono pide «movimiento reducido»; el halo y las runas de la portada nunca respetaron esa preferencia, mientras que las otras dos páginas dejaban quietos partículas, linternas, sol, portada del álbum y haz de las miniaturas. La versión suave solo con opacidad (`d41d75d`, ya en producción) no bastó.
+- ✅ Los efectos decorativos de las tres páginas corren siempre (`pages.css`, `album-hero.css`, `album-mosaic.css`, `magic-hero.css`, `MagicGardenHero.tsx`); se retiró la versión suave. El sol gira más rápido (40 s por vuelta, antes 90 s) para que se note. Las partículas suben con `vh` en lugar de `svh` (`invitation.css`), por si el teléfono no reconoce `svh`.
+- ✅ Build y 61 pruebas; con la preferencia simulada en el navegador local se mueven partículas, linternas, sol, portada del álbum, miniaturas, destellos, halo, runas y neblina. Push a pedido de la usuaria.
+- ❓ Confirmar en el teléfono de la usuaria (puede requerir recargar la página para no ver la versión anterior).
 
 ## Película sin barra de progreso y con pantalla completa — 08/11/2026
 - ✅ Corrección: el botón y la tecla F no hacían nada. Chrome rechazaba la petición con «Dialog elements are invalid» (la especificación no permite pantalla completa de un `<dialog>`) y el error se silenciaba; tampoco funcionó nunca la entrada automática al abrir. Ahora se pide para `.album-movie-screen`, contenedor interior del diálogo; un fallo al pulsar el botón queda en la consola.
