@@ -61,27 +61,3 @@ export async function allowUploadBatch(req) {
     return false;
   }
 }
-
-export async function allowGalleryRead(req) {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  const ip = req.headers["x-real-ip"];
-  const secret = process.env.ABUSE_HASH_SECRET;
-  if (!url || !token || typeof ip !== "string" || ip.length > 64 || !secret || secret.length < 32) return false;
-  const digest = createHmac("sha256", secret).update(ip).digest("hex");
-  const key = `camila:gallery:${digest}:${Math.floor(Date.now() / (WINDOW_SECONDS * 1000))}`;
-  try {
-    const response = await fetch(`${url.replace(/\/$/u, "")}/pipeline`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify([["INCR", key], ["EXPIRE", key, WINDOW_SECONDS]]),
-      signal: AbortSignal.timeout(4000),
-    });
-    if (!response.ok) return false;
-    const results = await response.json();
-    const count = Number(results?.[0]?.result);
-    return Number.isSafeInteger(count) && count <= 120;
-  } catch {
-    return false;
-  }
-}

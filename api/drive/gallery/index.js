@@ -1,5 +1,4 @@
 import { getDriveAccessToken, sendJson } from "../../../server/drive.js";
-import { allowGalleryRead } from "../../../server/security.js";
 
 const allowedTypes = new Set([
   "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
@@ -9,7 +8,6 @@ const allowedTypes = new Set([
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "private, no-store");
   if (req.method !== "GET") return sendJson(res, 405, { error: "Método no permitido." });
-  if (!await allowGalleryRead(req)) return sendJson(res, 429, { error: "Se alcanzó el límite temporal de consultas." });
   if (!process.env.DRIVE_FOLDER_ID) return sendJson(res, 503, { error: "La carpeta de recuerdos no está configurada." });
   try {
     const accessToken = await getDriveAccessToken();

@@ -1,6 +1,5 @@
 import sharp from "sharp";
 import { findAlbumFile, getDriveAccessToken, isDriveId, sendJson } from "../../../server/drive.js";
-import { allowGalleryRead } from "../../../server/security.js";
 
 /** Lado mayor permitido, en píxeles: mosaico pequeño, mosaico grande y pantalla completa. */
 export const THUMB_SIZES = new Set([480, 960, 1920]);
@@ -38,7 +37,6 @@ function sendImage(res, type, body) {
 export default async function handler(req, res) {
   res.setHeader("X-Content-Type-Options", "nosniff");
   if (req.method !== "GET") return sendJson(res, 405, { error: "Método no permitido." });
-  if (!await allowGalleryRead(req)) return sendJson(res, 429, { error: "Se alcanzó el límite temporal de consultas." });
   const params = new URL(req.url, "https://internal.invalid").searchParams;
   const id = params.get("id") ?? "";
   const size = Number(params.get("size") ?? 480);
