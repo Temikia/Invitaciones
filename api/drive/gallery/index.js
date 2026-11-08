@@ -40,6 +40,7 @@ export default async function handler(req, res) {
           size: Number(file.size) || 0,
           createdTime: file.createdTime ?? null,
           mediaUrl: `/api/drive/gallery/media?id=${encodeURIComponent(file.id)}`,
+          thumbUrl: `/api/drive/gallery/thumb?id=${encodeURIComponent(file.id)}`,
         });
       }
       pageToken = result.nextPageToken;

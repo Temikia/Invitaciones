@@ -1,5 +1,9 @@
 # Verificación de la primera versión
 
+## Miniaturas del álbum — 07/11/2026
+- Build y 37 pruebas (incluye `thumbSrc`). Servidor local con Drive real: `thumb` 480/960/1920 → 200 `image/jpeg` de 41/99/305 KB con `Cache-Control: private, max-age=86400`; tamaño 700 → 400; id ajeno → 404. Las 35 fotos respondieron; las 3 sin miniatura de Drive (50–51 MB) se redujeron con `sharp` en unos 3 s.
+- Navegador: el mosaico cargó solo miniaturas (ningún original) y el visor mostró la versión de 1281 × 1920. No se probaron videos reales, HEIC ni Preview.
+
 ## Álbum sin enlace privado — 07/11/2026
 - Build y 36 pruebas. Servidor local `dev:seguridad`: `GET /api/drive/gallery/index` sin cookie → 200 con 35 fotos; `media` con `Range` → 206 `image/jpeg`; `POST /api/drive/gallery/access` → 404; `/album-local` → 302 a `/album`. En navegador `/album` mostró «35 fotos · 0 videos» sin enlace secreto.
 - Las primeras fotos tardaron por su tamaño (43–50 MB cada original). No se probó en Preview.

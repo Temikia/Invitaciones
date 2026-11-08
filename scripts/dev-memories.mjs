@@ -5,6 +5,7 @@ import { createServer } from "vite";
 import { getDriveAccessToken, sendJson, validateUpload } from "../server/drive.js";
 import galleryIndex from "../api/drive/gallery/index.js";
 import galleryMedia from "../api/drive/gallery/media.js";
+import galleryThumb from "../api/drive/gallery/thumb.js";
 import sessionHandler from "../api/drive/session.js";
 
 const host = "127.0.0.1";
@@ -50,7 +51,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(302, { Location: "/album", "Cache-Control": "no-store" });
     return res.end();
   }
-  const galleryHandlers = { "/api/drive/gallery/index": galleryIndex, "/api/drive/gallery/media": galleryMedia };
+  const galleryHandlers = { "/api/drive/gallery/index": galleryIndex, "/api/drive/gallery/media": galleryMedia, "/api/drive/gallery/thumb": galleryThumb };
   if (galleryHandlers[path]) {
     req.headers["x-real-ip"] = "127.0.0.1";
     req.headers["x-forwarded-host"] = `${host}:${port}`;

@@ -1,11 +1,6 @@
 import { Readable } from "node:stream";
-import { getDriveAccessToken, sendJson } from "../../../server/drive.js";
+import { findAlbumFile, getDriveAccessToken, isDriveId, sendJson } from "../../../server/drive.js";
 import { allowGalleryRead } from "../../../server/security.js";
-
-const allowedTypes = new Set([
-  "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
-  "video/mp4", "video/quicktime", "video/webm", "video/x-m4v",
-]);
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "private, no-store");
@@ -15,20 +10,12 @@ export default async function handler(req, res) {
   const params = new URL(req.url, "https://internal.invalid").searchParams;
   const id = params.get("id") ?? "";
   const range = req.headers.range;
-  if (!/^[\w-]{10,}$/u.test(id) || (range && !/^bytes=\d*-\d*$/u.test(range))) return sendJson(res, 400, { error: "Solicitud de archivo inválida." });
+  if (!isDriveId(id) || (range && !/^bytes=\d*-\d*$/u.test(range))) return sendJson(res, 400, { error: "Solicitud de archivo inválida." });
   if (!process.env.DRIVE_FOLDER_ID) return sendJson(res, 503, { error: "La carpeta de recuerdos no está configurada." });
   try {
     const accessToken = await getDriveAccessToken();
-    const metadataResponse = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?supportsAllDrives=true&fields=id,parents,appProperties,mimeType,size`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    if (!metadataResponse.ok) return sendJson(res, 404, { error: "El archivo no está disponible." });
-    const metadata = await metadataResponse.json();
-    if (!metadata.parents?.includes(process.env.DRIVE_FOLDER_ID)
-      || metadata.appProperties?.camilaMemoryUpload !== "true"
-      || !allowedTypes.has(metadata.mimeType)) {
-      return sendJson(res, 404, { error: "El archivo no está disponible." });
-    }
+    const metadata = await findAlbumFile(id, accessToken);
+    if (!metadata) return sendJson(res, 404, { error: "El archivo no está disponible." });
     const headers = { Authorization: `Bearer ${accessToken}` };
     if (range) headers.Range = range;
     const upstream = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?alt=media&supportsAllDrives=true`, {

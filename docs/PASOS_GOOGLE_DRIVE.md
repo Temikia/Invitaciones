@@ -84,7 +84,7 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 - Crea un widget de Turnstile para los dominios de Preview y Production y registra su clave pública y secreta en las variables anteriores. La clave pública solo se entrega en la respuesta de configuración; la secreta se valida exclusivamente desde el servidor.
 - Genera localmente un valor aleatorio para `ABUSE_HASH_SECRET` (por ejemplo, con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`) y guárdalo directamente en Vercel; no los pegues en el chat ni en archivos versionados. Usa al menos 32 caracteres.
 - (Retirado el 07/11/2026) El enlace secreto `/album#<secreto>` y su cookie ya no existen; los enlaces anteriores redirigen a `/album`.
-- La lista y los archivos se entregan mediante funciones del servidor, sin exigir sesión; la carpeta Drive sigue privada. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien conozca la dirección del álbum podrá verlo, de acuerdo con la decisión del evento.
+- La lista, los archivos y las miniaturas (`/api/drive/gallery/thumb`) se entregan mediante funciones del servidor, sin exigir sesión; la carpeta Drive sigue privada. Las fotos sin miniatura de Drive se reducen en la función con `sharp` (descarga el original una vez por tamaño y visitante): en Preview revisar memoria y duración de esa función. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien conozca la dirección del álbum podrá verlo, de acuerdo con la decisión del evento.
 
 ## Paso 5: revisión contigo en la preview
 

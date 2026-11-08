@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { filterAlbum, mosaicTile, shuffle } from "./albumShow";
+import { filterAlbum, mosaicTile, shuffle, thumbSrc } from "./albumShow";
 
 const sequence = (...values: number[]) => {
   let index = 0;
@@ -32,5 +32,14 @@ describe("mosaico", () => {
     expect(tiles.slice(0, 12)).toEqual(tiles.slice(12));
     expect(tiles[0]).toBe("big");
     expect(tiles.filter((tile) => tile === "").length).toBeGreaterThan(12);
+  });
+});
+
+describe("miniaturas", () => {
+  const file = { id: "a", name: "a", type: "image/jpeg", mediaUrl: "/api/drive/gallery/media?id=a", thumbUrl: "/api/drive/gallery/thumb?id=a" };
+  it("pide el tamaño indicado y recurre al original si no hay miniatura", () => {
+    expect(thumbSrc(file, 480)).toBe("/api/drive/gallery/thumb?id=a&size=480");
+    expect(thumbSrc(file, 1920)).toBe("/api/drive/gallery/thumb?id=a&size=1920");
+    expect(thumbSrc({ ...file, thumbUrl: undefined }, 960)).toBe(file.mediaUrl);
   });
 });

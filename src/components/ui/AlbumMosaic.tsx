@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
-import { Play } from "lucide-react";
+import { ImageOff, Play } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { ALBUM_PAGE_SIZE, nextVisibleCount, revealAlbum } from "../../lib/albumPagination";
-import { filterAlbum, isVideo, mosaicTile, type AlbumFile, type AlbumFilter } from "../../lib/albumShow";
+import { filterAlbum, isVideo, mosaicTile, thumbSrc, type AlbumFile, type AlbumFilter, type ThumbSize } from "../../lib/albumShow";
 import "../../styles/album-mosaic.css";
 
 type AlbumMosaicProps = { files: AlbumFile[]; onOpen: (list: AlbumFile[], index: number) => void };
@@ -12,6 +12,23 @@ const FILTERS: { id: AlbumFilter; es: string; en: string }[] = [
   { id: "photos", es: "Fotos", en: "Photos" },
   { id: "videos", es: "Videos", en: "Videos" },
 ];
+
+/**
+ * Miniatura para el cuadro. Si no se puede obtener, se muestra un cuadro con ícono en lugar de
+ * descargar el original (puede pesar decenas de MB); el visor sí intenta abrir el original.
+ */
+function MosaicThumb({ file, size, video }: { file: AlbumFile; size: ThumbSize; video: boolean }) {
+  const [failed, setFailed] = useState(false);
+  const src = thumbSrc(file, size);
+  const fallback = () => setFailed(true);
+  if (failed) return <span className="album-tile-video">
+    {video ? <><Play size={26} fill="currentColor" aria-hidden="true" /><span>Video</span></> : <ImageOff size={24} aria-hidden="true" />}
+  </span>;
+  return <>
+    <img src={src} alt="" loading="lazy" decoding="async" onLoad={(event) => event.currentTarget.classList.add("is-loaded")} onError={fallback} />
+    {video && <span className="album-tile-play" aria-hidden="true"><Play size={18} fill="currentColor" /></span>}
+  </>;
+}
 
 /** Mosaico de tamaños variados con destello dorado; el destello solo se anima en los cuadros visibles. */
 export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
@@ -69,8 +86,7 @@ export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
         return <li key={file.id} className={`album-tile${tile ? ` album-tile--${tile}` : ""}`} style={style} ref={watch}>
           <button type="button" onClick={() => onOpen(shown, index)}
             aria-label={`${video ? (language === "en" ? "Open video" : "Abrir video") : (language === "en" ? "Open photo" : "Abrir foto")} ${index + 1}`}>
-            {video ? <span className="album-tile-video"><Play size={26} fill="currentColor" aria-hidden="true" /><span>Video</span></span>
-              : <img src={file.mediaUrl} alt="" loading="lazy" decoding="async" onLoad={(event) => event.currentTarget.classList.add("is-loaded")} />}
+            <MosaicThumb key={tile ? 960 : 480} file={file} size={tile ? 960 : 480} video={video} />
           </button>
         </li>;
       })}

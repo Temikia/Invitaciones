@@ -54,3 +54,24 @@ export function sendJson(res, status, body) {
   res.setHeader("Cache-Control", "no-store");
   res.end(JSON.stringify(body));
 }
+
+export const ALBUM_TYPES = new Set([
+  "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
+  "video/mp4", "video/quicktime", "video/webm", "video/x-m4v",
+]);
+
+export const isDriveId = (id) => typeof id === "string" && /^[\w-]{10,}$/u.test(id);
+
+/** Metadatos de un recuerdo solo si está en la carpeta configurada y fue subido por esta app. */
+export async function findAlbumFile(id, accessToken, extraFields = "") {
+  const fields = ["id", "parents", "appProperties", "mimeType", "size", extraFields].filter(Boolean).join(",");
+  const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?supportsAllDrives=true&fields=${fields}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!response.ok) return null;
+  const metadata = await response.json();
+  if (!metadata.parents?.includes(process.env.DRIVE_FOLDER_ID)
+    || metadata.appProperties?.camilaMemoryUpload !== "true"
+    || !ALBUM_TYPES.has(metadata.mimeType)) return null;
+  return metadata;
+}

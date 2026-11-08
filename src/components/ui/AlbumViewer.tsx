@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, RotateCw, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useLanguage } from "../../config/language";
-import { isVideo, type AlbumFile } from "../../lib/albumShow";
+import { isVideo, thumbSrc, type AlbumFile } from "../../lib/albumShow";
 import "../../styles/album-viewer.css";
 
 type AlbumViewerProps = {
@@ -74,9 +74,11 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
           touchStart.current = null;
           if (Math.abs(distance) > 60) go(distance < 0 ? 1 : -1);
         }}>
-        {video ? <video key={file.id} src={file.mediaUrl} controls playsInline aria-label={language === "en" ? "Shared video" : "Video compartido"} /> :
+        {video ? <video key={file.id} src={file.mediaUrl} poster={file.thumbUrl ? thumbSrc(file, 1920) : undefined} controls playsInline aria-label={language === "en" ? "Shared video" : "Video compartido"} /> :
           <div key={file.id} className={`album-viewer-photo-wrap${rotation % 180 ? " is-rotated" : ""}`}>
-            <img src={file.mediaUrl} alt={language === "en" ? "Shared photo" : "Fotografía compartida"} style={{ zoom, transform: `rotate(${rotation}deg)` }} />
+            {/* Versión de pantalla completa generada por Drive; si falta, se usa el original. */}
+            <img src={thumbSrc(file, 1920)} alt={language === "en" ? "Shared photo" : "Fotografía compartida"} style={{ zoom, transform: `rotate(${rotation}deg)` }}
+              onError={(event) => { if (event.currentTarget.src !== new URL(file.mediaUrl, location.href).href) event.currentTarget.src = file.mediaUrl; }} />
           </div>}
         {canNavigate && <>
           <button type="button" className="album-viewer-nav is-prev" onClick={() => go(-1)} aria-label={language === "en" ? "Previous memory" : "Recuerdo anterior"}><ChevronLeft size={26} /></button>

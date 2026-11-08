@@ -1,4 +1,6 @@
-export type AlbumFile = { id: string; name: string; type: string; mediaUrl: string };
+export type AlbumFile = { id: string; name: string; type: string; mediaUrl: string; thumbUrl?: string };
+/** Lado mayor de la miniatura: debe coincidir con los tamaños que acepta `api/drive/gallery/thumb.js`. */
+export type ThumbSize = 480 | 960 | 1920;
 export type AlbumFilter = "all" | "photos" | "videos";
 export type MosaicTile = "" | "big" | "tall" | "wide";
 
@@ -14,6 +16,11 @@ export function shuffle<T>(items: readonly T[], random: () => number = Math.rand
     [result[index], result[swap]] = [result[swap], result[index]];
   }
   return result;
+}
+
+/** Miniatura generada por Drive; sin ella se usa el original. */
+export function thumbSrc(file: AlbumFile, size: ThumbSize) {
+  return file.thumbUrl ? `${file.thumbUrl}&size=${size}` : file.mediaUrl;
 }
 
 export const isVideo = (file: { type: string }) => file.type.startsWith("video/");

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ChevronLeft, ChevronRight, Pause, X } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { usePageVisible } from "../../hooks/useReducedMotion";
-import { MOVIE_SLIDE_MS, isVideo, shuffle, type AlbumFile } from "../../lib/albumShow";
+import { MOVIE_SLIDE_MS, isVideo, shuffle, thumbSrc, type AlbumFile } from "../../lib/albumShow";
 import "../../styles/album-movie.css";
 
 type AlbumMovieProps = { files: AlbumFile[]; open: boolean; onClose: () => void };
@@ -72,7 +72,7 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
 
   useEffect(() => {
     const next = queue[position + 1];
-    if (open && next && !isVideo(next)) new Image().src = next.mediaUrl;
+    if (open && next && !isVideo(next)) new Image().src = thumbSrc(next, 1920);
   }, [open, queue, position]);
 
   useEffect(() => {
@@ -106,10 +106,10 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     {open && current && <>
       <div className="album-movie-stage" key={slideKey}>
         {isVideo(current)
-          ? <video ref={videoRef} src={current.mediaUrl} muted playsInline autoPlay preload="auto"
+          ? <video ref={videoRef} src={current.mediaUrl} poster={current.thumbUrl ? thumbSrc(current, 1920) : undefined} muted playsInline autoPlay preload="auto"
             onPlaying={() => { setReady(true); setBuffering(false); }} onWaiting={() => setBuffering(true)}
             onEnded={() => advance(1)} onError={() => advance(1)} aria-hidden="true" />
-          : <img src={current.mediaUrl} alt="" className={position % 2 ? "drift-left" : "drift-right"}
+          : <img src={thumbSrc(current, 1920)} alt="" className={position % 2 ? "drift-left" : "drift-right"}
             onLoad={() => setReady(true)} onError={() => advance(1)} />}
       </div>
       <div className="album-movie-top">

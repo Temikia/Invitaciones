@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 18:33 — Ciudad de México (GMT−6)
+
+El mosaico descargaba originales de 41–51 MB y el álbum resultaba inutilizable. Se añadió un endpoint de miniaturas que aprovecha las de Drive y, para fotos que Drive no procesa, las reduce en el servidor con `sharp`. Mosaico, visor y película pasan a usar miniaturas (de 1.6 GB a unos pocos MB para 35 fotos). Build y 37 pruebas; verificado con las fotos reales en local. Sin despliegue.
+
 ## 2026-11-07 18:25 — Ciudad de México (GMT−6)
 
 La usuaria pidió quitar la restricción de privacidad del álbum por considerarla complejidad innecesaria. Se eliminaron el enlace secreto, la cookie firmada y el endpoint de acceso; el álbum se ve en `/album` sin sesión. Se mantienen la carpeta privada, el filtro de archivos de la app, el límite de lecturas y `noindex`. Verificado en local con las 35 fotos reales; se detectó que el mosaico descarga originales de 43–50 MB y queda lento. Sin despliegue.

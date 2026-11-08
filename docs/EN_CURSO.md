@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Miniaturas del álbum — 07/11/2026
+- ✅ Nuevo `api/drive/gallery/thumb.js` (480/960/1920 px): usa la miniatura de Drive y, si no existe, reduce el original con `sharp` (ahora dependencia de producción). Mosaico, visor, póster de video y película usan miniaturas; ninguna vista descarga originales de fotos salvo el visor como último recurso. Validación de carpeta/marcador compartida en `findAlbumFile` de `server/drive.js`.
+- ✅ Build y 37 pruebas. Con las 35 fotos reales: miniaturas de 41/99/305 KB frente a originales de 41–51 MB; 3 fotos de 50–51 MB sin miniatura de Drive se generaron con `sharp` en unos 3 s (20–24 KB); mosaico sin descargas de originales y visor con la versión de 1920 px. Tamaño inválido → 400, archivo ajeno → 404.
+- ❓ Sin probar en Preview: memoria y duración de `sharp` en Vercel y el límite de 120 lecturas por minuto al recorrer el álbum completo. Sin videos reales para probar sus miniaturas. Sin despliegue.
+
 ## Álbum sin enlace privado — 07/11/2026
 - ✅ Por decisión de la usuaria se retiró el acceso privado del álbum: sin enlace secreto, sin cookie firmada y sin `/api/drive/gallery/access`. `/album` muestra los recuerdos a cualquiera que conozca la dirección. Se conservan carpeta privada en Drive, filtro por marcador de la app, límite de 120 lecturas por IP y minuto y `noindex`. `/album-local` redirige a `/album`.
 - ✅ Build y 36 pruebas. En el servidor local: listado sin cookie HTTP 200 con 35 fotos, foto con rango HTTP 206, `/access` ya no existe (404) y el álbum carga en navegador sin enlace.
