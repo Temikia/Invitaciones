@@ -61,6 +61,10 @@ export const invitation = {
     photoMaxBytes: 20 * 1024 ** 2,
     videoMaxBytes: 400 * 1024 ** 2,
     maxFiles: 20,
+    /** El botón «Subir mis fotos» del álbum aparece 24 horas antes del evento. */
+    albumButtonFrom: "2026-11-21T17:00:00-07:00",
+    /** La carga se abre al comenzar la celebración; antes, /recuerdos muestra la cuenta regresiva. */
+    opensAt: "2026-11-22T17:00:00-07:00",
     closesAt: "2026-12-07T00:00:00-07:00",
     retentionDays: 90,
   },

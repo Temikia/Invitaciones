@@ -6,7 +6,7 @@ import { useReducedMotion, usePageVisible } from "../../hooks/useReducedMotion";
 import { HERO_SLIDE_MS, shuffle } from "../../lib/albumShow";
 import "../../styles/album-hero.css";
 
-type AlbumHeroProps = { canPlayMovie: boolean; onPlayMovie: () => void };
+type AlbumHeroProps = { canPlayMovie: boolean; canUpload: boolean; onPlayMovie: () => void };
 
 /**
  * Portada animada con las fotografías de la galería de la invitación en un orden distinto en cada visita.
@@ -14,7 +14,7 @@ type AlbumHeroProps = { canPlayMovie: boolean; onPlayMovie: () => void };
  * No tiene controles visibles ni se detiene con el cursor o el foco (decisión de la usuaria): solo se
  * pausa con la pestaña oculta o fuera de pantalla, y con movimiento reducido muestra una foto fija.
  */
-export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
+export function AlbumHero({ canPlayMovie, canUpload, onPlayMovie }: AlbumHeroProps) {
   const { language } = useLanguage();
   const photos = useMemo(() => shuffle(invitation.photos.gallery), []);
   const reducedMotion = useReducedMotion();
@@ -52,9 +52,9 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
         {canPlayMovie && <button type="button" className="album-hero-movie" onClick={onPlayMovie}>
           <Clapperboard size={17} aria-hidden="true" /> {language === "en" ? "Watch as a movie" : "Ver como película"}
         </button>}
-        <a href="/recuerdos" className="album-hero-upload">
+        {canUpload && <a href="/recuerdos" className="album-hero-upload">
           <ImagePlus size={17} aria-hidden="true" /> {language === "en" ? "Upload my photos" : "Subir mis fotos"}
-        </a>
+        </a>}
       </div>
     </div>
   </section>;

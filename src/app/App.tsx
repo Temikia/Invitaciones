@@ -3,6 +3,7 @@ import { useNarrative } from "../hooks/useNarrative";
 import { LanguageProvider, useLanguage } from "../config/language";
 import { Atmosphere } from "../components/ui/Atmosphere";
 import { InvitationHeader } from "../components/ui/InvitationHeader";
+import { PageAtmosphere } from "../components/ui/PageOrnaments";
 import {
   Scene01Flower,
   Scene02Camila,
@@ -67,6 +68,7 @@ function AppContent() {
   const path = window.location.pathname.replace(/\/$/, "");
   return path === "/recuerdos" || path === "/album" ? (
     <>
+      <PageAtmosphere />
       <InvitationHeader />
       <Suspense fallback={<p className="loading">{t("loading")}</p>}>
         {path === "/album" ? <Album /> : <Memories />}

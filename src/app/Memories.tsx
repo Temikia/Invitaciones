@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { Camera, Film, ImagePlus, X } from "lucide-react";
+import { Film, ImagePlus, X } from "lucide-react";
 import { invitation } from "../config/invitation";
-import { validateFiles } from "../lib/event";
+import { getUploadPhase, validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
 import { uploadResumable } from "../lib/resumable";
+import { useNow } from "../hooks/useNow";
+import { Countdown } from "../components/ui/Countdown";
+import { PageSun } from "../components/ui/PageOrnaments";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: { sitekey: string; action: string; theme: string; callback: (token: string) => void; "expired-callback": () => void; "error-callback": () => void }) => string;
@@ -42,7 +45,30 @@ function SelectedPreview({ file, language, progress }: { file: File; language: s
   </div>;
 }
 
+/** Elige la etapa: cuenta regresiva hasta la hora del evento; después, la carga (o su cierre). */
 export default function Memories() {
+  const phase = getUploadPhase(useNow(1000));
+  return phase === "countdown" ? <MemoriesCountdown /> : <MemoriesUpload closed={phase === "closed"} />;
+}
+
+function MemoriesCountdown() {
+  const { language, t } = useLanguage();
+  return (
+    <main className="memories-page">
+      <div className="upload-content memories-countdown">
+        <PageSun />
+        <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>
+        <h1>{t("memories.title1")}<br /><em>{t("memories.page.title2")}</em></h1>
+        <p>{t("memories.soon")}</p>
+        <Countdown />
+        <div className="upload-notice" role="status">{t("memories.opens")}</div>
+        <a className="album-link" href="/album">{language === "en" ? "View album" : "Ver álbum"}</a>
+      </div>
+    </main>
+  );
+}
+
+function MemoriesUpload({ closed }: { closed: boolean }) {
   const { language, t } = useLanguage();
   const [files, setFiles] = useState<File[]>([]);
   const [ready, setReady] = useState(false);
@@ -61,7 +87,6 @@ export default function Memories() {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const focusAfterRemove = useRef<number | null>(null);
-  const closed = Date.now() >= new Date(invitation.uploads.closesAt).getTime();
 
   useEffect(() => {
     let active = true;
@@ -188,7 +213,7 @@ export default function Memories() {
   return (
     <main className="memories-page">
       <div className="upload-content">
-          <Camera size={35} strokeWidth={1} className="gold-icon" />
+          <PageSun />
           <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>
           <h1>{t("memories.title1")}<br /><em>{t("memories.page.title2")}</em></h1>
           <p>{t("memories.intro")}</p>

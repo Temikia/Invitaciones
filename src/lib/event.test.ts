@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import { invitation } from "../config/invitation";
 import {
   buildWhatsAppUrl,
+  canShowAlbumUpload,
   getCountdown,
+  getUploadPhase,
   getNovemberCalendar,
   validateFiles,
 } from "./event";
@@ -58,6 +60,30 @@ describe("fecha y cuenta regresiva", () => {
     expect(getNovemberCalendar(2027).slice(0, 7)).toEqual([
       1, 2, 3, 4, 5, 6, 7,
     ]);
+  });
+});
+
+describe("ventanas de carga de recuerdos", () => {
+  const at = (iso: string) => Date.parse(iso);
+  it("muestra la cuenta regresiva hasta la hora del evento y abre la carga en ese instante", () => {
+    expect(invitation.uploads.opensAt).toBe(invitation.event.iso);
+    expect(getUploadPhase(at("2026-11-07T12:00:00-06:00"))).toBe("countdown");
+    expect(getUploadPhase(at("2026-11-22T16:59:59-07:00"))).toBe("countdown");
+    expect(getUploadPhase(at("2026-11-22T17:00:00-07:00"))).toBe("open");
+    expect(getUploadPhase(at("2026-12-06T23:59:59-07:00"))).toBe("open");
+    expect(getUploadPhase(at("2026-12-07T00:00:00-07:00"))).toBe("closed");
+  });
+  it("ofrece el botón del álbum desde 24 horas antes del evento hasta el cierre", () => {
+    expect(Date.parse(invitation.event.iso) - Date.parse(invitation.uploads.albumButtonFrom)).toBe(24 * 3600 * 1000);
+    expect(canShowAlbumUpload(at("2026-11-21T16:59:59-07:00"))).toBe(false);
+    expect(canShowAlbumUpload(at("2026-11-21T17:00:00-07:00"))).toBe(true);
+    expect(canShowAlbumUpload(at("2026-11-23T01:00:00-07:00"))).toBe(true);
+    expect(canShowAlbumUpload(at("2026-12-07T00:00:00-07:00"))).toBe(false);
+  });
+  it("rechaza fechas de carga inválidas", () => {
+    const schedule = { albumButtonFrom: "x", opensAt: invitation.uploads.opensAt, closesAt: invitation.uploads.closesAt };
+    expect(() => getUploadPhase(0, schedule)).toThrow();
+    expect(() => canShowAlbumUpload(0, schedule)).toThrow();
   });
 });
 

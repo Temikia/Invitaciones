@@ -4,7 +4,10 @@ import { AlbumHero } from "../components/ui/AlbumHero";
 import { AlbumMosaic } from "../components/ui/AlbumMosaic";
 import { AlbumMovie } from "../components/ui/AlbumMovie";
 import { AlbumViewer } from "../components/ui/AlbumViewer";
+import { PageSun } from "../components/ui/PageOrnaments";
 import type { AlbumFile } from "../lib/albumShow";
+import { canShowAlbumUpload } from "../lib/event";
+import { useNow } from "../hooks/useNow";
 
 type ViewerState = { list: AlbumFile[]; index: number } | null;
 
@@ -15,6 +18,7 @@ export default function Album() {
   const [error, setError] = useState("");
   const [viewer, setViewer] = useState<ViewerState>(null);
   const [movieOpen, setMovieOpen] = useState(false);
+  const canUpload = canShowAlbumUpload(useNow(30_000));
 
   useEffect(() => {
     let active = true;
@@ -38,8 +42,9 @@ export default function Album() {
 
   const ready = !loading && !error;
   return <main className="album-page">
-    <AlbumHero canPlayMovie={ready && files.length > 0} onPlayMovie={() => setMovieOpen(true)} />
+    <AlbumHero canPlayMovie={ready && files.length > 0} canUpload={canUpload} onPlayMovie={() => setMovieOpen(true)} />
     <div className="album-body">
+      <PageSun divider />
       {loading ? <div className="upload-notice" role="status">{language === "en" ? "Opening the album…" : "Abriendo el álbum…"}</div> : null}
       {error ? <div className="upload-notice" role="alert">{error}</div> : null}
       {ready && files.length === 0 ? <div className="upload-notice" role="status">{language === "en" ? "No memories have been shared yet." : "Todavía no se han compartido recuerdos."}</div> : null}

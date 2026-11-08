@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 22:17 — Ciudad de México (GMT−6)
+
+La usuaria pidió que la carga de recuerdos se abra hasta el día y hora del evento, que el botón «Subir mis fotos» del álbum aparezca un día antes y que ambas páginas tengan las partículas doradas y más elementos de la invitación. `/recuerdos` ahora muestra solo una cuenta regresiva con texto y cambia sola a la carga a las 17:00 del 22 de noviembre (Denver); el botón del álbum depende de la fecha. Se sumaron partículas, linternas y el sol con halo, reutilizando los ornamentos existentes, para que las páginas pertenezcan a la misma historia visual. Build y 41 pruebas; revisado en navegador local simulando ambas fechas. Sin despliegue.
+
 ## 2026-11-07 19:00 — Ciudad de México (GMT−6)
 
 La usuaria reportó que en la película algunas fotos aparecían sin fundido, que la X de cerrar solo se veía al pasar el cursor y que la portada del álbum se detenía al mover el cursor. El fundido pasó de transición a animación, porque las fotos precargadas cargaban antes del primer pintado y la transición no se disparaba. La X y las flechas van en su propia capa con más contraste (no se pudo reproducir el fallo en el panel). La portada ya no se pausa con cursor ni foco. Build y 38 pruebas. Sin despliegue.

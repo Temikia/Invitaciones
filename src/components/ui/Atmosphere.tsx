@@ -96,20 +96,21 @@ export function Atmosphere() {
   );
 }
 
-function Particles({ lanterns = false }: { lanterns?: boolean }) {
+/** `count` y `delayStep` permiten repartir menos elementos a lo largo del recorrido (páginas de recuerdos). */
+export function Particles({ lanterns = false, count, delayStep = 1.7 }: { lanterns?: boolean; count?: number; delayStep?: number }) {
   return (
     <div
       className={lanterns ? "lantern-field" : "particles"}
       aria-hidden="true"
     >
-      {Array.from({ length: lanterns ? 12 : 26 }, (_, i) => (
+      {Array.from({ length: count ?? (lanterns ? 12 : 26) }, (_, i) => (
         <span
           key={i}
           style={
             {
               "--x": `${(i * 37 + 9) % 100}%`,
               "--y": `${(i * 23 + 11) % 90}%`,
-              "--delay": `${-i * 1.7}s`,
+              "--delay": `${-i * delayStep}s`,
               "--duration": `${24 + (i % 8) * 2}s`,
               "--size": `${lanterns ? 18 + (i % 5) * 6 : 2 + (i % 3)}px`,
               "--depth": 0.18 + (i % 5) * 0.055,

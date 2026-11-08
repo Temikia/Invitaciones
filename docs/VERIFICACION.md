@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Cuenta regresiva en recuerdos, botón por fecha y ornamentos — 07/11/2026
+- Build y 41 pruebas (3 nuevas: etapas de carga con sus bordes exactos, ventana del botón del álbum y fechas inválidas).
+- Navegador local: `/recuerdos` hoy muestra sol, cuenta regresiva (14 d 19 h 45 min, coherente con 04:14 UTC) y aviso, sin selector ni Turnstile; con `Date.now` fijado a 22/11 17:00:01 Denver apareció el selector y desapareció el temporizador en 1 s. En `/album` el botón no está hoy y apareció tras fijar 21/11 17:00:05 y esperar el ciclo de 30 s.
+- 26 partículas y 6 linternas por página (opacidad de linternas 0.7), repartidas en altura; contenido por encima de la capa. 375 px sin desbordamiento horizontal. Movimiento reducido no emulado. Sin despliegue.
+
 ## Fundido constante, X visible y portada sin pausa por cursor — 07/11/2026
 - Build y 38 pruebas. Película en navegador local: en cuatro avances seguidos (fotos listas a los 161–1441 ms, una ya en caché) la capa nueva tuvo la animación `album-movie-fade-in` en curso y la anterior debajo. Antes, una foto precargada podía cargar antes del primer pintado y la transición no se disparaba.
 - La X tiene opacidad 1, nada la tapa y se ve sin pasar el cursor en el panel; no se pudo reproducir el fallo de la usuaria ni probar pantalla completa (el panel no la permite). Se le dio capa propia y más contraste.

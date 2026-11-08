@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Recuerdos con cuenta regresiva, botón del álbum por fecha y ornamentos — 07/11/2026
+- ✅ `/recuerdos` muestra solo sol, título, cuenta regresiva y aviso hasta el inicio del evento (`uploads.opensAt`, 22/11/2026 17:00 Denver); a esa hora cambia sola a la carga, que sigue hasta `closesAt`. Etapas en `getUploadPhase` (`src/lib/event.ts`).
+- ✅ «Subir mis fotos» del álbum aparece desde 24 h antes (`uploads.albumButtonFrom`) hasta el cierre (`canShowAlbumUpload`); se reevalúa cada 30 s.
+- ✅ Partículas doradas y seis linternas en ambas páginas (`PageAtmosphere`, `src/components/ui/PageOrnaments.tsx`, `src/styles/pages.css`); sol con halo arriba de `/recuerdos` y como separador entre la portada y el mosaico del álbum.
+- ✅ Build y 41 pruebas; revisado en navegador local en escritorio y 375 px, simulando la hora del evento (aparece la carga) y un día antes (aparece el botón).
+- ❓ Movimiento reducido no emulado (regla CSS: partículas y linternas quietas, sol sin giro). Sin despliegue.
+
 ## Fundido constante, X visible y portada continua — 07/11/2026
 - ✅ Película: el fundido de entrada es una animación CSS (`album-movie-fade-in`) en lugar de una transición, que no se disparaba con fotos precargadas.
 - ✅ X de cerrar con capa propia (`translateZ(0)`, z-index 4) y más contraste; flechas laterales también en capa propia.

@@ -14,6 +14,26 @@ export function getCountdown(now: number, target: string) {
   };
 }
 
+type UploadSchedule = { albumButtonFrom: string; opensAt: string; closesAt: string };
+
+function scheduleTimes(schedule: UploadSchedule) {
+  const times = [schedule.albumButtonFrom, schedule.opensAt, schedule.closesAt].map(Date.parse);
+  if (times.some((time) => !Number.isFinite(time))) throw new Error("Las fechas de carga no son válidas.");
+  return { buttonFrom: times[0], opens: times[1], closes: times[2] };
+}
+
+/** Etapa de /recuerdos: cuenta regresiva antes del evento, carga abierta y periodo terminado. */
+export function getUploadPhase(now: number, schedule: UploadSchedule = invitation.uploads): "countdown" | "open" | "closed" {
+  const { opens, closes } = scheduleTimes(schedule);
+  return now < opens ? "countdown" : now < closes ? "open" : "closed";
+}
+
+/** El álbum ofrece «Subir mis fotos» desde un día antes del evento hasta el cierre de la carga. */
+export function canShowAlbumUpload(now: number, schedule: UploadSchedule = invitation.uploads): boolean {
+  const { buttonFrom, closes } = scheduleTimes(schedule);
+  return now >= buttonFrom && now < closes;
+}
+
 /** Noviembre, con semanas completas de lunes a domingo; null indica otro mes. */
 export function getNovemberCalendar(year: number): (number | null)[] {
   if (!Number.isInteger(year) || year < 100 || year > 9999) {
