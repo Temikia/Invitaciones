@@ -14,6 +14,18 @@
   color: #f7ecdd;
 }
 .album-movie::backdrop { background: #07040c; }
+/*
+ * Contenedor de todo lo que se ve. Es el que entra a pantalla completa: los navegadores no aceptan
+ * un <dialog> para eso. Dentro de la ventana ocupa el diálogo entero.
+ */
+.album-movie-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #07040c;
+}
+.album-movie-screen:fullscreen { width: 100%; height: 100%; }
+.album-movie-screen::backdrop { background: #07040c; }
 .album-movie-stage {
   position: absolute;
   inset: 0;

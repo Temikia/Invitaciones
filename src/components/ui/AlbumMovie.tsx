@@ -84,10 +84,13 @@ function MovieSlide({ slide, shown, preload, onReady, onFailed, onFaded, videoRe
  * siguiente se monta oculta en cuanto la actual aparece. La lógica vive en `lib/albumMovie.ts`.
  * Al abrir se intenta la pantalla completa; el botón junto a la X (o la tecla F) entra y sale de ella
  * sin cerrar la película. Donde el navegador no la permite (iPhone), el botón no aparece.
+ * La pantalla completa se pide para el contenedor interior y no para el `<dialog>`: los navegadores
+ * rechazan un diálogo («Dialog elements are invalid»).
  */
 export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
   const { language } = useLanguage();
   const dialog = useRef<HTMLDialogElement>(null);
+  const screen = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [canFullscreen] = useState(() => typeof document !== "undefined" && Boolean(document.fullscreenEnabled));
   const [fullscreen, setFullscreen] = useState(false);
@@ -125,9 +128,10 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     setBufferingKey("");
     if (!element.open) element.showModal();
     // Salir de la pantalla completa (botón, tecla F o Esc) ya no cierra la película: solo cambia el icono.
-    const onFullscreenChange = () => setFullscreen(document.fullscreenElement === element);
+    const onFullscreenChange = () => setFullscreen(Boolean(screen.current) && document.fullscreenElement === screen.current);
     document.addEventListener("fullscreenchange", onFullscreenChange);
-    element.requestFullscreen?.().catch(() => undefined);
+    // Puede negarse (sin permiso o sin soporte); la película sigue en la ventana y queda el botón.
+    screen.current?.requestFullscreen?.().catch(() => undefined);
     return () => {
       document.removeEventListener("fullscreenchange", onFullscreenChange);
       setFullscreen(false);
@@ -156,10 +160,10 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
   }, [userPaused, pageVisible, slideKey]);
 
   const toggleFullscreen = () => {
-    const element = dialog.current;
+    const element = screen.current;
     if (!element) return;
     if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
-    else void element.requestFullscreen?.().catch(() => undefined);
+    else void element.requestFullscreen?.().catch((error: unknown) => console.warn("La película no pudo entrar a pantalla completa.", error));
   };
 
   // Los controles aparecen al mover el ratón y se oculta tras un rato quieto.
@@ -195,7 +199,7 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
       if (event.key === " ") { event.preventDefault(); setUserPaused((value) => !value); }
       if ((event.key === "f" || event.key === "F") && canFullscreen && !event.ctrlKey && !event.metaKey && !event.altKey) { event.preventDefault(); toggleFullscreen(); }
     }}>
-    {open && slide && <>
+    <div ref={screen} className="album-movie-screen">{open && slide && <>
       <div className="album-movie-stage">
         {layers.map((layer) => {
           const active = layer.key === slideKey;
@@ -221,6 +225,6 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
       {userPaused && <div className="album-movie-paused" role="status"><Pause size={18} aria-hidden="true" /> {language === "en" ? "Paused · press space to continue" : "En pausa · barra espaciadora para continuar"}</div>}
       {/* Reloj invisible: su animación dura lo que un recuerdo y, al terminar, pasa al siguiente. */}
       <span className="album-movie-clock" key={slideKey} aria-hidden="true" onAnimationEnd={onClockEnd} />
-    </>}
+    </>}</div>
   </dialog>;
 }

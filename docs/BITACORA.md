@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 00:50 — Ciudad de México (GMT−6)
+
+La usuaria reportó que el botón de pantalla completa de la película y la tecla F no hacían nada. Al registrar el error que el código silenciaba, Chrome respondía «Dialog elements are invalid»: la especificación prohíbe poner en pantalla completa un `<dialog>`, y la película es uno. Por eso tampoco había funcionado nunca la entrada automática al abrir. Se envolvió todo el contenido en un contenedor interior y la pantalla completa se pide para él; los controles, el teclado y la pausa siguen igual porque el contenedor vive dentro del diálogo. Se comprobó que el contenedor pasa el filtro del navegador; la entrada real no se pudo ver porque el panel interno no la concede y Chrome no estaba conectado. Build y 61 pruebas. Push a pedido de la usuaria.
+
 ## 2026-11-08 00:25 — Ciudad de México (GMT−6)
 
 La usuaria pidió quitar de la película la barra dorada de progreso que anticipaba cada cambio y añadir junto a la X un botón de pantalla completa, para que se sienta como una película de verdad. La barra no solo se veía: su animación marcaba el avance y se pausaba con la carga, la pestaña oculta o la barra espaciadora. Para no romper ese ritmo se conservó la misma animación en un elemento invisible (reloj del recuerdo) y se retiró todo lo visible. El botón de pantalla completa entra y sale de ella (también con la tecla F) y cambia su icono; se oculta junto con la X al dejar quieto el ratón. Antes, salir de pantalla completa cerraba la película; con el botón eso dejaba de tener sentido, así que ahora solo sale de ella. Al abrir se sigue intentando entrar sola. En iPhone, donde el navegador no permite pantalla completa de una página, el botón no se muestra. Build y 61 pruebas; revisado en navegador local en escritorio y 375 px. Sin despliegue.

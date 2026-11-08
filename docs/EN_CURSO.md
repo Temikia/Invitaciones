@@ -1,6 +1,8 @@
 # Invitación de Camila — trabajo en curso
 
 ## Película sin barra de progreso y con pantalla completa — 08/11/2026
+- ✅ Corrección: el botón y la tecla F no hacían nada. Chrome rechazaba la petición con «Dialog elements are invalid» (la especificación no permite pantalla completa de un `<dialog>`) y el error se silenciaba; tampoco funcionó nunca la entrada automática al abrir. Ahora se pide para `.album-movie-screen`, contenedor interior del diálogo; un fallo al pulsar el botón queda en la consola.
+- ❓ Pendiente de confirmar por la usuaria en su navegador: el panel interno no concede pantalla completa y Chrome no estaba conectado.
 - ✅ Sin barra dorada visible: el avance lo marca `.album-movie-clock` (misma animación `album-movie-fill`, invisible, con la misma pausa) en `src/components/ui/AlbumMovie.tsx` y `src/styles/album-movie.css`.
 - ✅ Botón de pantalla completa junto a la X (icono ampliar/reducir, tecla F); ambos se ocultan juntos con el ratón quieto. Salir de pantalla completa ya no cierra la película. Se oculta donde `document.fullscreenEnabled` es falso (iPhone). Al abrir se sigue intentando entrar sola.
 - ✅ Build y 61 pruebas; navegador local en escritorio y 375 px: sin barra, avance 1 → 2 → 3 a 5 s, dos iconos, controles que aparecen y se ocultan.

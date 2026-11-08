@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Pantalla completa de la película corregida — 08/11/2026 00:50 (GMT−6)
+
+- Reproducido en navegador local registrando `requestFullscreen`: al abrir y al pulsar el botón, el `<dialog>` era rechazado con «TypeError: Dialog elements are invalid». Un `<div>` interior solo falla por falta de gesto del usuario («Permissions check failed»), es decir, pasa la comprobación del elemento.
+- Con la corrección ya no aparece el error del diálogo; en el panel la petición queda sin respuesta porque el panel no concede pantalla completa. Build y 61 pruebas.
+- Sin probar: entrada y salida reales en Chrome de escritorio (extensión no conectada), Esc dentro de pantalla completa y Android.
+
 ## Película sin barra y con pantalla completa — 08/11/2026 00:25 (GMT−6)
 
 - Build y 61 pruebas. Navegador local (`dev:recuerdos`, 35 fotos reales): al abrir no existe `.album-movie-progress`; `.album-movie-clock` tiene `visibility: hidden` y la animación `album-movie-fill` en curso; la película pasó de 1/35 a 2/35 y 3/35 a su ritmo. Arriba: «Pantalla completa» y «Cerrar película». Al mover el ratón ambos quedan con opacidad 1 y a los 2.5 s se ocultan (el que tiene foco visible permanece). Botón y tecla F no cierran la película ni dan errores. A 375 px se ven los dos iconos y no hay barra abajo.
