@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Película sin barra de progreso y con pantalla completa — 08/11/2026
+- ✅ Sin barra dorada visible: el avance lo marca `.album-movie-clock` (misma animación `album-movie-fill`, invisible, con la misma pausa) en `src/components/ui/AlbumMovie.tsx` y `src/styles/album-movie.css`.
+- ✅ Botón de pantalla completa junto a la X (icono ampliar/reducir, tecla F); ambos se ocultan juntos con el ratón quieto. Salir de pantalla completa ya no cierra la película. Se oculta donde `document.fullscreenEnabled` es falso (iPhone). Al abrir se sigue intentando entrar sola.
+- ✅ Build y 61 pruebas; navegador local en escritorio y 375 px: sin barra, avance 1 → 2 → 3 a 5 s, dos iconos, controles que aparecen y se ocultan.
+- ❓ La entrada real a pantalla completa no se pudo ver en el panel (no la permite); confirmar en el navegador y teléfono de la usuaria. Sin despliegue.
+
 ## Brillo de las miniaturas con los tonos de la invitación — 08/11/2026
 - ✅ El borde de cada cuadro del mosaico (`src/styles/album-mosaic.css`) usa el haz de los retratos de la portada y la celebración (`.glowing-frame`): violeta `#9d4edd` → `#c77dff` → dorado `#ffd780`/`#fff8e0` → `#7b2cbf`, con copia desenfocada (14 px) para el resplandor, marco oscuro `#140d22` de 2.5 px y halo violeta/dorado. Vuelta de 4.5–6 s, desfasada por cuadro (`AlbumMosaic.tsx`); sigue pausado fuera de pantalla.
 - ✅ Build y 61 pruebas; revisado en navegador local en escritorio y 375 px.

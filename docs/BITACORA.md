@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 00:25 — Ciudad de México (GMT−6)
+
+La usuaria pidió quitar de la película la barra dorada de progreso que anticipaba cada cambio y añadir junto a la X un botón de pantalla completa, para que se sienta como una película de verdad. La barra no solo se veía: su animación marcaba el avance y se pausaba con la carga, la pestaña oculta o la barra espaciadora. Para no romper ese ritmo se conservó la misma animación en un elemento invisible (reloj del recuerdo) y se retiró todo lo visible. El botón de pantalla completa entra y sale de ella (también con la tecla F) y cambia su icono; se oculta junto con la X al dejar quieto el ratón. Antes, salir de pantalla completa cerraba la película; con el botón eso dejaba de tener sentido, así que ahora solo sale de ella. Al abrir se sigue intentando entrar sola. En iPhone, donde el navegador no permite pantalla completa de una página, el botón no se muestra. Build y 61 pruebas; revisado en navegador local en escritorio y 375 px. Sin despliegue.
+
 ## 2026-11-08 00:15 — Ciudad de México (GMT−6)
 
 La usuaria pidió que el brillo que recorre el borde de las miniaturas del álbum use los tonos y el estilo de las fotos de la página principal. El destello del mosaico era solo dorado sobre un marco dorado tenue; los retratos de la invitación usan un haz violeta que pasa por dorado y blanco cálido, con una copia desenfocada que da resplandor, marco oscuro y halo violeta y dorado. Se llevó ese mismo degradado y estructura a cada cuadro del álbum, con una vuelta similar (4.5–6 s, desfasada para que no giren al unísono) y manteniendo la pausa fuera de pantalla para no gastar batería. Con movimiento reducido queda un degradado fijo con los mismos tonos. Build y 61 pruebas; revisado en navegador local en escritorio y 375 px. Sin despliegue.

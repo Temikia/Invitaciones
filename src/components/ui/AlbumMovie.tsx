@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef, useState, type AnimationEvent, type CSSProperties, type RefObject } from "react";
-import { ChevronLeft, ChevronRight, Pause, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize, Minimize, Pause, X } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { usePageVisible } from "../../hooks/useReducedMotion";
 import { MOVIE_FADE_MS, MOVIE_SLIDE_MS, isVideo, movieMotion, shuffle, thumbSrc, whenDecoded, type AlbumFile } from "../../lib/albumShow";
@@ -11,7 +11,7 @@ type AlbumMovieProps = { files: AlbumFile[]; open: boolean; onClose: () => void 
 /** Si un recuerdo no logra mostrarse en este tiempo, la película continúa con el siguiente. */
 const STALL_LIMIT_MS = 15000;
 
-/** Tras este tiempo sin mover el ratón, la X de cerrar se oculta (solo con ratón; en pantallas táctiles siempre se ve). */
+/** Tras este tiempo sin mover el ratón, los controles de arriba se ocultan (solo con ratón; en pantallas táctiles siempre se ven). */
 const CONTROLS_IDLE_MS = 2500;
 
 type SlideProps = {
@@ -27,7 +27,7 @@ type SlideProps = {
   onFaded: (key: string) => void;
   videoRef?: RefObject<HTMLVideoElement | null>;
   onWaiting?: (key: string) => void;
-  /** Un video más corto que el recuerdo terminó antes que la barra. */
+  /** Un video más corto que el recuerdo terminó antes que su tiempo. */
   onEnded?: () => void;
 };
 
@@ -78,16 +78,19 @@ function MovieSlide({ slide, shown, preload, onReady, onFailed, onFaded, videoRe
 /**
  * Presentación a pantalla completa de todo el álbum en orden aleatorio.
  * Cada foto dura MOVIE_SLIDE_MS; cada video se reproduce sin sonido solo durante ese mismo tiempo.
- * El avance lo marca el final de la barra de progreso, que corre solo mientras el recuerdo actual
- * ya se ve: se detiene si aún carga, si el video se queda sin datos, con la pestaña oculta o con la
- * barra espaciadora. Entre recuerdos hay un fundido cruzado sobre el que se estaba viendo. La foto
+ * El avance lo marca un reloj invisible (una animación CSS sin nada visible en pantalla), que corre
+ * solo mientras el recuerdo actual ya se ve: se detiene si aún carga, si el video se queda sin
+ * datos, con la pestaña oculta o con la barra espaciadora. Entre recuerdos hay un fundido cruzado sobre el que se estaba viendo. La foto
  * siguiente se monta oculta en cuanto la actual aparece. La lógica vive en `lib/albumMovie.ts`.
+ * Al abrir se intenta la pantalla completa; el botón junto a la X (o la tecla F) entra y sale de ella
+ * sin cerrar la película. Donde el navegador no la permite (iPhone), el botón no aparece.
  */
 export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
   const { language } = useLanguage();
   const dialog = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const enteredFullscreen = useRef(false);
+  const [canFullscreen] = useState(() => typeof document !== "undefined" && Boolean(document.fullscreenEnabled));
+  const [fullscreen, setFullscreen] = useState(false);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
   const filesRef = useRef(files);
@@ -121,15 +124,13 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     setUserPaused(false);
     setBufferingKey("");
     if (!element.open) element.showModal();
-    enteredFullscreen.current = false;
-    element.requestFullscreen?.().then(() => { enteredFullscreen.current = true; }).catch(() => undefined);
-    const onFullscreenChange = () => {
-      if (enteredFullscreen.current && !document.fullscreenElement) closeRef.current();
-    };
+    // Salir de la pantalla completa (botón, tecla F o Esc) ya no cierra la película: solo cambia el icono.
+    const onFullscreenChange = () => setFullscreen(document.fullscreenElement === element);
     document.addEventListener("fullscreenchange", onFullscreenChange);
+    element.requestFullscreen?.().catch(() => undefined);
     return () => {
       document.removeEventListener("fullscreenchange", onFullscreenChange);
-      enteredFullscreen.current = false;
+      setFullscreen(false);
       if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
       if (element.open) element.close();
       // Así, al volver a abrir no se pinta ni un cuadro de la sesión anterior.
@@ -154,7 +155,14 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     else void video.play().catch(() => undefined);
   }, [userPaused, pageVisible, slideKey]);
 
-  // La X aparece al mover el ratón y se oculta tras un rato quieto.
+  const toggleFullscreen = () => {
+    const element = dialog.current;
+    if (!element) return;
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    else void element.requestFullscreen?.().catch(() => undefined);
+  };
+
+  // Los controles aparecen al mover el ratón y se oculta tras un rato quieto.
   const revealControls = () => {
     setControlsVisible(true);
     window.clearTimeout(idleTimer.current);
@@ -166,7 +174,7 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     return () => window.clearTimeout(idleTimer.current);
   }, [open]);
 
-  const onProgressEnd = (event: AnimationEvent<HTMLElement>) => {
+  const onClockEnd = (event: AnimationEvent<HTMLElement>) => {
     if (event.target === event.currentTarget && event.animationName === "album-movie-fill") advance(1);
   };
 
@@ -185,6 +193,7 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
       if (event.key === "ArrowRight") { event.preventDefault(); advance(1); }
       if (event.key === "ArrowLeft") { event.preventDefault(); advance(-1); }
       if (event.key === " ") { event.preventDefault(); setUserPaused((value) => !value); }
+      if ((event.key === "f" || event.key === "F") && canFullscreen && !event.ctrlKey && !event.metaKey && !event.altKey) { event.preventDefault(); toggleFullscreen(); }
     }}>
     {open && slide && <>
       <div className="album-movie-stage">
@@ -199,12 +208,19 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
       </div>
       <div className="album-movie-top">
         <p><span>{language === "en" ? "Camila's XV" : "Mis XV · Camila"}</span> {state.position + 1} / {state.queue.length}</p>
-        <button type="button" className="album-movie-close" onClick={onClose} aria-label={language === "en" ? "Close movie" : "Cerrar película"} autoFocus><X size={30} strokeWidth={1.75} /></button>
+        <div className="album-movie-actions">
+          {canFullscreen && <button type="button" className="album-movie-action" onClick={toggleFullscreen}
+            aria-label={fullscreen ? (language === "en" ? "Exit full screen" : "Salir de pantalla completa") : (language === "en" ? "Full screen" : "Pantalla completa")}>
+            {fullscreen ? <Minimize size={24} strokeWidth={1.75} aria-hidden="true" /> : <Maximize size={24} strokeWidth={1.75} aria-hidden="true" />}
+          </button>}
+          <button type="button" className="album-movie-action" onClick={onClose} aria-label={language === "en" ? "Close movie" : "Cerrar película"} autoFocus><X size={30} strokeWidth={1.75} aria-hidden="true" /></button>
+        </div>
       </div>
       <button type="button" className="album-movie-zone is-prev" onClick={() => advance(-1)} aria-label={language === "en" ? "Previous memory" : "Recuerdo anterior"}><ChevronLeft size={30} aria-hidden="true" /></button>
       <button type="button" className="album-movie-zone is-next" onClick={() => advance(1)} aria-label={language === "en" ? "Next memory" : "Recuerdo siguiente"}><ChevronRight size={30} aria-hidden="true" /></button>
       {userPaused && <div className="album-movie-paused" role="status"><Pause size={18} aria-hidden="true" /> {language === "en" ? "Paused · press space to continue" : "En pausa · barra espaciadora para continuar"}</div>}
-      <div className="album-movie-progress" aria-hidden="true"><b key={slideKey} onAnimationEnd={onProgressEnd} /></div>
+      {/* Reloj invisible: su animación dura lo que un recuerdo y, al terminar, pasa al siguiente. */}
+      <span className="album-movie-clock" key={slideKey} aria-hidden="true" onAnimationEnd={onClockEnd} />
     </>}
   </dialog>;
 }

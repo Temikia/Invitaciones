@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Película sin barra y con pantalla completa — 08/11/2026 00:25 (GMT−6)
+
+- Build y 61 pruebas. Navegador local (`dev:recuerdos`, 35 fotos reales): al abrir no existe `.album-movie-progress`; `.album-movie-clock` tiene `visibility: hidden` y la animación `album-movie-fill` en curso; la película pasó de 1/35 a 2/35 y 3/35 a su ritmo. Arriba: «Pantalla completa» y «Cerrar película». Al mover el ratón ambos quedan con opacidad 1 y a los 2.5 s se ocultan (el que tiene foco visible permanece). Botón y tecla F no cierran la película ni dan errores. A 375 px se ven los dos iconos y no hay barra abajo.
+- Sin probar: la entrada y salida real de pantalla completa (el panel del navegador la rechaza, `fullscreenElement` quedó vacío), Esc dentro de pantalla completa, iPhone (botón oculto) y movimiento reducido.
+
 ## Pausa de la música con videos — 08/11/2026 00:25 (GMT−6)
 
 - Build y 61 pruebas. En `/album` local, con la canción iniciada por clic, se insertó un `<video>` con sonido: al reproducirlo la canción quedó en pausa (botón «Reproducir música»); al pausar el video volvió; al reproducirlo otra vez se pausó y al retirarlo del documento volvió. Un video silenciado no la pausó. Con la canción pausada a mano antes del video, siguió en pausa al terminar. Consola sin errores.

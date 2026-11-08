@@ -1,4 +1,4 @@
-/* Modo película: pantalla completa, sin interfaz salvo cerrar, contador y progreso. */
+/* Modo película: pantalla completa, sin interfaz salvo contador, pantalla completa y cerrar. */
 .album-movie {
   position: fixed;
   inset: 0;
@@ -97,8 +97,9 @@
 }
 .album-movie-top p { margin: 0; color: #d9c8ac; font-size: 12px; letter-spacing: .08em; }
 .album-movie-top p span { margin-right: 10px; color: var(--gold); font: italic 500 18px var(--serif); letter-spacing: 0; }
-/* Solo la X, sin círculo; la sombra la separa de fotos claras. */
-.album-movie-close {
+/* Pantalla completa y X, solo iconos sin círculo; la sombra los separa de fotos claras. */
+.album-movie-actions { display: flex; align-items: center; gap: 6px; }
+.album-movie-action {
   display: grid;
   place-items: center;
   width: 44px;
@@ -112,9 +113,9 @@
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .8)) drop-shadow(0 2px 10px rgba(0, 0, 0, .5));
   transition: opacity .3s ease;
 }
-/* Con ratón la X aparece al moverlo y se oculta tras un rato quieto (también el cursor); en pantallas táctiles siempre se ve. */
+/* Con ratón los controles aparecen al moverlo y se ocultan tras un rato quieto (también el cursor); en pantallas táctiles siempre se ven. */
 @media (hover: hover) and (pointer: fine) {
-  .album-movie:not(.show-controls) .album-movie-close:not(:focus-visible):not(:hover) { opacity: 0; }
+  .album-movie:not(.show-controls) .album-movie-action:not(:focus-visible):not(:hover) { opacity: 0; }
   .album-movie:not(.show-controls) { cursor: none; }
   .album-movie:not(.show-controls) .album-movie-zone { cursor: none; }
 }
@@ -138,7 +139,7 @@
 .album-movie-zone:hover svg, .album-movie-zone:focus-visible svg { opacity: 1; }
 .album-movie-zone.is-prev { left: 0; justify-content: flex-start; }
 .album-movie-zone.is-next { right: 0; justify-content: flex-end; }
-.album-movie-zone:focus-visible, .album-movie-close:focus-visible { outline: 2px solid #f6dfac; outline-offset: -4px; }
+.album-movie-zone:focus-visible, .album-movie-action:focus-visible { outline: 2px solid #f6dfac; outline-offset: -4px; }
 .album-movie-paused {
   position: absolute;
   bottom: 34px;
@@ -155,22 +156,19 @@
   transform: translateX(-50%);
   white-space: nowrap;
 }
-.album-movie-progress {
+/*
+ * Reloj del recuerdo, sin nada visible (antes era una barra dorada de progreso). Su animación marca
+ * el avance y se pausa con la película; `visibility: hidden` no detiene las animaciones CSS.
+ */
+.album-movie-clock {
   position: absolute;
-  bottom: 0;
-  inset-inline: 0;
-  z-index: 3;
-  height: 3px;
-  background: rgba(255, 246, 230, .14);
-}
-.album-movie-progress b {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, #c9a15c, #f6dfac);
-  transform-origin: left;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
   animation: album-movie-fill var(--movie-slide, 5s) linear forwards;
 }
-.album-movie.is-paused .album-movie-progress b,
+.album-movie.is-paused .album-movie-clock,
 .album-movie.is-paused .album-movie-slide.is-ready .album-movie-photo { animation-play-state: paused; }
 @keyframes album-movie-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
