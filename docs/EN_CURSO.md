@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Fundido constante, X visible y portada continua — 07/11/2026
+- ✅ Película: el fundido de entrada es una animación CSS (`album-movie-fade-in`) en lugar de una transición, que no se disparaba con fotos precargadas.
+- ✅ X de cerrar con capa propia (`translateZ(0)`, z-index 4) y más contraste; flechas laterales también en capa propia.
+- ✅ Portada del álbum: ya no se pausa con el cursor ni con el foco; solo con la pestaña oculta, fuera de pantalla o movimiento reducido.
+- ✅ Build y 38 pruebas; fundido comprobado en navegador local.
+- ❓ No se reprodujo la X oculta en el panel; confirmar en el navegador de la usuaria, en pantalla completa. Sin despliegue.
+
 ## Marco fijo en la película y navegación por la cabecera — 07/11/2026
 - ✅ Película: la foto vive en un marco fijo con su proporción (`.album-movie-frame`, `--ratio` al cargar); el acercamiento y alejamiento ocurren dentro y el marco ya no se mueve.
 - ✅ «C · XV» de la cabecera enlaza a `/` en todas las rutas. Retirados «Volver a recuerdos» (álbum) y «Volver a la invitación» (recuerdos, con su clave de traducción y estilo).

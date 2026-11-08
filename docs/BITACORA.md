@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 19:00 — Ciudad de México (GMT−6)
+
+La usuaria reportó que en la película algunas fotos aparecían sin fundido, que la X de cerrar solo se veía al pasar el cursor y que la portada del álbum se detenía al mover el cursor. El fundido pasó de transición a animación, porque las fotos precargadas cargaban antes del primer pintado y la transición no se disparaba. La X y las flechas van en su propia capa con más contraste (no se pudo reproducir el fallo en el panel). La portada ya no se pausa con cursor ni foco. Build y 38 pruebas. Sin despliegue.
+
 ## 2026-11-07 18:54 — Ciudad de México (GMT−6)
 
 La usuaria notó que en la película el espacio de la foto se movía y mareaba. Ahora la foto ocupa un marco fijo con su proporción y solo la imagen se acerca o aleja dentro de él. Además, «C · XV» de la cabecera lleva a la invitación y se quitaron los enlaces «Volver a recuerdos» y «Volver a la invitación», porque la cabecera ya resuelve la navegación. Build y 38 pruebas; revisado en navegador local. Sin despliegue.

@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Fundido constante, X visible y portada sin pausa por cursor — 07/11/2026
+- Build y 38 pruebas. Película en navegador local: en cuatro avances seguidos (fotos listas a los 161–1441 ms, una ya en caché) la capa nueva tuvo la animación `album-movie-fade-in` en curso y la anterior debajo. Antes, una foto precargada podía cargar antes del primer pintado y la transición no se disparaba.
+- La X tiene opacidad 1, nada la tapa y se ve sin pasar el cursor en el panel; no se pudo reproducir el fallo de la usuaria ni probar pantalla completa (el panel no la permite). Se le dio capa propia y más contraste.
+- La portada ya no escucha cursor ni foco; no se observó en movimiento porque el panel reporta la pestaña oculta (pausa legítima). Sin despliegue.
+
 ## Marco fijo en la película y navegación por la cabecera — 07/11/2026
 - Build y 38 pruebas. Película en navegador local: foto 1281 × 1920 en un marco de 421 × 630 px centrado en 736 × 630, igual 1.5 s después, con la animación de zoom aplicada a la imagen dentro del marco (`overflow: hidden`). El zoom en curso no se vio porque el panel reportaba la pestaña oculta y la película estaba en pausa.
 - «C · XV» es un enlace a `/` de 88 × 44 px con etiqueta «Ir a la invitación» y conserva su aspecto. `/album` y `/recuerdos` ya no tienen enlaces «Volver…». Sin emular movimiento reducido ni probar en teléfono real.

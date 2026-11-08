@@ -19,15 +19,19 @@
   inset: 0;
   overflow: hidden;
 }
-/* Cada recuerdo es una capa; la nueva aparece encima de la anterior con un fundido cruzado. */
+/*
+ * Cada recuerdo es una capa; la nueva aparece encima de la anterior con un fundido cruzado.
+ * Es una animación y no una transición: si la foto ya estaba precargada, termina de cargar antes
+ * del primer pintado y una transición no llegaría a dispararse (el recuerdo aparecería de golpe).
+ */
 .album-movie-slide {
   position: absolute;
   inset: 0;
   overflow: hidden;
   opacity: 0;
-  transition: opacity var(--movie-fade, 1.4s) ease-in-out;
 }
-.album-movie-slide.is-ready { opacity: 1; }
+.album-movie-slide.is-ready { opacity: 1; animation: album-movie-fade-in var(--movie-fade, 1.4s) ease-in-out both; }
+@keyframes album-movie-fade-in { from { opacity: 0; } to { opacity: 1; } }
 /* La misma foto, ampliada y desenfocada, rellena el espacio que la foto completa no cubre. */
 .album-movie-backdrop {
   position: absolute;
@@ -71,11 +75,16 @@
   will-change: transform;
 }
 .album-movie-frame.has-ratio .album-movie-photo { object-fit: cover; }
+/*
+ * Los controles van en su propia capa (translateZ): sin ella, Chrome podía dejar la X sin pintar
+ * debajo de las fotos animadas hasta pasar el cursor por encima.
+ */
 .album-movie-top {
   position: absolute;
   top: 0;
   inset-inline: 0;
-  z-index: 3;
+  z-index: 4;
+  transform: translateZ(0);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -90,18 +99,21 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid rgba(243, 213, 159, .35);
+  border: 1px solid rgba(243, 213, 159, .7);
   border-radius: 50%;
-  background: rgba(24, 16, 36, .6);
-  color: #f3d59f;
+  background: rgba(24, 16, 36, .82);
+  color: #f6dfac;
   cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .45);
 }
 /* Zonas laterales: tocar a la izquierda o derecha cambia de recuerdo; la flecha solo aparece al pasar el cursor o con foco. */
 .album-movie-zone {
   position: absolute;
   top: 80px;
   bottom: 40px;
-  z-index: 2;
+  z-index: 3;
+  transform: translateZ(0);
   width: 30%;
   display: flex;
   align-items: center;
@@ -169,5 +181,5 @@
 }
 /* Con movimiento reducido no hay zoom y el fundido es breve. */
 @media (prefers-reduced-motion: reduce) {
-  .album-movie-slide { transition-duration: .4s; }
+  .album-movie-slide.is-ready { animation-duration: .4s; }
 }

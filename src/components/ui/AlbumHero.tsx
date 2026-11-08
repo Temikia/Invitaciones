@@ -11,8 +11,8 @@ type AlbumHeroProps = { canPlayMovie: boolean; onPlayMovie: () => void };
 /**
  * Portada animada con las fotografías de la galería de la invitación en un orden distinto en cada visita.
  * El avance lo marca el final de la barra de progreso, así la pausa conserva el punto exacto.
- * No tiene controles visibles: se detiene sola con el cursor encima, el foco dentro, la pestaña oculta
- * o fuera de pantalla, y con movimiento reducido muestra una sola foto fija.
+ * No tiene controles visibles ni se detiene con el cursor o el foco (decisión de la usuaria): solo se
+ * pausa con la pestaña oculta o fuera de pantalla, y con movimiento reducido muestra una foto fija.
  */
 export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
   const { language } = useLanguage();
@@ -20,12 +20,10 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
   const reducedMotion = useReducedMotion();
   const pageVisible = usePageVisible();
   const [active, setActive] = useState(0);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
   const [onScreen, setOnScreen] = useState(true);
   const section = useRef<HTMLElement>(null);
   const leaving = photos.length > 1 ? (active - 1 + photos.length) % photos.length : -1;
-  const paused = reducedMotion || hovered || focused || !pageVisible || !onScreen;
+  const paused = reducedMotion || !pageVisible || !onScreen;
 
   useEffect(() => {
     const element = section.current;
@@ -36,8 +34,6 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
   }, []);
 
   return <section ref={section} className={`album-hero${paused ? " is-paused" : ""}`} aria-labelledby="album-title"
-    onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-    onFocus={() => setFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
     style={{ "--hero-slide": `${HERO_SLIDE_MS}ms` } as CSSProperties}>
     <div className="album-hero-media" aria-hidden="true">
       {photos.map((src, index) => <img key={src} src={src} alt="" decoding="async"
