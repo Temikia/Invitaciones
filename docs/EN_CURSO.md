@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Recuerdos: sol más cerca de la cabecera y sin aviso de apertura — 07/11/2026
+- ✅ Unos 50 px entre la cabecera y el sol en `/recuerdos` (`.memories-page` 30 px arriba, `.upload-content` sin margen superior); medido 50 px en escritorio y 375 px.
+- ✅ Retirado el aviso «La carga se abrirá el domingo 22 de noviembre…» de la cuenta regresiva, con sus claves `memories.opens` (es/en) y su estilo.
+- ✅ Build y 41 pruebas. Sin despliegue.
+
 ## Recuerdos con cuenta regresiva, botón del álbum por fecha y ornamentos — 07/11/2026
 - ✅ `/recuerdos` muestra solo sol, título, cuenta regresiva y aviso hasta el inicio del evento (`uploads.opensAt`, 22/11/2026 17:00 Denver); a esa hora cambia sola a la carga, que sigue hasta `closesAt`. Etapas en `getUploadPhase` (`src/lib/event.ts`).
 - ✅ «Subir mis fotos» del álbum aparece desde 24 h antes (`uploads.albumButtonFrom`) hasta el cierre (`canShowAlbumUpload`); se reevalúa cada 30 s.

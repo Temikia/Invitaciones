@@ -61,7 +61,6 @@ function MemoriesCountdown() {
         <h1>{t("memories.title1")}<br /><em>{t("memories.page.title2")}</em></h1>
         <p>{t("memories.soon")}</p>
         <Countdown />
-        <div className="upload-notice" role="status">{t("memories.opens")}</div>
         <a className="album-link" href="/album">{language === "en" ? "View album" : "Ver álbum"}</a>
       </div>
     </main>

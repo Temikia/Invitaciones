@@ -66,9 +66,6 @@
 .memories-countdown .countdown strong {
   font-size: clamp(2.6rem, 11vw, 4.6rem);
 }
-.memories-countdown .upload-notice {
-  margin-top: 30px;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .page-sun-halo img {

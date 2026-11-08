@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 22:29 — Ciudad de México (GMT−6)
+
+La usuaria pidió acercar el sol a la cabecera en `/recuerdos` (unos 50 px, sin pegarlo) y quitar el recuadro con la fecha de apertura de la carga, que repetía lo que ya dice la cuenta regresiva. Se redujo el espacio superior de la página y se eliminaron el aviso, sus traducciones y su estilo. Build y 41 pruebas; medido en navegador local en escritorio y 375 px. Sin despliegue.
+
 ## 2026-11-07 22:17 — Ciudad de México (GMT−6)
 
 La usuaria pidió que la carga de recuerdos se abra hasta el día y hora del evento, que el botón «Subir mis fotos» del álbum aparezca un día antes y que ambas páginas tengan las partículas doradas y más elementos de la invitación. `/recuerdos` ahora muestra solo una cuenta regresiva con texto y cambia sola a la carga a las 17:00 del 22 de noviembre (Denver); el botón del álbum depende de la fecha. Se sumaron partículas, linternas y el sol con halo, reutilizando los ornamentos existentes, para que las páginas pertenezcan a la misma historia visual. Build y 41 pruebas; revisado en navegador local simulando ambas fechas. Sin despliegue.
