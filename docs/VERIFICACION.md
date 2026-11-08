@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Música continua entre las tres páginas — 08/11/2026 00:10 (GMT−6)
+
+- Build y 61 pruebas (3 nuevas en `src/lib/navigation.test.ts`: rutas reconocidas, enlaces internos y casos que quedan al navegador: Ctrl/⌘, botón central, `target`, `download`, externos, `/album-local`, ancla en la misma página).
+- Navegador local (`dev:recuerdos`): clic en reproducir en la escena 3 → `paused=false`. Cámara de la cabecera → `/album` en el mismo documento (marcador JS conservado), audio sin pausa y avanzando, un solo `<audio>`, control flotante «Pausar música». `history.back()` → `/` en `scrollY` 878 (la altura previa), control en su lugar y sin flotante. Final de la invitación (flotante visible antes del lago) → «Subir fotos y videos» → `/recuerdos` con audio sonando y control flotante; pausa desde ahí → «Reproducir música». «Ver álbum» con Enter desde el teclado → `/album` sin recarga. Captura a 375 px: control abajo a la derecha sin tapar la cuenta regresiva. Consola sin errores.
+- Sin probar: teléfono real, movimiento reducido y la confirmación al salir durante una carga real.
+
 ## Película reconstruida sin congelamientos — 08/11/2026
 - Build y 58 pruebas (11 nuevas en `src/lib/albumMovie.test.ts`, incluida la regresión: precargar la foto siguiente no le quita el estado listo a la actual).
 - Navegador local con las 35 fotos reales, muestreo cada 200–250 ms. Código anterior: la foto 2 y la 4 quedaron en pausa con la capa nueva transparente y la anterior visible, y saltaron a los 15 s (límite de espera); la 3 y la 5 pasaron bien. Código nuevo: ocho fotos seguidas (4 → 11) a 5 s exactos, sin pausas y con fundido completo en cada paso; salto doble con flechas en mitad de un fundido, retroceso, pausa y reanudación con espacio, cierre y reapertura desde la foto 1 sin restos de la sesión anterior.

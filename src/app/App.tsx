@@ -1,9 +1,12 @@
-import { lazy, Suspense, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { useNarrative } from "../hooks/useNarrative";
 import { LanguageProvider, useLanguage } from "../config/language";
 import { Atmosphere } from "../components/ui/Atmosphere";
 import { InvitationHeader } from "../components/ui/InvitationHeader";
 import { PageAtmosphere } from "../components/ui/PageOrnaments";
+import { MusicProvider } from "../components/ui/Music";
+import { PageAudioControl } from "../components/ui/AudioControl";
+import { useAppRoute } from "./router";
 import {
   Scene01Flower,
   Scene02Camila,
@@ -30,8 +33,10 @@ import {
   Scene19Lake,
 } from "../components/scenes/Finale";
 
-const Memories = lazy(() => import("./Memories"));
-const Album = lazy(() => import("./Album"));
+const loadMemories = () => import("./Memories");
+const loadAlbum = () => import("./Album");
+const Memories = lazy(loadMemories);
+const Album = lazy(loadAlbum);
 function Invitation() {
   const root = useRef<HTMLDivElement>(null);
   useNarrative(root);
@@ -65,11 +70,17 @@ function Invitation() {
 }
 function AppContent() {
   const { t } = useLanguage();
-  const path = window.location.pathname.replace(/\/$/, "");
+  const path = useAppRoute();
+  useEffect(() => {
+    // Precarga las otras páginas para que el cambio interno sea inmediato.
+    const id = window.setTimeout(() => { void loadAlbum(); void loadMemories(); }, 2500);
+    return () => window.clearTimeout(id);
+  }, []);
   return path === "/recuerdos" || path === "/album" ? (
     <>
       <PageAtmosphere />
       <InvitationHeader />
+      <PageAudioControl />
       <Suspense fallback={<p className="loading">{t("loading")}</p>}>
         {path === "/album" ? <Album /> : <Memories />}
       </Suspense>
@@ -79,5 +90,5 @@ function AppContent() {
   );
 }
 export default function App() {
-  return <LanguageProvider><AppContent /></LanguageProvider>;
+  return <LanguageProvider><MusicProvider><AppContent /></MusicProvider></LanguageProvider>;
 }

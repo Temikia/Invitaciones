@@ -7,6 +7,7 @@ import { uploadResumable } from "../lib/resumable";
 import { useNow } from "../hooks/useNow";
 import { Countdown } from "../components/ui/Countdown";
 import { PageSun } from "../components/ui/PageOrnaments";
+import { useLeaveGuard } from "./router";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: { sitekey: string; action: string; theme: string; callback: (token: string) => void; "expired-callback": () => void; "error-callback": () => void }) => string;
@@ -86,6 +87,7 @@ function MemoriesUpload({ closed }: { closed: boolean }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const focusAfterRemove = useRef<number | null>(null);
+  useLeaveGuard(uploading ? (language === "en" ? "Your memories are still uploading. Leave this page anyway?" : "Tus recuerdos todavía se están subiendo. ¿Salir de esta página de todos modos?") : null);
 
   useEffect(() => {
     let active = true;

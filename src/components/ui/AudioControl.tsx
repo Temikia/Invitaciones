@@ -1,19 +1,48 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type Ref } from "react";
 import { createPortal } from "react-dom";
 import { Pause, Play } from "lucide-react";
-import { invitation } from "../../config/invitation";
 import { useLanguage } from "../../config/language";
+import { useMusic } from "./Music";
 import "../../styles/audio.css";
 
-export function AudioControl() {
+function MusicControls({ buttonRef, tabIndex = 0 }: { buttonRef?: Ref<HTMLButtonElement>; tabIndex?: number }) {
   const { t } = useLanguage();
-  const audio = useRef<HTMLAudioElement>(null);
+  const { playing, failed, toggle } = useMusic();
+  return <>
+    <button
+      ref={buttonRef}
+      type="button"
+      className={`audio-button ${playing ? "playing" : ""}`}
+      onClick={() => void toggle()}
+      tabIndex={tabIndex}
+      aria-label={playing ? t("audio.pause") : t("audio.play")}
+      aria-pressed={playing}
+    >
+      {playing ? <Pause size={19} aria-hidden="true" /> : <Play size={19} aria-hidden="true" />}
+    </button>
+    <span className="audio-caption">
+      {playing ? t("audio.caption.playing") : t("audio.caption.idle")}
+    </span>
+    {failed ? <p role="status">{t("audio.error")}</p> : null}
+  </>;
+}
+
+/** Control flotante para álbum y recuerdos: la misma música, siempre a mano. */
+export function PageAudioControl() {
+  const { failed } = useMusic();
+  return createPortal(
+    <div className={`audio-control audio-control-floating${failed ? " has-error" : ""}`}><MusicControls /></div>,
+    document.body,
+  );
+}
+
+/** Control de la invitación: en la escena 3, flotante al pasarla y oculto desde el lago. */
+export function AudioControl() {
+  const { failed } = useMusic();
   const inlineControl = useRef<HTMLDivElement>(null);
   const inlineButton = useRef<HTMLButtonElement>(null);
   const floatingButton = useRef<HTMLButtonElement>(null);
   const transferFocus = useRef(false);
-  const [playing, setPlaying] = useState(false);
-  const [error, setError] = useState("");
   const [passedOriginal, setPassedOriginal] = useState(false);
   const [lakeReached, setLakeReached] = useState(false);
   const floating = passedOriginal && !lakeReached;
@@ -69,57 +98,16 @@ export function AudioControl() {
     else if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   }, [floating, lakeReached]);
 
-  async function toggle() {
-    const element = audio.current;
-    if (!element) return;
-    if (!element.paused) {
-      element.pause();
-      return;
-    }
-    try {
-      await element.play();
-      setError("");
-    } catch {
-      setError(t("audio.error"));
-    }
-  }
-  function controls(isFloating: boolean) {
-    return <>
-      <button
-        ref={isFloating ? floatingButton : inlineButton}
-        className={`audio-button ${playing ? "playing" : ""}`}
-        onClick={toggle}
-        tabIndex={!isFloating && (floating || lakeReached) ? -1 : 0}
-        aria-label={playing ? t("audio.pause") : t("audio.play")}
-        aria-pressed={playing}
-      >
-        {playing ? <Pause size={19} aria-hidden="true" /> : <Play size={19} aria-hidden="true" />}
-      </button>
-      <span className="audio-caption">
-        {playing ? t("audio.caption.playing") : t("audio.caption.idle")}
-      </span>
-      {error ? <p role="status">{error}</p> : null}
-    </>;
-  }
-
   return <>
     <div
       ref={inlineControl}
       className={`audio-control audio-control-inline${floating || lakeReached ? " audio-control-placeholder" : ""}`}
       aria-hidden={floating || lakeReached || undefined}
     >
-      <audio
-        ref={audio}
-        src={invitation.audio}
-        preload="none"
-        loop
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-      />
-      {controls(false)}
+      <MusicControls buttonRef={inlineButton} tabIndex={floating || lakeReached ? -1 : 0} />
     </div>
     {floating && createPortal(
-      <div className={`audio-control audio-control-floating${error ? " has-error" : ""}`}>{controls(true)}</div>,
+      <div className={`audio-control audio-control-floating${failed ? " has-error" : ""}`}><MusicControls buttonRef={floatingButton} /></div>,
       document.body,
     )}
   </>;

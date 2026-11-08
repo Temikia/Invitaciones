@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Música continua entre las tres páginas — 08/11/2026
+- ✅ Un solo `<audio>` en `MusicProvider` (`src/components/ui/Music.tsx`) por encima de las páginas; la navegación entre `/`, `/album` y `/recuerdos` (enlaces y atrás/adelante) ya no recarga el documento (`src/app/router.ts`, lógica pura en `src/lib/navigation.ts`). Atrás/adelante restauran la altura de cada página. Ctrl/⌘ + clic, otras pestañas y enlaces externos quedan al navegador.
+- ✅ Control de música en las tres páginas: en la invitación igual que antes (escena 3, flotante, oculto desde el lago); en álbum y recuerdos flotante abajo a la derecha (`PageAudioControl`).
+- ✅ Durante una carga de recuerdos, salir de la página pide confirmación (`useLeaveGuard`).
+- ✅ Build y 61 pruebas; comprobado en navegador local (detalle en `docs/VERIFICACION.md`).
+- ❓ Teléfono real (iOS) y movimiento reducido sin probar. Mientras suena la canción, los videos del visor también reproducen su sonido. Sin despliegue.
+
 ## Película reconstruida sin congelamientos — 08/11/2026
 - ✅ Causa: una sola «clave precargada» que la tercera foto sobrescribía; la foto actual perdía el estado listo, la barra se congelaba, reaparecía la anterior y a los 15 s saltaba de golpe (una foto sí y otra no). Estado reconstruido como reductor puro en `src/lib/albumMovie.ts` (listo por clave, sin pérdida) y `AlbumMovie.tsx` reescrito sobre él; la capa anterior se retira con el fin real del fundido.
 - ✅ Build y 58 pruebas; fallo reproducido con el código anterior y corrección comprobada en navegador local (detalle en `docs/VERIFICACION.md`).
