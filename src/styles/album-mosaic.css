@@ -59,16 +59,18 @@
 .album-tile--tall { grid-row: span 2; }
 .album-tile--wide { grid-column: span 2; }
 
-/* El borde dorado es un degradado cónico que gira detrás de la foto y asoma 2px alrededor. */
+/* Mismo contorno que los retratos de la invitación (.glowing-frame): un haz violeta → dorado gira
+   detrás de la foto y asoma 2.5px; ::after es su copia desenfocada, que da el resplandor. */
 .album-tile {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 2px;
+  padding: 2.5px;
   border-radius: 14px;
-  background: rgba(219, 186, 120, .2);
+  background: #140d22;
+  box-shadow: 0 0 12px rgba(157, 78, 221, .22), 0 0 20px rgba(223, 184, 119, .12);
 }
-.album-tile::before {
+.album-tile::before, .album-tile::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -76,12 +78,28 @@
   z-index: -1;
   width: 300%;
   aspect-ratio: 1;
-  background: conic-gradient(rgba(219, 186, 120, .16) 0deg, rgba(219, 186, 120, .16) 240deg, #f0d49b 292deg, #fff4dc 304deg, rgba(219, 186, 120, .16) 352deg);
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 45deg,
+    #9d4edd 90deg,
+    #c77dff 130deg,
+    #ffd780 160deg,
+    #fff8e0 172deg,
+    #dfb877 185deg,
+    #7b2cbf 225deg,
+    transparent 265deg,
+    transparent 360deg
+  );
   transform: translate(-50%, -50%);
-  animation: album-glint var(--glint-speed, 7s) linear var(--glint-delay, 0s) infinite;
+  animation: album-glint var(--glint-speed, 4.5s) linear var(--glint-delay, 0s) infinite;
   animation-play-state: paused;
+  pointer-events: none;
 }
-.album-tile[data-onscreen]::before { animation-play-state: running; }
+.album-tile::after {
+  filter: blur(14px);
+  opacity: .92;
+}
+.album-tile[data-onscreen]::before, .album-tile[data-onscreen]::after { animation-play-state: running; }
 @keyframes album-glint {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to { transform: translate(-50%, -50%) rotate(360deg); }
@@ -170,7 +188,8 @@
   .album-filters { margin-inline: 0; padding-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .album-tile::before { animation: none; background: linear-gradient(140deg, rgba(240, 212, 155, .7), rgba(219, 186, 120, .25) 45%, rgba(240, 212, 155, .6)); }
+  .album-tile::before { animation: none; background: linear-gradient(140deg, #c77dff, #7b2cbf 30%, transparent 50%, #dfb877 75%, #fff8e0); }
+  .album-tile::after { display: none; }
   .album-tile img { transition: none; }
   .album-tile button:hover img { transform: none; }
 }

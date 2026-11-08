@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Brillo de las miniaturas con los tonos de la invitación — 08/11/2026
+- ✅ El borde de cada cuadro del mosaico (`src/styles/album-mosaic.css`) usa el haz de los retratos de la portada y la celebración (`.glowing-frame`): violeta `#9d4edd` → `#c77dff` → dorado `#ffd780`/`#fff8e0` → `#7b2cbf`, con copia desenfocada (14 px) para el resplandor, marco oscuro `#140d22` de 2.5 px y halo violeta/dorado. Vuelta de 4.5–6 s, desfasada por cuadro (`AlbumMosaic.tsx`); sigue pausado fuera de pantalla.
+- ✅ Build y 61 pruebas; revisado en navegador local en escritorio y 375 px.
+- ❓ Movimiento reducido sin emular (regla CSS: degradado fijo violeta/dorado, sin capa desenfocada) y rendimiento en teléfono real con 20+ cuadros animados. Sin despliegue.
+
 ## Música continua entre las tres páginas — 08/11/2026
 - ✅ Un solo `<audio>` en `MusicProvider` (`src/components/ui/Music.tsx`) por encima de las páginas; la navegación entre `/`, `/album` y `/recuerdos` (enlaces y atrás/adelante) ya no recarga el documento (`src/app/router.ts`, lógica pura en `src/lib/navigation.ts`). Atrás/adelante restauran la altura de cada página. Ctrl/⌘ + clic, otras pestañas y enlaces externos quedan al navegador.
 - ✅ Control de música en las tres páginas: en la invitación igual que antes (escena 3, flotante, oculto desde el lago); en álbum y recuerdos flotante abajo a la derecha (`PageAudioControl`).

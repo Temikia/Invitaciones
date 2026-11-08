@@ -99,7 +99,7 @@ export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
       {shown.map((file, index) => {
         const video = isVideo(file);
         const tile = mosaicTile(index);
-        const style = { "--glint-delay": `${-((index * 1.9) % 7).toFixed(1)}s`, "--glint-speed": `${6 + (index % 4)}s` } as CSSProperties;
+        const style = { "--glint-delay": `${-((index * 1.9) % 4.5).toFixed(1)}s`, "--glint-speed": `${4.5 + (index % 4) * 0.5}s` } as CSSProperties;
         return <li key={file.id} className={`album-tile${tile ? ` album-tile--${tile}` : ""}`} style={style} ref={watch}>
           <button type="button" onClick={() => onOpen(shown, index)}
             aria-label={`${video ? (language === "en" ? "Open video" : "Abrir video") : (language === "en" ? "Open photo" : "Abrir foto")} ${index + 1}`}>
