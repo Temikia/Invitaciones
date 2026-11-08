@@ -1,5 +1,8 @@
 # Verificación de la primera versión
 
+## Quitar archivos antes de subir — 07/11/2026
+- Build y 36 pruebas. En navegador local se seleccionaron tres fotos y un `.txt`; al quitar el `.txt` desapareció el aviso de formato, el foco pasó al botón vecino y al quitar todo volvió al selector. No se probó en teléfono real ni con lector de pantalla.
+
 ## Rediseño visual del álbum — 07/11/2026
 - Build y 36 pruebas correctos (orden aleatorio, filtros, patrón del mosaico y carga progresiva de 101 archivos).
 - Navegador local con datos simulados (62 archivos con fotos de la invitación y un video local de 10 s, sin tocar Drive): portada animada en escritorio y 375 px sin desplazamiento horizontal; mosaico de 4 y 3 columnas, filtros, conteo, «Ver más (12)» y barra fija; visor con flechas de teclado (2 → 4 de 50) y Esc; modo película a pantalla completa, avance entre fotos, video sin sonido cortado a los 5 s y cierre con Esc devolviendo el foco.

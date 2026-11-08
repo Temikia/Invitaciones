@@ -2,7 +2,11 @@
 
 ## Límites de tamaño de recuerdos — 07/11/2026
 - ✅ Se probó subir los límites a 50 MB/500 MB (`ba48cf5`) y, por decisión de la usuaria, se revirtió: siguen vigentes 20 MB por foto, 400 MB por video y 20 archivos por lote.
-- ⏳ Cambio temporal **sin commit** para que la usuaria suba fotos de casi 60 MB en local: el límite de foto en `server/drive.js` y `src/config/invitation.ts` se eleva a 400 MB. Tras la carga, restaurar con `git checkout -- server/drive.js src/config/invitation.ts` y reiniciar `npm run dev:recuerdos`. No debe llegar a ningún commit ni despliegue.
+- ✅ El cambio temporal sin commit (fotos hasta 400 MB en local) se retiró tras la carga de la usuaria; código restaurado a 20 MB y servidor `dev:seguridad` reiniciado. Nunca llegó a un commit.
+
+## Quitar archivos antes de subir — 07/11/2026
+- ✅ En `/recuerdos`, cada miniatura tiene un botón «×» para quitarla antes de iniciar la carga; se recalculan avisos y progreso, el foco pasa al siguiente archivo (o al selector si no quedan) y el mismo archivo puede volver a elegirse. Desaparece al iniciar la carga.
+- ✅ Build y 36 pruebas. En navegador local: cuatro archivos con uno inválido; al quitarlo desapareció el aviso, después se quitaron los demás y el foco volvió al selector. No se probó en teléfono real ni con lector de pantalla. Sin despliegue.
 
 ## Rediseño visual del álbum — 07/11/2026
 Dirección acordada con la usuaria mediante maquetas: portada tipo «historias» + mosaico tipo revista con destello dorado.

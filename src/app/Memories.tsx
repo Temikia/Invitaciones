@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { ArrowLeft, Camera, Film, ImagePlus } from "lucide-react";
+import { ArrowLeft, Camera, Film, ImagePlus, X } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
@@ -58,6 +58,9 @@ export default function Memories() {
   const sessionsRef = useRef<{ sessionUrl: string }[] | null>(null);
   const attemptedRef = useRef<boolean[]>([]);
   const completedRef = useRef<boolean[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const focusAfterRemove = useRef<number | null>(null);
   const closed = Date.now() >= new Date(invitation.uploads.closesAt).getTime();
 
   useEffect(() => {
@@ -107,10 +110,9 @@ export default function Memories() {
     };
   }, [siteKey]);
 
-  function select(event: ChangeEvent<HTMLInputElement>) {
-    const selection = Array.from(event.target.files ?? []);
+  function applySelection(selection: File[]) {
     const validation = validateFiles(selection);
-    setErrors(language === "en" ? validation.map(() => "Please check that your selected files meet the format and size limits.") : validation);
+    setErrors(selection.length === 0 ? [] : language === "en" ? validation.map(() => "Please check that your selected files meet the format and size limits.") : validation);
     setFiles(selection);
     sessionsRef.current = null;
     attemptedRef.current = selection.map(() => false);
@@ -118,6 +120,30 @@ export default function Memories() {
     setProgress(selection.map(() => 0));
     setUploadError("");
   }
+
+  function select(event: ChangeEvent<HTMLInputElement>) {
+    applySelection(Array.from(event.target.files ?? []));
+    // Permite volver a elegir el mismo archivo después de quitarlo.
+    event.target.value = "";
+  }
+
+  /** Solo antes de iniciar la carga: después, cada archivo ya tiene su sesión en Drive. */
+  function removeFile(index: number) {
+    if (uploading || sessionsRef.current) return;
+    focusAfterRemove.current = index;
+    applySelection(files.filter((_, item) => item !== index));
+  }
+
+  useEffect(() => {
+    const index = focusAfterRemove.current;
+    if (index === null) return;
+    focusAfterRemove.current = null;
+    const buttons = listRef.current?.querySelectorAll<HTMLButtonElement>(".selected-remove");
+    if (buttons?.length) buttons[Math.min(index, buttons.length - 1)].focus();
+    else inputRef.current?.focus();
+  }, [files]);
+
+  const canRemove = !uploading && !sessionsRef.current;
 
   async function uploadFiles() {
     if (!files.length || errors.length || uploading || (!sessionsRef.current && !turnstileToken)) return;
@@ -171,15 +197,17 @@ export default function Memories() {
           {!closed && ready ? <>
             <label className="file-picker">
               <ImagePlus size={27} strokeWidth={1} /><strong>{t("memories.select")}</strong><span>{t("memories.select.copy")}</span>
-              <input aria-label={t("memories.select.aria")} type="file" multiple accept="image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/x-m4v,.heic,.heif,.mov,.m4v" disabled={uploading} onChange={select} />
+              <input ref={inputRef} aria-label={t("memories.select.aria")} type="file" multiple accept="image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/x-m4v,.heic,.heif,.mov,.m4v" disabled={uploading} onChange={select} />
             </label>
             <p className="form-note">{t("memories.limits")}</p>
             {!localTestMode ? <div className="turnstile-widget" ref={challengeRef} aria-label={language === "en" ? "Security check" : "Verificación de seguridad"} /> : null}
             {errors.length ? <ul className="form-error" role="alert">{errors.map((error) => <li key={error}>{error}</li>)}</ul> : null}
             {files.length ? <div className="selected-files">
               <p>{files.length} {t("memories.selected")}</p>
-              <ul>{files.map((file, index) => <li key={`${file.name}-${index}`}>
+              <ul ref={listRef}>{files.map((file, index) => <li key={`${file.name}-${file.size}-${file.lastModified}`}>
                 <SelectedPreview file={file} language={language} progress={progress[index] ?? 0} />
+                {canRemove ? <button type="button" className="selected-remove" onClick={() => removeFile(index)}
+                  aria-label={language === "en" ? `Remove ${file.name}` : `Quitar ${file.name}`}><X size={16} aria-hidden="true" /></button> : null}
                 <progress className="sr-only" value={progress[index]} max={100} aria-label={`${file.name}: ${progress[index]}%`} />
               </li>)}</ul>
               {uploadError ? <p className="form-error" role="alert">{uploadError}</p> : null}

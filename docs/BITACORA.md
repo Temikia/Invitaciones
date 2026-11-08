@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 18:19 — Ciudad de México (GMT−6)
+
+La usuaria terminó de subir sus fotos de casi 60 MB; se retiró el límite temporal (nunca se hizo commit) y se reinició el servidor local con 20 MB. A petición suya, `/recuerdos` permite quitar archivos de la selección antes de subirlos, para corregir errores sin volver a elegir todo. Build y 36 pruebas; revisado en navegador local. Sin despliegue.
+
 ## 2026-11-07 17:58 — Ciudad de México (GMT−6)
 
 La usuaria decidió conservar los límites originales (20 MB por foto y 400 MB por video) y se revirtió el aumento a 50/500 MB. Para que pueda subir sus fotos de casi 60 MB se abrió temporalmente el límite de foto solo en local y sin commit; se restaurará al terminar la carga.
