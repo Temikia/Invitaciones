@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Película reconstruida sin congelamientos — 08/11/2026
+- Build y 58 pruebas (11 nuevas en `src/lib/albumMovie.test.ts`, incluida la regresión: precargar la foto siguiente no le quita el estado listo a la actual).
+- Navegador local con las 35 fotos reales, muestreo cada 200–250 ms. Código anterior: la foto 2 y la 4 quedaron en pausa con la capa nueva transparente y la anterior visible, y saltaron a los 15 s (límite de espera); la 3 y la 5 pasaron bien. Código nuevo: ocho fotos seguidas (4 → 11) a 5 s exactos, sin pausas y con fundido completo en cada paso; salto doble con flechas en mitad de un fundido, retroceso, pausa y reanudación con espacio, cierre y reapertura desde la foto 1 sin restos de la sesión anterior.
+- No observado: el retiro de la capa anterior con el fin real del fundido en movimiento continuo (el panel del navegador alternaba a oculto; con el fundido ya terminado la capa sí se había retirado), teléfono real, videos reales y movimiento reducido.
+
 ## Controles del visor y transición de la película — 07/11/2026
 - Build y 47 pruebas (nuevas en `src/lib/albumZoom.test.ts`: zoom mínimo 100 %, límites de arrastre con y sin giro, umbral de deslizar).
 - Visor en navegador local con fotos reales: dos «Acercar» → 200 % y arrastre con ratón limitado al borde (foto vertical: sin desplazamiento horizontal, vertical hasta −128 px); alejar hasta 100 % recentra; giro de 90° cabe completo en 977 × 684; doble clic → 200 % en el punto; rueda acerca y aleja. Al pasar al siguiente, la capa saliente quedó debajo y la nueva apareció con fundido. Deslizar simulado con puntero táctil: izquierda 2 → 3, derecha 3 → 2, gesto corto sin cambio y la foto vuelve a su lugar. En 375 × 812, iconos sueltos sin círculo.

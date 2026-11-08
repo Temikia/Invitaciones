@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 00:03 — Ciudad de México (GMT−6)
+
+La usuaria reportó que la película se seguía trabando: en algunas fotos la barra se congelaba a la mitad, no había fundido y tras unos segundos saltaba de golpe; otras sí pasaban bien. Causa: la película guardaba una sola «clave precargada». La foto siguiente se cargaba oculta y, al volverse la actual, dependía de esa clave porque ya no volvía a disparar `load`; en cuanto se precargaba la tercera, la clave se sobrescribía, la foto actual dejaba de contar como lista, la barra se detenía, la foto nueva se volvía transparente y reaparecía la anterior hasta que el límite de 15 s forzaba el salto. Por eso fallaba una foto sí y otra no. Se reconstruyó el estado como un reductor puro (`src/lib/albumMovie.ts`) donde cada recuerdo queda listo por su propia clave y nunca lo pierde; la capa anterior ahora se retira al terminar el fundido real y no con un temporizador. Se reprodujo el fallo con el código anterior y se comprobó la corrección en el navegador local. Build y 58 pruebas. Sin despliegue.
+
 ## 2026-11-07 23:41 — Ciudad de México (GMT−6)
 
 Las imágenes del álbum seguían tardando en producción. Las 35 fotos profesionales pesaban 41–53 MB a 45 MP; Drive no generaba miniatura para tres de ellas y el servidor tenía que reducirlas con `sharp`. La usuaria autorizó comprimirlas al máximo sin perder calidad y reemplazarlas. Se redujeron a 4096 px de lado mayor (más que cualquier pantalla 4K en vertical) con mozjpeg calidad 88 y color completo 4:4:4: 1676 MB → 65 MB, sin diferencia visible. Se reemplazó el contenido de cada archivo en Drive para conservar ID, orden y marcador; los originales siguen intactos en `multimedia/`. Ahora todas tienen miniatura de Drive y en local responden en menos de 1 s. Build y 47 pruebas. No requiere despliegue.

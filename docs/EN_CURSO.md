@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Película reconstruida sin congelamientos — 08/11/2026
+- ✅ Causa: una sola «clave precargada» que la tercera foto sobrescribía; la foto actual perdía el estado listo, la barra se congelaba, reaparecía la anterior y a los 15 s saltaba de golpe (una foto sí y otra no). Estado reconstruido como reductor puro en `src/lib/albumMovie.ts` (listo por clave, sin pérdida) y `AlbumMovie.tsx` reescrito sobre él; la capa anterior se retira con el fin real del fundido.
+- ✅ Build y 58 pruebas; fallo reproducido con el código anterior y corrección comprobada en navegador local (detalle en `docs/VERIFICACION.md`).
+- ❓ Confirmar en el navegador y teléfono de la usuaria. Sin despliegue.
+
 ## Fotos del álbum comprimidas en Drive — 07/11/2026
 - ✅ Las 35 fotos del álbum (41–53 MB, 5464×8192) se reemplazaron en Drive por versiones de 4096 px de lado mayor, mozjpeg calidad 88, 4:4:4, sRGB y sin EXIF: 1676 MB → 65 MB (1.3–2.6 MB cada una). Prueba previa: sin diferencia visible en recortes; PSNR 42 dB frente al original reducido. Se actualizó el contenido de cada archivo, así que conservan ID, fecha de creación (orden), nombre y marcador. Script `scripts/compress-album.mjs`; originales intactos en `multimedia/`.
 - ✅ Drive ya genera miniatura para las 35 (antes 3 dependían de `sharp`). En local: miniaturas de 480/1920 px y original en menos de 1 s; álbum con 20 miniaturas cargadas y ninguna rota. Build y 47 pruebas.
