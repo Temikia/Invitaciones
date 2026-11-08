@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 23:01 — Ciudad de México (GMT−6)
+
+En producción el álbum mostró «Se alcanzó el límite temporal de consultas». La galería permitía 120 solicitudes por minuto por IP y cada miniatura cuenta como una, así que recorrer el álbum (o varios invitados en la misma red) lo agotaba; también fallaba cerrado si Upstash no respondía. A petición de la usuaria se retiró el límite de las tres rutas de lectura del álbum, para que todos puedan verlo sin bloqueos; las cargas mantienen sus protecciones. Build y 47 pruebas; push a `main`.
+
 ## 2026-11-07 22:53 — Ciudad de México (GMT−6)
 
 La usuaria pidió que la X de la película fuera solo el icono y apareciera al mover el ratón, que el paso entre fotos no tuviera la espera de casi un segundo y mejorar el visor: iconos sueltos, sin porcentaje, zoom mínimo de 100 % que sí amplíe, mover la foto arrastrándola, fundido al cambiar y deslizar en teléfono. La espera venía de que cada foto se cargaba y decodificaba al avanzar y de una curva de fundido que arrancaba lenta; ahora la siguiente foto espera montada y decodificada. El zoom del visor usaba la propiedad CSS `zoom`, que el tamaño máximo de la imagen anulaba; se cambió a transformaciones con arrastre, pellizco y rueda. Build y 47 pruebas; revisado en navegador local. Sin despliegue.

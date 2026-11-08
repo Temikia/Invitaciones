@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Sin límite de consultas en el álbum — 07/11/2026
+- ✅ En producción el álbum respondía «Se alcanzó el límite temporal de consultas»: `allowGalleryRead` permitía 120 solicitudes/minuto/IP y cada miniatura contaba como una (además bloqueaba todo si Upstash fallaba). Por petición de la usuaria se retiró de `api/drive/gallery/{index,thumb,media}.js` y de `server/security.js` (`9aeac67`). Las cargas conservan Turnstile y 4 lotes/minuto/IP.
+- ✅ Build y 47 pruebas. Push a `main`.
+- ❓ Confirmar en producción, tras el despliegue, que el álbum carga completo.
+
 ## Controles del visor y transición de la película — 07/11/2026
 - ✅ Película: X solo icono; con ratón aparece al moverlo y se oculta (con el cursor) a los 2.5 s; en táctil siempre visible. La foto siguiente se monta oculta y decodificada (`is-preload`, `whenDecoded` en `src/lib/albumShow.ts`), así el fundido arranca al terminar la barra; curva sin arranque lento.
 - ✅ Visor (`AlbumViewer.tsx`): iconos sueltos (alejar, acercar, girar, X), sin porcentaje; zoom 100–400 % con `transform` (antes `zoom` CSS no ampliaba); arrastre de la foto ampliada, rueda, pellizco, doble clic/toque y teclas + − 0. Fundido cruzado al cambiar, vecinos precargados y deslizar con la foto siguiendo al dedo. Lógica en `src/lib/albumZoom.ts`.
