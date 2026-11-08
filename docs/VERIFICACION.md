@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Película y visor con movimiento reducido — 08/11/2026 00:56 (GMT−6)
+
+- Con movimiento reducido simulado en el navegador local: la película abre con la capa en `album-movie-fade-in` 1.4 s y la foto en `album-movie-zoom-in` 7.8 s; el visor, con la capa en `album-viewer-fade` 0.32 s y la imagen con transición de `transform` de 0.22 s. Build y 61 pruebas.
+- Sin probar: teléfono real.
+
 ## Efectos siempre en movimiento — 08/11/2026 00:52 (GMT−6)
 
 - Producción ya servía la versión suave (`page-twinkle`, `spark--still` en el CSS publicado), así que el fallo no era de despliegue.

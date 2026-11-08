@@ -194,14 +194,9 @@
 .album-movie-photo.motion-out-top { transform-origin: 50% 12%; }
 .album-movie-photo.motion-in-bottom-left { transform-origin: 20% 82%; }
 .album-movie-photo.motion-out-left { transform-origin: 12% 50%; }
-@media (prefers-reduced-motion: no-preference) {
-  /* El movimiento empieza cuando la capa aparece, no mientras espera precargada. */
-  .album-movie-slide.is-ready .album-movie-photo[class*="motion-in-"] { animation: album-movie-zoom-in calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
-  .album-movie-slide.is-ready .album-movie-photo[class*="motion-out-"] { animation: album-movie-zoom-out calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
-  @keyframes album-movie-zoom-in { from { transform: scale(1); } to { transform: scale(1.12); } }
-  @keyframes album-movie-zoom-out { from { transform: scale(1.12); } to { transform: scale(1); } }
-}
-/* Con movimiento reducido no hay zoom y el fundido es breve. */
-@media (prefers-reduced-motion: reduce) {
-  .album-movie-slide.is-ready { animation-duration: .4s; }
-}
+/* El zoom y el fundido completo corren siempre, también con movimiento reducido (decisión de la
+   usuaria, 08/11/2026). El movimiento empieza cuando la capa aparece, no mientras espera precargada. */
+.album-movie-slide.is-ready .album-movie-photo[class*="motion-in-"] { animation: album-movie-zoom-in calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+.album-movie-slide.is-ready .album-movie-photo[class*="motion-out-"] { animation: album-movie-zoom-out calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+@keyframes album-movie-zoom-in { from { transform: scale(1); } to { transform: scale(1.12); } }
+@keyframes album-movie-zoom-out { from { transform: scale(1.12); } to { transform: scale(1); } }

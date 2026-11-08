@@ -105,8 +105,5 @@
   /* En teléfono se desliza con el dedo; las flechas quedan pequeñas para no tapar la foto. */
   .album-viewer-nav { width: 40px; height: 40px; opacity: .75; }
 }
-/* Con movimiento reducido el fundido es casi inmediato y el zoom no se anima. */
-@media (prefers-reduced-motion: reduce) {
-  .album-viewer-layer.is-ready { animation-duration: .12s; }
-  .album-viewer-layer img, .album-viewer-layer video { transition: none; }
-}
+/* El fundido y el zoom animado se mantienen también con movimiento reducido (decisión de la usuaria,
+   08/11/2026). */

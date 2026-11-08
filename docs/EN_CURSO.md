@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Película y visor animados también con movimiento reducido — 08/11/2026
+- ✅ En el teléfono de la usuaria faltaban las animaciones en «Ver como película» y en el visor de imagen, por la misma preferencia de movimiento reducido: la película quitaba el zoom y acortaba el fundido a 0.4 s y el visor acortaba el fundido a 0.12 s y quitaba la transición del zoom. Ahora corren siempre (`album-movie.css`, `album-viewer.css`).
+- ✅ Build y 61 pruebas; con la preferencia simulada: película con `album-movie-zoom-in` de 7.8 s y fundido de 1.4 s, visor con fundido de 0.32 s y zoom animado. Push a pedido de la usuaria.
+- ❓ Confirmar en el teléfono de la usuaria (recargar la página).
+
 ## Recuerdos y álbum se mueven como la portada — 08/11/2026
 - ✅ En el teléfono de la usuaria la portada se movía y `/recuerdos` y `/album` no. Causa: el teléfono pide «movimiento reducido»; el halo y las runas de la portada nunca respetaron esa preferencia, mientras que las otras dos páginas dejaban quietos partículas, linternas, sol, portada del álbum y haz de las miniaturas. La versión suave solo con opacidad (`d41d75d`, ya en producción) no bastó.
 - ✅ Los efectos decorativos de las tres páginas corren siempre (`pages.css`, `album-hero.css`, `album-mosaic.css`, `magic-hero.css`, `MagicGardenHero.tsx`); se retiró la versión suave. El sol gira más rápido (40 s por vuelta, antes 90 s) para que se note. Las partículas suben con `vh` en lugar de `svh` (`invitation.css`), por si el teléfono no reconoce `svh`.

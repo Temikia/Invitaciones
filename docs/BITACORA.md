@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 00:56 — Ciudad de México (GMT−6)
+
+La usuaria confirmó que recuerdos y álbum ya se mueven, pero en su teléfono faltaban las animaciones del modo película y del visor de imagen. Era la misma preferencia de movimiento reducido: la película quitaba el zoom y acortaba el fundido, y el visor hacía el fundido casi instantáneo y el zoom sin transición. A su pedido, ambos conservan siempre sus animaciones. Build y 61 pruebas; comprobado simulando la preferencia. Push a pedido de la usuaria.
+
 ## 2026-11-08 00:52 — Ciudad de México (GMT−6)
 
 La usuaria confirmó que con la versión suave seguía igual: en su teléfono la portada mueve sus objetos y `/recuerdos` y `/album` no. La portada siempre ignoró la preferencia de movimiento reducido en su halo y runas, mientras que las otras dos páginas sí la respetaban y se quedaban quietas; titilar no se percibe como movimiento. A pedido de la usuaria, los efectos decorativos de las tres páginas se mueven siempre, como la portada, y se retiró la versión suave. El sol gira más rápido para notarse y las partículas usan `vh` en lugar de `svh` por compatibilidad. Se conserva el movimiento reducido en el visor, la película y la carga. Build y 61 pruebas; comprobado simulando la preferencia. Push a pedido de la usuaria.
