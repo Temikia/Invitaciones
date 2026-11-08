@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Película con fondo desenfocado y «Ver más» de 20 — 07/11/2026
+- ✅ «Ver como película»: cada foto completa (`contain`) sobre la misma imagen ampliada y desenfocada; en teléfono las bandas quedan arriba y abajo. Zoom que alterna acercar/alejar hacia seis puntos (`MOVIE_MOTIONS`, `movieMotion` en `src/lib/albumShow.ts`) y fundido cruzado de 1.4 s: la capa anterior permanece debajo hasta que la nueva aparece. Videos con su póster desenfocado de fondo.
+- ✅ Portada con «Subir mis fotos» → `/recuerdos`. Mosaico de 20 en 20 (`ALBUM_PAGE_SIZE`) con «Ver más» violeta de borde dorado; el foco pasa al primer recuerdo nuevo.
+- ✅ Build y 38 pruebas; revisado en navegador local con las 35 fotos reales en escritorio y 375 px.
+- ❓ No se vio el fundido ni el zoom en movimiento (el panel del navegador marcaba la pestaña como oculta y la película se pausaba), ni movimiento reducido, ni teléfono real, ni rendimiento del desenfoque en teléfonos modestos. Sin despliegue.
+- Siguiente paso: la usuaria revisa la película en su navegador y teléfono.
+
 ## Miniaturas del álbum — 07/11/2026
 - ✅ Nuevo `api/drive/gallery/thumb.js` (480/960/1920 px): usa la miniatura de Drive y, si no existe, reduce el original con `sharp` (ahora dependencia de producción). Mosaico, visor, póster de video y película usan miniaturas; ninguna vista descarga originales de fotos salvo el visor como último recurso. Validación de carpeta/marcador compartida en `findAlbumFile` de `server/drive.js`.
 - ✅ Build y 37 pruebas. Con las 35 fotos reales: miniaturas de 41/99/305 KB frente a originales de 41–51 MB; 3 fotos de 50–51 MB sin miniatura de Drive se generaron con `sharp` en unos 3 s (20–24 KB); mosaico sin descargas de originales y visor con la versión de 1920 px. Tamaño inválido → 400, archivo ajeno → 404.

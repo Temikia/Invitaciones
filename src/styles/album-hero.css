@@ -97,26 +97,37 @@
   font-size: 13px;
   line-height: 1.7;
 }
-.album-hero-movie {
+.album-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.album-hero-movie, .album-hero-upload {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   min-height: 46px;
-  margin-top: 26px;
   padding: 0 22px;
-  border: 1px solid #dbba78;
   border-radius: 999px;
-  background: linear-gradient(135deg, #f1d79f, #c9a15c);
-  color: #22152f;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: .02em;
   cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.album-hero-movie {
+  border: 1px solid #dbba78;
+  background: linear-gradient(135deg, #f1d79f, #c9a15c);
+  color: #22152f;
   box-shadow: 0 10px 30px rgba(219, 186, 120, .22);
-  transition: transform .25s ease, box-shadow .25s ease;
 }
 .album-hero-movie:hover { transform: translateY(-1px); box-shadow: 0 14px 34px rgba(219, 186, 120, .34); }
-.album-hero-movie:focus-visible, .album-hero-back:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
+/* Acción secundaria: violeta translúcido con borde dorado, para que «Ver como película» siga mandando. */
+.album-hero-upload {
+  border: 1px solid rgba(219, 186, 120, .8);
+  background: rgba(58, 31, 92, .55);
+  color: #f6dfac;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+}
+.album-hero-upload:hover { transform: translateY(-1px); background: rgba(84, 48, 128, .7); }
+.album-hero-movie:focus-visible, .album-hero-upload:focus-visible, .album-hero-back:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
 
 @media (min-width: 900px) {
   .album-hero { padding-inline: 48px; padding-bottom: 72px; }
@@ -130,4 +141,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .album-hero-media img { transition: none; }
+  .album-hero-movie:hover, .album-hero-upload:hover { transform: none; }
 }

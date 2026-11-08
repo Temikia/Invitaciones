@@ -30,7 +30,10 @@ function MosaicThumb({ file, size, video }: { file: AlbumFile; size: ThumbSize; 
   </>;
 }
 
-/** Mosaico de tamaños variados con destello dorado; el destello solo se anima en los cuadros visibles. */
+/**
+ * Mosaico de tamaños variados con destello dorado; el destello solo se anima en los cuadros visibles.
+ * Muestra ALBUM_PAGE_SIZE recuerdos y cada «Ver más» agrega otra tanda: solo se piden esas miniaturas.
+ */
 export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
   const { language } = useLanguage();
   const [filter, setFilter] = useState<AlbumFilter>("all");
@@ -57,6 +60,20 @@ export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
     observer.current = null;
   }, []);
 
+  // Al cargar otra tanda, el foco pasa al primer recuerdo nuevo para seguir con el teclado.
+  const focusFrom = useRef<number | null>(null);
+  const list = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    if (focusFrom.current === null) return;
+    const target = list.current?.querySelectorAll<HTMLButtonElement>(".album-tile button")[focusFrom.current];
+    focusFrom.current = null;
+    target?.focus({ preventScroll: true });
+  }, [visible]);
+  const showMore = () => {
+    focusFrom.current = shown.length;
+    setVisible((value) => nextVisibleCount(value, filtered.length));
+  };
+
   const choose = (next: AlbumFilter) => {
     setFilter(next);
     setVisible(ALBUM_PAGE_SIZE);
@@ -78,7 +95,7 @@ export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
     </div>
     {shown.length === 0 ? <p className="album-empty-filter" role="status">
       {filter === "videos" ? (language === "en" ? "No videos have been shared yet." : "Todavía no hay videos.") : (language === "en" ? "No photos have been shared yet." : "Todavía no hay fotos.")}
-    </p> : <ul className="album-mosaic">
+    </p> : <ul ref={list} className="album-mosaic">
       {shown.map((file, index) => {
         const video = isVideo(file);
         const tile = mosaicTile(index);
@@ -92,8 +109,9 @@ export function AlbumMosaic({ files, onOpen }: AlbumMosaicProps) {
       })}
     </ul>}
     {remaining > 0 && <div className="album-more">
-      <button type="button" onClick={() => setVisible((value) => nextVisibleCount(value, filtered.length))}>
-        {language === "en" ? "See more memories" : "Ver más recuerdos"} <span>({remaining})</span>
+      <button type="button" onClick={showMore}
+        aria-label={language === "en" ? `See more (${remaining} remaining)` : `Ver más (quedan ${remaining})`}>
+        {language === "en" ? "See more" : "Ver más"}
       </button>
     </div>}
   </section>;

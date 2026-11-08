@@ -141,19 +141,26 @@
 
 .album-empty-filter { margin: 40px 0; color: #cdbfd6; font-size: 13px; text-align: center; }
 .album-more { display: flex; justify-content: center; margin-top: 30px; }
+/* «Ver más»: violeta con borde dorado. */
 .album-more button {
-  min-height: 46px;
-  padding: 0 24px;
-  border: 1px solid rgba(219, 186, 120, .55);
+  min-height: 48px;
+  min-width: 168px;
+  padding: 0 30px;
+  border: 1.5px solid #dbba78;
   border-radius: 999px;
-  background: rgba(219, 186, 120, .06);
-  color: #efd5a4;
-  font-size: 13px;
+  background: linear-gradient(135deg, #6a3d99, #43215f);
+  color: #f6dfac;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
   cursor: pointer;
-  transition: background .25s;
+  box-shadow: 0 0 0 3px rgba(219, 186, 120, .12), 0 10px 28px rgba(67, 33, 95, .45);
+  transition: background .25s, box-shadow .25s;
 }
-.album-more button:hover { background: rgba(219, 186, 120, .14); }
-.album-more span { color: #bcb0c5; }
+.album-more button:hover {
+  background: linear-gradient(135deg, #7b4bb0, #522a73);
+  box-shadow: 0 0 0 3px rgba(219, 186, 120, .22), 0 12px 32px rgba(67, 33, 95, .55);
+}
 
 @media (min-width: 720px) {
   .album-mosaic-section { --cols: 4; --gap: 10px; }

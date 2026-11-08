@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { filterAlbum, mosaicTile, shuffle, thumbSrc } from "./albumShow";
+import { MOVIE_MOTIONS, filterAlbum, mosaicTile, movieMotion, shuffle, thumbSrc } from "./albumShow";
 
 const sequence = (...values: number[]) => {
   let index = 0;
@@ -41,5 +41,17 @@ describe("miniaturas", () => {
     expect(thumbSrc(file, 480)).toBe("/api/drive/gallery/thumb?id=a&size=480");
     expect(thumbSrc(file, 1920)).toBe("/api/drive/gallery/thumb?id=a&size=1920");
     expect(thumbSrc({ ...file, thumbUrl: undefined }, 960)).toBe(file.mediaUrl);
+  });
+});
+
+describe("movimientos de la película", () => {
+  it("alterna acercamiento y alejamiento sin repetir dirección en recuerdos seguidos", () => {
+    const steps = Array.from({ length: 13 }, (_, step) => movieMotion(step));
+    for (let index = 1; index < steps.length; index += 1) {
+      expect(steps[index]).not.toBe(steps[index - 1]);
+      expect(steps[index].slice(0, 3)).not.toBe(steps[index - 1].slice(0, 3));
+    }
+    expect(new Set(steps.slice(0, MOVIE_MOTIONS.length)).size).toBe(MOVIE_MOTIONS.length);
+    expect(movieMotion(-1)).toBe(MOVIE_MOTIONS[MOVIE_MOTIONS.length - 1]);
   });
 });

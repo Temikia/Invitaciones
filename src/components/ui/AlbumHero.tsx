@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { ArrowLeft, Clapperboard } from "lucide-react";
+import { ArrowLeft, Clapperboard, ImagePlus } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { invitation } from "../../config/invitation";
 import { useReducedMotion, usePageVisible } from "../../hooks/useReducedMotion";
@@ -53,9 +53,14 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
       <p className="eyebrow">{language === "en" ? "Camila's XV · The album" : "Mis XV · Camila · Álbum"}</p>
       <h1 id="album-title">{language === "en" ? <>Our night,<br /><em>our memories</em></> : <>Nuestra noche,<br /><em>nuestros recuerdos</em></>}</h1>
       <p>{language === "en" ? "A collection of moments shared by the people who celebrated with Camila." : "Momentos compartidos por quienes celebraron con Camila."}</p>
-      {canPlayMovie && <button type="button" className="album-hero-movie" onClick={onPlayMovie}>
-        <Clapperboard size={17} aria-hidden="true" /> {language === "en" ? "Watch as a movie" : "Ver como película"}
-      </button>}
+      <div className="album-hero-actions">
+        {canPlayMovie && <button type="button" className="album-hero-movie" onClick={onPlayMovie}>
+          <Clapperboard size={17} aria-hidden="true" /> {language === "en" ? "Watch as a movie" : "Ver como película"}
+        </button>}
+        <a href="/recuerdos" className="album-hero-upload">
+          <ImagePlus size={17} aria-hidden="true" /> {language === "en" ? "Upload my photos" : "Subir mis fotos"}
+        </a>
+      </div>
     </div>
   </section>;
 }

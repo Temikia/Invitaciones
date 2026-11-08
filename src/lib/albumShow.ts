@@ -7,6 +7,21 @@ export type MosaicTile = "" | "big" | "tall" | "wide";
 /** Duración de cada foto de la portada y de cada recuerdo en el modo película. */
 export const HERO_SLIDE_MS = 4000;
 export const MOVIE_SLIDE_MS = 5000;
+/** Duración del fundido entre un recuerdo y el siguiente en el modo película. */
+export const MOVIE_FADE_MS = 1400;
+
+/**
+ * Movimientos de cámara de la película. Alternan acercamiento y alejamiento y cambian de
+ * dirección; cada nombre corresponde a una animación de `album-movie.css`.
+ */
+export const MOVIE_MOTIONS = ["in-top-left", "out-bottom-right", "in-right", "out-top", "in-bottom-left", "out-left"] as const;
+export type MovieMotion = (typeof MOVIE_MOTIONS)[number];
+
+/** Movimiento del recuerdo número `step` de la sesión: dos recuerdos seguidos nunca repiten. */
+export function movieMotion(step: number): MovieMotion {
+  const count = MOVIE_MOTIONS.length;
+  return MOVIE_MOTIONS[((Math.trunc(step) % count) + count) % count];
+}
 
 /** Fisher–Yates sin modificar la lista recibida. */
 export function shuffle<T>(items: readonly T[], random: () => number = Math.random): T[] {

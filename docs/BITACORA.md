@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 18:47 — Ciudad de México (GMT−6)
+
+En «Ver como película» las fotos verticales se cortaban en pantallas horizontales. A pedido de la usuaria, cada foto se muestra completa sobre su propia versión desenfocada (al revés en teléfono), con zoom que alterna dirección y un fundido cruzado para que los recuerdos se fusionen. La portada suma «Subir mis fotos» hacia `/recuerdos` y el mosaico carga de 20 en 20 con un «Ver más» violeta de borde dorado, para pedir menos miniaturas al abrir. Build y 38 pruebas; revisado en navegador local con las fotos reales. Sin despliegue.
+
 ## 2026-11-07 18:33 — Ciudad de México (GMT−6)
 
 El mosaico descargaba originales de 41–51 MB y el álbum resultaba inutilizable. Se añadió un endpoint de miniaturas que aprovecha las de Drive y, para fotos que Drive no procesa, las reduce en el servidor con `sharp`. Mosaico, visor y película pasan a usar miniaturas (de 1.6 GB a unos pocos MB para 35 fotos). Build y 37 pruebas; verificado con las fotos reales en local. Sin despliegue.

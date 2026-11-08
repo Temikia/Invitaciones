@@ -17,15 +17,35 @@
 .album-movie-stage {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
   overflow: hidden;
 }
-.album-movie-stage img, .album-movie-stage video {
+/* Cada recuerdo es una capa; la nueva aparece encima de la anterior con un fundido cruzado. */
+.album-movie-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--movie-fade, 1.4s) ease-in-out;
+}
+.album-movie-slide.is-ready { opacity: 1; }
+/* La misma foto, ampliada y desenfocada, rellena el espacio que la foto completa no cubre. */
+.album-movie-backdrop {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  filter: blur(38px) brightness(.55) saturate(1.15);
+  transform: translateZ(0);
+}
+.album-movie-photo, .album-movie-slide video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
+.album-movie-photo { filter: drop-shadow(0 18px 50px rgba(7, 4, 12, .55)); will-change: transform; }
 .album-movie-top {
   position: absolute;
   top: 0;
@@ -103,14 +123,26 @@
   animation: album-movie-fill var(--movie-slide, 5s) linear forwards;
 }
 .album-movie.is-paused .album-movie-progress b,
-.album-movie.is-paused .album-movie-stage img { animation-play-state: paused; }
+.album-movie.is-paused .album-movie-photo { animation-play-state: paused; }
 @keyframes album-movie-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+/*
+ * Movimientos de cámara: alternan acercamiento y alejamiento hacia puntos distintos
+ * (ver MOVIE_MOTIONS). Duran más que el recuerdo para seguir moviéndose durante el fundido.
+ */
+.album-movie-photo.motion-in-top-left { transform-origin: 22% 22%; }
+.album-movie-photo.motion-out-bottom-right { transform-origin: 78% 78%; }
+.album-movie-photo.motion-in-right { transform-origin: 88% 50%; }
+.album-movie-photo.motion-out-top { transform-origin: 50% 12%; }
+.album-movie-photo.motion-in-bottom-left { transform-origin: 20% 82%; }
+.album-movie-photo.motion-out-left { transform-origin: 12% 50%; }
 @media (prefers-reduced-motion: no-preference) {
-  .album-movie-stage { animation: album-movie-in .9s ease both; }
-  .album-movie-stage img.drift-right { animation: album-movie-drift-right calc(var(--movie-slide, 5s) + 1s) ease-out forwards; }
-  .album-movie-stage img.drift-left { animation: album-movie-drift-left calc(var(--movie-slide, 5s) + 1s) ease-out forwards; }
-  @keyframes album-movie-in { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes album-movie-drift-right { from { transform: scale(1); } to { transform: scale(1.08) translateX(1.5%); } }
-  @keyframes album-movie-drift-left { from { transform: scale(1.08) translateX(1.5%); } to { transform: scale(1); } }
+  .album-movie-photo[class*="motion-in-"] { animation: album-movie-zoom-in calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+  .album-movie-photo[class*="motion-out-"] { animation: album-movie-zoom-out calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+  @keyframes album-movie-zoom-in { from { transform: scale(1); } to { transform: scale(1.12); } }
+  @keyframes album-movie-zoom-out { from { transform: scale(1.12); } to { transform: scale(1); } }
+}
+/* Con movimiento reducido no hay zoom y el fundido es breve. */
+@media (prefers-reduced-motion: reduce) {
+  .album-movie-slide { transition-duration: .4s; }
 }

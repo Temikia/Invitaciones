@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Película con fondo desenfocado y carga de 20 en 20 — 07/11/2026
+- Build y 38 pruebas (incluye `movieMotion`: recuerdos seguidos nunca repiten movimiento y alternan acercar/alejar; tandas de 20 con 45 archivos).
+- Navegador local con las 35 fotos reales: el mosaico abrió con 20 cuadros y 20 miniaturas pedidas; «Ver más» (etiqueta accesible «quedan 15») mostró las 35, desapareció y llevó el foco al cuadro 21. «Subir mis fotos» enlaza a `/recuerdos` y aparece también mientras carga el álbum.
+- Película en escritorio: foto vertical 1281 × 1920 completa con bandas desenfocadas a los lados; en 375 × 812, bandas arriba y abajo. Al avanzar, la capa anterior siguió al 100 % debajo mientras la nueva cargaba transparente; al cargar, la nueva pasó encima y la anterior se retiró al terminar el fundido. El panel del navegador reportaba la pestaña como oculta, así que la película estaba en pausa y no se pudo observar el fundido en movimiento ni el zoom en curso.
+- Sin emular movimiento reducido, sin teléfono real y sin videos reales. Sin despliegue.
+
 ## Miniaturas del álbum — 07/11/2026
 - Build y 37 pruebas (incluye `thumbSrc`). Servidor local con Drive real: `thumb` 480/960/1920 → 200 `image/jpeg` de 41/99/305 KB con `Cache-Control: private, max-age=86400`; tamaño 700 → 400; id ajeno → 404. Las 35 fotos respondieron; las 3 sin miniatura de Drive (50–51 MB) se redujeron con `sharp` en unos 3 s.
 - Navegador: el mosaico cargó solo miniaturas (ningún original) y el visor mostró la versión de 1281 × 1920. No se probaron videos reales, HEIC ni Preview.
