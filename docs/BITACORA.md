@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 23:41 — Ciudad de México (GMT−6)
+
+Las imágenes del álbum seguían tardando en producción. Las 35 fotos profesionales pesaban 41–53 MB a 45 MP; Drive no generaba miniatura para tres de ellas y el servidor tenía que reducirlas con `sharp`. La usuaria autorizó comprimirlas al máximo sin perder calidad y reemplazarlas. Se redujeron a 4096 px de lado mayor (más que cualquier pantalla 4K en vertical) con mozjpeg calidad 88 y color completo 4:4:4: 1676 MB → 65 MB, sin diferencia visible. Se reemplazó el contenido de cada archivo en Drive para conservar ID, orden y marcador; los originales siguen intactos en `multimedia/`. Ahora todas tienen miniatura de Drive y en local responden en menos de 1 s. Build y 47 pruebas. No requiere despliegue.
+
 ## 2026-11-07 23:01 — Ciudad de México (GMT−6)
 
 En producción el álbum mostró «Se alcanzó el límite temporal de consultas». La galería permitía 120 solicitudes por minuto por IP y cada miniatura cuenta como una, así que recorrer el álbum (o varios invitados en la misma red) lo agotaba; también fallaba cerrado si Upstash no respondía. A petición de la usuaria se retiró el límite de las tres rutas de lectura del álbum, para que todos puedan verlo sin bloqueos; las cargas mantienen sus protecciones. Build y 47 pruebas; push a `main`.

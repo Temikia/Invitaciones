@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Fotos del álbum comprimidas en Drive — 07/11/2026
+- ✅ Las 35 fotos del álbum (41–53 MB, 5464×8192) se reemplazaron en Drive por versiones de 4096 px de lado mayor, mozjpeg calidad 88, 4:4:4, sRGB y sin EXIF: 1676 MB → 65 MB (1.3–2.6 MB cada una). Prueba previa: sin diferencia visible en recortes; PSNR 42 dB frente al original reducido. Se actualizó el contenido de cada archivo, así que conservan ID, fecha de creación (orden), nombre y marcador. Script `scripts/compress-album.mjs`; originales intactos en `multimedia/`.
+- ✅ Drive ya genera miniatura para las 35 (antes 3 dependían de `sharp`). En local: miniaturas de 480/1920 px y original en menos de 1 s; álbum con 20 miniaturas cargadas y ninguna rota. Build y 47 pruebas.
+- ❓ Confirmar en producción que el álbum carga rápido (no requiere despliegue: el cambio vive en Drive; la caché del navegador puede servir miniaturas anteriores hasta un día). Drive guarda la revisión anterior de cada foto unos 30 días.
+
 ## Sin límite de consultas en el álbum — 07/11/2026
 - ✅ En producción el álbum respondía «Se alcanzó el límite temporal de consultas»: `allowGalleryRead` permitía 120 solicitudes/minuto/IP y cada miniatura contaba como una (además bloqueaba todo si Upstash fallaba). Por petición de la usuaria se retiró de `api/drive/gallery/{index,thumb,media}.js` y de `server/security.js` (`9aeac67`). Las cargas conservan Turnstile y 4 lotes/minuto/IP.
 - ✅ Build y 47 pruebas. Push a `main`.
