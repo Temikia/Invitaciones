@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 01:06 — Ciudad de México (GMT−6)
+
+La usuaria notó que en el visor, al cambiar de recuerdo, a veces había un parpadeo. La foto que se iba se volvía a crear como imagen nueva al pasar debajo de la siguiente, y si el navegador no la tenía lista en ese primer cuadro el fondo se veía vacío por un instante. Al cambiar rápido, además, quedaba debajo una foto que aún no aparecía y la que se veía desaparecía de golpe. Ahora ambas capas se pintan en una misma lista para que la foto saliente conserve su imagen, debajo queda siempre la que se veía y se retira justo al terminar el fundido. Build y 68 pruebas; comprobado en navegador local. Push a pedido de la usuaria.
+
 ## 2026-11-08 00:56 — Ciudad de México (GMT−6)
 
 La usuaria confirmó que recuerdos y álbum ya se mueven, pero en su teléfono faltaban las animaciones del modo película y del visor de imagen. Era la misma preferencia de movimiento reducido: la película quitaba el zoom y acortaba el fundido, y el visor hacía el fundido casi instantáneo y el zoom sin transición. A su pedido, ambos conservan siempre sus animaciones. Build y 61 pruebas; comprobado simulando la preferencia. Push a pedido de la usuaria.

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as R
 import { ChevronLeft, ChevronRight, RotateCw, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { isVideo, thumbSrc, whenDecoded, type AlbumFile } from "../../lib/albumShow";
+import { leavingLayer, stageLayers } from "../../lib/albumViewer";
 import { VIEWER_ZOOM_MAX, VIEWER_ZOOM_MIN, VIEWER_ZOOM_STEP, clampPan, clampZoom, swipeStep, type Pan } from "../../lib/albumZoom";
 import "../../styles/album-viewer.css";
 
@@ -20,7 +21,7 @@ const DOUBLE_TAP_MS = 300;
 const VIDEO_CONTROLS_PX = 64;
 
 /** Recuerdo pintado en el escenario. El saliente conserva su transformación mientras el nuevo aparece. */
-type Layer = { key: string; file: AlbumFile; transform?: string };
+type Layer = { key: string; file: AlbumFile; transform?: string; fit?: CSSProperties };
 type Gesture = {
   /** pan: arrastrar la foto ampliada · swipe: deslizar con el dedo · pinch: pellizcar · tap: clic sin zoom (doble clic). */
   mode: "pan" | "swipe" | "pinch" | "tap";
@@ -64,6 +65,7 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
   const ready = Boolean(layerKey) && (video || readyKey === layerKey);
   const turned = rotation % 180 !== 0;
   const transform = `translate3d(${pan.x + swipeX}px, ${pan.y}px, 0) rotate(${rotation}deg) scale(${zoom})`;
+  const fit: CSSProperties = turned ? { maxWidth: stage.height, maxHeight: stage.width } : { maxWidth: stage.width, maxHeight: stage.height };
 
   useEffect(() => {
     const element = dialog.current;
@@ -98,10 +100,11 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
     pointers.current.clear();
   }, [layerKey]);
 
-  // Cuando el recuerdo nuevo ya se ve, el anterior se retira al terminar el fundido.
+  // El anterior se retira cuando termina de verdad el fundido del nuevo (onAnimationEnd de la capa);
+  // este temporizador solo es respaldo por si el navegador no emite el evento.
   useEffect(() => {
     if (!ready || !file) return;
-    const timer = window.setTimeout(() => setLeaving(null), VIEWER_FADE_MS);
+    const timer = window.setTimeout(() => setLeaving(null), VIEWER_FADE_MS + 300);
     return () => window.clearTimeout(timer);
   }, [ready, layerKey]);
 
@@ -117,12 +120,14 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
     }
   }, [files, index, canNavigate]);
 
-  lastShown.current = file ? { key: layerKey, file, transform } : null;
+  lastShown.current = file ? { key: layerKey, file, transform, fit } : null;
 
   const go = (step: number) => {
     if (index === null || !canNavigate) return;
-    // El recuerdo actual se queda debajo, tal como se ve, mientras el siguiente aparece encima.
-    setLeaving(lastShown.current);
+    // El recuerdo que se ve se queda debajo, tal como está, mientras el siguiente aparece encima.
+    const shown = lastShown.current;
+    const shownVisible = ready;
+    setLeaving((previous) => leavingLayer(previous, shown, shownVisible));
     onIndexChange((index + step + files.length) % files.length);
   };
 
@@ -243,10 +248,9 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
     void whenDecoded(event.currentTarget).then(() => setReadyKey(key));
   };
 
-  const fit = turned ? { maxWidth: stage.height, maxHeight: stage.width } : { maxWidth: stage.width, maxHeight: stage.height };
   const label = en ? "Memory viewer" : "Visor de recuerdos";
   const zoomPercent = Math.round(zoom * 100);
-  const layers = leaving && leaving.key !== layerKey ? [leaving] : [];
+  const layers = stageLayers(leaving, file ? { key: layerKey, file } : null);
   return <dialog ref={dialog} className="album-viewer" aria-label={label}
     style={{ "--viewer-fade": `${VIEWER_FADE_MS}ms` } as CSSProperties}
     onCancel={(event) => { event.preventDefault(); closeRef.current(); }}
@@ -279,23 +283,27 @@ export function AlbumViewer({ files, index, onIndexChange, onClose }: AlbumViewe
           const pixels = event.deltaY * (event.deltaMode === 1 ? 33 : event.deltaMode === 2 ? 400 : 1);
           zoomTo(zoom * Math.exp(-Math.max(-200, Math.min(200, pixels)) * 0.002), stagePoint(event.clientX, event.clientY));
         }}>
-        {layers.map((layer) => <div key={layer.key} className="album-viewer-layer is-leaving" aria-hidden="true">
-          {isVideo(layer.file)
-            ? layer.file.thumbUrl && <img src={thumbSrc(layer.file, 1920)} alt="" style={fit} />
-            : <img src={thumbSrc(layer.file, 1920)} alt="" style={{ ...fit, transform: layer.transform }} />}
-        </div>)}
-        <div key={layerKey} className={`album-viewer-layer${ready ? " is-ready" : ""}`}>
-          {video ? <video src={file.mediaUrl} poster={file.thumbUrl ? thumbSrc(file, 1920) : undefined} controls playsInline
-            aria-label={en ? "Shared video" : "Video compartido"} style={{ transform: swipeX ? `translate3d(${swipeX}px, 0, 0)` : undefined }} /> :
-            /* Versión de pantalla completa generada por Drive; si falta, se usa el original. */
-            <img ref={imageRef} src={thumbSrc(file, 1920)} alt={en ? "Shared photo" : "Fotografía compartida"} draggable={false}
-              style={{ ...fit, transform }} onLoad={onPhotoLoad}
-              onError={(event) => {
-                const fallback = new URL(file.mediaUrl, location.href).href;
-                if (event.currentTarget.src !== fallback) event.currentTarget.src = file.mediaUrl;
-                else setReadyKey(layerKey);
-              }} />}
-        </div>
+        {/* Saliente y actual en una sola lista con claves estables: la capa que deja de ser actual
+            conserva su nodo y su imagen ya decodificada, así no parpadea al quedar debajo. */}
+        {layers.map(({ layer, leaving: isLeaving }) => isLeaving
+          ? <div key={layer.key} className="album-viewer-layer is-leaving" aria-hidden="true">
+            {isVideo(layer.file)
+              ? layer.file.thumbUrl && <img src={thumbSrc(layer.file, 1920)} alt="" style={layer.fit} />
+              : <img src={thumbSrc(layer.file, 1920)} alt="" draggable={false} style={{ ...layer.fit, transform: layer.transform }} />}
+          </div>
+          : <div key={layer.key} className={`album-viewer-layer${ready ? " is-ready" : ""}`}
+            onAnimationEnd={(event) => { if (event.target === event.currentTarget) setLeaving(null); }}>
+            {video ? <video src={file.mediaUrl} poster={file.thumbUrl ? thumbSrc(file, 1920) : undefined} controls playsInline
+              aria-label={en ? "Shared video" : "Video compartido"} style={{ transform: swipeX ? `translate3d(${swipeX}px, 0, 0)` : undefined }} /> :
+              /* Versión de pantalla completa generada por Drive; si falta, se usa el original. */
+              <img ref={imageRef} src={thumbSrc(file, 1920)} alt={en ? "Shared photo" : "Fotografía compartida"} draggable={false}
+                style={{ ...fit, transform }} onLoad={onPhotoLoad}
+                onError={(event) => {
+                  const fallback = new URL(file.mediaUrl, location.href).href;
+                  if (event.currentTarget.src !== fallback) event.currentTarget.src = file.mediaUrl;
+                  else setReadyKey(layerKey);
+                }} />}
+          </div>)}
         {canNavigate && <>
           <button type="button" className="album-viewer-nav is-prev" onClick={() => go(-1)} aria-label={en ? "Previous memory" : "Recuerdo anterior"}><ChevronLeft size={26} /></button>
           <button type="button" className="album-viewer-nav is-next" onClick={() => go(1)} aria-label={en ? "Next memory" : "Recuerdo siguiente"}><ChevronRight size={26} /></button>

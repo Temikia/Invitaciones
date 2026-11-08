@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Visor sin parpadeo al cambiar de recuerdo — 08/11/2026
+- ✅ Causa 1: la foto saliente se volvía a crear como imagen nueva al quedar debajo (estaba fuera de la lista de la capa actual, así que React no reutilizaba el nodo); si no estaba decodificada en el primer cuadro, el escenario quedaba vacío un instante. Causa 2: al cambiar dos veces seguidas quedaba debajo la capa que aún no aparecía y la que se veía desaparecía de golpe. Además, la saliente se retiraba con un temporizador que podía adelantarse al fundido.
+- ✅ Saliente y actual en una sola lista con claves estables, la saliente es siempre la que se veía y se retira con `onAnimationEnd` (temporizador solo de respaldo). Lógica pura en `src/lib/albumViewer.ts` con 7 pruebas; cambios en `AlbumViewer.tsx`.
+- ✅ Build y 68 pruebas; en navegador local la imagen saliente es el mismo nodo (antes no) y con dos cambios rápidos queda debajo la que se veía. Push a pedido de la usuaria.
+- ❓ Confirmar en el teléfono de la usuaria.
+
 ## Película y visor animados también con movimiento reducido — 08/11/2026
 - ✅ En el teléfono de la usuaria faltaban las animaciones en «Ver como película» y en el visor de imagen, por la misma preferencia de movimiento reducido: la película quitaba el zoom y acortaba el fundido a 0.4 s y el visor acortaba el fundido a 0.12 s y quitaba la transición del zoom. Ahora corren siempre (`album-movie.css`, `album-viewer.css`).
 - ✅ Build y 61 pruebas; con la preferencia simulada: película con `album-movie-zoom-in` de 7.8 s y fundido de 1.4 s, visor con fundido de 0.32 s y zoom animado. Push a pedido de la usuaria.

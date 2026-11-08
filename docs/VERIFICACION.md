@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Visor sin parpadeo — 08/11/2026 01:06 (GMT−6)
+
+- Antes de corregir, en navegador local: al pasar al siguiente, la imagen de la capa saliente no era el mismo nodo que la que se veía (`sameNode: false`), es decir, se creaba y decodificaba de nuevo.
+- Con la corrección: mismo nodo (`sameNode: true`), orden saliente debajo y actual encima; con dos clics seguidos en «siguiente» la saliente es la foto que se veía; la capa anterior se retira después de que la nueva queda lista (en el panel oculto por el respaldo, porque no corren animaciones). Build y 68 pruebas (7 nuevas en `src/lib/albumViewer.test.ts`).
+- Sin probar: el parpadeo a simple vista en teléfono real (el panel estaba oculto) y el cambio entre video y foto, donde la saliente sigue siendo la miniatura del video.
+
 ## Película y visor con movimiento reducido — 08/11/2026 00:56 (GMT−6)
 
 - Con movimiento reducido simulado en el navegador local: la película abre con la capa en `album-movie-fade-in` 1.4 s y la foto en `album-movie-zoom-in` 7.8 s; el visor, con la capa en `album-viewer-fade` 0.32 s y la imagen con transición de `transform` de 0.22 s. Build y 61 pruebas.
