@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "recuerdos",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:recuerdos"],
+      "port": 5188
+    }
+  ]
+}
