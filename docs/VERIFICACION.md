@@ -1,5 +1,11 @@
 # Verificación de la primera versión
 
+## Controles del visor y transición de la película — 07/11/2026
+- Build y 47 pruebas (nuevas en `src/lib/albumZoom.test.ts`: zoom mínimo 100 %, límites de arrastre con y sin giro, umbral de deslizar).
+- Visor en navegador local con fotos reales: dos «Acercar» → 200 % y arrastre con ratón limitado al borde (foto vertical: sin desplazamiento horizontal, vertical hasta −128 px); alejar hasta 100 % recentra; giro de 90° cabe completo en 977 × 684; doble clic → 200 % en el punto; rueda acerca y aleja. Al pasar al siguiente, la capa saliente quedó debajo y la nueva apareció con fundido. Deslizar simulado con puntero táctil: izquierda 2 → 3, derecha 3 → 2, gesto corto sin cambio y la foto vuelve a su lugar. En 375 × 812, iconos sueltos sin círculo.
+- Película: al avanzar, la capa precargada pasó a ser la actual ya lista en el mismo render (sin esperar carga) y se montó la siguiente. Con `(hover: none)` la X no se oculta; con ratón la regla de ocultar se aplica tras 2.5 s.
+- No observado: fundidos en movimiento y ocultamiento animado de la X (el panel del navegador estaba oculto y no corre animaciones), pellizcar con dos dedos reales, teléfono real y movimiento reducido.
+
 ## Cuenta regresiva en recuerdos, botón por fecha y ornamentos — 07/11/2026
 - Build y 41 pruebas (3 nuevas: etapas de carga con sus bordes exactos, ventana del botón del álbum y fechas inválidas).
 - Navegador local: `/recuerdos` hoy muestra sol, cuenta regresiva (14 d 19 h 45 min, coherente con 04:14 UTC) y aviso, sin selector ni Turnstile; con `Date.now` fijado a 22/11 17:00:01 Denver apareció el selector y desapareció el temporizador en 1 s. En `/album` el botón no está hoy y apareció tras fijar 21/11 17:00:05 y esperar el ciclo de 30 s.

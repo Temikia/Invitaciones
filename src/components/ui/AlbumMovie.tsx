@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type RefObject, type S
 import { ChevronLeft, ChevronRight, Pause, X } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { usePageVisible } from "../../hooks/useReducedMotion";
-import { MOVIE_FADE_MS, MOVIE_SLIDE_MS, isVideo, movieMotion, shuffle, thumbSrc, type AlbumFile } from "../../lib/albumShow";
+import { MOVIE_FADE_MS, MOVIE_SLIDE_MS, isVideo, movieMotion, shuffle, thumbSrc, whenDecoded, type AlbumFile } from "../../lib/albumShow";
 import "../../styles/album-movie.css";
 
 type AlbumMovieProps = { files: AlbumFile[]; open: boolean; onClose: () => void };
@@ -10,7 +10,10 @@ type AlbumMovieProps = { files: AlbumFile[]; open: boolean; onClose: () => void 
 /** Si un recuerdo no logra mostrarse en este tiempo, la película continúa con el siguiente. */
 const STALL_LIMIT_MS = 15000;
 
-/** Recuerdo en pantalla; `key` cambia en cada avance aunque se repita el archivo. */
+/** Tras este tiempo sin mover el ratón, la X de cerrar se oculta (solo con ratón; en pantallas táctiles siempre se ve). */
+const CONTROLS_IDLE_MS = 2500;
+
+/** Recuerdo en pantalla; `key` (paso y archivo) cambia en cada avance aunque se repita el archivo. */
 type Slide = { key: string; file: AlbumFile; step: number };
 
 type SlideEvents = {
@@ -27,19 +30,21 @@ type SlideEvents = {
  * dentro del marco, que nunca cambia de tamaño ni de lugar. La capa saliente se queda debajo, sin
  * eventos, mientras la nueva aparece.
  */
-function MovieSlide({ slide, ready, events }: { slide: Slide; ready: boolean; events?: SlideEvents }) {
+function MovieSlide({ slide, ready, preload = false, events }: { slide: Slide; ready: boolean; preload?: boolean; events?: SlideEvents }) {
   const { file } = slide;
   const [ratio, setRatio] = useState(0);
   const onPhotoLoad = (event: SyntheticEvent<HTMLImageElement>) => {
-    const { naturalWidth, naturalHeight } = event.currentTarget;
-    if (naturalWidth && naturalHeight) setRatio(naturalWidth / naturalHeight);
-    events?.onReady();
+    const image = event.currentTarget;
+    if (image.naturalWidth && image.naturalHeight) setRatio(image.naturalWidth / image.naturalHeight);
+    // Se espera a que la foto esté decodificada: así el fundido arranca sin un tirón ni un cuadro vacío.
+    const onReady = events?.onReady;
+    void whenDecoded(image).then(() => onReady?.());
   };
   const video = isVideo(file);
   const photoSrc = thumbSrc(file, 1920);
   // La foto reutiliza la misma miniatura (ya en caché); el video usa su póster pequeño, si existe.
   const backdropSrc = video ? (file.thumbUrl ? thumbSrc(file, 480) : undefined) : photoSrc;
-  return <div className={`album-movie-slide${ready ? " is-ready" : ""}`} aria-hidden="true">
+  return <div className={`album-movie-slide${ready ? " is-ready" : ""}${preload ? " is-preload" : ""}`} aria-hidden="true">
     {backdropSrc && <img className="album-movie-backdrop" src={backdropSrc} alt="" />}
     {video
       ? <video ref={events?.videoRef} src={file.mediaUrl} poster={file.thumbUrl ? photoSrc : undefined} muted playsInline autoPlay preload="auto"
@@ -56,7 +61,9 @@ function MovieSlide({ slide, ready, events }: { slide: Slide; ready: boolean; ev
  * Cada foto dura MOVIE_SLIDE_MS; cada video se reproduce sin sonido solo durante ese mismo tiempo.
  * El avance lo marca el final de la barra de progreso, que se detiene mientras el recuerdo carga,
  * la pestaña está oculta o se pulsa la barra espaciadora. Entre recuerdos hay un fundido cruzado:
- * el último que se mostró permanece debajo hasta que el nuevo termina de aparecer.
+ * el último que se mostró permanece debajo hasta que el nuevo termina de aparecer. La foto siguiente
+ * se monta oculta en cuanto la actual aparece, para que al avanzar ya esté cargada y decodificada y
+ * el fundido empiece sin espera.
  */
 export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
   const { language } = useLanguage();
@@ -70,16 +77,23 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
   const [position, setPosition] = useState(0);
   const [step, setStep] = useState(0);
   const [readyKey, setReadyKey] = useState("");
+  const [preloadedKey, setPreloadedKey] = useState("");
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const idleTimer = useRef(0);
   const [behind, setBehind] = useState<Slide | null>(null);
   const lastShown = useRef<Slide | null>(null);
   const [buffering, setBuffering] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
   const current = queue[position];
-  const slideKey = String(step);
+  const slideKey = current ? `${step}:${current.id}` : "";
   const slide: Slide | null = current ? { key: slideKey, file: current, step } : null;
   // Se compara la clave (no un booleano que se reinicia en un efecto) para que el recuerdo nuevo
   // nunca se pinte un instante como listo y el fundido siempre parta de transparente.
-  const ready = readyKey === slideKey;
+  const ready = Boolean(slideKey) && (readyKey === slideKey || preloadedKey === slideKey);
+  // Siguiente foto de la baraja, montada oculta debajo. Los videos y el cambio de baraja no se precargan así.
+  const upcoming = queue[position + 1];
+  const preloadSlide: Slide | null = open && ready && upcoming && !isVideo(upcoming)
+    ? { key: `${step + 1}:${upcoming.id}`, file: upcoming, step: step + 1 } : null;
   const paused = userPaused || !pageVisible || buffering || !ready;
 
   useEffect(() => {
@@ -90,6 +104,7 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     setPosition(0);
     setStep(0);
     setReadyKey("");
+    setPreloadedKey("");
     setBehind(null);
     lastShown.current = null;
     setUserPaused(false);
@@ -140,6 +155,18 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     else void video.play().catch(() => undefined);
   }, [userPaused, pageVisible, slideKey]);
 
+  // La X aparece al mover el ratón y se oculta tras un rato quieto.
+  const revealControls = () => {
+    setControlsVisible(true);
+    window.clearTimeout(idleTimer.current);
+    idleTimer.current = window.setTimeout(() => setControlsVisible(false), CONTROLS_IDLE_MS);
+  };
+  useEffect(() => {
+    if (!open) return;
+    revealControls();
+    return () => window.clearTimeout(idleTimer.current);
+  }, [open]);
+
   function advance(direction: number) {
     if (!queue.length) return;
     // En el mismo render que cambia de recuerdo, para que no quede ni un cuadro en negro.
@@ -160,10 +187,19 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
     onWaiting: () => setBuffering(true),
     onSkip: () => advance(1),
   };
-  // La capa saliente va primero (debajo) y conserva su clave, así no se reinicia su movimiento.
+  // La capa saliente va primero (debajo) y conserva su clave, así no se reinicia su movimiento. La
+  // precargada va al final para que, al volverse la actual, el orden de las capas no cambie.
   const layers = behind && slide && behind.key !== slide.key ? [behind, slide] : slide ? [slide] : [];
+  if (preloadSlide && !layers.some((layer) => layer.key === preloadSlide.key)) layers.push(preloadSlide);
+  const preloadEvents: SlideEvents | undefined = preloadSlide ? {
+    videoRef: { current: null },
+    onReady: () => setPreloadedKey(preloadSlide.key),
+    onWaiting: () => undefined,
+    onSkip: () => undefined,
+  } : undefined;
   const style = { "--movie-slide": `${MOVIE_SLIDE_MS}ms`, "--movie-fade": `${MOVIE_FADE_MS}ms` } as CSSProperties;
-  return <dialog ref={dialog} className={`album-movie${paused ? " is-paused" : ""}`} style={style}
+  return <dialog ref={dialog} className={`album-movie${paused ? " is-paused" : ""}${controlsVisible ? " show-controls" : ""}`} style={style}
+    onMouseMove={revealControls}
     aria-label={language === "en" ? "Album movie" : "Película del álbum"}
     onCancel={(event) => { event.preventDefault(); closeRef.current(); }}
     onKeyDown={(event) => {
@@ -175,12 +211,14 @@ export function AlbumMovie({ files, open, onClose }: AlbumMovieProps) {
       <div className="album-movie-stage">
         {layers.map((layer) => {
           const active = layer.key === slide.key;
-          return <MovieSlide key={layer.key} slide={layer} ready={active ? ready : true} events={active ? events : undefined} />;
+          const preload = layer.key === preloadSlide?.key && !active;
+          return <MovieSlide key={layer.key} slide={layer} ready={active ? ready : !preload} preload={preload}
+            events={active ? events : preload ? preloadEvents : undefined} />;
         })}
       </div>
       <div className="album-movie-top">
         <p><span>{language === "en" ? "Camila's XV" : "Mis XV · Camila"}</span> {position + 1} / {queue.length}</p>
-        <button type="button" onClick={onClose} aria-label={language === "en" ? "Close movie" : "Cerrar película"} autoFocus><X size={22} /></button>
+        <button type="button" className="album-movie-close" onClick={onClose} aria-label={language === "en" ? "Close movie" : "Cerrar película"} autoFocus><X size={30} strokeWidth={1.75} /></button>
       </div>
       <button type="button" className="album-movie-zone is-prev" onClick={() => advance(-1)} aria-label={language === "en" ? "Previous memory" : "Recuerdo anterior"}><ChevronLeft size={30} aria-hidden="true" /></button>
       <button type="button" className="album-movie-zone is-next" onClick={() => advance(1)} aria-label={language === "en" ? "Next memory" : "Recuerdo siguiente"}><ChevronRight size={30} aria-hidden="true" /></button>

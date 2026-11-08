@@ -38,6 +38,15 @@ export function thumbSrc(file: AlbumFile, size: ThumbSize) {
   return file.thumbUrl ? `${file.thumbUrl}&size=${size}` : file.mediaUrl;
 }
 
+/**
+ * Espera a que la imagen esté decodificada para mostrarla sin tirones. Si el navegador tarda (o no
+ * decodifica, como en pestañas ocultas), se sigue tras `timeoutMs` para no detener la presentación.
+ */
+export function whenDecoded(image: HTMLImageElement, timeoutMs = 600): Promise<void> {
+  const decoded = image.decode ? image.decode().catch(() => undefined) : Promise.resolve();
+  return Promise.race([decoded, new Promise<void>((resolve) => { setTimeout(resolve, timeoutMs); })]);
+}
+
 export const isVideo = (file: { type: string }) => file.type.startsWith("video/");
 
 export function filterAlbum<T extends { type: string }>(files: readonly T[], filter: AlbumFilter): T[] {

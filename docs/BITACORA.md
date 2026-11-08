@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 22:53 — Ciudad de México (GMT−6)
+
+La usuaria pidió que la X de la película fuera solo el icono y apareciera al mover el ratón, que el paso entre fotos no tuviera la espera de casi un segundo y mejorar el visor: iconos sueltos, sin porcentaje, zoom mínimo de 100 % que sí amplíe, mover la foto arrastrándola, fundido al cambiar y deslizar en teléfono. La espera venía de que cada foto se cargaba y decodificaba al avanzar y de una curva de fundido que arrancaba lenta; ahora la siguiente foto espera montada y decodificada. El zoom del visor usaba la propiedad CSS `zoom`, que el tamaño máximo de la imagen anulaba; se cambió a transformaciones con arrastre, pellizco y rueda. Build y 47 pruebas; revisado en navegador local. Sin despliegue.
+
 ## 2026-11-07 22:29 — Ciudad de México (GMT−6)
 
 La usuaria pidió acercar el sol a la cabecera en `/recuerdos` (unos 50 px, sin pegarlo) y quitar el recuadro con la fecha de apertura de la carga, que repetía lo que ya dice la cuenta regresiva. Se redujo el espacio superior de la página y se eliminaron el aviso, sus traducciones y su estilo. Build y 41 pruebas; medido en navegador local en escritorio y 375 px. Sin despliegue.

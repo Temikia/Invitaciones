@@ -1,5 +1,12 @@
 # Invitación de Camila — trabajo en curso
 
+## Controles del visor y transición de la película — 07/11/2026
+- ✅ Película: X solo icono; con ratón aparece al moverlo y se oculta (con el cursor) a los 2.5 s; en táctil siempre visible. La foto siguiente se monta oculta y decodificada (`is-preload`, `whenDecoded` en `src/lib/albumShow.ts`), así el fundido arranca al terminar la barra; curva sin arranque lento.
+- ✅ Visor (`AlbumViewer.tsx`): iconos sueltos (alejar, acercar, girar, X), sin porcentaje; zoom 100–400 % con `transform` (antes `zoom` CSS no ampliaba); arrastre de la foto ampliada, rueda, pellizco, doble clic/toque y teclas + − 0. Fundido cruzado al cambiar, vecinos precargados y deslizar con la foto siguiendo al dedo. Lógica en `src/lib/albumZoom.ts`.
+- ✅ Build y 47 pruebas; revisado en navegador local (detalle en `docs/VERIFICACION.md`).
+- ❓ Sin ver los fundidos en movimiento ni la X ocultándose (panel oculto), ni pellizco y deslizar en teléfono real, ni movimiento reducido. Sin despliegue.
+- Siguiente paso: la usuaria revisa película y visor en su navegador y teléfono.
+
 ## Recuerdos: sol más cerca de la cabecera y sin aviso de apertura — 07/11/2026
 - ✅ Unos 50 px entre la cabecera y el sol en `/recuerdos` (`.memories-page` 30 px arriba, `.upload-content` sin margen superior); medido 50 px en escritorio y 375 px.
 - ✅ Retirado el aviso «La carga se abrirá el domingo 22 de noviembre…» de la cuenta regresiva, con sus claves `memories.opens` (es/en) y su estilo.

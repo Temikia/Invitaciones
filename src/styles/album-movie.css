@@ -27,10 +27,14 @@
 .album-movie-slide {
   position: absolute;
   inset: 0;
+  z-index: 1;
   overflow: hidden;
   opacity: 0;
 }
-.album-movie-slide.is-ready { opacity: 1; animation: album-movie-fade-in var(--movie-fade, 1.4s) ease-in-out both; }
+/* La foto siguiente espera montada y transparente debajo de todo, ya cargada y decodificada. */
+.album-movie-slide.is-preload { z-index: 0; pointer-events: none; }
+/* Curva que cambia desde el primer cuadro: con ease-in-out el inicio parecía una espera. */
+.album-movie-slide.is-ready { opacity: 1; animation: album-movie-fade-in var(--movie-fade, 1.4s) cubic-bezier(.25, .1, .25, 1) both; }
 @keyframes album-movie-fade-in { from { opacity: 0; } to { opacity: 1; } }
 /* La misma foto, ampliada y desenfocada, rellena el espacio que la foto completa no cubre. */
 .album-movie-backdrop {
@@ -93,19 +97,26 @@
 }
 .album-movie-top p { margin: 0; color: #d9c8ac; font-size: 12px; letter-spacing: .08em; }
 .album-movie-top p span { margin-right: 10px; color: var(--gold); font: italic 500 18px var(--serif); letter-spacing: 0; }
-.album-movie-top button {
+/* Solo la X, sin círculo; la sombra la separa de fotos claras. */
+.album-movie-close {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid rgba(243, 213, 159, .7);
-  border-radius: 50%;
-  background: rgba(24, 16, 36, .82);
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   color: #f6dfac;
   cursor: pointer;
-  opacity: 1;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .8)) drop-shadow(0 2px 10px rgba(0, 0, 0, .5));
+  transition: opacity .3s ease;
+}
+/* Con ratón la X aparece al moverlo y se oculta tras un rato quieto (también el cursor); en pantallas táctiles siempre se ve. */
+@media (hover: hover) and (pointer: fine) {
+  .album-movie:not(.show-controls) .album-movie-close:not(:focus-visible):not(:hover) { opacity: 0; }
+  .album-movie:not(.show-controls) { cursor: none; }
+  .album-movie:not(.show-controls) .album-movie-zone { cursor: none; }
 }
 /* Zonas laterales: tocar a la izquierda o derecha cambia de recuerdo; la flecha solo aparece al pasar el cursor o con foco. */
 .album-movie-zone {
@@ -127,7 +138,7 @@
 .album-movie-zone:hover svg, .album-movie-zone:focus-visible svg { opacity: 1; }
 .album-movie-zone.is-prev { left: 0; justify-content: flex-start; }
 .album-movie-zone.is-next { right: 0; justify-content: flex-end; }
-.album-movie-zone:focus-visible, .album-movie-top button:focus-visible { outline: 2px solid #f6dfac; outline-offset: -4px; }
+.album-movie-zone:focus-visible, .album-movie-close:focus-visible { outline: 2px solid #f6dfac; outline-offset: -4px; }
 .album-movie-paused {
   position: absolute;
   bottom: 34px;
@@ -160,7 +171,7 @@
   animation: album-movie-fill var(--movie-slide, 5s) linear forwards;
 }
 .album-movie.is-paused .album-movie-progress b,
-.album-movie.is-paused .album-movie-photo { animation-play-state: paused; }
+.album-movie.is-paused .album-movie-slide.is-ready .album-movie-photo { animation-play-state: paused; }
 @keyframes album-movie-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 /*
@@ -174,8 +185,9 @@
 .album-movie-photo.motion-in-bottom-left { transform-origin: 20% 82%; }
 .album-movie-photo.motion-out-left { transform-origin: 12% 50%; }
 @media (prefers-reduced-motion: no-preference) {
-  .album-movie-photo[class*="motion-in-"] { animation: album-movie-zoom-in calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
-  .album-movie-photo[class*="motion-out-"] { animation: album-movie-zoom-out calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+  /* El movimiento empieza cuando la capa aparece, no mientras espera precargada. */
+  .album-movie-slide.is-ready .album-movie-photo[class*="motion-in-"] { animation: album-movie-zoom-in calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
+  .album-movie-slide.is-ready .album-movie-photo[class*="motion-out-"] { animation: album-movie-zoom-out calc(var(--movie-slide, 5s) + 2 * var(--movie-fade, 1.4s)) cubic-bezier(.3, .1, .4, 1) forwards; }
   @keyframes album-movie-zoom-in { from { transform: scale(1); } to { transform: scale(1.12); } }
   @keyframes album-movie-zoom-out { from { transform: scale(1.12); } to { transform: scale(1); } }
 }

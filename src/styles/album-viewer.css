@@ -18,38 +18,72 @@
   margin: auto;
 }
 .album-viewer-toolbar { display: flex; align-items: center; justify-content: space-between; min-height: 52px; gap: 8px; }
-.album-viewer-tools { display: flex; align-items: center; gap: 4px; }
+.album-viewer-tools { display: flex; align-items: center; gap: 2px; }
+/* Iconos sueltos, sin círculo; la sombra los separa de fotos claras. */
 .album-viewer-toolbar button {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(243, 213, 159, .35);
-  border-radius: 50%;
-  background: rgba(38, 26, 51, .8);
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   color: #f3d59f;
   cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .7));
+  transition: color .2s, opacity .2s;
 }
-.album-viewer-toolbar button:disabled { opacity: .4; cursor: not-allowed; }
-.album-viewer-tools span { min-width: 48px; text-align: center; font: 12px var(--sans); }
+.album-viewer-toolbar button:hover:not(:disabled) { color: #fff1d2; }
+.album-viewer-toolbar button:disabled { opacity: .3; cursor: default; }
+/* El giro se separa un poco del par de zoom. */
+.album-viewer-rotate { margin-left: 12px; }
 .album-viewer-close { margin-left: auto; }
+.album-viewer-count { margin-left: auto; color: #e8d6b6; font: 12px var(--sans, "Manrope", sans-serif); letter-spacing: .08em; }
+.album-viewer-count + .album-viewer-close { margin-left: 8px; }
+
+/*
+ * Escenario sin desplazamiento propio: la foto ampliada se mueve arrastrándola. `touch-action: none`
+ * deja los gestos (arrastrar, pellizcar, deslizar) a la app en lugar de al navegador.
+ */
 .album-viewer-stage {
+  position: relative;
   flex: 1;
   min-height: 0;
-  overflow: auto;
-  overscroll-behavior: contain;
-  text-align: center;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.album-viewer-stage video { max-width: 100%; max-height: 100%; }
-.album-viewer-photo-wrap { min-width: 100%; margin: 0 auto; }
-.album-viewer-photo-wrap.is-rotated { padding-block: min(30vw, 220px); }
-.album-viewer-photo-wrap img { display: block; max-width: 100%; max-height: calc(100vh - 110px); width: auto; height: auto; margin: 0 auto; object-fit: contain; }
-.album-viewer-stage { position: relative; }
-.album-viewer-count { margin-left: auto; color: #e8d6b6; font: 12px var(--sans, "Manrope", sans-serif); letter-spacing: .08em; }
-.album-viewer-count + .album-viewer-close { margin-left: 12px; }
+.album-viewer-stage.is-zoomed { cursor: grab; }
+.album-viewer-stage.is-zoomed.is-dragging { cursor: grabbing; }
+/* Cada recuerdo es una capa; el nuevo aparece encima del anterior con un fundido cruzado. */
+.album-viewer-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+}
+.album-viewer-layer.is-ready { opacity: 1; animation: album-viewer-fade var(--viewer-fade, .32s) ease both; }
+.album-viewer-layer.is-leaving { opacity: 1; }
+@keyframes album-viewer-fade { from { opacity: 0; } to { opacity: 1; } }
+.album-viewer-layer img {
+  display: block;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform .22s cubic-bezier(.2, .7, .3, 1);
+  -webkit-user-drag: none;
+}
+.album-viewer-stage.is-dragging .album-viewer-layer img,
+.album-viewer-stage.is-dragging .album-viewer-layer video { transition: none; }
+.album-viewer-layer video { max-width: 100%; max-height: 100%; transition: transform .22s ease; }
 .album-viewer-nav {
   position: absolute;
   top: 50%;
+  z-index: 2;
   display: grid;
   place-items: center;
   width: 48px;
@@ -66,12 +100,13 @@
 }
 .album-viewer-nav.is-prev { left: 4px; }
 .album-viewer-nav.is-next { right: 4px; }
-.album-viewer-nav:focus-visible, .album-viewer-toolbar button:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
+.album-viewer-nav:focus-visible, .album-viewer-toolbar button:focus-visible { outline: 2px solid #f6dfac; outline-offset: 2px; }
 @media (hover: none) and (max-width: 700px) {
   /* En teléfono se desliza con el dedo; las flechas quedan pequeñas para no tapar la foto. */
   .album-viewer-nav { width: 40px; height: 40px; opacity: .75; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .album-viewer-photo-wrap, .album-viewer-stage video { animation: album-viewer-in .35s ease both; }
-  @keyframes album-viewer-in { from { opacity: 0; } to { opacity: 1; } }
+/* Con movimiento reducido el fundido es casi inmediato y el zoom no se anima. */
+@media (prefers-reduced-motion: reduce) {
+  .album-viewer-layer.is-ready { animation-duration: .12s; }
+  .album-viewer-layer img, .album-viewer-layer video { transition: none; }
 }
