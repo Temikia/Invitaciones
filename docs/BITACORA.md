@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 00:25 — Ciudad de México (GMT−6)
+
+Con la música continua, al abrir un video en el visor del álbum se oían la canción y el video a la vez. La usuaria pidió pausarla. El reproductor ahora detecta cualquier video con sonido que empieza a reproducirse, pausa la canción y la reanuda cuando el video se pausa, termina o se retira (al cerrar el visor o pasar a otro recuerdo). Si la canción ya estaba en pausa, o si se toca su botón durante el video, se respeta esa decisión. Los videos silenciados de la película no la afectan. Probado en navegador local con un video simulado, porque el álbum aún no tiene videos. Build y 61 pruebas. Sin despliegue.
+
 ## 2026-11-08 00:10 — Ciudad de México (GMT−6)
 
 La usuaria pidió que la música no se corte al cambiar de página y que su control exista en las tres páginas. Antes cada enlace recargaba el documento y el reproductor vivía dentro de la escena 3 de la invitación, así que la canción se detenía al ir al álbum o a recuerdos (los navegadores no permiten reanudarla sola en la página nueva). Ahora un único reproductor vive por encima de las páginas y los enlaces entre invitación, álbum y recuerdos, así como atrás/adelante, cambian de página sin recargar; atrás vuelve a la misma altura. El álbum y recuerdos muestran el control flotante; la invitación conserva su comportamiento (nada después del lago). Como cambiar de página ya no descarga la página, se añadió una confirmación al salir con una carga de recuerdos en curso. Build y 61 pruebas; comprobado en navegador local. Sin despliegue.

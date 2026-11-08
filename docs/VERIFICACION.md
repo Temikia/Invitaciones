@@ -1,5 +1,10 @@
 # Verificación de la primera versión
 
+## Pausa de la música con videos — 08/11/2026 00:25 (GMT−6)
+
+- Build y 61 pruebas. En `/album` local, con la canción iniciada por clic, se insertó un `<video>` con sonido: al reproducirlo la canción quedó en pausa (botón «Reproducir música»); al pausar el video volvió; al reproducirlo otra vez se pausó y al retirarlo del documento volvió. Un video silenciado no la pausó. Con la canción pausada a mano antes del video, siguió en pausa al terminar. Consola sin errores.
+- Sin probar: video real del visor (el álbum no tiene videos) y la reanudación en iOS.
+
 ## Música continua entre las tres páginas — 08/11/2026 00:10 (GMT−6)
 
 - Build y 61 pruebas (3 nuevas en `src/lib/navigation.test.ts`: rutas reconocidas, enlaces internos y casos que quedan al navegador: Ctrl/⌘, botón central, `target`, `download`, externos, `/album-local`, ancla en la misma página).
