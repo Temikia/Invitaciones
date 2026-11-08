@@ -1,5 +1,10 @@
 # Invitación de Camila — trabajo en curso
 
+## Álbum sin enlace privado — 07/11/2026
+- ✅ Por decisión de la usuaria se retiró el acceso privado del álbum: sin enlace secreto, sin cookie firmada y sin `/api/drive/gallery/access`. `/album` muestra los recuerdos a cualquiera que conozca la dirección. Se conservan carpeta privada en Drive, filtro por marcador de la app, límite de 120 lecturas por IP y minuto y `noindex`. `/album-local` redirige a `/album`.
+- ✅ Build y 36 pruebas. En el servidor local: listado sin cookie HTTP 200 con 35 fotos, foto con rango HTTP 206, `/access` ya no existe (404) y el álbum carga en navegador sin enlace.
+- ❓ Cada foto del mosaico descarga el original (43–50 MB): el álbum es muy lento con las fotos actuales. Pendiente decidir miniaturas. `MEMORIES_GALLERY_SECRET` puede borrarse de `.env` y Vercel. Sin despliegue.
+
 ## Límites de tamaño de recuerdos — 07/11/2026
 - ✅ Se probó subir los límites a 50 MB/500 MB (`ba48cf5`) y, por decisión de la usuaria, se revirtió: siguen vigentes 20 MB por foto, 400 MB por video y 20 archivos por lote.
 - ✅ El cambio temporal sin commit (fotos hasta 400 MB en local) se retiró tras la carga de la usuaria; código restaurado a 20 MB y servidor `dev:seguridad` reiniciado. Nunca llegó a un commit.

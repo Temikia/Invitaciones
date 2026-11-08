@@ -1,5 +1,9 @@
 # Verificación de la primera versión
 
+## Álbum sin enlace privado — 07/11/2026
+- Build y 36 pruebas. Servidor local `dev:seguridad`: `GET /api/drive/gallery/index` sin cookie → 200 con 35 fotos; `media` con `Range` → 206 `image/jpeg`; `POST /api/drive/gallery/access` → 404; `/album-local` → 302 a `/album`. En navegador `/album` mostró «35 fotos · 0 videos» sin enlace secreto.
+- Las primeras fotos tardaron por su tamaño (43–50 MB cada original). No se probó en Preview.
+
 ## Quitar archivos antes de subir — 07/11/2026
 - Build y 36 pruebas. En navegador local se seleccionaron tres fotos y un `.txt`; al quitar el `.txt` desapareció el aviso de formato, el foco pasó al botón vecino y al quitar todo volvió al selector. No se probó en teléfono real ni con lector de pantalla.
 

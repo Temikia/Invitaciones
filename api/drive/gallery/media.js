@@ -1,6 +1,6 @@
 import { Readable } from "node:stream";
 import { getDriveAccessToken, sendJson } from "../../../server/drive.js";
-import { allowGalleryRead, hasGalleryAccess } from "../../../server/security.js";
+import { allowGalleryRead } from "../../../server/security.js";
 
 const allowedTypes = new Set([
   "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
@@ -11,7 +11,6 @@ export default async function handler(req, res) {
   res.setHeader("Cache-Control", "private, no-store");
   res.setHeader("X-Content-Type-Options", "nosniff");
   if (req.method !== "GET" && req.method !== "HEAD") return sendJson(res, 405, { error: "Método no permitido." });
-  if (!hasGalleryAccess(req)) return sendJson(res, 401, { error: "Abre la galería desde su enlace privado." });
   if (!await allowGalleryRead(req)) return sendJson(res, 429, { error: "Se alcanzó el límite temporal de consultas." });
   const params = new URL(req.url, "https://internal.invalid").searchParams;
   const id = params.get("id") ?? "";

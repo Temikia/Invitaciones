@@ -3,7 +3,6 @@ import http from "node:http";
 import { randomBytes } from "node:crypto";
 import { createServer } from "vite";
 import { getDriveAccessToken, sendJson, validateUpload } from "../server/drive.js";
-import galleryAccess from "../api/drive/gallery/access.js";
 import galleryIndex from "../api/drive/gallery/index.js";
 import galleryMedia from "../api/drive/gallery/media.js";
 import sessionHandler from "../api/drive/session.js";
@@ -20,9 +19,7 @@ if (securityTest) {
   process.env.TURNSTILE_SECRET_KEY = process.env.LOCAL_TURNSTILE_SECRET_KEY;
   process.env.DRIVE_UPLOADS_ENABLED = "true";
 }
-// Ephemeral, process-local credentials and quota substitute for local testing only.
-const gallerySecret = randomBytes(32).toString("base64url");
-process.env.MEMORIES_GALLERY_SECRET = gallerySecret;
+// Ephemeral, process-local quota substitute for local testing only.
 if (!securityTest) {
   process.env.ABUSE_HASH_SECRET = randomBytes(32).toString("base64url");
   process.env.UPSTASH_REDIS_REST_URL = "https://local-redis.invalid";
@@ -48,11 +45,12 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 403, { error: "Acceso local únicamente." });
   }
   const path = new URL(req.url, origin).pathname;
+  // Compatibilidad con el acceso local anterior; el álbum ya no requiere enlace secreto.
   if (path === "/album-local") {
-    res.writeHead(302, { Location: `/album#${gallerySecret}`, "Cache-Control": "no-store" });
+    res.writeHead(302, { Location: "/album", "Cache-Control": "no-store" });
     return res.end();
   }
-  const galleryHandlers = { "/api/drive/gallery/access": galleryAccess, "/api/drive/gallery/index": galleryIndex, "/api/drive/gallery/media": galleryMedia };
+  const galleryHandlers = { "/api/drive/gallery/index": galleryIndex, "/api/drive/gallery/media": galleryMedia };
   if (galleryHandlers[path]) {
     req.headers["x-real-ip"] = "127.0.0.1";
     req.headers["x-forwarded-host"] = `${host}:${port}`;

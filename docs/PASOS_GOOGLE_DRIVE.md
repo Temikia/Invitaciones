@@ -7,9 +7,9 @@ Para reproducir el método en otro proyecto, consultar [Google Drive con OAuth y
 ## Decisiones ya tomadas
 
 - Los archivos se guardarán en la carpeta de Drive `Mis-XV-Camila`.
-- La galería será privada y se abrirá con un enlace secreto. Cualquier persona que reciba o reenvíe ese enlace podrá entrar.
+- La galería se abre en `/album` sin enlace secreto: cualquiera que conozca la dirección puede verla. La carpeta de Drive sigue privada.
 - El álbum muestra una portada animada con las fotos de la invitación y después un mosaico con filtros que carga 50 archivos cada vez. El visor permite pasar entre recuerdos, acercar, alejar y girar fotos sin modificar originales; los videos se reproducen en el mismo visor. «Ver como película» recorre todo el álbum al azar (videos solo 5 s). Solo aparecen archivos subidos desde `/recuerdos`: con el permiso `drive.file` la app no ve lo que se suba directamente a la carpeta desde Drive.
-- La página de carga está en `/recuerdos`; el botón «Ver álbum» abre `/album`, que requiere el enlace privado o una sesión ya autorizada.
+- La página de carga está en `/recuerdos`; el botón «Ver álbum» abre `/album`.
 - Al seleccionar archivos se muestran miniaturas con un velo claro que se retira desde abajo conforme se envían; se descubren por completo cuando Drive confirma la carga. Los videos se identifican y, si el navegador no admite una vista previa, aparece una alternativa. Los nombres y el progreso siguen disponibles para lectores de pantalla. Antes de pulsar «Subir recuerdos», cada miniatura tiene una «×» para quitar ese archivo de la selección (el aviso de formato o tamaño se recalcula); una vez iniciada la carga ya no se puede quitar porque cada archivo tiene su sesión en Drive.
 - Límites actuales: 20 archivos por lote, 20 MB por foto y 400 MB por video.
 - Las cargas cierran el 7 de diciembre de 2026 a las 00:00, hora de Denver. La configuración contempla conservar los archivos 90 días.
@@ -51,7 +51,7 @@ El código local ya está preparado en `scripts/authorize-drive.mjs`. Autorizaci
 2. En el cliente OAuth, agrega el origen JavaScript autorizado `http://127.0.0.1:8788` y el URI de redirección autorizado `http://127.0.0.1:8788/oauth2callback`. No cambies el estado de publicación de la app.
 3. Ejecuta `npm run drive:authorize`. Abre el enlace que muestra la terminal e inicia sesión con `temikia.agency@gmail.com`. Revisa el permiso exacto: `drive.file`, `openid` y `email`. No concede acceso general a Drive.
 4. En el selector de Google, elige la carpeta `Mis-XV-Camila` y confirma. El script verifica cuenta e ID y guarda `GOOGLE_REFRESH_TOKEN` y `DRIVE_FOLDER_ID` en el `.env` ignorado por Git. No imprime el token ni lo envía al chat.
-5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Para habilitar las cargas también harán falta `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` y `ABUSE_HASH_SECRET`. Para habilitar el álbum privado, configura además `MEMORIES_GALLERY_SECRET`. `TURNSTILE_SITE_KEY` es pública; las demás credenciales son de servidor. Nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta terminar las pruebas en Preview y confirmar que la autorización OAuth sigue vigente.
+5. En Vercel, abre **Settings → Environment Variables** y crea para **Preview** y **Production** `GOOGLE_CLIENT_ID`, `GOOGLE_SECRET`, `GOOGLE_REFRESH_TOKEN`, `DRIVE_FOLDER_ID` y `CRON_SECRET`. Para habilitar las cargas también harán falta `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` y `ABUSE_HASH_SECRET`. El álbum ya no usa `MEMORIES_GALLERY_SECRET`; si existe en Vercel o en `.env`, puede borrarse. `TURNSTILE_SITE_KEY` es pública; las demás credenciales son de servidor. Nunca uses prefijo `VITE_`. Mantén `DRIVE_UPLOADS_ENABLED` sin configurar hasta terminar las pruebas en Preview y confirmar que la autorización OAuth sigue vigente.
 6. Guarda las variables y despliega una nueva preview para que Vercel las cargue. [Documentación de variables de entorno de Vercel](https://vercel.com/docs/environment-variables/managing-environment-variables).
 
 ### Si Google Picker muestra “The API developer key is invalid”
@@ -73,22 +73,22 @@ Las cargas grandes usan el mecanismo reanudable de Drive para tolerar interrupci
 
 ## Paso 4: dos decisiones operativas antes de activar
 
-- **Quién puede subir:** ✅ cualquiera con el enlace/QR de la invitación. La galería conserva un enlace secreto independiente. Turnstile y límites compartidos de frecuencia están implementados; falta configurar sus servicios en Preview y probarlos antes de activar.
+- **Quién puede subir:** ✅ cualquiera con el enlace/QR de la invitación. La galería se ve en `/album` sin enlace secreto. Turnstile y límites compartidos de frecuencia están implementados; falta configurar sus servicios en Preview y probarlos antes de activar.
 - **Cuándo borrar:** ✅ los 90 días se cuentan desde el cierre de cargas: 7 de diciembre de 2026 a las 00:00, hora de Denver. La limpieza programada empieza el 7 de marzo de 2027 a las 00:00 de Denver (07:00 UTC). Solo borra archivos creados por esta integración; el resto de la carpeta no se toca.
 - **Ubicación de carpeta:** el flujo local consulta Drive y confirma si está en “Mi unidad” o en una unidad compartida. Si está en una unidad compartida, exige que la cuenta pueda borrar archivos (rol de organizadora) para respetar la retención.
 
-## Protección contra abuso y álbum privado
+## Protección contra abuso y álbum
 
 - Las cargas se agrupan en una sola solicitud de hasta 20 archivos. El backend verifica cada metadato y el token de Turnstile en Cloudflare antes de abrir sesiones de Drive.
 - Upstash Redis lleva un contador compartido entre instancias de Vercel: hasta cuatro lotes de carga por IP en una ventana de 60 segundos. Los endpoints de lectura del álbum limitan 120 solicitudes por IP por minuto. Se usa `x-real-ip` de Vercel; Redis no guarda la IP, solo una huella HMAC con `ABUSE_HASH_SECRET`, y las claves caducan al minuto. Si Turnstile o Redis no responden, las cargas fallan cerradas.
 - Crea un widget de Turnstile para los dominios de Preview y Production y registra su clave pública y secreta en las variables anteriores. La clave pública solo se entrega en la respuesta de configuración; la secreta se valida exclusivamente desde el servidor.
-- Genera dos valores aleatorios distintos localmente para `ABUSE_HASH_SECRET` y `MEMORIES_GALLERY_SECRET` (por ejemplo, con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`) y guárdalos directamente en Vercel; no los pegues en el chat ni en archivos versionados. Usa al menos 32 caracteres.
-- Para el enlace secreto, combina el dominio con el valor de `MEMORIES_GALLERY_SECRET`: `https://<dominio>/album#<secreto>`. Los enlaces anteriores `/recuerdos?album=1#<secreto>` se redirigen a `/album`. El fragmento se canjea por una cookie `HttpOnly`, `Secure` y `SameSite=Strict` que dura 24 horas; luego se quita de la barra del navegador. Si Preview y Production usan secretos diferentes, genera un enlace por entorno.
-- La lista y los archivos se entregan mediante funciones autenticadas; la carpeta Drive sigue privada. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien reciba o reenvíe el enlace podrá ver el álbum, de acuerdo con la decisión del evento.
+- Genera localmente un valor aleatorio para `ABUSE_HASH_SECRET` (por ejemplo, con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`) y guárdalo directamente en Vercel; no los pegues en el chat ni en archivos versionados. Usa al menos 32 caracteres.
+- (Retirado el 07/11/2026) El enlace secreto `/album#<secreto>` y su cookie ya no existen; los enlaces anteriores redirigen a `/album`.
+- La lista y los archivos se entregan mediante funciones del servidor, sin exigir sesión; la carpeta Drive sigue privada. El proxy transmite rangos HTTP para video, por lo que la revisión en Preview debe comprobar reproducción y consumo de transferencia de Vercel. Quien conozca la dirección del álbum podrá verlo, de acuerdo con la decisión del evento.
 
 ## Paso 5: revisión contigo en la preview
 
-Antes de Preview se puede probar la carga real en esta computadora con `npm run dev:recuerdos`, abriendo `http://127.0.0.1:5188/recuerdos`. El álbum local se abre desde `http://127.0.0.1:5188/album-local` y usa los controladores reales, un secreto temporal y un contador simulado en memoria. Este servidor aislado no prueba Turnstile ni Upstash reales; no sustituye la revisión de esas protecciones ni las pruebas en Preview. Los archivos de prueba se crean en la carpeta real de Drive y pueden borrarse allí. El acceso local deja de funcionar al detener el servidor y cambia al reiniciarlo.
+Antes de Preview se puede probar la carga real en esta computadora con `npm run dev:recuerdos`, abriendo `http://127.0.0.1:5188/recuerdos`. El álbum local se abre desde `http://127.0.0.1:5188/album` y usa los controladores reales y un contador simulado en memoria. Este servidor aislado no prueba Turnstile ni Upstash reales; no sustituye la revisión de esas protecciones ni las pruebas en Preview. Los archivos de prueba se crean en la carpeta real de Drive y pueden borrarse allí. El álbum local deja de funcionar al detener el servidor.
 
 Para probar las protecciones reales en esta computadora, guardar en `.env` las claves del widget exclusivo de `127.0.0.1` como `LOCAL_TURNSTILE_SITE_KEY` y `LOCAL_TURNSTILE_SECRET_KEY`, sin sustituir las claves del dominio público. Con Upstash configurado, ejecutar `npm run dev:seguridad` y abrir `http://127.0.0.1:5188/recuerdos`. Esta modalidad ejecuta la API real, solo escucha en localhost y activa cargas únicamente dentro de ese proceso. Una foto completó la carga en navegador con Turnstile y Upstash reales; detener el otro servidor antes de usar el mismo puerto. La revisión en Preview sigue pendiente.
 
@@ -98,13 +98,13 @@ Para reintentar una interrupción, recuperar la conexión y pulsar de nuevo sin 
 
 Cuando te comparta la preview, necesitaremos probar desde un teléfono:
 
-1. Subir una foto y comprobar que aparece en la carpeta correcta y en la galería privada.
+1. Subir una foto y comprobar que aparece en la carpeta correcta y en el álbum.
 2. Probar un video y una interrupción de red para confirmar que la carga se reanuda y muestra su estado real.
-3. Abrir la galería con el enlace secreto y confirmar que la carpeta no se hizo pública.
+3. Abrir `/album` y confirmar que la carpeta de Drive no se hizo pública.
 4. Confirmar el cierre de cargas y la regla de eliminación programada.
 5. Revisar CORS desde el navegador y cómo detectar contenido que no corresponde a su extensión/MIME declarado; el backend no recibe los bytes durante la transferencia directa.
 
-La implementación ya está preparada, pero el álbum y las cargas permanecen apagados hasta configurar y probar las variables anteriores. Los archivos siguen privados en Drive; no se hará pública la carpeta.
+La implementación ya está preparada, pero las cargas permanecen apagadas hasta configurar y probar las variables anteriores. Los archivos siguen privados en Drive; no se hará pública la carpeta.
 
 ## Referencias
 

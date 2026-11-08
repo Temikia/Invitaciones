@@ -1,9 +1,7 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac } from "node:crypto";
 
 const WINDOW_SECONDS = 60;
 const MAX_BATCHES_PER_WINDOW = 4;
-const GALLERY_COOKIE = "camila_gallery";
-const GALLERY_SESSION_SECONDS = 24 * 60 * 60;
 
 export function requestOriginAllowed(req) {
   const origin = req.headers.origin;
@@ -16,13 +14,6 @@ export function requestOriginAllowed(req) {
   } catch {
     return false;
   }
-}
-
-function equalText(left, right) {
-  if (typeof left !== "string" || typeof right !== "string") return false;
-  const a = Buffer.from(left);
-  const b = Buffer.from(right);
-  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 export async function verifyTurnstile(req, token) {
@@ -93,31 +84,4 @@ export async function allowGalleryRead(req) {
   } catch {
     return false;
   }
-}
-
-export function createGalleryCookie(secret) {
-  const expiresAt = Math.floor(Date.now() / 1000) + GALLERY_SESSION_SECONDS;
-  const signature = createHmac("sha256", secret).update(`gallery:${expiresAt}`).digest("hex");
-  return `${expiresAt}.${signature}`;
-}
-
-export function hasGalleryAccess(req) {
-  const secret = process.env.MEMORIES_GALLERY_SECRET;
-  if (!secret || secret.length < 32) return false;
-  const cookies = String(req.headers.cookie ?? "").split(";");
-  const cookie = cookies.map((part) => part.trim()).find((part) => part.startsWith(`${GALLERY_COOKIE}=`));
-  const value = cookie?.slice(GALLERY_COOKIE.length + 1) ?? "";
-  const [expiryText, signature] = value.split(".");
-  const expiresAt = Number(expiryText);
-  if (!Number.isSafeInteger(expiresAt) || expiresAt <= Date.now() / 1000 || expiresAt > Date.now() / 1000 + GALLERY_SESSION_SECONDS + 60) return false;
-  const expected = createHmac("sha256", secret).update(`gallery:${expiresAt}`).digest("hex");
-  return equalText(signature, expected);
-}
-
-export function galleryCookieHeader(value, secure = true) {
-  return `${GALLERY_COOKIE}=${value}; Path=/api/drive/gallery; Max-Age=${GALLERY_SESSION_SECONDS}; HttpOnly; SameSite=Strict${secure ? "; Secure" : ""}`;
-}
-
-export function secretMatches(actual, expected) {
-  return equalText(actual, expected);
 }

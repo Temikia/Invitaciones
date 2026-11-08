@@ -50,7 +50,7 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
     </div>}
     <a href="/recuerdos" className="album-hero-back"><ArrowLeft size={16} aria-hidden="true" /> {language === "en" ? "Back to memories" : "Volver a recuerdos"}</a>
     <div className="album-hero-copy">
-      <p className="eyebrow">{language === "en" ? "Camila's XV · A private album" : "Mis XV · Camila · Álbum privado"}</p>
+      <p className="eyebrow">{language === "en" ? "Camila's XV · The album" : "Mis XV · Camila · Álbum"}</p>
       <h1 id="album-title">{language === "en" ? <>Our night,<br /><em>our memories</em></> : <>Nuestra noche,<br /><em>nuestros recuerdos</em></>}</h1>
       <p>{language === "en" ? "A collection of moments shared by the people who celebrated with Camila." : "Momentos compartidos por quienes celebraron con Camila."}</p>
       {canPlayMovie && <button type="button" className="album-hero-movie" onClick={onPlayMovie}>

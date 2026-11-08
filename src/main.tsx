@@ -4,7 +4,7 @@ import App from "./app/App";
 import "./styles/invitation.css";
 
 if (window.location.pathname.replace(/\/$/, "") === "/recuerdos" && new URLSearchParams(window.location.search).get("album") === "1") {
-  window.history.replaceState(null, "", `/album${window.location.hash}`);
+  window.history.replaceState(null, "", "/album");
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

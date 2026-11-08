@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 18:25 — Ciudad de México (GMT−6)
+
+La usuaria pidió quitar la restricción de privacidad del álbum por considerarla complejidad innecesaria. Se eliminaron el enlace secreto, la cookie firmada y el endpoint de acceso; el álbum se ve en `/album` sin sesión. Se mantienen la carpeta privada, el filtro de archivos de la app, el límite de lecturas y `noindex`. Verificado en local con las 35 fotos reales; se detectó que el mosaico descarga originales de 43–50 MB y queda lento. Sin despliegue.
+
 ## 2026-11-07 18:19 — Ciudad de México (GMT−6)
 
 La usuaria terminó de subir sus fotos de casi 60 MB; se retiró el límite temporal (nunca se hizo commit) y se reinició el servidor local con 20 MB. A petición suya, `/recuerdos` permite quitar archivos de la selección antes de subirlos, para corregir errores sin volver a elegir todo. Build y 36 pruebas; revisado en navegador local. Sin despliegue.
