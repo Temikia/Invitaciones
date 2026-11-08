@@ -1,5 +1,9 @@
 # Verificación de la primera versión
 
+## Marco fijo en la película y navegación por la cabecera — 07/11/2026
+- Build y 38 pruebas. Película en navegador local: foto 1281 × 1920 en un marco de 421 × 630 px centrado en 736 × 630, igual 1.5 s después, con la animación de zoom aplicada a la imagen dentro del marco (`overflow: hidden`). El zoom en curso no se vio porque el panel reportaba la pestaña oculta y la película estaba en pausa.
+- «C · XV» es un enlace a `/` de 88 × 44 px con etiqueta «Ir a la invitación» y conserva su aspecto. `/album` y `/recuerdos` ya no tienen enlaces «Volver…». Sin emular movimiento reducido ni probar en teléfono real.
+
 ## Película con fondo desenfocado y carga de 20 en 20 — 07/11/2026
 - Build y 38 pruebas (incluye `movieMotion`: recuerdos seguidos nunca repiten movimiento y alternan acercar/alejar; tandas de 20 con 45 archivos).
 - Navegador local con las 35 fotos reales: el mosaico abrió con 20 cuadros y 20 miniaturas pedidas; «Ver más» (etiqueta accesible «quedan 15») mostró las 35, desapareció y llevó el foco al cuadro 21. «Subir mis fotos» enlaza a `/recuerdos` y aparece también mientras carga el álbum.

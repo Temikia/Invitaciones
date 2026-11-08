@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject, type SyntheticEvent } from "react";
 import { ChevronLeft, ChevronRight, Pause, X } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { usePageVisible } from "../../hooks/useReducedMotion";
@@ -21,12 +21,20 @@ type SlideEvents = {
 };
 
 /**
- * Una capa de la película: la foto completa (`contain`) sobre una copia desenfocada que llena la
- * pantalla, para que una foto vertical en pantalla horizontal (o una horizontal en teléfono) no
- * deje bandas negras. La capa saliente se queda debajo, sin eventos, mientras la nueva aparece.
+ * Una capa de la película: la foto completa sobre una copia desenfocada que llena la pantalla, para
+ * que una foto vertical en pantalla horizontal (o una horizontal en teléfono) no deje bandas negras.
+ * La foto vive en un marco fijo con su misma proporción: el acercamiento y el alejamiento ocurren
+ * dentro del marco, que nunca cambia de tamaño ni de lugar. La capa saliente se queda debajo, sin
+ * eventos, mientras la nueva aparece.
  */
 function MovieSlide({ slide, ready, events }: { slide: Slide; ready: boolean; events?: SlideEvents }) {
   const { file } = slide;
+  const [ratio, setRatio] = useState(0);
+  const onPhotoLoad = (event: SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = event.currentTarget;
+    if (naturalWidth && naturalHeight) setRatio(naturalWidth / naturalHeight);
+    events?.onReady();
+  };
   const video = isVideo(file);
   const photoSrc = thumbSrc(file, 1920);
   // La foto reutiliza la misma miniatura (ya en caché); el video usa su póster pequeño, si existe.
@@ -36,8 +44,10 @@ function MovieSlide({ slide, ready, events }: { slide: Slide; ready: boolean; ev
     {video
       ? <video ref={events?.videoRef} src={file.mediaUrl} poster={file.thumbUrl ? photoSrc : undefined} muted playsInline autoPlay preload="auto"
         onPlaying={events?.onReady} onWaiting={events?.onWaiting} onEnded={events?.onSkip} onError={events?.onSkip} />
-      : <img className={`album-movie-photo motion-${movieMotion(slide.step)}`} src={photoSrc} alt=""
-        onLoad={events?.onReady} onError={events?.onSkip} />}
+      : <div className={`album-movie-frame${ratio ? " has-ratio" : ""}`} style={ratio ? { "--ratio": ratio } as CSSProperties : undefined}>
+        <img className={`album-movie-photo motion-${movieMotion(slide.step)}`} src={photoSrc} alt=""
+          onLoad={onPhotoLoad} onError={events?.onSkip} />
+      </div>}
   </div>;
 }
 

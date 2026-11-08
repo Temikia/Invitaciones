@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { ArrowLeft, Camera, Film, ImagePlus, X } from "lucide-react";
+import { Camera, Film, ImagePlus, X } from "lucide-react";
 import { invitation } from "../config/invitation";
 import { validateFiles } from "../lib/event";
 import { useLanguage } from "../config/language";
@@ -187,7 +187,6 @@ export default function Memories() {
 
   return (
     <main className="memories-page">
-      <a href="/" className="back-link"><ArrowLeft size={17} /> {t("memories.back")}</a>
       <div className="upload-content">
           <Camera size={35} strokeWidth={1} className="gold-icon" />
           <p className="eyebrow">{language === "en" ? "Camila's quinceañera" : `Los XV de ${invitation.honoree}`}</p>

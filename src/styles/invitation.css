@@ -267,6 +267,15 @@ p {
   font-size: 13px;
   line-height: 1;
 }
+/* «C · XV» lleva a la página principal; el área táctil mide 44 px de alto. */
+.header-home-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  text-decoration: none;
+}
+.header-home-link:focus-visible { outline: 1px solid #f3d59f; outline-offset: -6px; border-radius: 2px; }
 .header-album-link {
   position: absolute;
   left: max(8px, env(safe-area-inset-left, 0px));
@@ -1065,15 +1074,6 @@ p {
   background:
     radial-gradient(ellipse at 50% 0%, #49304f55, transparent 65%), #181024;
   padding: 35px 24px 80px;
-}
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  color: #d7bd96;
-  text-decoration: none;
-  min-height: 44px;
 }
 .upload-content {
   max-width: 570px;

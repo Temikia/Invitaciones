@@ -63,20 +63,6 @@
 .album-hero.is-paused .album-hero-media img.is-active { animation-play-state: paused; }
 @keyframes album-hero-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-.album-hero-back {
-  position: absolute;
-  top: calc(64px + env(safe-area-inset-top, 0px));
-  left: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  padding: 0 8px;
-  color: #ead6b3;
-  font-size: 11px;
-  text-decoration: none;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
-}
 .album-hero-copy {
   width: min(100%, 1100px);
   margin-inline: auto;
@@ -127,12 +113,11 @@
   backdrop-filter: blur(6px);
 }
 .album-hero-upload:hover { transform: translateY(-1px); background: rgba(84, 48, 128, .7); }
-.album-hero-movie:focus-visible, .album-hero-upload:focus-visible, .album-hero-back:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
+.album-hero-movie:focus-visible, .album-hero-upload:focus-visible { outline: 2px solid #f6dfac; outline-offset: 3px; }
 
 @media (min-width: 900px) {
   .album-hero { padding-inline: 48px; padding-bottom: 72px; }
   .album-hero-bars { inset-inline: 48px; top: auto; bottom: 80px; left: auto; width: 260px; }
-  .album-hero-back { left: 36px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   /* La foto saliente conserva la animación (mismo nombre) para no saltar mientras se desvanece. */

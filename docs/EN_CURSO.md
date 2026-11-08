@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Marco fijo en la película y navegación por la cabecera — 07/11/2026
+- ✅ Película: la foto vive en un marco fijo con su proporción (`.album-movie-frame`, `--ratio` al cargar); el acercamiento y alejamiento ocurren dentro y el marco ya no se mueve.
+- ✅ «C · XV» de la cabecera enlaza a `/` en todas las rutas. Retirados «Volver a recuerdos» (álbum) y «Volver a la invitación» (recuerdos, con su clave de traducción y estilo).
+- ✅ Build y 38 pruebas; revisado en navegador local.
+- ❓ Zoom en movimiento, movimiento reducido y teléfono real sin observar. Sin despliegue.
+
 ## Película con fondo desenfocado y «Ver más» de 20 — 07/11/2026
 - ✅ «Ver como película»: cada foto completa (`contain`) sobre la misma imagen ampliada y desenfocada; en teléfono las bandas quedan arriba y abajo. Zoom que alterna acercar/alejar hacia seis puntos (`MOVIE_MOTIONS`, `movieMotion` en `src/lib/albumShow.ts`) y fundido cruzado de 1.4 s: la capa anterior permanece debajo hasta que la nueva aparece. Videos con su póster desenfocado de fondo.
 - ✅ Portada con «Subir mis fotos» → `/recuerdos`. Mosaico de 20 en 20 (`ALBUM_PAGE_SIZE`) con «Ver más» violeta de borde dorado; el foco pasa al primer recuerdo nuevo.

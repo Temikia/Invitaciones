@@ -22,7 +22,9 @@ export function InvitationHeader() {
         <a className="header-album-link" href="/album" aria-label={language === "en" ? "View album" : "Ver álbum"}>
           <Camera size={20} aria-hidden="true" />
         </a>
-        <div className="opening-mark" aria-hidden="true">C <span>·</span> XV</div>
+        <a className="opening-mark header-home-link" href="/" aria-label={language === "en" ? "Go to the invitation" : "Ir a la invitación"}>
+          C <span aria-hidden="true">·</span> XV
+        </a>
         <div className="language-switch" role="group" aria-label={t("header.switch")}>
           <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>En</button>
           <span aria-hidden="true">|</span>

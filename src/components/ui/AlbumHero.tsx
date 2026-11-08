@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { ArrowLeft, Clapperboard, ImagePlus } from "lucide-react";
+import { Clapperboard, ImagePlus } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { invitation } from "../../config/invitation";
 import { useReducedMotion, usePageVisible } from "../../hooks/useReducedMotion";
@@ -48,7 +48,6 @@ export function AlbumHero({ canPlayMovie, onPlayMovie }: AlbumHeroProps) {
         {index === active && <b key={active} onAnimationEnd={() => setActive((value) => (value + 1) % photos.length)} />}
       </i>)}
     </div>}
-    <a href="/recuerdos" className="album-hero-back"><ArrowLeft size={16} aria-hidden="true" /> {language === "en" ? "Back to memories" : "Volver a recuerdos"}</a>
     <div className="album-hero-copy">
       <p className="eyebrow">{language === "en" ? "Camila's XV · The album" : "Mis XV · Camila · Álbum"}</p>
       <h1 id="album-title">{language === "en" ? <>Our night,<br /><em>our memories</em></> : <>Nuestra noche,<br /><em>nuestros recuerdos</em></>}</h1>

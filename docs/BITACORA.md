@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-07 18:54 — Ciudad de México (GMT−6)
+
+La usuaria notó que en la película el espacio de la foto se movía y mareaba. Ahora la foto ocupa un marco fijo con su proporción y solo la imagen se acerca o aleja dentro de él. Además, «C · XV» de la cabecera lleva a la invitación y se quitaron los enlaces «Volver a recuerdos» y «Volver a la invitación», porque la cabecera ya resuelve la navegación. Build y 38 pruebas; revisado en navegador local. Sin despliegue.
+
 ## 2026-11-07 18:47 — Ciudad de México (GMT−6)
 
 En «Ver como película» las fotos verticales se cortaban en pantallas horizontales. A pedido de la usuaria, cada foto se muestra completa sobre su propia versión desenfocada (al revés en teléfono), con zoom que alterna dirección y un fundido cruzado para que los recuerdos se fusionen. La portada suma «Subir mis fotos» hacia `/recuerdos` y el mosaico carga de 20 en 20 con un «Ver más» violeta de borde dorado, para pedir menos miniaturas al abrir. Build y 38 pruebas; revisado en navegador local con las fotos reales. Sin despliegue.
