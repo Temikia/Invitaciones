@@ -1,5 +1,11 @@
 # Invitación de Camila — trabajo en curso
 
+## Versión suave de los efectos con movimiento reducido — 08/11/2026
+- ✅ Causa: en celular no había efectos en portada, `/album` ni `/recuerdos` porque el teléfono pide «movimiento reducido» (ahorro de batería en Android o «Reducir movimiento» en iPhone) y las tres páginas apagaban sus efectos. En emulación de 375 px sin esa preferencia todo se anima.
+- ✅ Versión suave (solo opacidad, sin desplazar, girar ni escalar): partículas y linternas titilan en su sitio y el halo del sol late (`pages.css`); la portada del álbum sigue cambiando con fundido y barras, sin acercamiento (`AlbumHero.tsx`, `album-hero.css`); el resplandor de las miniaturas late (`album-mosaic.css`); en la portada de la invitación halo, polvo y runas laten, la neblina titila quieta y los destellos de la flor se encienden en su sitio (`MagicGardenHero.tsx`, `magic-hero.css`).
+- ✅ Build y 61 pruebas; estilos comprobados simulando la preferencia (detalle en `docs/VERIFICACION.md`). Push a pedido de la usuaria.
+- ❓ Siguiente paso: la usuaria lo valida en su teléfono y decide si se queda la versión suave, si se ajusta su intensidad o si se ignora la preferencia.
+
 ## Película sin barra de progreso y con pantalla completa — 08/11/2026
 - ✅ Corrección: el botón y la tecla F no hacían nada. Chrome rechazaba la petición con «Dialog elements are invalid» (la especificación no permite pantalla completa de un `<dialog>`) y el error se silenciaba; tampoco funcionó nunca la entrada automática al abrir. Ahora se pide para `.album-movie-screen`, contenedor interior del diálogo; un fallo al pulsar el botón queda en la consola.
 - ❓ Pendiente de confirmar por la usuaria en su navegador: el panel interno no concede pantalla completa y Chrome no estaba conectado.

@@ -1,5 +1,9 @@
 # Bitácora — semana del 2 al 8 de noviembre de 2026
 
+## 2026-11-08 01:00 — Ciudad de México (GMT−6)
+
+La usuaria reportó que en celular `/recuerdos` y `/album` no tenían efectos ni animaciones, igual que la portada. En emulación de teléfono las animaciones sí corrían; lo único que apagaba a la vez las tres páginas era la preferencia «movimiento reducido», que muchos teléfonos activan con el ahorro de batería. Para que la invitación no se vea inerte sin dejar de respetar esa preferencia, se cambió el apagado por una versión suave: nada se desplaza, gira ni crece, pero destellos, linternas, halos y resplandores se encienden y apagan, la portada del álbum sigue pasando fotos con fundido y los destellos de la flor aparecen en su sitio. Sin esa preferencia todo queda igual. Build y 61 pruebas; estilos comprobados simulando la preferencia. Push a pedido de la usuaria, que lo validará en su teléfono antes de decidir.
+
 ## 2026-11-08 00:50 — Ciudad de México (GMT−6)
 
 La usuaria reportó que el botón de pantalla completa de la película y la tecla F no hacían nada. Al registrar el error que el código silenciaba, Chrome respondía «Dialog elements are invalid»: la especificación prohíbe poner en pantalla completa un `<dialog>`, y la película es uno. Por eso tampoco había funcionado nunca la entrada automática al abrir. Se envolvió todo el contenido en un contenedor interior y la pantalla completa se pide para él; los controles, el teclado y la pausa siguen igual porque el contenedor vive dentro del diálogo. Se comprobó que el contenedor pasa el filtro del navegador; la entrada real no se pudo ver porque el panel interno no la concede y Chrome no estaba conectado. Build y 61 pruebas. Push a pedido de la usuaria.

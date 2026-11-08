@@ -13,15 +13,18 @@ export function MagicGardenHero() {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Con movimiento reducido los destellos no salen disparados: se encienden y apagan quietos,
+  // repartidos alrededor de la flor (versión suave, `.spark--still` en magic-hero.css).
   const sparkle = useCallback((x: number, y: number, count = 28) => {
-    if (isReducedMotion()) return;
+    const still = isReducedMotion();
     for (let i = 0; i < count; i++) {
       const el = document.createElement("i");
-      el.className = "spark";
+      el.className = still ? "spark spark--still" : "spark";
       const ang = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.35;
       const dist = (50 + Math.random() * 120) * (window.innerWidth < 680 ? 0.65 : 1);
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
+      const spread = still ? Math.random() * 0.7 : 0;
+      el.style.left = `${x + Math.cos(ang) * dist * spread}px`;
+      el.style.top = `${y + Math.sin(ang) * dist * spread}px`;
       el.style.setProperty("--dx", `${Math.cos(ang) * dist}px`);
       el.style.setProperty("--dy", `${Math.sin(ang) * dist}px`);
       el.style.setProperty("--dur", `${750 + Math.random() * 750}ms`);
@@ -33,10 +36,8 @@ export function MagicGardenHero() {
     }
   }, []);
 
-  // Acción de la flor fija en bucle, en automático
+  // Acción de la flor fija en bucle, en automático (también con movimiento reducido, en su versión suave)
   useEffect(() => {
-    if (isReducedMotion()) return;
-
     let highlightTimer: number | null = null;
 
     const triggerBloom = () => {
@@ -71,9 +72,10 @@ export function MagicGardenHero() {
     };
   }, [sparkle]);
 
-  // Animación del lienzo de neblina dorada y partículas flotantes
+  // Animación del lienzo de neblina dorada y partículas flotantes.
+  // Con movimiento reducido las partículas no se desplazan: solo titilan en su sitio.
   useEffect(() => {
-    if (isReducedMotion()) return;
+    const still = isReducedMotion();
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -126,8 +128,10 @@ export function MagicGardenHero() {
       ctx.clearRect(0, 0, W, H);
       time += 0.009;
       for (const p of particles) {
-        p.y -= p.v;
-        p.x += Math.sin(time + p.phase) * 0.07;
+        if (!still) {
+          p.y -= p.v;
+          p.x += Math.sin(time + p.phase) * 0.07;
+        }
         if (p.y < 0) {
           p.y = H;
           p.x = Math.random() * W;

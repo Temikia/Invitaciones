@@ -499,8 +499,31 @@
   }
 }
 
+/* Versión suave con movimiento reducido: sin escalas, giros ni desplazamientos. El halo y las runas
+   laten solo con opacidad, la neblina queda quieta y titila (MagicGardenHero.tsx) y los destellos de
+   la flor se encienden en su sitio en lugar de salir disparados. */
 @media (prefers-reduced-motion: reduce) {
-  .magic-hero .mist-canvas {
-    display: none;
+  .magic-hero .golden-aura,
+  .magic-hero .art-dust,
+  .magic-hero .halo-rune {
+    animation-name: glow-soft;
   }
+  .magic-hero .art.highlight .art-dust {
+    animation: flash-soft 1.7s ease-out forwards;
+  }
+  .spark.spark--still {
+    animation: spark-twinkle var(--dur, 950ms) ease-in-out forwards;
+  }
+}
+@keyframes glow-soft {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+@keyframes flash-soft {
+  0%, 100% { opacity: 0.7; }
+  30% { opacity: 1; }
+}
+@keyframes spark-twinkle {
+  0%, 100% { opacity: 0; }
+  35% { opacity: 1; }
 }

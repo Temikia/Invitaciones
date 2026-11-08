@@ -189,7 +189,14 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .album-tile::before { animation: none; background: linear-gradient(140deg, #c77dff, #7b2cbf 30%, transparent 50%, #dfb877 75%, #fff8e0); }
-  .album-tile::after { display: none; }
+  /* Versión suave: el haz no gira, pero su resplandor desenfocado late (solo opacidad). */
+  .album-tile::after {
+    background: linear-gradient(140deg, #c77dff, #7b2cbf 30%, transparent 50%, #dfb877 75%, #fff8e0);
+    animation: album-glint-soft var(--glint-speed, 4.5s) ease-in-out var(--glint-delay, 0s) infinite alternate;
+    animation-play-state: paused;
+  }
+  .album-tile[data-onscreen]::after { animation-play-state: running; }
+  @keyframes album-glint-soft { from { opacity: .25; } to { opacity: .95; } }
   .album-tile img { transition: none; }
   .album-tile button:hover img { transform: none; }
 }

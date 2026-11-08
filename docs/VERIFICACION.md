@@ -1,5 +1,12 @@
 # Verificación de la primera versión
 
+## Versión suave con movimiento reducido — 08/11/2026 00:45 (GMT−6)
+
+- Diagnóstico: en emulación de teléfono (375 px) sin movimiento reducido, partículas, linternas y sol de `/recuerdos` se animan; lo único que apagaba a la vez los efectos de portada, álbum y recuerdos era `prefers-reduced-motion: reduce`.
+- Movimiento reducido simulado reescribiendo las media queries de la página (el panel no lo emula) y, en la portada, `matchMedia`: partículas `page-twinkle` y linternas `page-lantern-glow` quietas (sin `transform`) con opacidad que cambia (0.045 → 0.40 y 0.14 → 0.36 al adelantar el tiempo); halo del sol `page-sun-soft` y sol sin giro; portada del álbum con sus 7 barras, sin pausa y con fundido de 1.4 s sin acercamiento; miniaturas con haz fijo y resplandor `album-glint-soft` que solo corre con `data-onscreen`; portada con `glow-soft` en halo, polvo y runas, lienzo visible y destellos `spark--still` con `spark-twinkle`.
+- Sin movimiento reducido todo sigue igual (`breath`, `levitate`, destellos `burst`). Build y 61 pruebas; sin errores nuevos en consola.
+- Sin probar: teléfono real con ahorro de batería o «Reducir movimiento», la neblina quieta (se decide al montar) y el ritmo visual en movimiento (panel oculto, sin cuadros).
+
 ## Pantalla completa de la película corregida — 08/11/2026 00:50 (GMT−6)
 
 - Reproducido en navegador local registrando `requestFullscreen`: al abrir y al pulsar el botón, el `<dialog>` era rechazado con «TypeError: Dialog elements are invalid». Un `<div>` interior solo falla por falta de gesto del usuario («Permissions check failed»), es decir, pasa la comprobación del elemento.

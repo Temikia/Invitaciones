@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { Clapperboard, ImagePlus } from "lucide-react";
 import { useLanguage } from "../../config/language";
 import { invitation } from "../../config/invitation";
-import { useReducedMotion, usePageVisible } from "../../hooks/useReducedMotion";
+import { usePageVisible } from "../../hooks/useReducedMotion";
 import { HERO_SLIDE_MS, shuffle } from "../../lib/albumShow";
 import "../../styles/album-hero.css";
 
@@ -12,18 +12,18 @@ type AlbumHeroProps = { canPlayMovie: boolean; canUpload: boolean; onPlayMovie: 
  * Portada animada con las fotografías de la galería de la invitación en un orden distinto en cada visita.
  * El avance lo marca el final de la barra de progreso, así la pausa conserva el punto exacto.
  * No tiene controles visibles ni se detiene con el cursor o el foco (decisión de la usuaria): solo se
- * pausa con la pestaña oculta o fuera de pantalla, y con movimiento reducido muestra una foto fija.
+ * pausa con la pestaña oculta o fuera de pantalla. Con movimiento reducido las fotos siguen cambiando
+ * con su fundido, sin el acercamiento (la versión suave se quita en `album-hero.css`).
  */
 export function AlbumHero({ canPlayMovie, canUpload, onPlayMovie }: AlbumHeroProps) {
   const { language } = useLanguage();
   const photos = useMemo(() => shuffle(invitation.photos.gallery), []);
-  const reducedMotion = useReducedMotion();
   const pageVisible = usePageVisible();
   const [active, setActive] = useState(0);
   const [onScreen, setOnScreen] = useState(true);
   const section = useRef<HTMLElement>(null);
   const leaving = photos.length > 1 ? (active - 1 + photos.length) % photos.length : -1;
-  const paused = reducedMotion || !pageVisible || !onScreen;
+  const paused = !pageVisible || !onScreen;
 
   useEffect(() => {
     const element = section.current;
@@ -39,7 +39,7 @@ export function AlbumHero({ canPlayMovie, canUpload, onPlayMovie }: AlbumHeroPro
       {photos.map((src, index) => <img key={src} src={src} alt="" decoding="async"
         loading={index < 2 ? "eager" : "lazy"} className={index === active ? "is-active" : index === leaving ? "is-leaving" : undefined} />)}
     </div>
-    {!reducedMotion && photos.length > 1 && <div className="album-hero-bars" aria-hidden="true">
+    {photos.length > 1 &&<div className="album-hero-bars" aria-hidden="true">
       {photos.map((src, index) => <i key={src} className={index < active ? "is-done" : index === active ? "is-now" : undefined}>
         {index === active && <b key={active} onAnimationEnd={() => setActive((value) => (value + 1) % photos.length)} />}
       </i>)}

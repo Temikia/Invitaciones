@@ -124,7 +124,7 @@
   .album-hero-media img.is-active, .album-hero-media img.is-leaving { animation: album-hero-drift 9s ease-out forwards; }
   @keyframes album-hero-drift { from { transform: scale(1.04); } to { transform: scale(1.14) translate(-1.5%, -1.5%); } }
 }
+/* Movimiento reducido: las fotos siguen cambiando con su fundido (solo opacidad), sin acercamiento. */
 @media (prefers-reduced-motion: reduce) {
-  .album-hero-media img { transition: none; }
   .album-hero-movie:hover, .album-hero-upload:hover { transform: none; }
 }

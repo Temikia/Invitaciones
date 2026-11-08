@@ -83,11 +83,31 @@
   to { opacity: 1; transform: scale(1.06); }
 }
 
-/* Sin movimiento: destellos y linternas quietos en su sitio. */
+/* Versión suave con movimiento reducido: nada se desplaza ni gira, pero destellos, linternas y el
+   halo del sol se encienden y apagan en su sitio (solo opacidad), para que la página no quede inerte. */
 @media (prefers-reduced-motion: reduce) {
   .page-atmosphere .particles span,
   .page-atmosphere .lantern-field span {
     top: var(--y);
-    animation: none;
+    animation: page-twinkle calc(var(--duration) / 6) var(--delay) ease-in-out infinite alternate;
   }
+  .page-atmosphere .lantern-field span {
+    animation-name: page-lantern-glow;
+    animation-duration: calc(var(--duration) / 4);
+  }
+  .page-sun-halo::before {
+    animation: page-sun-soft 5s ease-in-out infinite alternate;
+  }
+}
+@keyframes page-twinkle {
+  from { opacity: calc(var(--depth) * 0.25); }
+  to { opacity: calc(var(--depth) * 2.2); }
+}
+@keyframes page-lantern-glow {
+  from { opacity: calc(var(--depth) * 0.8); }
+  to { opacity: calc(var(--depth) * 2); }
+}
+@keyframes page-sun-soft {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
 }
