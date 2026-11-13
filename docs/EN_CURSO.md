@@ -1,5 +1,13 @@
 # Invitación de Camila — trabajo en curso
 
+## Transferencia a Temikia — 12/11/2026
+- ✅ Cuenta activa comprobada: `CheshireZol`, administradora del repositorio y de la organización Temikia. Destino `Temikia/Invitaciones` disponible; repositorio de origen privado, ID `1436330335`.
+- ✅ Transferido a `https://github.com/Temikia/Invitaciones` con `CheshireZol`. Conserva ID `1436330335`, visibilidad privada y la única referencia remota, `main`, en `7cc5b4c477d527e930b2c4ff284c85abbd7a044b`. La URL anterior redirige al mismo repositorio.
+- ✅ `origin` y README actualizados al destino. Sin cambios en la aplicación.
+- ✅ Build y 68 pruebas correctos; referencias remotas e integridad de la bitácora archivada comprobadas. Cierre con commit local de documentación: «Documenta la transferencia del repositorio a Temikia».
+- Último commit antes de la transferencia: `7cc5b4c` — «Quita el parpadeo del visor al cambiar de recuerdo».
+- Siguiente paso: verificar la conexión de Vercel con la organización antes del próximo push. Sin push de documentación, despliegue ni cambios en Vercel; para otra tarea, abrir conversación nueva.
+
 ## Visor sin parpadeo al cambiar de recuerdo — 08/11/2026
 - ✅ Causa 1: la foto saliente se volvía a crear como imagen nueva al quedar debajo (estaba fuera de la lista de la capa actual, así que React no reutilizaba el nodo); si no estaba decodificada en el primer cuadro, el escenario quedaba vacío un instante. Causa 2: al cambiar dos veces seguidas quedaba debajo la capa que aún no aparecía y la que se veía desaparecía de golpe. Además, la saliente se retiraba con un temporizador que podía adelantarse al fundido.
 - ✅ Saliente y actual en una sola lista con claves estables, la saliente es siempre la que se veía y se retira con `onAnimationEnd` (temporizador solo de respaldo). Lógica pura en `src/lib/albumViewer.ts` con 7 pruebas; cambios en `AlbumViewer.tsx`.

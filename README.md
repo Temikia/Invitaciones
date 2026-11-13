@@ -2,7 +2,7 @@
 
 Invitación narrativa de 19 escenas, mobile-first, construida con React, TypeScript, Vite y GSAP. La información vigente proviene del checklist completado del paquete de definición.
 
-Repositorio vigente: [CheshireZol/Invitaciones](https://github.com/CheshireZol/Invitaciones).
+Repositorio vigente: [Temikia/Invitaciones](https://github.com/Temikia/Invitaciones), transferido desde CheshireZol el 12/11/2026. Conserva su historial y sigue siendo privado.
 
 ## Desarrollo
 
